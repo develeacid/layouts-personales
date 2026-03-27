@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+/* ── Theme: tokens del branding ─── */
+@theme {
+  /* Colores custom */
+  --color-page: #FAFAFA;
+  --color-surface: #F4F4F5;
+  --color-muted: #A1A1AA;
+  --color-secondary: #52525B;
+  --color-primary: #18181B;
+  --color-dark: #09090B;
+
+  --color-accent-subtle: #EFF6FF;
+  --color-accent-light: #DBEAFE;
+  --color-accent-border: #BFDBFE;
+  --color-accent-icon: #3B82F6;
+  --color-accent: #2563EB;
+  --color-accent-hover: #1D4ED8;
+
+  /* Sombras custom */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.06);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.05);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,.08), 0 4px 6px rgba(0,0,0,.05);
+  --shadow-xl: 0 20px 25px rgba(0,0,0,.08), 0 8px 10px rgba(0,0,0,.05);
+
+  /* Z-index */
+  --z-dropdown: 10;
+  --z-modal: 20;
+  --z-toast: 30;
+  --z-sidebar: 40;
+  --z-overlay: 50;
+}
+
+/* ── Capa base: resets y variables ─── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-font-smoothing: antialiased; }
+
+  body {
+    @apply bg-page text-primary font-sans text-sm leading-relaxed;
+  }
+
+  /* Scrollbar custom — sutil, consistente */
+  ::-webkit-scrollbar       { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-zinc-300 rounded-full; }
+}
+
+/* ── Capa de componentes: clases custom ─── */
+@layer components {
+
+  /* Botones — base */
+  .btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 cursor-pointer select-none;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 cursor-pointer select-none
+           bg-accent text-white hover:bg-accent-hover active:scale-95;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 cursor-pointer select-none
+           bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-50 active:scale-95;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 cursor-pointer select-none
+           text-accent hover:bg-accent-subtle active:scale-95;
+  }
+  .btn-danger {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 cursor-pointer select-none
+           bg-rose-600 text-white hover:bg-rose-700 active:scale-95;
+  }
+  .btn-sm { @apply px-3 py-1.5 text-xs; }
+  .btn-lg { @apply px-6 py-3 text-base; }
+
+  /* Inputs */
+  .input {
+    @apply w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-primary
+           placeholder-muted bg-white
+           focus:outline-none focus:border-accent-border focus:ring-2 focus:ring-accent-light
+           transition-all duration-150;
+  }
+  .input-error {
+    @apply border-rose-400 focus:border-rose-400 focus:ring-rose-200;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white border border-zinc-200 rounded-xl shadow-sm p-6;
+  }
+  .card-hover {
+    @apply bg-white border border-zinc-200 rounded-xl shadow-sm p-6
+           hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer;
+  }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full;
+  }
+  .badge-blue {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
+           bg-accent-light text-accent-hover;
+  }
+  .badge-green {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
+           bg-emerald-50 text-emerald-600;
+  }
+  .badge-amber {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
+           bg-amber-50 text-amber-600;
+  }
+  .badge-rose {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
+           bg-rose-50 text-rose-600;
+  }
+  .badge-zinc {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
+           bg-zinc-100 text-zinc-600;
+  }
+
+  /* Labels de formulario */
+  .label     { @apply block text-xs font-medium text-zinc-600 mb-1.5; }
+  .hint      { @apply text-xs text-muted mt-1; }
+  .error-msg { @apply text-xs text-rose-600 mt-1; }
+
+  /* Dividers */
+  .divider { @apply border-t border-zinc-200; }
+  .divider-label {
+    @apply relative flex items-center gap-3 text-xs text-muted;
+  }
+  .divider-label::before,
+  .divider-label::after {
+    content: '';
+    @apply flex-1 border-t border-zinc-200;
+  }
+
+  /* Sidebar nav item */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-150 cursor-pointer;
+  }
+  .nav-item-light {
+    @apply flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-150 cursor-pointer
+           text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900;
+  }
+  .nav-item-light.active {
+    @apply bg-accent-subtle text-accent font-medium;
+  }
+  .nav-item-dark {
+    @apply flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-all duration-150 cursor-pointer
+           text-zinc-400 hover:bg-zinc-800 hover:text-white;
+  }
+  .nav-item-dark.active {
+    @apply bg-accent text-white font-medium;
+  }
+}
