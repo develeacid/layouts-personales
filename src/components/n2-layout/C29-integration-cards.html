@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C29 Integration Cards</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C29 · Nivel 2</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Integration Cards</h1>
+      <p class="text-sm text-zinc-600 mt-1">Card con logo, descripción, estado de conexión.</p>
+    </header>
+
+    <section class="space-y-6">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-semibold text-zinc-900">Integraciones</h2>
+        <button class="btn-primary text-xs">Explorar más</button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Conectada -->
+        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 bg-zinc-900 rounded-lg flex items-center justify-center text-white text-xs font-bold">GH</div>
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700">
+              <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+              Conectado
+            </span>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-zinc-900">GitHub</h3>
+            <p class="text-xs text-zinc-600 leading-relaxed mt-1">Sincroniza repositorios, issues y pull requests automáticamente.</p>
+          </div>
+          <button class="btn-secondary w-full justify-center text-xs">Configurar</button>
+        </div>
+        <!-- Conectada -->
+        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">SL</div>
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700">
+              <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+              Conectado
+            </span>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-zinc-900">Slack</h3>
+            <p class="text-xs text-zinc-600 leading-relaxed mt-1">Recibe notificaciones y actualizaciones directamente en tus canales.</p>
+          </div>
+          <button class="btn-secondary w-full justify-center text-xs">Configurar</button>
+        </div>
+        <!-- Desconectada -->
+        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">JR</div>
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-medium rounded-full bg-zinc-100 text-zinc-600">
+              <span class="w-1.5 h-1.5 bg-zinc-400 rounded-full"></span>
+              Desconectado
+            </span>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-zinc-900">Jira</h3>
+            <p class="text-xs text-zinc-600 leading-relaxed mt-1">Importa tickets y sincroniza el estado de tareas con tu board.</p>
+          </div>
+          <button class="btn-primary w-full justify-center text-xs">Conectar</button>
+        </div>
+        <!-- Desconectada -->
+        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center text-white text-xs font-bold">FG</div>
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-medium rounded-full bg-zinc-100 text-zinc-600">
+              <span class="w-1.5 h-1.5 bg-zinc-400 rounded-full"></span>
+              Desconectado
+            </span>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-zinc-900">Figma</h3>
+            <p class="text-xs text-zinc-600 leading-relaxed mt-1">Exporta tokens de diseño y sincroniza componentes con tu código.</p>
+          </div>
+          <button class="btn-primary w-full justify-center text-xs">Conectar</button>
+        </div>
+        <!-- Conectada -->
+        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">DS</div>
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 text-emerald-700">
+              <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full"></span>
+              Conectado
+            </span>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-zinc-900">Discord</h3>
+            <p class="text-xs text-zinc-600 leading-relaxed mt-1">Envía alertas y actualizaciones a tu servidor de Discord.</p>
+          </div>
+          <button class="btn-secondary w-full justify-center text-xs">Configurar</button>
+        </div>
+        <!-- Próximamente -->
+        <div class="bg-zinc-50 border border-dashed border-zinc-300 rounded-xl p-5 space-y-4">
+          <div class="w-10 h-10 bg-zinc-200 rounded-lg flex items-center justify-center text-zinc-400 text-xs font-bold">+</div>
+          <div>
+            <h3 class="text-sm font-semibold text-zinc-400">Más integraciones</h3>
+            <p class="text-xs text-zinc-400 leading-relaxed mt-1">Nuevas integraciones próximamente. ¿Alguna sugerencia?</p>
+          </div>
+          <button class="btn-ghost w-full justify-center text-xs">Solicitar</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>

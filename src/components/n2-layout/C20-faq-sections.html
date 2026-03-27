@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C20 FAQ Sections</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C20 · Nivel 2</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">FAQ Sections</h1>
+      <p class="text-sm text-zinc-600 mt-1">Lista de preguntas frecuentes (estática, sin accordion aún).</p>
+    </header>
+
+    <!-- Variante 1: Lista con separadores -->
+    <section class="space-y-6">
+      <h2 class="text-xl font-semibold text-zinc-900 text-center">Preguntas frecuentes</h2>
+      <div class="divide-y divide-zinc-200">
+        <div class="py-5">
+          <h3 class="text-sm font-semibold text-zinc-900">¿Qué es LayoutOS?</h3>
+          <p class="text-sm text-zinc-600 leading-relaxed mt-2">LayoutOS es un sistema de diseño educativo que incluye 107 componentes y 66 páginas construidos con Tailwind CSS y Alpine.js, organizados por niveles de dificultad progresiva.</p>
+        </div>
+        <div class="py-5">
+          <h3 class="text-sm font-semibold text-zinc-900">¿Necesito experiencia previa?</h3>
+          <p class="text-sm text-zinc-600 leading-relaxed mt-2">Conocimiento básico de HTML y CSS es suficiente. El nivel 1 empieza con componentes estáticos simples y cada nivel introduce conceptos nuevos gradualmente.</p>
+        </div>
+        <div class="py-5">
+          <h3 class="text-sm font-semibold text-zinc-900">¿Puedo usar los componentes en mis proyectos?</h3>
+          <p class="text-sm text-zinc-600 leading-relaxed mt-2">Sí, todos los componentes son open source. Puedes copiar, modificar y usar el código en proyectos personales y comerciales sin restricciones.</p>
+        </div>
+        <div class="py-5">
+          <h3 class="text-sm font-semibold text-zinc-900">¿Qué tecnologías se usan?</h3>
+          <p class="text-sm text-zinc-600 leading-relaxed mt-2">Tailwind CSS v4 para estilos y Alpine.js 3 para interactividad. No se requiere bundler ni framework adicional.</p>
+        </div>
+        <div class="py-5">
+          <h3 class="text-sm font-semibold text-zinc-900">¿Se agregará dark mode?</h3>
+          <p class="text-sm text-zinc-600 leading-relaxed mt-2">Está planificado como mejora futura. La base actual con Zinc facilita la implementación de dark mode cuando se agregue.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Cards -->
+    <section class="space-y-6">
+      <h2 class="text-xl font-semibold text-zinc-900 text-center">¿Más preguntas?</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-2">
+          <h3 class="text-sm font-semibold text-zinc-900">¿Hay soporte?</h3>
+          <p class="text-xs text-zinc-600 leading-relaxed">Sí, a través de GitHub Issues y nuestro canal de Discord.</p>
+        </div>
+        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-2">
+          <h3 class="text-sm font-semibold text-zinc-900">¿Con qué frecuencia se actualiza?</h3>
+          <p class="text-xs text-zinc-600 leading-relaxed">Se agregan componentes nuevos cada semana y se publican releases mensuales.</p>
+        </div>
+        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-2">
+          <h3 class="text-sm font-semibold text-zinc-900">¿Es responsive?</h3>
+          <p class="text-xs text-zinc-600 leading-relaxed">Todos los componentes son mobile-first y responsive por defecto.</p>
+        </div>
+        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-2">
+          <h3 class="text-sm font-semibold text-zinc-900">¿Puedo contribuir?</h3>
+          <p class="text-xs text-zinc-600 leading-relaxed">Claro, acepta PRs para nuevos componentes, mejoras y correcciones.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>

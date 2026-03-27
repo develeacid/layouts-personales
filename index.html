@@ -3,249 +3,156 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LayoutOS · Design Tokens</title>
+  <title>LayoutOS · Navegador de componentes</title>
   <link rel="stylesheet" href="/public/css/main.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="flex h-full" x-data="{ sidebarOpen: true }">
 
-    <!-- Header -->
-    <header class="space-y-2">
-      <h1 class="text-3xl font-bold tracking-tight leading-tight text-zinc-900">LayoutOS</h1>
-      <p class="text-sm leading-relaxed text-zinc-600">Sistema de diseño educativo — Tailwind CSS v4 + Alpine.js 3</p>
-    </header>
-
-    <!-- Paleta Zinc -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Paleta base — Zinc</h2>
-      <div class="grid grid-cols-4 sm:grid-cols-8 gap-3">
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-zinc-50 border border-zinc-200"></div>
-          <p class="text-xs text-zinc-400">50</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-zinc-100"></div>
-          <p class="text-xs text-zinc-400">100</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-zinc-200"></div>
-          <p class="text-xs text-zinc-400">200</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-zinc-300"></div>
-          <p class="text-xs text-zinc-400">300</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-zinc-400"></div>
-          <p class="text-xs text-zinc-400">400</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-zinc-600"></div>
-          <p class="text-xs text-zinc-400">600</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-zinc-900"></div>
-          <p class="text-xs text-zinc-400">900</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-zinc-950"></div>
-          <p class="text-xs text-zinc-400">950</p>
-        </div>
+    <!-- Sidebar -->
+    <aside
+      class="h-full overflow-y-auto border-r border-zinc-200 bg-white flex flex-col shrink-0 transition-all duration-300"
+      :class="sidebarOpen ? 'w-64' : 'w-0 border-r-0 overflow-hidden'"
+    >
+      <!-- Logo -->
+      <div class="px-5 py-4 border-b border-zinc-200 flex items-center justify-between">
+        <span class="text-sm font-semibold text-zinc-900 tracking-tight">LayoutOS</span>
+        <span class="text-xs text-zinc-400">v0.1</span>
       </div>
-    </section>
 
-    <!-- Paleta Blue -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Acento — Blue</h2>
-      <div class="grid grid-cols-3 sm:grid-cols-6 gap-3">
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-blue-50 border border-zinc-200"></div>
-          <p class="text-xs text-zinc-400">50</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-blue-100"></div>
-          <p class="text-xs text-zinc-400">100</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-blue-200"></div>
-          <p class="text-xs text-zinc-400">200</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-blue-500"></div>
-          <p class="text-xs text-zinc-400">500</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-blue-600"></div>
-          <p class="text-xs text-zinc-400">600</p>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-blue-700"></div>
-          <p class="text-xs text-zinc-400">700</p>
-        </div>
-      </div>
-    </section>
+      <!-- Nav -->
+      <nav class="flex-1 px-3 py-4 space-y-6 text-sm">
 
-    <!-- Semánticos -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Semánticos</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center">
-            <span class="text-xs font-medium text-emerald-600">Success</span>
-          </div>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center">
-            <span class="text-xs font-medium text-amber-600">Warning</span>
-          </div>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-rose-50 border border-rose-200 flex items-center justify-center">
-            <span class="text-xs font-medium text-rose-600">Danger</span>
-          </div>
-        </div>
-        <div class="space-y-1.5">
-          <div class="h-12 rounded-lg bg-violet-50 border border-violet-200 flex items-center justify-center">
-            <span class="text-xs font-medium text-violet-600">Info alt</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tipografía -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Tipografía</h2>
-      <div class="space-y-3 bg-white border border-zinc-200 rounded-xl p-6">
-        <p class="text-3xl font-bold tracking-tight leading-tight">Hero / Display</p>
-        <p class="text-2xl font-semibold tracking-tight">Page Title / H1</p>
-        <p class="text-xl font-semibold">Section Header / H2</p>
-        <p class="text-base font-semibold">Card Title / H3</p>
-        <p class="text-sm font-normal leading-relaxed text-zinc-600">Body — Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis.</p>
-        <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">Label / Overline</p>
-      </div>
-    </section>
-
-    <!-- Botones -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Botones</h2>
-      <div class="flex flex-wrap items-center gap-3">
-        <button class="btn-primary">Primario</button>
-        <button class="btn-secondary">Secundario</button>
-        <button class="btn-ghost">Ghost</button>
-        <button class="btn-danger">Danger</button>
-      </div>
-      <div class="flex flex-wrap items-center gap-3">
-        <button class="btn-primary btn-sm">Small</button>
-        <button class="btn-primary">Default</button>
-        <button class="btn-primary btn-lg">Large</button>
-      </div>
-    </section>
-
-    <!-- Badges -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Badges</h2>
-      <div class="flex flex-wrap items-center gap-3">
-        <span class="badge-blue">Activo</span>
-        <span class="badge-green">Publicado</span>
-        <span class="badge-amber">Pendiente</span>
-        <span class="badge-rose">Error</span>
-        <span class="badge-zinc">Draft</span>
-      </div>
-    </section>
-
-    <!-- Inputs -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Inputs</h2>
-      <div class="max-w-md space-y-4">
+        <!-- Design Tokens -->
         <div>
-          <label class="label">Email</label>
-          <input class="input" type="email" placeholder="tu@email.com" />
-          <p class="hint">Nunca compartiremos tu email.</p>
+          <p class="px-2 text-xs font-medium uppercase tracking-wide text-zinc-400 mb-2">General</p>
+          <ul class="space-y-0.5">
+            <li>
+              <a href="/index.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-blue-600 bg-blue-50 font-medium text-xs" id="nav-home">
+                Design Tokens
+              </a>
+            </li>
+          </ul>
         </div>
+
+        <!-- Nivel 1 -->
         <div>
-          <label class="label">Nombre</label>
-          <input class="input input-error" type="text" value="ab" />
-          <p class="error-msg">El nombre debe tener al menos 3 caracteres.</p>
+          <p class="px-2 text-xs font-medium uppercase tracking-wide text-zinc-400 mb-2">N1 · Fundamentos</p>
+          <ul class="space-y-0.5">
+            <li><a href="/src/components/n1-fundamentos/C01-banners.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C01 · Banners</a></li>
+            <li><a href="/src/components/n1-fundamentos/C02-customer-logos.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C02 · Customer Logos</a></li>
+            <li><a href="/src/components/n1-fundamentos/C03-newsletter-sections.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C03 · Newsletter</a></li>
+            <li><a href="/src/components/n1-fundamentos/C04-cta-sections.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C04 · CTA Sections</a></li>
+            <li><a href="/src/components/n1-fundamentos/C05-social-proof.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C05 · Social Proof</a></li>
+            <li><a href="/src/components/n1-fundamentos/C06-cookie-consent.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C06 · Cookie Consent</a></li>
+            <li><a href="/src/components/n1-fundamentos/C07-kpi-stat-cards.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C07 · KPI Stat Cards</a></li>
+            <li><a href="/src/components/n1-fundamentos/C08-status-indicators.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C08 · Status Indicators</a></li>
+            <li><a href="/src/components/n1-fundamentos/C09-avatares-grupos.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C09 · Avatares & Grupos</a></li>
+            <li><a href="/src/components/n1-fundamentos/C10-empty-states.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C10 · Empty States</a></li>
+            <li><a href="/src/components/n1-fundamentos/C11-breadcrumbs.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C11 · Breadcrumbs</a></li>
+          </ul>
         </div>
-      </div>
-    </section>
 
-    <!-- Cards -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Cards</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="card">
-          <h3 class="text-base font-semibold text-zinc-900">Card estática</h3>
-          <p class="text-sm text-zinc-600 mt-2">Contenido de ejemplo con sombra sm.</p>
+        <!-- Nivel 2 -->
+        <div>
+          <p class="px-2 text-xs font-medium uppercase tracking-wide text-zinc-400 mb-2">N2 · Layout</p>
+          <ul class="space-y-0.5">
+            <li><a href="/src/components/n2-layout/C12-hero-sections.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C12 · Hero Sections</a></li>
+            <li><a href="/src/components/n2-layout/C13-feature-sections.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C13 · Feature Sections</a></li>
+            <li><a href="/src/components/n2-layout/C14-content-sections.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C14 · Content Sections</a></li>
+            <li><a href="/src/components/n2-layout/C15-headers.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C15 · Headers</a></li>
+            <li><a href="/src/components/n2-layout/C16-footer-sections.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C16 · Footer Sections</a></li>
+            <li><a href="/src/components/n2-layout/C17-team-sections.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C17 · Team Sections</a></li>
+            <li><a href="/src/components/n2-layout/C18-blog-sections.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C18 · Blog Sections</a></li>
+            <li><a href="/src/components/n2-layout/C19-testimonials.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C19 · Testimonials</a></li>
+            <li><a href="/src/components/n2-layout/C20-faq-sections.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C20 · FAQ Sections</a></li>
+            <li><a href="/src/components/n2-layout/C21-pricing-tables.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C21 · Pricing Tables</a></li>
+            <li><a href="/src/components/n2-layout/C22-project-portfolio.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C22 · Project Portfolio</a></li>
+            <li><a href="/src/components/n2-layout/C23-event-schedule.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C23 · Event Schedule</a></li>
+            <li><a href="/src/components/n2-layout/C24-storefront-hero.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C24 · Storefront Hero</a></li>
+            <li><a href="/src/components/n2-layout/C25-product-categories.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C25 · Product Categories</a></li>
+            <li><a href="/src/components/n2-layout/C26-related-articles.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C26 · Related Articles</a></li>
+            <li><a href="/src/components/n2-layout/C27-activity-feed.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C27 · Activity Feed</a></li>
+            <li><a href="/src/components/n2-layout/C28-server-status-panel.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C28 · Server Status</a></li>
+            <li><a href="/src/components/n2-layout/C29-integration-cards.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C29 · Integration Cards</a></li>
+            <li><a href="/src/components/n2-layout/C30-invoice-template.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C30 · Invoice Template</a></li>
+            <li><a href="/src/components/n2-layout/C31-file-browser-row.html" class="flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150 text-xs">C31 · File Browser Row</a></li>
+          </ul>
         </div>
-        <div class="card-hover">
-          <h3 class="text-base font-semibold text-zinc-900">Card hover</h3>
-          <p class="text-sm text-zinc-600 mt-2">Pasa el mouse para ver el efecto.</p>
+
+        <!-- Nivel 3 (placeholder) -->
+        <div>
+          <p class="px-2 text-xs font-medium uppercase tracking-wide text-zinc-400 mb-2">N3 · Alpine básico</p>
+          <p class="px-2 text-xs text-zinc-300 italic">Próximamente — C32–C46</p>
         </div>
-        <div class="card">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="text-base font-semibold text-zinc-900">Con badge</h3>
-            <span class="badge-green">Activo</span>
+
+        <!-- Páginas (placeholder) -->
+        <div>
+          <p class="px-2 text-xs font-medium uppercase tracking-wide text-zinc-400 mb-2">Páginas</p>
+          <p class="px-2 text-xs text-zinc-300 italic">Próximamente — P01–P66</p>
+        </div>
+
+      </nav>
+
+      <!-- Footer -->
+      <div class="px-5 py-3 border-t border-zinc-200">
+        <p class="text-xs text-zinc-400">107 componentes · 66 páginas</p>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+
+      <!-- Top bar -->
+      <header class="h-12 border-b border-zinc-200 bg-white flex items-center px-4 gap-3 shrink-0">
+        <button
+          @click="sidebarOpen = !sidebarOpen"
+          class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150 cursor-pointer"
+        >
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <span class="text-sm text-zinc-900 font-medium">Navegador de componentes</span>
+      </header>
+
+      <!-- Iframe viewer -->
+      <main class="flex-1 overflow-hidden bg-zinc-50" x-data="{ src: '' }">
+        <!-- Welcome screen (shows when no component is loaded) -->
+        <div class="h-full flex items-center justify-center text-center px-6">
+          <div class="space-y-4">
+            <div class="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto">
+              <svg class="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+              </svg>
+            </div>
+            <h2 class="text-xl font-semibold text-zinc-900">LayoutOS</h2>
+            <p class="text-sm text-zinc-600 max-w-md">Selecciona un componente del sidebar para previsualizarlo, o haz clic en el enlace para abrirlo en una nueva pestaña.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 max-w-lg mx-auto">
+              <div class="bg-white border border-zinc-200 rounded-xl p-3 text-center">
+                <p class="text-lg font-bold text-zinc-900">31</p>
+                <p class="text-xs text-zinc-400">N1+N2 listos</p>
+              </div>
+              <div class="bg-white border border-zinc-200 rounded-xl p-3 text-center">
+                <p class="text-lg font-bold text-zinc-300">76</p>
+                <p class="text-xs text-zinc-300">pendientes</p>
+              </div>
+              <div class="bg-white border border-zinc-200 rounded-xl p-3 text-center">
+                <p class="text-lg font-bold text-zinc-300">0</p>
+                <p class="text-xs text-zinc-300">páginas</p>
+              </div>
+              <div class="bg-white border border-zinc-200 rounded-xl p-3 text-center">
+                <p class="text-lg font-bold text-emerald-600">29%</p>
+                <p class="text-xs text-zinc-400">progreso</p>
+              </div>
+            </div>
           </div>
-          <p class="text-sm text-zinc-600">Card con badge de estado.</p>
         </div>
-      </div>
-    </section>
+      </main>
 
-    <!-- Sombras -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Sombras</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-5 gap-6">
-        <div class="bg-white rounded-xl p-4 shadow-xs text-center">
-          <p class="text-xs text-zinc-400">xs</p>
-        </div>
-        <div class="bg-white rounded-xl p-4 shadow-sm text-center">
-          <p class="text-xs text-zinc-400">sm</p>
-        </div>
-        <div class="bg-white rounded-xl p-4 shadow-md text-center">
-          <p class="text-xs text-zinc-400">md</p>
-        </div>
-        <div class="bg-white rounded-xl p-4 shadow-lg text-center">
-          <p class="text-xs text-zinc-400">lg</p>
-        </div>
-        <div class="bg-white rounded-xl p-4 shadow-xl text-center">
-          <p class="text-xs text-zinc-400">xl</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Border radius -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold text-zinc-900">Border Radius</h2>
-      <div class="flex flex-wrap items-end gap-6">
-        <div class="text-center space-y-1.5">
-          <div class="w-16 h-16 bg-blue-100 border border-blue-200 rounded"></div>
-          <p class="text-xs text-zinc-400">sm</p>
-        </div>
-        <div class="text-center space-y-1.5">
-          <div class="w-16 h-16 bg-blue-100 border border-blue-200 rounded-lg"></div>
-          <p class="text-xs text-zinc-400">md</p>
-        </div>
-        <div class="text-center space-y-1.5">
-          <div class="w-16 h-16 bg-blue-100 border border-blue-200 rounded-xl"></div>
-          <p class="text-xs text-zinc-400">lg</p>
-        </div>
-        <div class="text-center space-y-1.5">
-          <div class="w-16 h-16 bg-blue-100 border border-blue-200 rounded-2xl"></div>
-          <p class="text-xs text-zinc-400">xl</p>
-        </div>
-        <div class="text-center space-y-1.5">
-          <div class="w-16 h-16 bg-blue-100 border border-blue-200 rounded-full"></div>
-          <p class="text-xs text-zinc-400">full</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="divider pt-6">
-      <p class="text-xs text-zinc-400">LayoutOS · Design Tokens · Tailwind CSS v4 + Alpine.js 3</p>
-    </footer>
+    </div>
 
   </div>
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C17 Team Sections</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-20">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C17 · Nivel 2</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Team Sections</h1>
+      <p class="text-sm text-zinc-600 mt-1">Grid de cards de personas, avatares.</p>
+    </header>
+
+    <!-- Variante 1: Grid con cards -->
+    <section class="space-y-8">
+      <div class="text-center space-y-3">
+        <h2 class="text-2xl font-bold tracking-tight text-zinc-900">Nuestro equipo</h2>
+        <p class="text-sm text-zinc-600 max-w-lg mx-auto">Las personas detrás del producto.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white border border-zinc-200 rounded-xl p-6 text-center space-y-3">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto text-lg font-semibold text-blue-700">JD</div>
+          <div>
+            <p class="text-sm font-semibold text-zinc-900">Juan Díaz</p>
+            <p class="text-xs text-zinc-400">CEO & Founder</p>
+          </div>
+        </div>
+        <div class="bg-white border border-zinc-200 rounded-xl p-6 text-center space-y-3">
+          <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-lg font-semibold text-emerald-700">AM</div>
+          <div>
+            <p class="text-sm font-semibold text-zinc-900">Ana Morales</p>
+            <p class="text-xs text-zinc-400">Head of Design</p>
+          </div>
+        </div>
+        <div class="bg-white border border-zinc-200 rounded-xl p-6 text-center space-y-3">
+          <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto text-lg font-semibold text-amber-700">CL</div>
+          <div>
+            <p class="text-sm font-semibold text-zinc-900">Carlos López</p>
+            <p class="text-xs text-zinc-400">Lead Engineer</p>
+          </div>
+        </div>
+        <div class="bg-white border border-zinc-200 rounded-xl p-6 text-center space-y-3">
+          <div class="w-16 h-16 bg-violet-100 rounded-full flex items-center justify-center mx-auto text-lg font-semibold text-violet-700">MK</div>
+          <div>
+            <p class="text-sm font-semibold text-zinc-900">María Kim</p>
+            <p class="text-xs text-zinc-400">Product Manager</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Lista horizontal compacta -->
+    <section class="space-y-8">
+      <h2 class="text-xl font-semibold text-zinc-900">Equipo de liderazgo</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="flex items-center gap-4 bg-white border border-zinc-200 rounded-xl p-4">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-sm font-semibold text-blue-700 shrink-0">JD</div>
+          <div class="min-w-0">
+            <p class="text-sm font-semibold text-zinc-900">Juan Díaz</p>
+            <p class="text-xs text-zinc-400">CEO & Founder · 10 años en producto</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-white border border-zinc-200 rounded-xl p-4">
+          <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-sm font-semibold text-emerald-700 shrink-0">AM</div>
+          <div class="min-w-0">
+            <p class="text-sm font-semibold text-zinc-900">Ana Morales</p>
+            <p class="text-xs text-zinc-400">Head of Design · Ex-Figma, Ex-Vercel</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-white border border-zinc-200 rounded-xl p-4">
+          <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-sm font-semibold text-amber-700 shrink-0">CL</div>
+          <div class="min-w-0">
+            <p class="text-sm font-semibold text-zinc-900">Carlos López</p>
+            <p class="text-xs text-zinc-400">Lead Engineer · Open source contributor</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-white border border-zinc-200 rounded-xl p-4">
+          <div class="w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center text-sm font-semibold text-violet-700 shrink-0">MK</div>
+          <div class="min-w-0">
+            <p class="text-sm font-semibold text-zinc-900">María Kim</p>
+            <p class="text-xs text-zinc-400">Product Manager · Ex-Stripe</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
