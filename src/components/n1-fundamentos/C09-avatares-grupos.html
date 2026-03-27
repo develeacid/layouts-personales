@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C09 Avatares & Grupos</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C09 · Nivel 1</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Avatares & Grupos</h1>
+      <p class="text-sm text-zinc-600 mt-1">Avatar individual, con badge de estado, stack de grupo.</p>
+    </header>
+
+    <!-- Variante 1: Tamaños -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Tamaños</h2>
+      <div class="flex items-end gap-4">
+        <div class="w-8 h-8 bg-zinc-200 rounded-full flex items-center justify-center text-xs font-medium text-zinc-600">SM</div>
+        <div class="w-10 h-10 bg-zinc-200 rounded-full flex items-center justify-center text-sm font-medium text-zinc-600">MD</div>
+        <div class="w-12 h-12 bg-zinc-200 rounded-full flex items-center justify-center text-sm font-medium text-zinc-600">LG</div>
+        <div class="w-16 h-16 bg-zinc-200 rounded-full flex items-center justify-center text-base font-medium text-zinc-600">XL</div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Con iniciales y colores -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Iniciales</h2>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-sm font-semibold text-blue-700">JD</div>
+        <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-sm font-semibold text-emerald-700">AM</div>
+        <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-sm font-semibold text-amber-700">CL</div>
+        <div class="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center text-sm font-semibold text-rose-700">PR</div>
+        <div class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center text-sm font-semibold text-violet-700">MK</div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Con badge de estado -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Con badge de estado</h2>
+      <div class="flex items-center gap-6">
+        <div class="relative">
+          <div class="w-10 h-10 bg-zinc-200 rounded-full flex items-center justify-center text-sm font-medium text-zinc-600">JD</div>
+          <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></span>
+        </div>
+        <div class="relative">
+          <div class="w-10 h-10 bg-zinc-200 rounded-full flex items-center justify-center text-sm font-medium text-zinc-600">AM</div>
+          <span class="absolute bottom-0 right-0 w-3 h-3 bg-amber-500 border-2 border-white rounded-full"></span>
+        </div>
+        <div class="relative">
+          <div class="w-10 h-10 bg-zinc-200 rounded-full flex items-center justify-center text-sm font-medium text-zinc-600">CL</div>
+          <span class="absolute bottom-0 right-0 w-3 h-3 bg-zinc-400 border-2 border-white rounded-full"></span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-xs text-zinc-400">
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 bg-emerald-500 rounded-full"></span>En línea</span>
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 bg-amber-500 rounded-full"></span>Ausente</span>
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 bg-zinc-400 rounded-full"></span>Desconectado</span>
+      </div>
+    </section>
+
+    <!-- Variante 4: Avatar con nombre -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Con nombre y rol</h2>
+      <div class="space-y-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-sm font-semibold text-blue-700">JD</div>
+          <div>
+            <p class="text-sm font-medium text-zinc-900">Juan Díaz</p>
+            <p class="text-xs text-zinc-400">Product Designer</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-sm font-semibold text-emerald-700">AM</div>
+          <div>
+            <p class="text-sm font-medium text-zinc-900">Ana Morales</p>
+            <p class="text-xs text-zinc-400">Frontend Developer</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-sm font-semibold text-amber-700">CL</div>
+          <div>
+            <p class="text-sm font-medium text-zinc-900">Carlos López</p>
+            <p class="text-xs text-zinc-400">Backend Engineer</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 5: Avatar stack (grupo) -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Stack de grupo</h2>
+      <div class="space-y-6">
+        <!-- Stack compact -->
+        <div class="flex items-center">
+          <div class="flex -space-x-2">
+            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-xs font-semibold text-blue-700 border-2 border-white">JD</div>
+            <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center text-xs font-semibold text-emerald-700 border-2 border-white">AM</div>
+            <div class="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center text-xs font-semibold text-amber-700 border-2 border-white">CL</div>
+            <div class="w-8 h-8 bg-rose-100 rounded-full flex items-center justify-center text-xs font-semibold text-rose-700 border-2 border-white">PR</div>
+            <div class="w-8 h-8 bg-zinc-100 rounded-full flex items-center justify-center text-xs font-semibold text-zinc-600 border-2 border-white">+3</div>
+          </div>
+          <span class="text-xs text-zinc-400 ml-3">7 miembros</span>
+        </div>
+
+        <!-- Stack grande -->
+        <div class="flex items-center">
+          <div class="flex -space-x-3">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-sm font-semibold text-blue-700 border-2 border-white">JD</div>
+            <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-sm font-semibold text-emerald-700 border-2 border-white">AM</div>
+            <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-sm font-semibold text-amber-700 border-2 border-white">CL</div>
+            <div class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center text-sm font-semibold text-violet-700 border-2 border-white">MK</div>
+            <div class="w-10 h-10 bg-zinc-100 rounded-full flex items-center justify-center text-sm font-semibold text-zinc-600 border-2 border-white">+12</div>
+          </div>
+          <span class="text-sm text-zinc-400 ml-3">16 miembros del equipo</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>

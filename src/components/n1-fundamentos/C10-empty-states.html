@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C10 Empty States</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C10 · Nivel 1</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Empty States</h1>
+      <p class="text-sm text-zinc-600 mt-1">Ilustración + mensaje + CTA cuando no hay datos.</p>
+    </header>
+
+    <!-- Variante 1: Genérico -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Genérico</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl p-12 text-center">
+        <div class="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto">
+          <svg class="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+          </svg>
+        </div>
+        <h3 class="text-base font-semibold text-zinc-900 mt-4">No hay elementos</h3>
+        <p class="text-sm text-zinc-600 mt-1 max-w-sm mx-auto">Aún no tienes nada aquí. Comienza creando tu primer elemento.</p>
+        <button class="btn-primary mt-5">Crear elemento</button>
+      </div>
+    </section>
+
+    <!-- Variante 2: Sin resultados de búsqueda -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Sin resultados</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl p-12 text-center">
+        <div class="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto">
+          <svg class="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        <h3 class="text-base font-semibold text-zinc-900 mt-4">Sin resultados</h3>
+        <p class="text-sm text-zinc-600 mt-1 max-w-sm mx-auto">No encontramos nada para "<span class="font-medium">dashboard templates</span>". Intenta con otros términos.</p>
+        <button class="btn-secondary mt-5">Limpiar búsqueda</button>
+      </div>
+    </section>
+
+    <!-- Variante 3: Error -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Error</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl p-12 text-center">
+        <div class="w-16 h-16 bg-rose-50 rounded-full flex items-center justify-center mx-auto">
+          <svg class="w-8 h-8 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <h3 class="text-base font-semibold text-zinc-900 mt-4">Algo salió mal</h3>
+        <p class="text-sm text-zinc-600 mt-1 max-w-sm mx-auto">No pudimos cargar los datos. Por favor, intenta de nuevo.</p>
+        <div class="flex items-center justify-center gap-3 mt-5">
+          <button class="btn-primary">Reintentar</button>
+          <button class="btn-ghost">Contactar soporte</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 4: Primera vez -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Primera vez (onboarding)</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl p-12 text-center">
+        <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto">
+          <svg class="w-8 h-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+        </div>
+        <h3 class="text-base font-semibold text-zinc-900 mt-4">Crea tu primer proyecto</h3>
+        <p class="text-sm text-zinc-600 mt-1 max-w-sm mx-auto">Los proyectos te ayudan a organizar tu trabajo. Puedes invitar a colaboradores y gestionar tareas.</p>
+        <div class="flex flex-col items-center gap-2 mt-5">
+          <button class="btn-primary">Nuevo proyecto</button>
+          <button class="btn-ghost text-xs">Importar desde GitHub</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
