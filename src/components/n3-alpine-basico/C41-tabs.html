@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C41 Tabs</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C41 · Nivel 3</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Tabs</h1>
+      <p class="text-sm text-zinc-600 mt-1">Tab switching con x-data, active state, contenido dinámico.</p>
+    </header>
+
+    <!-- Variante 1: Underline tabs -->
+    <section class="space-y-4" x-data="{ tab: 'general' }">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Underline</h2>
+      <div class="border-b border-zinc-200">
+        <nav class="flex gap-6">
+          <button @click="tab = 'general'" :class="tab === 'general' ? 'border-blue-600 text-blue-600 font-medium' : 'border-transparent text-zinc-400 hover:text-zinc-600'" class="text-sm pb-3 border-b-2 transition-colors duration-150 cursor-pointer">General</button>
+          <button @click="tab = 'equipo'" :class="tab === 'equipo' ? 'border-blue-600 text-blue-600 font-medium' : 'border-transparent text-zinc-400 hover:text-zinc-600'" class="text-sm pb-3 border-b-2 transition-colors duration-150 cursor-pointer">Equipo</button>
+          <button @click="tab = 'billing'" :class="tab === 'billing' ? 'border-blue-600 text-blue-600 font-medium' : 'border-transparent text-zinc-400 hover:text-zinc-600'" class="text-sm pb-3 border-b-2 transition-colors duration-150 cursor-pointer">Billing</button>
+          <button @click="tab = 'api'" :class="tab === 'api' ? 'border-blue-600 text-blue-600 font-medium' : 'border-transparent text-zinc-400 hover:text-zinc-600'" class="text-sm pb-3 border-b-2 transition-colors duration-150 cursor-pointer">API</button>
+        </nav>
+      </div>
+      <div class="py-4">
+        <div x-show="tab === 'general'"><p class="text-sm text-zinc-600">Configuración general del proyecto: nombre, descripción, visibilidad y región.</p></div>
+        <div x-show="tab === 'equipo'" x-cloak><p class="text-sm text-zinc-600">Gestiona miembros, roles y permisos del equipo.</p></div>
+        <div x-show="tab === 'billing'" x-cloak><p class="text-sm text-zinc-600">Plan actual, método de pago e historial de facturas.</p></div>
+        <div x-show="tab === 'api'" x-cloak><p class="text-sm text-zinc-600">API keys, webhooks y documentación de endpoints.</p></div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Pill tabs -->
+    <section class="space-y-4" x-data="{ tab: 'overview' }">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Pill</h2>
+      <div class="inline-flex bg-zinc-100 rounded-lg p-1 gap-1">
+        <button @click="tab = 'overview'" :class="tab === 'overview' ? 'bg-white text-zinc-900 shadow-xs font-medium' : 'text-zinc-500 hover:text-zinc-700'" class="text-xs px-3 py-1.5 rounded-md transition-all duration-150 cursor-pointer">Overview</button>
+        <button @click="tab = 'analytics'" :class="tab === 'analytics' ? 'bg-white text-zinc-900 shadow-xs font-medium' : 'text-zinc-500 hover:text-zinc-700'" class="text-xs px-3 py-1.5 rounded-md transition-all duration-150 cursor-pointer">Analytics</button>
+        <button @click="tab = 'logs'" :class="tab === 'logs' ? 'bg-white text-zinc-900 shadow-xs font-medium' : 'text-zinc-500 hover:text-zinc-700'" class="text-xs px-3 py-1.5 rounded-md transition-all duration-150 cursor-pointer">Logs</button>
+      </div>
+      <div class="bg-white border border-zinc-200 rounded-xl p-6">
+        <div x-show="tab === 'overview'"><p class="text-sm text-zinc-600">Vista general del proyecto con KPIs principales y actividad reciente.</p></div>
+        <div x-show="tab === 'analytics'" x-cloak><p class="text-sm text-zinc-600">Gráficos de uso, tráfico y rendimiento del último mes.</p></div>
+        <div x-show="tab === 'logs'" x-cloak><p class="text-sm text-zinc-600">Historial de eventos, errores y cambios del sistema.</p></div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Con badges -->
+    <section class="space-y-4" x-data="{ tab: 'abiertas' }">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Con badges de conteo</h2>
+      <div class="border-b border-zinc-200">
+        <nav class="flex gap-4">
+          <button @click="tab = 'abiertas'" :class="tab === 'abiertas' ? 'border-blue-600 text-blue-600 font-medium' : 'border-transparent text-zinc-400 hover:text-zinc-600'" class="flex items-center gap-2 text-sm pb-3 border-b-2 transition-colors duration-150 cursor-pointer">
+            Abiertas <span class="bg-blue-100 text-blue-700 text-xs font-medium px-1.5 py-0.5 rounded-full">12</span>
+          </button>
+          <button @click="tab = 'cerradas'" :class="tab === 'cerradas' ? 'border-blue-600 text-blue-600 font-medium' : 'border-transparent text-zinc-400 hover:text-zinc-600'" class="flex items-center gap-2 text-sm pb-3 border-b-2 transition-colors duration-150 cursor-pointer">
+            Cerradas <span class="bg-zinc-100 text-zinc-600 text-xs font-medium px-1.5 py-0.5 rounded-full">48</span>
+          </button>
+        </nav>
+      </div>
+      <div class="py-4">
+        <div x-show="tab === 'abiertas'"><p class="text-sm text-zinc-600">12 issues abiertos requieren atención.</p></div>
+        <div x-show="tab === 'cerradas'" x-cloak><p class="text-sm text-zinc-600">48 issues resueltos este mes.</p></div>
+      </div>
+    </section>
+
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

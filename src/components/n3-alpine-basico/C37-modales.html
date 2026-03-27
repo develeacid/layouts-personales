@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C37 Popups / Modales</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C37 · Nivel 3</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Popups / Modales</h1>
+      <p class="text-sm text-zinc-600 mt-1">Modal con overlay, escape key, transiciones.</p>
+    </header>
+
+    <!-- Triggers -->
+    <section class="space-y-4" x-data="{ modalBasic: false, modalConfirm: false }">
+      <div class="flex flex-wrap gap-3">
+        <button @click="modalBasic = true" class="btn-primary">Modal básico</button>
+        <button @click="modalConfirm = true" class="btn-danger">Confirmación destructiva</button>
+      </div>
+
+      <!-- Modal básico -->
+      <template x-teleport="body">
+        <div x-show="modalBasic" x-cloak class="fixed inset-0 z-modal flex items-center justify-center p-4" @keydown.escape.window="modalBasic = false">
+          <!-- Overlay -->
+          <div x-show="modalBasic"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-zinc-950/50" @click="modalBasic = false"></div>
+          <!-- Panel -->
+          <div x-show="modalBasic"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-semibold text-zinc-900">Modal de ejemplo</h3>
+              <button @click="modalBasic = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150 cursor-pointer">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+            <p class="text-sm text-zinc-600 leading-relaxed">Este es un modal básico con overlay, transiciones de escala y cierre con Escape o clic fuera.</p>
+            <div class="flex justify-end gap-2">
+              <button @click="modalBasic = false" class="btn-secondary">Cancelar</button>
+              <button @click="modalBasic = false" class="btn-primary">Aceptar</button>
+            </div>
+          </div>
+        </div>
+      </template>
+
+      <!-- Modal confirmación destructiva -->
+      <template x-teleport="body">
+        <div x-show="modalConfirm" x-cloak class="fixed inset-0 z-modal flex items-center justify-center p-4" @keydown.escape.window="modalConfirm = false">
+          <div x-show="modalConfirm"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-zinc-950/50" @click="modalConfirm = false"></div>
+          <div x-show="modalConfirm"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="relative bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 space-y-4">
+            <div class="w-12 h-12 bg-rose-50 rounded-full flex items-center justify-center mx-auto">
+              <svg class="w-6 h-6 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            </div>
+            <div class="text-center">
+              <h3 class="text-base font-semibold text-zinc-900">Eliminar proyecto</h3>
+              <p class="text-sm text-zinc-600 mt-2">¿Estás seguro? Esta acción no se puede deshacer y se eliminarán todos los archivos y tareas asociadas.</p>
+            </div>
+            <div class="flex gap-2">
+              <button @click="modalConfirm = false" class="btn-secondary flex-1 justify-center">Cancelar</button>
+              <button @click="modalConfirm = false" class="btn-danger flex-1 justify-center">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </section>
+
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
