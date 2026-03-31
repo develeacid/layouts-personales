@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · En mantenimiento</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <!-- Contenido centrado -->
+  <div class="min-h-full flex items-center justify-center px-6" x-data="maintenancePage()">
+    <div class="text-center max-w-md">
+      <!-- Icono engranaje -->
+      <div class="mx-auto w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center mb-6">
+        <svg class="w-8 h-8 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17l-5.58-3.22A8.96 8.96 0 014.5 12c0-1.64.44-3.18 1.21-4.5l5.58-3.22m0 10.89L17 18.7A8.96 8.96 0 0019.5 12c0-1.64-.44-3.18-1.21-4.5L12.71 4.28m-1.29 10.89V4.28m0 0L5.86 7.5M11.42 4.28L17 7.5" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z" />
+        </svg>
+      </div>
+
+      <span class="badge-amber">
+        <span class="w-1.5 h-1.5 bg-amber-500 rounded-full"></span>
+        Mantenimiento programado
+      </span>
+
+      <h1 class="text-2xl font-semibold text-zinc-900 mt-5">En mantenimiento</h1>
+      <p class="text-sm text-zinc-500 mt-3 leading-relaxed">
+        Estamos realizando mejoras para ofrecerte una mejor experiencia. Todo volverá a la normalidad pronto.
+      </p>
+
+      <!-- Countdown -->
+      <div class="mt-6 bg-white border border-zinc-200 rounded-xl p-5">
+        <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide mb-3">Volvemos en aproximadamente</p>
+        <div class="flex items-center justify-center gap-4">
+          <div class="text-center">
+            <p class="text-3xl font-bold text-zinc-900 tabular-nums" x-text="String(minutes).padStart(2, '0')">00</p>
+            <p class="text-xs text-zinc-400 mt-1">min</p>
+          </div>
+          <span class="text-2xl font-bold text-zinc-300">:</span>
+          <div class="text-center">
+            <p class="text-3xl font-bold text-zinc-900 tabular-nums" x-text="String(seconds).padStart(2, '0')">00</p>
+            <p class="text-xs text-zinc-400 mt-1">seg</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center gap-3 mt-8">
+        <a href="/status" class="btn-secondary">Ver status</a>
+        <a href="/suscribir" class="btn-ghost">Suscribirse a actualizaciones</a>
+      </div>
+
+      <p class="text-xs text-zinc-400 mt-10">
+        LayoutOS &mdash; Gracias por tu paciencia.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function maintenancePage() {
+      return {
+        totalSeconds: 30 * 60,
+        minutes: 30,
+        seconds: 0,
+        interval: null,
+        init() {
+          this.tick();
+          this.interval = setInterval(() => this.tick(), 1000);
+        },
+        tick() {
+          if (this.totalSeconds <= 0) {
+            clearInterval(this.interval);
+            this.minutes = 0;
+            this.seconds = 0;
+            return;
+          }
+          this.totalSeconds--;
+          this.minutes = Math.floor(this.totalSeconds / 60);
+          this.seconds = this.totalSeconds % 60;
+        }
+      };
+    }
+  </script>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
