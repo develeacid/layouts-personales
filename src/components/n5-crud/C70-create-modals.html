@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C70 Modal de creación</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C70 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Modal de creación</h1>
+      <p class="text-sm text-zinc-600 mt-1">Modales para crear elementos: formulario simple y multi-step.</p>
+    </header>
+
+    <!-- Variante 1: Modal crear tarea -->
+    <section class="space-y-4" x-data="createModal()">
+      <h2 class="text-sm font-semibold text-zinc-900">Variante 1 — Crear tarea</h2>
+      <div>
+        <button @click="open = true" class="btn-primary">Nueva tarea</button>
+      </div>
+
+      <template x-teleport="body">
+        <div x-show="open" x-cloak class="fixed inset-0 z-20 flex items-center justify-center p-4" @keydown.escape.window="open = false">
+          <!-- Overlay -->
+          <div x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-zinc-950/50" @click="open = false"></div>
+          <!-- Panel -->
+          <div x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="relative bg-white rounded-2xl shadow-xl max-w-lg w-full mx-4 p-6 space-y-5">
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-semibold text-zinc-900">Crear tarea</h3>
+              <button @click="open = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150 cursor-pointer">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+
+            <form @submit.prevent="submit()" class="space-y-4">
+              <!-- Título -->
+              <div>
+                <label class="label">Título</label>
+                <input type="text" x-model="fields.title" class="input" :class="errors.title && 'input-error'" placeholder="Nombre de la tarea" />
+                <p x-show="errors.title" x-text="errors.title" class="error-msg"></p>
+              </div>
+              <!-- Descripción -->
+              <div>
+                <label class="label">Descripción</label>
+                <textarea x-model="fields.description" class="input" rows="3" placeholder="Describe la tarea..."></textarea>
+              </div>
+              <!-- Asignado -->
+              <div>
+                <label class="label">Asignado</label>
+                <select x-model="fields.assignee" class="input">
+                  <option value="">Seleccionar...</option>
+                  <option value="Ana García">Ana García</option>
+                  <option value="Carlos López">Carlos López</option>
+                  <option value="María Ruiz">María Ruiz</option>
+                  <option value="Pedro Sánchez">Pedro Sánchez</option>
+                </select>
+              </div>
+              <!-- Prioridad -->
+              <div>
+                <label class="label">Prioridad</label>
+                <div class="flex gap-4 mt-1">
+                  <template x-for="p in ['Baja', 'Media', 'Alta', 'Urgente']" :key="p">
+                    <label class="flex items-center gap-1.5 text-sm text-zinc-700 cursor-pointer">
+                      <input type="radio" x-model="fields.priority" :value="p" class="accent-zinc-900" />
+                      <span x-text="p"></span>
+                    </label>
+                  </template>
+                </div>
+              </div>
+              <!-- Fecha límite -->
+              <div>
+                <label class="label">Fecha límite</label>
+                <input type="date" x-model="fields.dueDate" class="input" />
+              </div>
+              <!-- Footer -->
+              <div class="flex justify-end gap-2 pt-2">
+                <button type="button" @click="open = false" class="btn-secondary">Cancelar</button>
+                <button type="submit" class="btn-primary" :disabled="loading">
+                  <template x-if="loading">
+                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                  </template>
+                  <span x-text="loading ? 'Creando...' : 'Crear tarea'"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </template>
+    </section>
+
+    <!-- Variante 2: Modal multi-step -->
+    <section class="space-y-4" x-data="createModalMultiStep()">
+      <h2 class="text-sm font-semibold text-zinc-900">Variante 2 — Crear con pasos (multi-step)</h2>
+      <div>
+        <button @click="open = true; step = 1" class="btn-primary">Nuevo usuario</button>
+      </div>
+
+      <template x-teleport="body">
+        <div x-show="open" x-cloak class="fixed inset-0 z-20 flex items-center justify-center p-4" @keydown.escape.window="open = false">
+          <div x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-zinc-950/50" @click="open = false"></div>
+          <div x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="relative bg-white rounded-2xl shadow-xl max-w-lg w-full mx-4 p-6 space-y-5">
+            <div class="flex items-center justify-between">
+              <h3 class="text-base font-semibold text-zinc-900">Crear usuario</h3>
+              <button @click="open = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150 cursor-pointer">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+
+            <!-- Progress dots -->
+            <div class="flex items-center justify-center gap-2">
+              <template x-for="s in [1, 2, 3]" :key="s">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-colors duration-200"
+                    :class="s <= step ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-400'"
+                    x-text="s"></div>
+                  <div x-show="s < 3" class="w-8 h-0.5" :class="s < step ? 'bg-zinc-900' : 'bg-zinc-200'"></div>
+                </div>
+              </template>
+            </div>
+
+            <!-- Paso 1: Info básica -->
+            <div x-show="step === 1" class="space-y-4">
+              <p class="text-sm font-medium text-zinc-700">Información básica</p>
+              <div>
+                <label class="label">Nombre completo</label>
+                <input type="text" x-model="fields.name" class="input" :class="errors.name && 'input-error'" placeholder="Nombre y apellidos" />
+                <p x-show="errors.name" x-text="errors.name" class="error-msg"></p>
+              </div>
+              <div>
+                <label class="label">Email</label>
+                <input type="email" x-model="fields.email" class="input" :class="errors.email && 'input-error'" placeholder="usuario@empresa.com" />
+                <p x-show="errors.email" x-text="errors.email" class="error-msg"></p>
+              </div>
+            </div>
+
+            <!-- Paso 2: Configuración -->
+            <div x-show="step === 2" class="space-y-4">
+              <p class="text-sm font-medium text-zinc-700">Configuración</p>
+              <div>
+                <label class="label">Rol</label>
+                <select x-model="fields.role" class="input">
+                  <option value="">Seleccionar rol...</option>
+                  <option value="Admin">Administrador</option>
+                  <option value="Editor">Editor</option>
+                  <option value="Viewer">Visualizador</option>
+                </select>
+              </div>
+              <div>
+                <label class="label">Permisos</label>
+                <div class="space-y-2 mt-1">
+                  <template x-for="perm in ['Crear proyectos', 'Editar usuarios', 'Ver reportes', 'Exportar datos']" :key="perm">
+                    <label class="flex items-center gap-2 text-sm text-zinc-700 cursor-pointer">
+                      <input type="checkbox" :value="perm" x-model="fields.permissions" class="accent-zinc-900 rounded" />
+                      <span x-text="perm"></span>
+                    </label>
+                  </template>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paso 3: Confirmación -->
+            <div x-show="step === 3" class="space-y-4">
+              <p class="text-sm font-medium text-zinc-700">Confirmar datos</p>
+              <div class="bg-zinc-50 rounded-xl p-4 space-y-3 text-sm">
+                <div class="flex justify-between">
+                  <span class="text-zinc-500">Nombre</span>
+                  <span class="text-zinc-900 font-medium" x-text="fields.name || '—'"></span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-zinc-500">Email</span>
+                  <span class="text-zinc-900 font-medium" x-text="fields.email || '—'"></span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-zinc-500">Rol</span>
+                  <span class="text-zinc-900 font-medium" x-text="fields.role || '—'"></span>
+                </div>
+                <div class="flex justify-between items-start">
+                  <span class="text-zinc-500">Permisos</span>
+                  <div class="text-right">
+                    <template x-for="perm in fields.permissions" :key="perm">
+                      <span class="badge-blue text-xs ml-1 mb-1 inline-block" x-text="perm"></span>
+                    </template>
+                    <span x-show="fields.permissions.length === 0" class="text-zinc-400">Ninguno</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="flex justify-between pt-2">
+              <button x-show="step > 1" @click="prevStep()" type="button" class="btn-ghost">Anterior</button>
+              <div x-show="step === 1"></div>
+              <div class="flex gap-2">
+                <button @click="open = false" type="button" class="btn-secondary">Cancelar</button>
+                <button x-show="step < 3" @click="nextStep()" type="button" class="btn-primary">Siguiente</button>
+                <button x-show="step === 3" @click="submit()" type="button" class="btn-primary" :disabled="loading">
+                  <template x-if="loading">
+                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                  </template>
+                  <span x-text="loading ? 'Creando...' : 'Crear usuario'"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </section>
+
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function createModal() {
+      return {
+        open: false,
+        loading: false,
+        fields: {
+          title: '',
+          description: '',
+          assignee: '',
+          priority: 'Media',
+          dueDate: ''
+        },
+        errors: {},
+        validate() {
+          this.errors = {};
+          if (!this.fields.title || this.fields.title.length < 3) {
+            this.errors.title = 'El título debe tener al menos 3 caracteres';
+          }
+          return Object.keys(this.errors).length === 0;
+        },
+        submit() {
+          if (!this.validate()) return;
+          this.loading = true;
+          setTimeout(() => {
+            this.loading = false;
+            this.open = false;
+            this.fields = { title: '', description: '', assignee: '', priority: 'Media', dueDate: '' };
+          }, 1500);
+        }
+      };
+    }
+
+    function createModalMultiStep() {
+      return {
+        open: false,
+        step: 1,
+        loading: false,
+        fields: {
+          name: '',
+          email: '',
+          role: '',
+          permissions: []
+        },
+        errors: {},
+        validate() {
+          this.errors = {};
+          if (this.step === 1) {
+            if (!this.fields.name || this.fields.name.length < 3) {
+              this.errors.name = 'El nombre debe tener al menos 3 caracteres';
+            }
+            if (!this.fields.email || !this.fields.email.includes('@')) {
+              this.errors.email = 'Introduce un email válido';
+            }
+          }
+          return Object.keys(this.errors).length === 0;
+        },
+        nextStep() {
+          if (!this.validate()) return;
+          this.step++;
+        },
+        prevStep() {
+          this.step--;
+        },
+        submit() {
+          this.loading = true;
+          setTimeout(() => {
+            this.loading = false;
+            this.open = false;
+            this.step = 1;
+            this.fields = { name: '', email: '', role: '', permissions: [] };
+          }, 1500);
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

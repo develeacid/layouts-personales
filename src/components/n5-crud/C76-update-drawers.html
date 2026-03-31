@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C76 Update Drawers</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C76 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Update Drawers</h1>
+      <p class="text-sm text-zinc-600 mt-1">Drawer de edicion con formulario, validacion en tiempo real y deteccion de cambios.</p>
+    </header>
+
+    <!-- ===================== Variante 1: Editar usuario ===================== -->
+    <section class="space-y-4" x-data="updateDrawerBasic()">
+      <h2 class="text-lg font-semibold text-zinc-900">Variante 1 — Editar usuario</h2>
+      <p class="text-sm text-zinc-500">Click en "Editar" para abrir el drawer con el formulario precargado.</p>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 overflow-x-auto">
+        <table class="w-full text-sm text-left">
+          <thead>
+            <tr class="border-b border-zinc-200">
+              <th class="pb-3 font-medium text-zinc-500">Nombre</th>
+              <th class="pb-3 font-medium text-zinc-500">Email</th>
+              <th class="pb-3 font-medium text-zinc-500">Rol</th>
+              <th class="pb-3 font-medium text-zinc-500">Departamento</th>
+              <th class="pb-3 font-medium text-zinc-500">Estado</th>
+              <th class="pb-3 font-medium text-zinc-500 text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="user in items" :key="user.id">
+              <tr class="border-b border-zinc-100 last:border-0">
+                <td class="py-3">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" x-text="user.name.split(' ').map(n => n[0]).join('')"></div>
+                    <span class="font-medium text-zinc-900" x-text="user.name"></span>
+                  </div>
+                </td>
+                <td class="py-3 text-zinc-600" x-text="user.email"></td>
+                <td class="py-3 text-zinc-600" x-text="user.role"></td>
+                <td class="py-3 text-zinc-600" x-text="user.department"></td>
+                <td class="py-3">
+                  <span class="text-xs font-medium px-2 py-0.5 rounded-full"
+                    :class="user.active ? 'badge-green' : 'badge-zinc'"
+                    x-text="user.active ? 'Activo' : 'Inactivo'"></span>
+                </td>
+                <td class="py-3 text-right">
+                  <button @click="openEdit(user)" class="btn-ghost btn-sm">Editar</button>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Drawer -->
+      <template x-teleport="body">
+        <div x-show="open" x-cloak class="fixed inset-0 z-40" @keydown.escape.window="open = false">
+          <div x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-zinc-950/50 z-40" @click="open = false"></div>
+
+          <div x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+            class="fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-50 flex flex-col">
+
+            <!-- Header -->
+            <div class="px-6 py-4 border-b border-zinc-200 flex items-center justify-between shrink-0">
+              <div class="flex items-center gap-2">
+                <h2 class="text-lg font-semibold text-zinc-900">Editar usuario</h2>
+                <span class="badge-amber text-xs font-medium px-2 py-0.5 rounded-full">Editando</span>
+              </div>
+              <button @click="open = false" class="btn-ghost p-1 rounded-lg">
+                <svg class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+
+            <!-- Body -->
+            <div class="flex-1 overflow-y-auto px-6 py-4">
+              <form @submit.prevent="save()" class="space-y-5">
+                <!-- Nombre -->
+                <div>
+                  <label class="label">Nombre</label>
+                  <input type="text" class="input" :class="errors.name && 'input-error'"
+                    x-model="editingItem.name" @blur="validate('name')" />
+                  <p x-show="errors.name" x-text="errors.name" class="error-msg"></p>
+                </div>
+
+                <!-- Email (disabled) -->
+                <div>
+                  <label class="label">Email</label>
+                  <input type="email" class="input bg-zinc-50 text-zinc-400 cursor-not-allowed"
+                    x-model="editingItem.email" disabled />
+                  <p class="text-xs text-zinc-400 mt-1">El email no se puede modificar.</p>
+                </div>
+
+                <!-- Rol -->
+                <div>
+                  <label class="label">Rol</label>
+                  <select class="input" :class="errors.role && 'input-error'"
+                    x-model="editingItem.role" @change="validate('role')">
+                    <option value="">Seleccionar rol</option>
+                    <option>Administrador</option>
+                    <option>Editor</option>
+                    <option>Viewer</option>
+                  </select>
+                  <p x-show="errors.role" x-text="errors.role" class="error-msg"></p>
+                </div>
+
+                <!-- Departamento -->
+                <div>
+                  <label class="label">Departamento</label>
+                  <input type="text" class="input" :class="errors.department && 'input-error'"
+                    x-model="editingItem.department" @blur="validate('department')" />
+                  <p x-show="errors.department" x-text="errors.department" class="error-msg"></p>
+                </div>
+
+                <!-- Telefono -->
+                <div>
+                  <label class="label">Telefono</label>
+                  <input type="tel" class="input" :class="errors.phone && 'input-error'"
+                    x-model="editingItem.phone" @blur="validate('phone')" />
+                  <p x-show="errors.phone" x-text="errors.phone" class="error-msg"></p>
+                </div>
+
+                <!-- Toggle estado -->
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="label mb-0">Estado de la cuenta</p>
+                    <p class="text-xs text-zinc-400" x-text="editingItem.active ? 'La cuenta esta activa' : 'La cuenta esta inactiva'"></p>
+                  </div>
+                  <button type="button" @click="editingItem.active = !editingItem.active"
+                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                    :class="editingItem.active ? 'bg-blue-600' : 'bg-zinc-300'">
+                    <span class="inline-block h-4 w-4 rounded-full bg-white transition-transform"
+                      :class="editingItem.active ? 'translate-x-6' : 'translate-x-1'"></span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="px-6 py-4 border-t border-zinc-200 shrink-0 flex justify-end gap-3">
+              <button @click="open = false" class="btn-secondary btn-sm">Cancelar</button>
+              <button @click="save()" class="btn-primary btn-sm" :disabled="!hasChanges"
+                :class="!hasChanges && 'opacity-50 cursor-not-allowed'">Guardar cambios</button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </section>
+
+    <!-- ===================== Variante 2: Secciones colapsables ===================== -->
+    <section class="space-y-4" x-data="updateDrawerSections()">
+      <h2 class="text-lg font-semibold text-zinc-900">Variante 2 — Editar con secciones colapsables</h2>
+      <p class="text-sm text-zinc-500">El formulario se organiza en secciones que se pueden expandir o colapsar.</p>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 overflow-x-auto">
+        <table class="w-full text-sm text-left">
+          <thead>
+            <tr class="border-b border-zinc-200">
+              <th class="pb-3 font-medium text-zinc-500">Nombre</th>
+              <th class="pb-3 font-medium text-zinc-500">Email</th>
+              <th class="pb-3 font-medium text-zinc-500">Rol</th>
+              <th class="pb-3 font-medium text-zinc-500 text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="user in items" :key="user.id">
+              <tr class="border-b border-zinc-100 last:border-0">
+                <td class="py-3 font-medium text-zinc-900" x-text="user.name"></td>
+                <td class="py-3 text-zinc-600" x-text="user.email"></td>
+                <td class="py-3 text-zinc-600" x-text="user.role"></td>
+                <td class="py-3 text-right">
+                  <button @click="openEdit(user)" class="btn-ghost btn-sm">Editar</button>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Drawer -->
+      <template x-teleport="body">
+        <div x-show="open" x-cloak class="fixed inset-0 z-40" @keydown.escape.window="open = false">
+          <div x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-zinc-950/50 z-40" @click="open = false"></div>
+
+          <div x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
+            class="fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-50 flex flex-col">
+
+            <!-- Header -->
+            <div class="px-6 py-4 border-b border-zinc-200 flex items-center justify-between shrink-0">
+              <div class="flex items-center gap-2">
+                <h2 class="text-lg font-semibold text-zinc-900">Editar usuario</h2>
+                <span class="badge-amber text-xs font-medium px-2 py-0.5 rounded-full">Editando</span>
+              </div>
+              <button @click="open = false" class="btn-ghost p-1 rounded-lg">
+                <svg class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+
+            <!-- Body -->
+            <div class="flex-1 overflow-y-auto px-6 py-4 space-y-1">
+
+              <!-- Seccion 1: Informacion basica -->
+              <div class="border border-zinc-200 rounded-lg overflow-hidden">
+                <button @click="sections.basic = !sections.basic" type="button"
+                  class="w-full flex items-center justify-between px-4 py-3 bg-zinc-50 hover:bg-zinc-100 transition-colors">
+                  <span class="text-sm font-semibold text-zinc-900">Informacion basica</span>
+                  <svg class="w-4 h-4 text-zinc-400 transition-transform" :class="sections.basic && 'rotate-180'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <div x-show="sections.basic" x-collapse class="px-4 py-4 space-y-4 border-t border-zinc-200">
+                  <div>
+                    <label class="label">Nombre</label>
+                    <input type="text" class="input" :class="errors.name && 'input-error'"
+                      x-model="editingItem.name" @blur="validate('name')" />
+                    <p x-show="errors.name" x-text="errors.name" class="error-msg"></p>
+                  </div>
+                  <div>
+                    <label class="label">Email</label>
+                    <input type="email" class="input bg-zinc-50 text-zinc-400 cursor-not-allowed"
+                      x-model="editingItem.email" disabled />
+                  </div>
+                  <div>
+                    <label class="label">Departamento</label>
+                    <input type="text" class="input" :class="errors.department && 'input-error'"
+                      x-model="editingItem.department" @blur="validate('department')" />
+                    <p x-show="errors.department" x-text="errors.department" class="error-msg"></p>
+                  </div>
+                  <div>
+                    <label class="label">Telefono</label>
+                    <input type="tel" class="input" x-model="editingItem.phone" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Seccion 2: Permisos -->
+              <div class="border border-zinc-200 rounded-lg overflow-hidden">
+                <button @click="sections.permissions = !sections.permissions" type="button"
+                  class="w-full flex items-center justify-between px-4 py-3 bg-zinc-50 hover:bg-zinc-100 transition-colors">
+                  <span class="text-sm font-semibold text-zinc-900">Permisos</span>
+                  <svg class="w-4 h-4 text-zinc-400 transition-transform" :class="sections.permissions && 'rotate-180'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <div x-show="sections.permissions" x-collapse class="px-4 py-4 space-y-4 border-t border-zinc-200">
+                  <div>
+                    <label class="label">Rol</label>
+                    <select class="input" x-model="editingItem.role">
+                      <option>Administrador</option>
+                      <option>Editor</option>
+                      <option>Viewer</option>
+                    </select>
+                  </div>
+                  <div class="space-y-3">
+                    <label class="label">Permisos adicionales</label>
+                    <label class="flex items-center gap-2 text-sm text-zinc-700">
+                      <input type="checkbox" x-model="editingItem.canExport"
+                        class="rounded border-zinc-300 text-blue-600 focus:ring-blue-200 focus:ring-2" />
+                      Exportar datos
+                    </label>
+                    <label class="flex items-center gap-2 text-sm text-zinc-700">
+                      <input type="checkbox" x-model="editingItem.canDelete"
+                        class="rounded border-zinc-300 text-blue-600 focus:ring-blue-200 focus:ring-2" />
+                      Eliminar registros
+                    </label>
+                    <label class="flex items-center gap-2 text-sm text-zinc-700">
+                      <input type="checkbox" x-model="editingItem.canInvite"
+                        class="rounded border-zinc-300 text-blue-600 focus:ring-blue-200 focus:ring-2" />
+                      Invitar usuarios
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Seccion 3: Notificaciones -->
+              <div class="border border-zinc-200 rounded-lg overflow-hidden">
+                <button @click="sections.notifications = !sections.notifications" type="button"
+                  class="w-full flex items-center justify-between px-4 py-3 bg-zinc-50 hover:bg-zinc-100 transition-colors">
+                  <span class="text-sm font-semibold text-zinc-900">Notificaciones</span>
+                  <svg class="w-4 h-4 text-zinc-400 transition-transform" :class="sections.notifications && 'rotate-180'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <div x-show="sections.notifications" x-collapse class="px-4 py-4 space-y-4 border-t border-zinc-200">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-sm font-medium text-zinc-700">Email de actividad</p>
+                      <p class="text-xs text-zinc-400">Resumen semanal de actividad</p>
+                    </div>
+                    <button type="button" @click="editingItem.notifyActivity = !editingItem.notifyActivity"
+                      class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                      :class="editingItem.notifyActivity ? 'bg-blue-600' : 'bg-zinc-300'">
+                      <span class="inline-block h-4 w-4 rounded-full bg-white transition-transform"
+                        :class="editingItem.notifyActivity ? 'translate-x-6' : 'translate-x-1'"></span>
+                    </button>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-sm font-medium text-zinc-700">Alertas de seguridad</p>
+                      <p class="text-xs text-zinc-400">Accesos sospechosos y cambios criticos</p>
+                    </div>
+                    <button type="button" @click="editingItem.notifySecurity = !editingItem.notifySecurity"
+                      class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                      :class="editingItem.notifySecurity ? 'bg-blue-600' : 'bg-zinc-300'">
+                      <span class="inline-block h-4 w-4 rounded-full bg-white transition-transform"
+                        :class="editingItem.notifySecurity ? 'translate-x-6' : 'translate-x-1'"></span>
+                    </button>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-sm font-medium text-zinc-700">Novedades del producto</p>
+                      <p class="text-xs text-zinc-400">Nuevas funcionalidades y actualizaciones</p>
+                    </div>
+                    <button type="button" @click="editingItem.notifyUpdates = !editingItem.notifyUpdates"
+                      class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                      :class="editingItem.notifyUpdates ? 'bg-blue-600' : 'bg-zinc-300'">
+                      <span class="inline-block h-4 w-4 rounded-full bg-white transition-transform"
+                        :class="editingItem.notifyUpdates ? 'translate-x-6' : 'translate-x-1'"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="px-6 py-4 border-t border-zinc-200 shrink-0 flex justify-end gap-3">
+              <button @click="open = false" class="btn-secondary btn-sm">Cancelar</button>
+              <button @click="save()" class="btn-primary btn-sm" :disabled="!hasChanges"
+                :class="!hasChanges && 'opacity-50 cursor-not-allowed'">Guardar cambios</button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </section>
+
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+
+  <script>
+    function updateDrawerBasic() {
+      return {
+        open: false,
+        editingItem: {},
+        original: {},
+        errors: {},
+        items: [
+          { id: 1, name: 'Ana Martinez', email: 'ana.martinez@empresa.com', role: 'Administrador', department: 'Tecnologia', phone: '+34 612 345 678', active: true },
+          { id: 2, name: 'Carlos Lopez', email: 'carlos.lopez@empresa.com', role: 'Editor', department: 'Marketing', phone: '+34 623 456 789', active: true },
+          { id: 3, name: 'Laura Sanchez', email: 'laura.sanchez@empresa.com', role: 'Viewer', department: 'Finanzas', phone: '+34 634 567 890', active: false },
+          { id: 4, name: 'Miguel Torres', email: 'miguel.torres@empresa.com', role: 'Editor', department: 'Producto', phone: '+34 645 678 901', active: true },
+          { id: 5, name: 'Elena Ruiz', email: 'elena.ruiz@empresa.com', role: 'Administrador', department: 'Operaciones', phone: '+34 656 789 012', active: true }
+        ],
+        get hasChanges() {
+          return JSON.stringify(this.editingItem) !== JSON.stringify(this.original);
+        },
+        openEdit(item) {
+          this.editingItem = JSON.parse(JSON.stringify(item));
+          this.original = JSON.parse(JSON.stringify(item));
+          this.errors = {};
+          this.open = true;
+        },
+        validate(field) {
+          this.errors[field] = '';
+          if (field === 'name' && !this.editingItem.name.trim()) {
+            this.errors[field] = 'El nombre es obligatorio.';
+          }
+          if (field === 'role' && !this.editingItem.role) {
+            this.errors[field] = 'Selecciona un rol.';
+          }
+          if (field === 'department' && !this.editingItem.department.trim()) {
+            this.errors[field] = 'El departamento es obligatorio.';
+          }
+          if (field === 'phone' && this.editingItem.phone && this.editingItem.phone.trim().length < 9) {
+            this.errors[field] = 'El telefono debe tener al menos 9 caracteres.';
+          }
+          return !this.errors[field];
+        },
+        save() {
+          let valid = true;
+          ['name', 'role', 'department', 'phone'].forEach(f => {
+            if (!this.validate(f)) valid = false;
+          });
+          if (!valid) return;
+
+          const idx = this.items.findIndex(i => i.id === this.editingItem.id);
+          if (idx !== -1) {
+            this.items[idx] = JSON.parse(JSON.stringify(this.editingItem));
+          }
+          this.open = false;
+        }
+      };
+    }
+
+    function updateDrawerSections() {
+      return {
+        open: false,
+        editingItem: {},
+        original: {},
+        errors: {},
+        sections: { basic: true, permissions: false, notifications: false },
+        items: [
+          { id: 1, name: 'Ana Martinez', email: 'ana.martinez@empresa.com', role: 'Administrador', department: 'Tecnologia', phone: '+34 612 345 678', canExport: true, canDelete: true, canInvite: true, notifyActivity: true, notifySecurity: true, notifyUpdates: false },
+          { id: 2, name: 'Carlos Lopez', email: 'carlos.lopez@empresa.com', role: 'Editor', department: 'Marketing', phone: '+34 623 456 789', canExport: true, canDelete: false, canInvite: false, notifyActivity: false, notifySecurity: true, notifyUpdates: true },
+          { id: 3, name: 'Laura Sanchez', email: 'laura.sanchez@empresa.com', role: 'Viewer', department: 'Finanzas', phone: '+34 634 567 890', canExport: false, canDelete: false, canInvite: false, notifyActivity: true, notifySecurity: true, notifyUpdates: true },
+          { id: 4, name: 'Miguel Torres', email: 'miguel.torres@empresa.com', role: 'Editor', department: 'Producto', phone: '+34 645 678 901', canExport: true, canDelete: true, canInvite: false, notifyActivity: true, notifySecurity: false, notifyUpdates: false }
+        ],
+        get hasChanges() {
+          return JSON.stringify(this.editingItem) !== JSON.stringify(this.original);
+        },
+        openEdit(item) {
+          this.editingItem = JSON.parse(JSON.stringify(item));
+          this.original = JSON.parse(JSON.stringify(item));
+          this.errors = {};
+          this.sections = { basic: true, permissions: false, notifications: false };
+          this.open = true;
+        },
+        validate(field) {
+          this.errors[field] = '';
+          if (field === 'name' && !this.editingItem.name.trim()) {
+            this.errors[field] = 'El nombre es obligatorio.';
+          }
+          if (field === 'department' && !this.editingItem.department.trim()) {
+            this.errors[field] = 'El departamento es obligatorio.';
+          }
+          return !this.errors[field];
+        },
+        save() {
+          let valid = true;
+          ['name', 'department'].forEach(f => {
+            if (!this.validate(f)) valid = false;
+          });
+          if (!valid) {
+            this.sections.basic = true;
+            return;
+          }
+          const idx = this.items.findIndex(i => i.id === this.editingItem.id);
+          if (idx !== -1) {
+            this.items[idx] = JSON.parse(JSON.stringify(this.editingItem));
+          }
+          this.open = false;
+        }
+      };
+    }
+  </script>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C84 Calendar Grid</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C84 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Calendar Grid</h1>
+      <p class="text-sm text-zinc-600 mt-1">Grid de calendario mensual con navegacion, eventos y seleccion de dias.</p>
+    </header>
+
+    <!-- Variante 1: Mes completo -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Mes completo</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="calendarGrid()">
+        <!-- Header del mes -->
+        <div class="flex items-center justify-between mb-6">
+          <button class="btn-ghost btn-sm" @click="prevMonth()">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+          <h3 class="text-lg font-semibold text-zinc-900" x-text="monthNames[currentMonth] + ' ' + currentYear"></h3>
+          <button class="btn-ghost btn-sm" @click="nextMonth()">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Dias de la semana -->
+        <div class="grid grid-cols-7 gap-px mb-2">
+          <template x-for="day in ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom']" :key="day">
+            <div class="text-center text-xs font-medium text-zinc-400 py-2" x-text="day"></div>
+          </template>
+        </div>
+
+        <!-- Grid del calendario -->
+        <div class="grid grid-cols-7 gap-px">
+          <template x-for="(cell, idx) in calendarDays" :key="idx">
+            <div class="min-h-24 p-1.5 border border-zinc-100 rounded-lg cursor-pointer transition-colors"
+              :class="{
+                'bg-white hover:bg-zinc-50': cell.isCurrentMonth,
+                'bg-zinc-50/50': !cell.isCurrentMonth,
+                'ring-2 ring-blue-200 bg-blue-50/50': selectedDate && selectedDate.day === cell.day && selectedDate.month === cell.month && selectedDate.year === cell.year
+              }"
+              @click="selectDate(cell)">
+              <div class="flex justify-center mb-1">
+                <span class="text-sm flex items-center justify-center"
+                  :class="{
+                    'text-zinc-300': !cell.isCurrentMonth,
+                    'text-zinc-900': cell.isCurrentMonth && !cell.isToday,
+                    'bg-blue-600 text-white rounded-full w-8 h-8': cell.isToday
+                  }"
+                  x-text="cell.day"></span>
+              </div>
+              <div class="space-y-0.5">
+                <template x-for="event in cell.events" :key="event.title">
+                  <div class="text-xs px-1.5 py-0.5 rounded truncate"
+                    :class="event.color"
+                    x-text="event.title"></div>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Eventos del dia seleccionado -->
+        <div x-show="selectedDate && selectedEvents.length > 0" x-cloak class="mt-6 border-t border-zinc-200 pt-6">
+          <h4 class="text-sm font-semibold text-zinc-900 mb-3" x-text="'Eventos del ' + (selectedDate ? selectedDate.day : '') + ' de ' + (selectedDate ? monthNames[selectedDate.month] : '')"></h4>
+          <div class="space-y-2">
+            <template x-for="event in selectedEvents" :key="event.title">
+              <div class="flex items-center gap-3 px-3 py-2 bg-zinc-50 rounded-lg">
+                <div class="w-2 h-2 rounded-full shrink-0"
+                  :class="{
+                    'bg-blue-600': event.type === 'reunion',
+                    'bg-rose-500': event.type === 'deadline',
+                    'bg-amber-500': event.type === 'personal',
+                    'bg-emerald-500': event.type === 'feriado'
+                  }"></div>
+                <span class="text-sm text-zinc-900" x-text="event.title"></span>
+                <span class="badge-zinc text-xs ml-auto" x-text="event.type"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Mes con diferentes tipos de eventos -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Mes con tipos de eventos y leyenda</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="calendarGrid()">
+        <!-- Header del mes -->
+        <div class="flex items-center justify-between mb-6">
+          <button class="btn-ghost btn-sm" @click="prevMonth()">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+          <h3 class="text-lg font-semibold text-zinc-900" x-text="monthNames[currentMonth] + ' ' + currentYear"></h3>
+          <button class="btn-ghost btn-sm" @click="nextMonth()">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Dias de la semana -->
+        <div class="grid grid-cols-7 gap-px mb-2">
+          <template x-for="day in ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom']" :key="day">
+            <div class="text-center text-xs font-medium text-zinc-400 py-2" x-text="day"></div>
+          </template>
+        </div>
+
+        <!-- Grid del calendario -->
+        <div class="grid grid-cols-7 gap-px">
+          <template x-for="(cell, idx) in calendarDays" :key="idx">
+            <div class="min-h-24 p-1.5 border border-zinc-100 rounded-lg cursor-pointer transition-colors"
+              :class="{
+                'bg-white hover:bg-zinc-50': cell.isCurrentMonth,
+                'bg-zinc-50/50': !cell.isCurrentMonth,
+                'ring-2 ring-blue-200 bg-blue-50/50': selectedDate && selectedDate.day === cell.day && selectedDate.month === cell.month && selectedDate.year === cell.year
+              }"
+              @click="selectDate(cell)">
+              <div class="flex justify-center mb-1">
+                <span class="text-sm flex items-center justify-center"
+                  :class="{
+                    'text-zinc-300': !cell.isCurrentMonth,
+                    'text-zinc-900': cell.isCurrentMonth && !cell.isToday,
+                    'bg-blue-600 text-white rounded-full w-8 h-8': cell.isToday
+                  }"
+                  x-text="cell.day"></span>
+              </div>
+              <div class="space-y-0.5">
+                <template x-for="event in cell.events" :key="event.title">
+                  <div class="text-xs px-1.5 py-0.5 rounded truncate"
+                    :class="event.color"
+                    x-text="event.title"></div>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Leyenda de colores -->
+        <div class="flex items-center gap-6 mt-6 pt-4 border-t border-zinc-100">
+          <span class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Leyenda:</span>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+            <span class="text-xs text-zinc-600">Reunion</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+            <span class="text-xs text-zinc-600">Deadline</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+            <span class="text-xs text-zinc-600">Personal</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+            <span class="text-xs text-zinc-600">Feriado</span>
+          </div>
+        </div>
+
+        <!-- Eventos del dia seleccionado -->
+        <div x-show="selectedDate && selectedEvents.length > 0" x-cloak class="mt-4 border-t border-zinc-100 pt-4">
+          <h4 class="text-sm font-semibold text-zinc-900 mb-3" x-text="'Eventos del ' + (selectedDate ? selectedDate.day : '') + ' de ' + (selectedDate ? monthNames[selectedDate.month] : '')"></h4>
+          <div class="space-y-2">
+            <template x-for="event in selectedEvents" :key="event.title">
+              <div class="flex items-center gap-3 px-3 py-2 bg-zinc-50 rounded-lg">
+                <div class="w-2 h-2 rounded-full shrink-0"
+                  :class="{
+                    'bg-blue-600': event.type === 'reunion',
+                    'bg-rose-500': event.type === 'deadline',
+                    'bg-amber-500': event.type === 'personal',
+                    'bg-emerald-500': event.type === 'feriado'
+                  }"></div>
+                <span class="text-sm text-zinc-900" x-text="event.title"></span>
+                <span class="badge-zinc text-xs ml-auto" x-text="event.type"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Mensaje sin eventos -->
+        <div x-show="selectedDate && selectedEvents.length === 0" x-cloak class="mt-4 border-t border-zinc-100 pt-4">
+          <p class="text-sm text-zinc-400 text-center py-4">No hay eventos para este dia.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function calendarGrid() {
+      const today = new Date();
+      return {
+        currentMonth: today.getMonth(),
+        currentYear: today.getFullYear(),
+        selectedDate: null,
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        events: [
+          { date: new Date(today.getFullYear(), today.getMonth(), 3), title: 'Sprint planning', type: 'reunion', color: 'bg-blue-100 text-blue-700' },
+          { date: new Date(today.getFullYear(), today.getMonth(), 7), title: 'Entrega informe Q1', type: 'deadline', color: 'bg-rose-100 text-rose-700' },
+          { date: new Date(today.getFullYear(), today.getMonth(), 10), title: 'Reunion equipo', type: 'reunion', color: 'bg-blue-100 text-blue-700' },
+          { date: new Date(today.getFullYear(), today.getMonth(), 14), title: 'Cita medica', type: 'personal', color: 'bg-amber-100 text-amber-700' },
+          { date: new Date(today.getFullYear(), today.getMonth(), 18), title: 'Demo producto', type: 'reunion', color: 'bg-blue-100 text-blue-700' },
+          { date: new Date(today.getFullYear(), today.getMonth(), 21), title: 'Deadline disenos', type: 'deadline', color: 'bg-rose-100 text-rose-700' },
+          { date: new Date(today.getFullYear(), today.getMonth(), 25), title: 'Feriado nacional', type: 'feriado', color: 'bg-emerald-100 text-emerald-700' },
+          { date: new Date(today.getFullYear(), today.getMonth(), 28), title: 'Retro sprint', type: 'reunion', color: 'bg-blue-100 text-blue-700' },
+          { date: new Date(today.getFullYear(), today.getMonth(), 14), title: 'Review PR', type: 'reunion', color: 'bg-blue-100 text-blue-700' }
+        ],
+
+        daysInMonth(m, y) {
+          return new Date(y, m + 1, 0).getDate();
+        },
+
+        firstDayOfMonth(m, y) {
+          const day = new Date(y, m, 1).getDay();
+          return day === 0 ? 6 : day - 1;
+        },
+
+        prevMonth() {
+          if (this.currentMonth === 0) {
+            this.currentMonth = 11;
+            this.currentYear--;
+          } else {
+            this.currentMonth--;
+          }
+          this.selectedDate = null;
+        },
+
+        nextMonth() {
+          if (this.currentMonth === 11) {
+            this.currentMonth = 0;
+            this.currentYear++;
+          } else {
+            this.currentMonth++;
+          }
+          this.selectedDate = null;
+        },
+
+        selectDate(cell) {
+          this.selectedDate = { day: cell.day, month: cell.month, year: cell.year };
+        },
+
+        get calendarDays() {
+          const days = [];
+          const firstDay = this.firstDayOfMonth(this.currentMonth, this.currentYear);
+          const totalDays = this.daysInMonth(this.currentMonth, this.currentYear);
+
+          const prevMonthDays = this.currentMonth === 0
+            ? this.daysInMonth(11, this.currentYear - 1)
+            : this.daysInMonth(this.currentMonth - 1, this.currentYear);
+          const prevMonth = this.currentMonth === 0 ? 11 : this.currentMonth - 1;
+          const prevYear = this.currentMonth === 0 ? this.currentYear - 1 : this.currentYear;
+
+          for (let i = firstDay - 1; i >= 0; i--) {
+            const day = prevMonthDays - i;
+            days.push({
+              day,
+              month: prevMonth,
+              year: prevYear,
+              isCurrentMonth: false,
+              isToday: false,
+              events: this.getEventsForDate(day, prevMonth, prevYear)
+            });
+          }
+
+          const todayObj = new Date();
+          for (let d = 1; d <= totalDays; d++) {
+            const isToday = d === todayObj.getDate() && this.currentMonth === todayObj.getMonth() && this.currentYear === todayObj.getFullYear();
+            days.push({
+              day: d,
+              month: this.currentMonth,
+              year: this.currentYear,
+              isCurrentMonth: true,
+              isToday,
+              events: this.getEventsForDate(d, this.currentMonth, this.currentYear)
+            });
+          }
+
+          const nextMonth = this.currentMonth === 11 ? 0 : this.currentMonth + 1;
+          const nextYear = this.currentMonth === 11 ? this.currentYear + 1 : this.currentYear;
+          const remaining = 42 - days.length;
+          for (let d = 1; d <= remaining; d++) {
+            days.push({
+              day: d,
+              month: nextMonth,
+              year: nextYear,
+              isCurrentMonth: false,
+              isToday: false,
+              events: this.getEventsForDate(d, nextMonth, nextYear)
+            });
+          }
+
+          return days;
+        },
+
+        getEventsForDate(day, month, year) {
+          return this.events.filter(e => {
+            return e.date.getDate() === day && e.date.getMonth() === month && e.date.getFullYear() === year;
+          });
+        },
+
+        get selectedEvents() {
+          if (!this.selectedDate) return [];
+          return this.getEventsForDate(this.selectedDate.day, this.selectedDate.month, this.selectedDate.year);
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

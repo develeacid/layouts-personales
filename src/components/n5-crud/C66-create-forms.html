@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C66 Create Forms</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C66 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Create Forms</h1>
+      <p class="text-sm text-zinc-600 mt-1">Formularios de creacion CRUD con validacion y feedback.</p>
+    </header>
+
+    <!-- Variante 1: Crear usuario -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Crear usuario</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="createForm()">
+        <!-- Mensaje de exito -->
+        <div x-show="success" x-cloak
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          class="text-center py-8">
+          <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-zinc-900">Usuario creado</h3>
+          <p class="text-sm text-zinc-500 mt-1">El usuario ha sido registrado exitosamente.</p>
+          <button @click="reset()" class="btn-ghost btn-sm mt-4">Crear otro usuario</button>
+        </div>
+
+        <!-- Formulario -->
+        <form x-show="!success" @submit.prevent="submit()" class="space-y-6">
+          <h3 class="text-lg font-semibold text-zinc-900">Nuevo usuario</h3>
+
+          <!-- Avatar placeholder -->
+          <div class="flex justify-center">
+            <div class="w-20 h-20 rounded-full bg-zinc-100 border-2 border-dashed border-zinc-300 flex items-center justify-center">
+              <svg class="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Nombre -->
+          <div>
+            <label class="label">Nombre completo</label>
+            <input type="text" class="input" :class="errors.name && 'input-error'"
+              x-model="fields.name" placeholder="Ana Garcia Lopez"
+              @blur="validateField('name')" />
+            <p x-show="errors.name" x-text="errors.name" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label class="label">Correo electronico</label>
+            <input type="email" class="input" :class="errors.email && 'input-error'"
+              x-model="fields.email" placeholder="ana.garcia@empresa.com"
+              @blur="validateField('email')" />
+            <p x-show="errors.email" x-text="errors.email" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Rol + Departamento -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="label">Rol</label>
+              <select class="input" :class="errors.role && 'input-error'"
+                x-model="fields.role" @blur="validateField('role')">
+                <option value="">Selecciona un rol</option>
+                <option value="admin">Admin</option>
+                <option value="editor">Editor</option>
+                <option value="viewer">Viewer</option>
+              </select>
+              <p x-show="errors.role" x-text="errors.role" class="error-msg" x-cloak></p>
+            </div>
+            <div>
+              <label class="label">Departamento</label>
+              <select class="input" x-model="fields.department">
+                <option value="">Selecciona departamento</option>
+                <option value="ingenieria">Ingenieria</option>
+                <option value="diseno">Diseno</option>
+                <option value="marketing">Marketing</option>
+                <option value="ventas">Ventas</option>
+                <option value="rrhh">Recursos Humanos</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Telefono -->
+          <div>
+            <label class="label">Telefono <span class="text-zinc-400 font-normal">(opcional)</span></label>
+            <input type="tel" class="input" x-model="fields.phone" placeholder="+52 55 1234 5678" />
+          </div>
+
+          <!-- Footer -->
+          <div class="flex justify-end gap-3 pt-2">
+            <button type="button" class="btn-secondary" @click="reset()">Cancelar</button>
+            <button type="submit" class="btn-primary"
+              :disabled="loading"
+              :class="{ 'opacity-50 cursor-not-allowed': loading }">
+              <svg x-show="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+              <span x-text="loading ? 'Creando...' : 'Crear usuario'"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Variante 2: Crear proyecto -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Crear proyecto</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="createProjectForm()">
+        <!-- Mensaje de exito -->
+        <div x-show="success" x-cloak
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          class="text-center py-8">
+          <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-zinc-900">Proyecto creado</h3>
+          <p class="text-sm text-zinc-500 mt-1">El proyecto ha sido creado exitosamente.</p>
+          <button @click="reset()" class="btn-ghost btn-sm mt-4">Crear otro proyecto</button>
+        </div>
+
+        <!-- Formulario -->
+        <form x-show="!success" @submit.prevent="submit()" class="space-y-6">
+          <h3 class="text-lg font-semibold text-zinc-900">Nuevo proyecto</h3>
+
+          <!-- Nombre del proyecto -->
+          <div>
+            <label class="label">Nombre del proyecto</label>
+            <input type="text" class="input" :class="errors.name && 'input-error'"
+              x-model="fields.name" placeholder="Rediseno de plataforma web"
+              @blur="validateField('name')" />
+            <p x-show="errors.name" x-text="errors.name" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Descripcion -->
+          <div>
+            <label class="label">Descripcion</label>
+            <textarea class="input min-h-24 resize-y" :class="errors.description && 'input-error'"
+              x-model="fields.description" placeholder="Describe brevemente el proyecto..."
+              @blur="validateField('description')"></textarea>
+            <p x-show="errors.description" x-text="errors.description" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Fecha inicio -->
+          <div>
+            <label class="label">Fecha de inicio</label>
+            <input type="date" class="input" x-model="fields.startDate" />
+          </div>
+
+          <!-- Prioridad -->
+          <div>
+            <label class="label">Prioridad</label>
+            <div class="flex gap-6 mt-1">
+              <label class="flex items-center gap-2 text-sm text-zinc-700 cursor-pointer">
+                <input type="radio" name="priority" value="alta" x-model="fields.priority"
+                  class="w-4 h-4 text-blue-600 border-zinc-300 focus:ring-blue-200" />
+                Alta
+              </label>
+              <label class="flex items-center gap-2 text-sm text-zinc-700 cursor-pointer">
+                <input type="radio" name="priority" value="media" x-model="fields.priority"
+                  class="w-4 h-4 text-blue-600 border-zinc-300 focus:ring-blue-200" />
+                Media
+              </label>
+              <label class="flex items-center gap-2 text-sm text-zinc-700 cursor-pointer">
+                <input type="radio" name="priority" value="baja" x-model="fields.priority"
+                  class="w-4 h-4 text-blue-600 border-zinc-300 focus:ring-blue-200" />
+                Baja
+              </label>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div>
+            <label class="label">Tags</label>
+            <div class="flex flex-wrap gap-2 mb-2">
+              <template x-for="(tag, index) in fields.tags" :key="index">
+                <span class="badge-blue flex items-center gap-1">
+                  <span x-text="tag"></span>
+                  <button type="button" @click="fields.tags.splice(index, 1)" class="hover:text-blue-800">
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </span>
+              </template>
+            </div>
+            <div class="flex gap-2">
+              <input type="text" class="input flex-1" x-model="tagInput" placeholder="Escribe y presiona Enter"
+                @keydown.enter.prevent="addTag()" />
+              <button type="button" class="btn-secondary btn-sm" @click="addTag()">Agregar</button>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="flex justify-end gap-3 pt-2">
+            <button type="button" class="btn-secondary" @click="reset()">Cancelar</button>
+            <button type="submit" class="btn-primary"
+              :disabled="loading"
+              :class="{ 'opacity-50 cursor-not-allowed': loading }">
+              <svg x-show="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+              <span x-text="loading ? 'Creando...' : 'Crear proyecto'"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+
+  <script>
+    function createForm() {
+      return {
+        fields: { name: '', email: '', role: '', department: '', phone: '' },
+        errors: { name: '', email: '', role: '' },
+        loading: false,
+        success: false,
+
+        validateField(field) {
+          this.errors[field] = '';
+          if (field === 'name' && !this.fields.name.trim()) {
+            this.errors.name = 'El nombre es obligatorio.';
+          }
+          if (field === 'email') {
+            if (!this.fields.email.trim()) this.errors.email = 'El email es obligatorio.';
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.fields.email)) this.errors.email = 'Ingresa un email valido.';
+          }
+          if (field === 'role' && !this.fields.role) {
+            this.errors.role = 'Selecciona un rol.';
+          }
+        },
+
+        validate() {
+          ['name', 'email', 'role'].forEach(f => this.validateField(f));
+          return !Object.values(this.errors).some(e => e);
+        },
+
+        async submit() {
+          if (!this.validate()) return;
+          this.loading = true;
+          await new Promise(r => setTimeout(r, 1500));
+          this.loading = false;
+          this.success = true;
+        },
+
+        reset() {
+          this.fields = { name: '', email: '', role: '', department: '', phone: '' };
+          this.errors = { name: '', email: '', role: '' };
+          this.success = false;
+        }
+      };
+    }
+
+    function createProjectForm() {
+      return {
+        fields: { name: '', description: '', startDate: '', priority: 'media', tags: [] },
+        errors: { name: '', description: '' },
+        loading: false,
+        success: false,
+        tagInput: '',
+
+        validateField(field) {
+          this.errors[field] = '';
+          if (field === 'name' && !this.fields.name.trim()) {
+            this.errors.name = 'El nombre del proyecto es obligatorio.';
+          }
+          if (field === 'description' && !this.fields.description.trim()) {
+            this.errors.description = 'La descripcion es obligatoria.';
+          }
+        },
+
+        validate() {
+          ['name', 'description'].forEach(f => this.validateField(f));
+          return !Object.values(this.errors).some(e => e);
+        },
+
+        addTag() {
+          const tag = this.tagInput.trim();
+          if (tag && !this.fields.tags.includes(tag)) {
+            this.fields.tags.push(tag);
+          }
+          this.tagInput = '';
+        },
+
+        async submit() {
+          if (!this.validate()) return;
+          this.loading = true;
+          await new Promise(r => setTimeout(r, 1500));
+          this.loading = false;
+          this.success = true;
+        },
+
+        reset() {
+          this.fields = { name: '', description: '', startDate: '', priority: 'media', tags: [] };
+          this.errors = { name: '', description: '' };
+          this.tagInput = '';
+          this.success = false;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

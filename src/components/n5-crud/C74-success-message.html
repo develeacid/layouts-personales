@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C74 Mensajes de éxito</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C74 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Mensajes de éxito</h1>
+      <p class="text-sm text-zinc-600 mt-1">Feedback visual tras acciones completadas exitosamente.</p>
+    </header>
+
+    <!-- Variante 1: Banner de éxito -->
+    <section class="space-y-4" x-data="successBanner()">
+      <h2 class="text-sm font-semibold text-zinc-900">Variante 1 — Banner de éxito</h2>
+
+      <button @click="show = true; autoHide()" class="btn-primary">Simular acción exitosa</button>
+
+      <div x-show="show" x-cloak
+        x-transition:enter="transition ease-out duration-300 transform"
+        x-transition:enter-start="opacity-0 -translate-y-2"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200 transform"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-2"
+        class="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 flex items-center gap-3">
+        <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <p class="text-sm font-medium text-emerald-800 flex-1">Usuario creado exitosamente</p>
+        <button @click="dismiss()" class="w-6 h-6 flex items-center justify-center rounded text-emerald-400 hover:text-emerald-600 cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Variante 2: Modal de éxito -->
+    <section class="space-y-4" x-data="successModal()">
+      <h2 class="text-sm font-semibold text-zinc-900">Variante 2 — Modal de éxito</h2>
+
+      <button @click="show = true" class="btn-primary">Simular creación</button>
+
+      <template x-teleport="body">
+        <div x-show="show" x-cloak class="fixed inset-0 z-20 flex items-center justify-center p-4" @keydown.escape.window="dismiss()">
+          <div x-show="show"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 bg-zinc-950/50"></div>
+          <div x-show="show"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
+            class="relative bg-white rounded-2xl shadow-xl max-w-sm w-full mx-4 p-8 text-center">
+            <!-- Check icon animado -->
+            <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto"
+              x-show="show"
+              x-transition:enter="transition ease-out duration-500 delay-150"
+              x-transition:enter-start="scale-0"
+              x-transition:enter-end="scale-100">
+              <svg class="w-8 h-8 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-zinc-900 mt-4">¡Listo!</h3>
+            <p class="text-sm text-zinc-600 mt-2">El proyecto ha sido creado correctamente. Ya puedes empezar a agregar tareas y miembros.</p>
+            <button @click="dismiss()" class="btn-primary mt-6 w-full justify-center">Continuar</button>
+          </div>
+        </div>
+      </template>
+    </section>
+
+    <!-- Variante 3: Inline success -->
+    <section class="space-y-4" x-data="successInline()">
+      <h2 class="text-sm font-semibold text-zinc-900">Variante 3 — Éxito inline</h2>
+
+      <button x-show="!show" @click="show = true" class="btn-primary">Simular guardado</button>
+
+      <div x-show="show" x-cloak
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+        class="bg-white border-2 border-emerald-200 rounded-xl shadow-sm p-6">
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-semibold text-zinc-900">Cambios guardados correctamente</h3>
+            <p class="text-sm text-zinc-600 mt-1">La configuración del proyecto se ha actualizado. Los cambios se aplicarán en la próxima ejecución.</p>
+            <div class="flex gap-2 mt-4">
+              <button class="btn-primary btn-sm">Ver elemento</button>
+              <button @click="dismiss()" class="btn-ghost btn-sm">Crear otro</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 4: Full page success -->
+    <section class="space-y-4" x-data="successFullPage()">
+      <h2 class="text-sm font-semibold text-zinc-900">Variante 4 — Éxito a pantalla completa</h2>
+
+      <button @click="show = true" class="btn-primary">Simular registro completo</button>
+
+      <template x-teleport="body">
+        <div x-show="show" x-cloak
+          x-transition:enter="transition ease-out duration-300"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          x-transition:leave="transition ease-in duration-200"
+          x-transition:leave-start="opacity-100"
+          x-transition:leave-end="opacity-0"
+          class="fixed inset-0 z-20 bg-white flex items-center justify-center" @keydown.escape.window="dismiss()">
+          <div class="max-w-md w-full mx-4 text-center space-y-6">
+            <!-- Check icon grande -->
+            <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto"
+              x-show="show"
+              x-transition:enter="transition ease-out duration-500 delay-150"
+              x-transition:enter-start="scale-0"
+              x-transition:enter-end="scale-100">
+              <svg class="w-10 h-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+            </div>
+            <div>
+              <h1 class="text-2xl font-semibold text-zinc-900">¡Registro completado!</h1>
+              <p class="text-sm text-zinc-600 mt-2 leading-relaxed">Tu cuenta ha sido creada exitosamente. Hemos enviado un email de verificación a tu correo electrónico.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+              <button @click="dismiss()" class="btn-primary justify-center">Ir al dashboard</button>
+              <button @click="dismiss()" class="btn-secondary justify-center">Configurar perfil</button>
+            </div>
+            <p class="text-xs text-zinc-400">¿No recibiste el email? <button class="text-zinc-600 underline cursor-pointer">Reenviar verificación</button></p>
+          </div>
+        </div>
+      </template>
+    </section>
+
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function successBanner() {
+      return {
+        show: false,
+        _timer: null,
+        autoHide() {
+          clearTimeout(this._timer);
+          this._timer = setTimeout(() => { this.show = false; }, 5000);
+        },
+        dismiss() {
+          this.show = false;
+          clearTimeout(this._timer);
+        }
+      };
+    }
+
+    function successModal() {
+      return {
+        show: false,
+        autoHide() {},
+        dismiss() {
+          this.show = false;
+        }
+      };
+    }
+
+    function successInline() {
+      return {
+        show: false,
+        autoHide() {},
+        dismiss() {
+          this.show = false;
+        }
+      };
+    }
+
+    function successFullPage() {
+      return {
+        show: false,
+        autoHide() {},
+        dismiss() {
+          this.show = false;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

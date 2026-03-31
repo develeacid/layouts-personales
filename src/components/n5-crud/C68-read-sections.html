@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C68 Read Sections</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C68 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Read Sections</h1>
+      <p class="text-sm text-zinc-600 mt-1">Vistas de detalle en modo solo lectura.</p>
+    </header>
+
+    <!-- Variante 1: Detalle de usuario -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Detalle de usuario</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6">
+        <!-- Header -->
+        <div class="flex items-start gap-4">
+          <div class="w-16 h-16 rounded-full bg-violet-100 flex items-center justify-center shrink-0">
+            <span class="text-lg font-semibold text-violet-700">CR</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 class="text-lg font-semibold text-zinc-900">Carlos Ramirez</h3>
+              <span class="badge-blue">Admin</span>
+              <span class="badge-green">Activo</span>
+            </div>
+            <p class="text-sm text-zinc-500 mt-0.5">carlos.ramirez@empresa.com</p>
+          </div>
+        </div>
+
+        <!-- Info grid -->
+        <div class="border-t border-zinc-200 pt-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+            <div>
+              <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Departamento</p>
+              <p class="text-sm text-zinc-900 mt-1">Ingenieria</p>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Telefono</p>
+              <p class="text-sm text-zinc-900 mt-1">+52 55 1234 5678</p>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Fecha de registro</p>
+              <p class="text-sm text-zinc-900 mt-1">15 de marzo, 2024</p>
+            </div>
+            <div>
+              <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Ultimo acceso</p>
+              <p class="text-sm text-zinc-900 mt-1">Hace 2 horas</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="border-t border-zinc-200 pt-4 flex flex-wrap gap-2">
+          <button class="btn-secondary">Editar</button>
+          <button class="btn-ghost">Enviar mensaje</button>
+          <button class="btn-danger btn-sm">Desactivar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Detalle de proyecto -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Detalle de proyecto</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6">
+        <!-- Header -->
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h3 class="text-lg font-semibold text-zinc-900">Rediseno plataforma web</h3>
+            <span class="badge-rose">Alta</span>
+            <span class="badge-blue">En progreso</span>
+          </div>
+          <p class="text-sm text-zinc-500 mt-1">Creado el 10 de enero, 2025</p>
+        </div>
+
+        <!-- Descripcion -->
+        <div>
+          <p class="text-sm text-zinc-700 leading-relaxed">
+            Rediseno completo de la plataforma web corporativa. Incluye nueva arquitectura de informacion,
+            sistema de diseno actualizado y migracion a componentes modernos. El objetivo es mejorar la
+            experiencia de usuario y reducir el tiempo de carga un 40%.
+          </p>
+        </div>
+
+        <!-- Stats grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="bg-zinc-50 rounded-lg p-4 text-center">
+            <p class="text-2xl font-semibold text-zinc-900">12</p>
+            <p class="text-xs text-zinc-500 mt-1">Tareas</p>
+          </div>
+          <div class="bg-zinc-50 rounded-lg p-4 text-center">
+            <p class="text-2xl font-semibold text-emerald-600">8</p>
+            <p class="text-xs text-zinc-500 mt-1">Completadas</p>
+          </div>
+          <div class="bg-zinc-50 rounded-lg p-4 text-center">
+            <p class="text-2xl font-semibold text-zinc-900">4</p>
+            <p class="text-xs text-zinc-500 mt-1">Miembros</p>
+          </div>
+          <div class="bg-zinc-50 rounded-lg p-4 text-center">
+            <p class="text-2xl font-semibold text-amber-600">15</p>
+            <p class="text-xs text-zinc-500 mt-1">Dias restantes</p>
+          </div>
+        </div>
+
+        <!-- Timeline actividad -->
+        <div class="border-t border-zinc-200 pt-6">
+          <h4 class="text-sm font-medium text-zinc-900 mb-4">Actividad reciente</h4>
+          <div class="space-y-4">
+            <div class="flex gap-3">
+              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-zinc-900">Ana Garcia completo "Wireframes de landing"</p>
+                <p class="text-xs text-zinc-400">Hace 3 horas</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-zinc-900">Carlos Ramirez cambio la prioridad a "Alta"</p>
+                <p class="text-xs text-zinc-400">Ayer, 14:30</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM3 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 019.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-zinc-900">Laura Martinez se unio al proyecto</p>
+                <p class="text-xs text-zinc-400">22 de marzo, 2025</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-4 h-4 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm text-zinc-900">Proyecto creado por Carlos Ramirez</p>
+                <p class="text-xs text-zinc-400">10 de enero, 2025</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="border-t border-zinc-200 pt-4 flex flex-wrap gap-2">
+          <button class="btn-secondary">Editar</button>
+          <button class="btn-ghost">Archivar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Detalle de producto -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Detalle de producto</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6"
+        x-data="{ activeTab: 'descripcion' }">
+        <!-- Header con imagen -->
+        <div class="flex flex-col sm:flex-row gap-6">
+          <!-- Imagen placeholder -->
+          <div class="w-full sm:w-48 h-48 bg-zinc-100 rounded-lg flex items-center justify-center shrink-0">
+            <svg class="w-12 h-12 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h3 class="text-lg font-semibold text-zinc-900">Monitor UltraWide 34"</h3>
+              <span class="badge-green">En stock</span>
+            </div>
+            <p class="text-2xl font-bold text-zinc-900 mt-2">$12,499.00 MXN</p>
+            <p class="text-sm text-zinc-500 mt-1">SKU: MON-UW34-001</p>
+            <div class="flex flex-wrap gap-2 mt-3">
+              <span class="badge-zinc">Electronica</span>
+              <span class="badge-zinc">Monitores</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div>
+          <div class="border-b border-zinc-200">
+            <nav class="flex gap-6">
+              <button @click="activeTab = 'descripcion'"
+                :class="activeTab === 'descripcion' ? 'border-blue-600 text-blue-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'"
+                class="pb-3 text-sm font-medium border-b-2 transition-colors">
+                Descripcion
+              </button>
+              <button @click="activeTab = 'especificaciones'"
+                :class="activeTab === 'especificaciones' ? 'border-blue-600 text-blue-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'"
+                class="pb-3 text-sm font-medium border-b-2 transition-colors">
+                Especificaciones
+              </button>
+              <button @click="activeTab = 'resenas'"
+                :class="activeTab === 'resenas' ? 'border-blue-600 text-blue-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'"
+                class="pb-3 text-sm font-medium border-b-2 transition-colors">
+                Resenas (24)
+              </button>
+            </nav>
+          </div>
+
+          <!-- Tab: Descripcion -->
+          <div x-show="activeTab === 'descripcion'" class="py-4">
+            <p class="text-sm text-zinc-700 leading-relaxed">
+              Monitor ultrawide de 34 pulgadas con resolucion UWQHD (3440x1440). Ideal para productividad
+              y diseno grafico. Panel IPS con cobertura sRGB del 99% y tiempo de respuesta de 5ms.
+              Incluye soporte ajustable en altura, giro e inclinacion. Conectividad USB-C con carga
+              de hasta 65W, HDMI 2.0 y DisplayPort 1.4.
+            </p>
+          </div>
+
+          <!-- Tab: Especificaciones -->
+          <div x-show="activeTab === 'especificaciones'" x-cloak class="py-4">
+            <div class="space-y-3">
+              <div class="flex justify-between py-2 border-b border-zinc-100">
+                <span class="text-sm text-zinc-500">Tamano</span>
+                <span class="text-sm text-zinc-900 font-medium">34 pulgadas</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-zinc-100">
+                <span class="text-sm text-zinc-500">Resolucion</span>
+                <span class="text-sm text-zinc-900 font-medium">3440 x 1440 (UWQHD)</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-zinc-100">
+                <span class="text-sm text-zinc-500">Panel</span>
+                <span class="text-sm text-zinc-900 font-medium">IPS</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-zinc-100">
+                <span class="text-sm text-zinc-500">Frecuencia</span>
+                <span class="text-sm text-zinc-900 font-medium">75 Hz</span>
+              </div>
+              <div class="flex justify-between py-2">
+                <span class="text-sm text-zinc-500">Peso</span>
+                <span class="text-sm text-zinc-900 font-medium">7.2 kg</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab: Resenas -->
+          <div x-show="activeTab === 'resenas'" x-cloak class="py-4 space-y-4">
+            <div class="flex gap-3">
+              <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0">PR</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-medium text-zinc-900">Pedro Ruiz</p>
+                  <span class="text-xs text-zinc-400">Hace 5 dias</span>
+                </div>
+                <p class="text-sm text-zinc-600 mt-1">Excelente monitor, la calidad de imagen es impresionante. Lo uso para diseno y programacion.</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0">SG</div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <p class="text-sm font-medium text-zinc-900">Sofia Gonzalez</p>
+                  <span class="text-xs text-zinc-400">Hace 2 semanas</span>
+                </div>
+                <p class="text-sm text-zinc-600 mt-1">Buena relacion calidad-precio. El USB-C es muy practico para conectar el laptop.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

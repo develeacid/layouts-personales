@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C79 Columna de kanban</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C79 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Columna de kanban</h1>
+      <p class="text-sm text-zinc-600 mt-1">Columnas y tablero kanban completo con gestión de tareas.</p>
+    </header>
+
+    <!-- Variante 1: Columna estándar -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Columna estándar</h2>
+      <div class="w-72">
+        <div class="bg-zinc-50 rounded-xl p-3">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm font-semibold text-zinc-900">Por hacer</h3>
+              <span class="text-xs text-zinc-400 bg-zinc-200 rounded-full px-2 py-0.5">3</span>
+            </div>
+            <button class="w-6 h-6 flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors duration-150 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            </button>
+          </div>
+          <div class="space-y-2">
+            <div class="bg-white border border-zinc-200 rounded-lg shadow-sm p-3 cursor-grab hover:shadow-md hover:-translate-y-px hover:border-blue-300 transition-all duration-200">
+              <h4 class="text-sm font-medium text-zinc-900">Diseñar mockups</h4>
+              <div class="flex items-center gap-1.5 mt-1.5"><span class="badge-rose">Alta</span></div>
+              <div class="flex items-center justify-between mt-2 pt-2 border-t border-zinc-100">
+                <div class="w-5 h-5 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" style="font-size: 0.6rem;">AM</div>
+                <span class="text-xs text-zinc-400">15 abr</span>
+              </div>
+            </div>
+            <div class="bg-white border border-zinc-200 rounded-lg shadow-sm p-3 cursor-grab hover:shadow-md hover:-translate-y-px hover:border-blue-300 transition-all duration-200">
+              <h4 class="text-sm font-medium text-zinc-900">Configurar CI/CD</h4>
+              <div class="flex items-center gap-1.5 mt-1.5"><span class="badge-amber">Media</span></div>
+              <div class="flex items-center justify-between mt-2 pt-2 border-t border-zinc-100">
+                <div class="w-5 h-5 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" style="font-size: 0.6rem;">JL</div>
+                <span class="text-xs text-zinc-400">20 abr</span>
+              </div>
+            </div>
+            <div class="bg-white border border-zinc-200 rounded-lg shadow-sm p-3 cursor-grab hover:shadow-md hover:-translate-y-px hover:border-blue-300 transition-all duration-200">
+              <h4 class="text-sm font-medium text-zinc-900">Actualizar docs</h4>
+              <div class="flex items-center gap-1.5 mt-1.5"><span class="badge-green">Baja</span></div>
+              <div class="flex items-center justify-between mt-2 pt-2 border-t border-zinc-100">
+                <div class="w-5 h-5 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" style="font-size: 0.6rem;">CR</div>
+                <span class="text-xs text-zinc-400">22 abr</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn-ghost w-full mt-3 flex items-center justify-center gap-1.5 text-sm">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            Agregar tarea
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Board completo (3 columnas) -->
+    <section class="space-y-4" x-data="kanbanBoard()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Board completo (3 columnas)</h2>
+      <div class="flex gap-4 overflow-x-auto pb-4">
+
+        <template x-for="(col, colIndex) in columns" :key="col.name">
+          <div class="w-72 shrink-0">
+            <div class="bg-zinc-50 rounded-xl p-3">
+              <!-- Header -->
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-2">
+                  <div class="w-2.5 h-2.5 rounded-full" :class="col.color"></div>
+                  <h3 class="text-sm font-semibold text-zinc-900" x-text="col.name"></h3>
+                  <span class="text-xs text-zinc-400 bg-zinc-200 rounded-full px-2 py-0.5" x-text="col.cards.length"></span>
+                </div>
+                <button @click="addCard(colIndex)" class="w-6 h-6 flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors duration-150 cursor-pointer">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                </button>
+              </div>
+              <!-- Cards -->
+              <div class="space-y-2">
+                <template x-for="card in col.cards" :key="card.id">
+                  <div class="bg-white border border-zinc-200 rounded-lg shadow-sm p-3 cursor-grab hover:shadow-md hover:-translate-y-px hover:border-blue-300 transition-all duration-200">
+                    <h4 class="text-sm font-medium text-zinc-900" x-text="card.title"></h4>
+                    <div class="flex items-center gap-1.5 mt-1.5">
+                      <span :class="{
+                        'badge-rose': card.priority === 'Alta',
+                        'badge-amber': card.priority === 'Media',
+                        'badge-green': card.priority === 'Baja'
+                      }" x-text="card.priority"></span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2 pt-2 border-t border-zinc-100">
+                      <div class="flex items-center gap-2">
+                        <div class="w-5 h-5 rounded-full bg-zinc-200 flex items-center justify-center font-medium text-zinc-600" style="font-size: 0.6rem;" x-text="card.assignee"></div>
+                        <span class="text-xs text-zinc-400" x-text="card.date"></span>
+                      </div>
+                      <!-- Move dropdown -->
+                      <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors duration-150 cursor-pointer">Mover</button>
+                        <div x-show="open" x-cloak @click.away="open = false"
+                          class="absolute right-0 bottom-full mb-1 bg-white border border-zinc-200 rounded-lg shadow-lg py-1 z-10 w-36">
+                          <template x-for="(target, targetIndex) in columns" :key="target.name">
+                            <button
+                              x-show="targetIndex !== colIndex"
+                              @click="moveCard(card.id, colIndex, targetIndex); open = false"
+                              class="w-full text-left px-3 py-1.5 text-xs text-zinc-600 hover:bg-zinc-50 cursor-pointer"
+                              x-text="target.name">
+                            </button>
+                          </template>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+              <!-- Footer -->
+              <button @click="addCard(colIndex)" class="btn-ghost w-full mt-3 flex items-center justify-center gap-1.5 text-sm">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                Agregar tarea
+              </button>
+            </div>
+          </div>
+        </template>
+
+      </div>
+    </section>
+
+  </div>
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function kanbanBoard() {
+      let nextId = 10;
+      return {
+        columns: [
+          {
+            name: 'Por hacer',
+            color: 'bg-zinc-400',
+            cards: [
+              { id: 1, title: 'Diseñar mockups de landing', priority: 'Alta', assignee: 'AM', date: '15 abr' },
+              { id: 2, title: 'Configurar CI/CD pipeline', priority: 'Media', assignee: 'JL', date: '20 abr' },
+              { id: 3, title: 'Escribir tests unitarios', priority: 'Baja', assignee: 'CR', date: '22 abr' },
+            ]
+          },
+          {
+            name: 'En progreso',
+            color: 'bg-blue-500',
+            cards: [
+              { id: 4, title: 'Implementar autenticación', priority: 'Alta', assignee: 'MR', date: '12 abr' },
+              { id: 5, title: 'Rediseñar dashboard', priority: 'Media', assignee: 'LP', date: '18 abr' },
+            ]
+          },
+          {
+            name: 'Completado',
+            color: 'bg-green-500',
+            cards: [
+              { id: 6, title: 'Setup del proyecto', priority: 'Alta', assignee: 'AM', date: '5 abr' },
+              { id: 7, title: 'Definir esquema de BD', priority: 'Media', assignee: 'JL', date: '7 abr' },
+              { id: 8, title: 'Crear componentes base', priority: 'Baja', assignee: 'CR', date: '9 abr' },
+              { id: 9, title: 'Documentar API endpoints', priority: 'Baja', assignee: 'MR', date: '10 abr' },
+            ]
+          }
+        ],
+        addCard(columnIndex) {
+          const names = ['Nueva tarea', 'Tarea pendiente', 'Revisión necesaria', 'Implementar feature'];
+          const priorities = ['Alta', 'Media', 'Baja'];
+          const assignees = ['AM', 'JL', 'CR', 'MR', 'LP'];
+          this.columns[columnIndex].cards.push({
+            id: nextId++,
+            title: names[Math.floor(Math.random() * names.length)],
+            priority: priorities[Math.floor(Math.random() * priorities.length)],
+            assignee: assignees[Math.floor(Math.random() * assignees.length)],
+            date: 'Hoy'
+          });
+        },
+        moveCard(cardId, fromCol, toCol) {
+          const fromCards = this.columns[fromCol].cards;
+          const cardIndex = fromCards.findIndex(c => c.id === cardId);
+          if (cardIndex === -1) return;
+          const card = fromCards.splice(cardIndex, 1)[0];
+          this.columns[toCol].cards.push(card);
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

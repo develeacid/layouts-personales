@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C81 Input de chat</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C81 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Input de chat</h1>
+      <p class="text-sm text-zinc-600 mt-1">Campo de entrada para mensajes con auto-resize, acciones y reply.</p>
+    </header>
+
+    <!-- Variante 1: Input básico -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Input básico</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+        <div x-data="{ msg: '' }" class="flex items-end gap-2">
+          <textarea
+            x-model="msg"
+            @input="$el.style.height = 'auto'; $el.style.height = Math.min($el.scrollHeight, 112) + 'px'"
+            rows="1"
+            placeholder="Escribe un mensaje..."
+            class="flex-1 resize-none rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-150"
+          ></textarea>
+          <button
+            :disabled="!msg.trim()"
+            class="shrink-0 w-10 h-10 flex items-center justify-center rounded-xl transition-colors duration-150 cursor-pointer"
+            :class="msg.trim() ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-100 text-zinc-300 cursor-not-allowed'"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Input con acciones -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Input con acciones</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+        <div x-data="{ msg: '', focused: false }" class="space-y-2">
+          <div
+            class="flex items-end gap-2 rounded-xl border bg-zinc-50 px-3 py-2 transition-all duration-150"
+            :class="focused ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-zinc-200'"
+          >
+            <!-- Acciones izquierda -->
+            <div class="flex items-center gap-1 shrink-0 pb-0.5">
+              <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors duration-150 cursor-pointer">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </button>
+              <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors duration-150 cursor-pointer">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+              </button>
+            </div>
+            <!-- Textarea -->
+            <textarea
+              x-model="msg"
+              @focus="focused = true"
+              @blur="focused = false"
+              @input="$el.style.height = 'auto'; $el.style.height = Math.min($el.scrollHeight, 112) + 'px'"
+              rows="1"
+              placeholder="Escribe un mensaje..."
+              class="flex-1 resize-none bg-transparent py-1.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none"
+            ></textarea>
+            <!-- Enviar -->
+            <button
+              :disabled="!msg.trim()"
+              class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150 cursor-pointer mb-0.5"
+              :class="msg.trim() ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-200 text-zinc-400 cursor-not-allowed'"
+            >
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Input con reply quote -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Input con reply quote</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+        <div x-data="chatInput()" class="space-y-0">
+          <!-- Reply bar -->
+          <div x-show="replying" x-cloak
+            class="flex items-center justify-between bg-zinc-50 border border-zinc-200 border-b-0 rounded-t-xl px-4 py-2.5">
+            <div class="flex-1 min-w-0">
+              <p class="text-xs font-medium text-blue-600">Respondiendo a <span x-text="replyTo.author"></span></p>
+              <p class="text-xs text-zinc-500 truncate mt-0.5" x-text="replyTo.text"></p>
+            </div>
+            <button @click="cancelReply()" class="shrink-0 ml-3 w-6 h-6 flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors duration-150 cursor-pointer">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <!-- Input -->
+          <div class="flex items-end gap-2" :class="replying ? '' : ''">
+            <textarea
+              x-model="message"
+              @input="autoResize($event)"
+              rows="1"
+              placeholder="Escribe un mensaje..."
+              class="flex-1 resize-none rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-150"
+              :class="replying ? 'rounded-t-none border-t-0' : ''"
+            ></textarea>
+            <button
+              @click="send()"
+              :disabled="!message.trim()"
+              class="shrink-0 w-10 h-10 flex items-center justify-center rounded-xl transition-colors duration-150 cursor-pointer"
+              :class="message.trim() ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-100 text-zinc-300 cursor-not-allowed'"
+            >
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+            </button>
+          </div>
+          <!-- Toggle reply button (demo) -->
+          <button @click="replying = !replying" class="btn-ghost btn-sm mt-3 text-xs">
+            Simular reply
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 4: Input con typing indicator -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Input con typing indicator</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+        <div x-data="{ msg: '', typing: true }" class="space-y-2">
+          <!-- Typing indicator -->
+          <div x-show="typing" class="flex items-center gap-2 px-1">
+            <div class="flex items-center gap-0.5">
+              <span class="typing-dot w-1.5 h-1.5 bg-zinc-400 rounded-full inline-block"></span>
+              <span class="typing-dot w-1.5 h-1.5 bg-zinc-400 rounded-full inline-block"></span>
+              <span class="typing-dot w-1.5 h-1.5 bg-zinc-400 rounded-full inline-block"></span>
+            </div>
+            <span class="text-xs text-zinc-400">Ana está escribiendo...</span>
+          </div>
+          <!-- Input -->
+          <div class="flex items-end gap-2">
+            <textarea
+              x-model="msg"
+              @input="$el.style.height = 'auto'; $el.style.height = Math.min($el.scrollHeight, 112) + 'px'"
+              rows="1"
+              placeholder="Escribe un mensaje..."
+              class="flex-1 resize-none rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-150"
+            ></textarea>
+            <button
+              :disabled="!msg.trim()"
+              class="shrink-0 w-10 h-10 flex items-center justify-center rounded-xl transition-colors duration-150 cursor-pointer"
+              :class="msg.trim() ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-100 text-zinc-300 cursor-not-allowed'"
+            >
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
+            </button>
+          </div>
+          <!-- Toggle typing (demo) -->
+          <button @click="typing = !typing" class="btn-ghost btn-sm text-xs">
+            Simular typing
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <style>
+    [x-cloak] { display: none !important; }
+    @keyframes typing { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
+    .typing-dot { animation: typing 1.4s infinite; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  </style>
+  <script>
+    function chatInput() {
+      return {
+        message: '',
+        replying: true,
+        replyTo: {
+          author: 'Ana',
+          text: 'Me gusta mucho la propuesta. Solo tengo un par de sugerencias menores sobre la paleta de colores.'
+        },
+        isTyping: false,
+        send() {
+          if (!this.message.trim()) return;
+          console.log('Enviando:', this.message);
+          if (this.replying) {
+            console.log('En respuesta a:', this.replyTo.text);
+          }
+          this.message = '';
+          this.replying = false;
+        },
+        cancelReply() {
+          this.replying = false;
+        },
+        autoResize(event) {
+          const el = event.target;
+          el.style.height = 'auto';
+          el.style.height = Math.min(el.scrollHeight, 112) + 'px';
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C67 Update Forms</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C67 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Update Forms</h1>
+      <p class="text-sm text-zinc-600 mt-1">Formularios de edicion con datos precargados y deteccion de cambios.</p>
+    </header>
+
+    <!-- Variante 1: Editar usuario -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Editar usuario</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="updateForm()">
+        <!-- Mensaje de exito -->
+        <div x-show="saved" x-cloak
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          class="text-center py-8">
+          <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-zinc-900">Cambios guardados</h3>
+          <!-- Diff de cambios -->
+          <div class="mt-4 space-y-1">
+            <template x-for="change in changes" :key="change">
+              <p class="text-sm text-zinc-600" x-text="change"></p>
+            </template>
+          </div>
+          <button @click="saved = false; changes = []" class="btn-ghost btn-sm mt-4">Seguir editando</button>
+        </div>
+
+        <!-- Formulario -->
+        <form x-show="!saved" @submit.prevent="save()" class="space-y-6">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-semibold text-zinc-900">Editar usuario</h3>
+            <span class="badge-blue">Editando</span>
+          </div>
+
+          <!-- Avatar -->
+          <div class="flex justify-center">
+            <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center">
+              <span class="text-xl font-semibold text-blue-700">MR</span>
+            </div>
+          </div>
+
+          <!-- Nombre -->
+          <div>
+            <label class="label">Nombre completo</label>
+            <input type="text" class="input" :class="errors.name && 'input-error'"
+              x-model="fields.name" @blur="validateField('name')" />
+            <p x-show="errors.name" x-text="errors.name" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Email (deshabilitado) -->
+          <div>
+            <label class="label">Correo electronico</label>
+            <input type="email" class="input bg-zinc-50 text-zinc-500 cursor-not-allowed"
+              :value="fields.email" disabled />
+            <p class="text-xs text-zinc-400 mt-1">El email no puede ser modificado.</p>
+          </div>
+
+          <!-- Rol + Departamento -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="label">Rol</label>
+              <select class="input" :class="errors.role && 'input-error'"
+                x-model="fields.role" @blur="validateField('role')">
+                <option value="">Selecciona un rol</option>
+                <option value="admin">Admin</option>
+                <option value="editor">Editor</option>
+                <option value="viewer">Viewer</option>
+              </select>
+              <p x-show="errors.role" x-text="errors.role" class="error-msg" x-cloak></p>
+            </div>
+            <div>
+              <label class="label">Departamento</label>
+              <select class="input" x-model="fields.department">
+                <option value="">Selecciona departamento</option>
+                <option value="ingenieria">Ingenieria</option>
+                <option value="diseno">Diseno</option>
+                <option value="marketing">Marketing</option>
+                <option value="ventas">Ventas</option>
+                <option value="rrhh">Recursos Humanos</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Telefono -->
+          <div>
+            <label class="label">Telefono</label>
+            <input type="tel" class="input" x-model="fields.phone" />
+          </div>
+
+          <!-- Indicador de cambios -->
+          <div x-show="hasChanges" x-cloak class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+            <p class="text-sm text-amber-800 font-medium">Tienes cambios sin guardar</p>
+          </div>
+
+          <!-- Footer -->
+          <div class="flex justify-end gap-3 pt-2">
+            <button type="button" class="btn-secondary" @click="resetFields()">Descartar</button>
+            <button type="submit" class="btn-primary"
+              :disabled="loading || !hasChanges"
+              :class="{ 'opacity-50 cursor-not-allowed': loading || !hasChanges }">
+              <svg x-show="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+              <span x-text="loading ? 'Guardando...' : 'Guardar cambios'"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Variante 2: Editar perfil con foto -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Editar perfil con foto</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="updateProfileForm()">
+        <!-- Mensaje de exito -->
+        <div x-show="saved" x-cloak
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          class="text-center py-8">
+          <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-zinc-900">Perfil actualizado</h3>
+          <button @click="saved = false" class="btn-ghost btn-sm mt-4">Seguir editando</button>
+        </div>
+
+        <!-- Formulario -->
+        <form x-show="!saved" @submit.prevent="save()" class="space-y-6">
+          <h3 class="text-lg font-semibold text-zinc-900">Editar perfil</h3>
+
+          <!-- Avatar con overlay -->
+          <div class="flex justify-center">
+            <div class="relative group cursor-pointer">
+              <div class="w-24 h-24 rounded-full bg-indigo-100 flex items-center justify-center">
+                <span class="text-2xl font-semibold text-indigo-700">LM</span>
+              </div>
+              <div class="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+                <span class="text-xs font-medium text-white">Cambiar foto</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nombre -->
+          <div>
+            <label class="label">Nombre</label>
+            <input type="text" class="input" :class="errors.name && 'input-error'"
+              x-model="fields.name" @blur="validateField('name')" />
+            <p x-show="errors.name" x-text="errors.name" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Bio -->
+          <div>
+            <label class="label">Bio</label>
+            <textarea class="input min-h-20 resize-y"
+              x-model="fields.bio" placeholder="Cuentanos sobre ti..."></textarea>
+          </div>
+
+          <!-- Website + Ubicacion -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="label">Website</label>
+              <input type="url" class="input" x-model="fields.website" placeholder="https://tusitio.com" />
+            </div>
+            <div>
+              <label class="label">Ubicacion</label>
+              <input type="text" class="input" x-model="fields.location" placeholder="Ciudad de Mexico, MX" />
+            </div>
+          </div>
+
+          <!-- Toggle perfil publico -->
+          <div class="flex items-center justify-between py-2">
+            <div>
+              <p class="text-sm font-medium text-zinc-900">Perfil publico</p>
+              <p class="text-xs text-zinc-500">Permite que otros vean tu perfil</p>
+            </div>
+            <button type="button" @click="fields.isPublic = !fields.isPublic"
+              :class="fields.isPublic ? 'bg-blue-600' : 'bg-zinc-300'"
+              class="relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ease-in-out cursor-pointer">
+              <span :class="fields.isPublic ? 'translate-x-5' : 'translate-x-0'"
+                class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-sm ring-0 transition-transform duration-200 ease-in-out mt-0.5 ml-0.5"></span>
+            </button>
+          </div>
+
+          <!-- Indicador de cambios -->
+          <div x-show="hasChanges" x-cloak class="bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+            <p class="text-sm text-amber-800 font-medium">Tienes cambios sin guardar</p>
+          </div>
+
+          <!-- Footer -->
+          <div class="flex justify-end gap-3 pt-2">
+            <button type="button" class="btn-secondary" @click="resetFields()">Descartar</button>
+            <button type="submit" class="btn-primary"
+              :disabled="loading || !hasChanges"
+              :class="{ 'opacity-50 cursor-not-allowed': loading || !hasChanges }">
+              <svg x-show="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+              <span x-text="loading ? 'Guardando...' : 'Guardar cambios'"></span>
+            </button>
+          </div>
+
+          <!-- Danger zone -->
+          <div class="border-t border-zinc-200 pt-6 mt-6">
+            <h4 class="text-sm font-medium text-rose-600">Zona de peligro</h4>
+            <p class="text-xs text-zinc-500 mt-1">Una vez eliminada la cuenta, no se puede recuperar.</p>
+            <button type="button" class="btn-danger btn-sm mt-3">Eliminar cuenta</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+
+  <script>
+    function updateForm() {
+      const originalData = {
+        name: 'Maria Rodriguez',
+        email: 'maria.rodriguez@empresa.com',
+        role: 'editor',
+        department: 'diseno',
+        phone: '+52 55 9876 5432'
+      };
+
+      return {
+        original: JSON.parse(JSON.stringify(originalData)),
+        fields: JSON.parse(JSON.stringify(originalData)),
+        errors: { name: '', role: '' },
+        loading: false,
+        saved: false,
+        changes: [],
+
+        get hasChanges() {
+          return JSON.stringify(this.fields) !== JSON.stringify(this.original);
+        },
+
+        validateField(field) {
+          this.errors[field] = '';
+          if (field === 'name' && !this.fields.name.trim()) {
+            this.errors.name = 'El nombre es obligatorio.';
+          }
+          if (field === 'role' && !this.fields.role) {
+            this.errors.role = 'Selecciona un rol.';
+          }
+        },
+
+        validate() {
+          ['name', 'role'].forEach(f => this.validateField(f));
+          return !Object.values(this.errors).some(e => e);
+        },
+
+        async save() {
+          if (!this.validate()) return;
+          this.loading = true;
+          await new Promise(r => setTimeout(r, 1500));
+          this.loading = false;
+
+          this.changes = [];
+          const labels = { name: 'Nombre', role: 'Rol', department: 'Departamento', phone: 'Telefono' };
+          for (const key of Object.keys(labels)) {
+            if (this.fields[key] !== this.original[key]) {
+              this.changes.push(labels[key] + ' cambiado de "' + this.original[key] + '" a "' + this.fields[key] + '"');
+            }
+          }
+
+          this.original = JSON.parse(JSON.stringify(this.fields));
+          this.saved = true;
+        },
+
+        resetFields() {
+          this.fields = JSON.parse(JSON.stringify(this.original));
+          this.errors = { name: '', role: '' };
+        }
+      };
+    }
+
+    function updateProfileForm() {
+      const originalData = {
+        name: 'Laura Martinez',
+        bio: 'Disenadora UX/UI con 5 anos de experiencia en productos digitales.',
+        website: 'https://lauramartinez.design',
+        location: 'Guadalajara, MX',
+        isPublic: true
+      };
+
+      return {
+        original: JSON.parse(JSON.stringify(originalData)),
+        fields: JSON.parse(JSON.stringify(originalData)),
+        errors: { name: '' },
+        loading: false,
+        saved: false,
+
+        get hasChanges() {
+          return JSON.stringify(this.fields) !== JSON.stringify(this.original);
+        },
+
+        validateField(field) {
+          this.errors[field] = '';
+          if (field === 'name' && !this.fields.name.trim()) {
+            this.errors.name = 'El nombre es obligatorio.';
+          }
+        },
+
+        async save() {
+          this.validateField('name');
+          if (this.errors.name) return;
+          this.loading = true;
+          await new Promise(r => setTimeout(r, 1500));
+          this.loading = false;
+          this.original = JSON.parse(JSON.stringify(this.fields));
+          this.saved = true;
+        },
+
+        resetFields() {
+          this.fields = JSON.parse(JSON.stringify(this.original));
+          this.errors = { name: '' };
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

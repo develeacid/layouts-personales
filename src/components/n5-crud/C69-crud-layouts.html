@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C69 CRUD Layouts</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C69 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">CRUD Layouts</h1>
+      <p class="text-sm text-zinc-600 mt-1">Shell CRUD con lista, detalle y acciones combinadas.</p>
+    </header>
+
+    <!-- Variante 1: Master-detail -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Layout master-detail</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden" x-data="crudLayout()">
+        <div class="flex flex-col sm:flex-row min-h-96">
+          <!-- Panel izquierdo: lista -->
+          <div class="w-full sm:w-80 border-b sm:border-b-0 sm:border-r border-zinc-200 shrink-0"
+            :class="selectedId && 'hidden sm:block'">
+            <!-- Busqueda -->
+            <div class="p-4 border-b border-zinc-200">
+              <div class="relative">
+                <svg class="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+                <input type="text" class="input pl-10" placeholder="Buscar usuarios..." x-model="search" />
+              </div>
+            </div>
+
+            <!-- Lista de usuarios -->
+            <div class="divide-y divide-zinc-100 max-h-96 overflow-y-auto">
+              <template x-for="item in filteredItems" :key="item.id">
+                <button @click="selectItem(item.id)"
+                  :class="selectedId === item.id ? 'bg-blue-50 border-l-2 border-l-blue-600' : 'border-l-2 border-l-transparent hover:bg-zinc-50'"
+                  class="w-full text-left px-4 py-3 flex items-center gap-3 transition-colors">
+                  <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0"
+                    x-text="item.initials"></div>
+                  <div class="min-w-0 flex-1">
+                    <p class="text-sm font-medium text-zinc-900 truncate" x-text="item.name"></p>
+                    <p class="text-xs text-zinc-500 truncate" x-text="item.email"></p>
+                  </div>
+                  <span class="badge-green text-xs shrink-0" x-show="item.active">Activo</span>
+                </button>
+              </template>
+              <div x-show="filteredItems.length === 0" class="p-8 text-center">
+                <p class="text-sm text-zinc-500">Sin resultados</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel derecho: detalle -->
+          <div class="flex-1 min-w-0">
+            <!-- Estado vacio -->
+            <div x-show="!selectedId" class="flex flex-col items-center justify-center h-full py-16 px-6">
+              <div class="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mb-4">
+                <svg class="w-8 h-8 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                </svg>
+              </div>
+              <p class="text-sm font-medium text-zinc-500">Selecciona un usuario</p>
+              <p class="text-xs text-zinc-400 mt-1">Haz clic en un usuario de la lista para ver su detalle</p>
+            </div>
+
+            <!-- Detalle del usuario -->
+            <div x-show="selectedId" x-cloak class="p-6 space-y-6">
+              <!-- Boton volver (mobile) -->
+              <button @click="selectedId = null" class="sm:hidden btn-ghost btn-sm mb-2">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                Volver a la lista
+              </button>
+
+              <template x-if="selectedUser">
+                <div class="space-y-6">
+                  <!-- Header -->
+                  <div class="flex items-start gap-4">
+                    <div class="w-16 h-16 rounded-full bg-zinc-200 flex items-center justify-center shrink-0">
+                      <span class="text-lg font-semibold text-zinc-600" x-text="selectedUser.initials"></span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <h3 class="text-lg font-semibold text-zinc-900" x-text="selectedUser.name"></h3>
+                        <span class="badge-blue" x-text="selectedUser.role"></span>
+                        <span :class="selectedUser.active ? 'badge-green' : 'badge-zinc'"
+                          x-text="selectedUser.active ? 'Activo' : 'Inactivo'"></span>
+                      </div>
+                      <p class="text-sm text-zinc-500 mt-0.5" x-text="selectedUser.email"></p>
+                    </div>
+                  </div>
+
+                  <!-- Info grid -->
+                  <div class="border-t border-zinc-200 pt-4">
+                    <div class="grid grid-cols-2 gap-y-4 gap-x-6">
+                      <div>
+                        <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Departamento</p>
+                        <p class="text-sm text-zinc-900 mt-1" x-text="selectedUser.department"></p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Telefono</p>
+                        <p class="text-sm text-zinc-900 mt-1" x-text="selectedUser.phone"></p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Registro</p>
+                        <p class="text-sm text-zinc-900 mt-1" x-text="selectedUser.registered"></p>
+                      </div>
+                      <div>
+                        <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide">Ultimo acceso</p>
+                        <p class="text-sm text-zinc-900 mt-1" x-text="selectedUser.lastAccess"></p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Acciones -->
+                  <div class="border-t border-zinc-200 pt-4 flex flex-wrap gap-2">
+                    <button class="btn-secondary btn-sm">Editar</button>
+                    <button class="btn-ghost btn-sm">Enviar mensaje</button>
+                    <button class="btn-danger btn-sm">Desactivar</button>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Tabla + barra de acciones -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Tabla con barra de acciones</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden"
+        x-data="crudTableLayout()">
+        <!-- Tabla -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-zinc-200 bg-zinc-50">
+                <th class="text-left px-4 py-3 w-10">
+                  <input type="checkbox" @change="toggleAll($event.target.checked)"
+                    :checked="selectedIds.length === items.length && items.length > 0"
+                    class="w-4 h-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-200" />
+                </th>
+                <th class="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wide">Nombre</th>
+                <th class="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wide hidden sm:table-cell">Email</th>
+                <th class="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wide hidden md:table-cell">Rol</th>
+                <th class="text-left px-4 py-3 text-xs font-medium text-zinc-500 uppercase tracking-wide">Estado</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-100">
+              <template x-for="item in items" :key="item.id">
+                <tr :class="selectedIds.includes(item.id) ? 'bg-blue-50' : 'hover:bg-zinc-50'"
+                  class="transition-colors">
+                  <td class="px-4 py-3">
+                    <input type="checkbox" :value="item.id"
+                      :checked="selectedIds.includes(item.id)"
+                      @change="toggleItem(item.id)"
+                      class="w-4 h-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-200" />
+                  </td>
+                  <td class="px-4 py-3">
+                    <div class="flex items-center gap-3">
+                      <div class="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0"
+                        x-text="item.initials"></div>
+                      <span class="font-medium text-zinc-900" x-text="item.name"></span>
+                    </div>
+                  </td>
+                  <td class="px-4 py-3 text-zinc-500 hidden sm:table-cell" x-text="item.email"></td>
+                  <td class="px-4 py-3 hidden md:table-cell">
+                    <span class="badge-zinc" x-text="item.role"></span>
+                  </td>
+                  <td class="px-4 py-3">
+                    <span :class="item.active ? 'badge-green' : 'badge-zinc'"
+                      x-text="item.active ? 'Activo' : 'Inactivo'"></span>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Barra de acciones sticky -->
+        <div x-show="selectedIds.length > 0" x-cloak
+          x-transition:enter="transition ease-out duration-200"
+          x-transition:enter-start="opacity-0 translate-y-2"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="transition ease-in duration-150"
+          x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 translate-y-2"
+          class="sticky bottom-0 bg-zinc-900 text-white px-4 py-3 flex items-center justify-between gap-4">
+          <span class="text-sm">
+            <span class="font-medium" x-text="selectedIds.length"></span> seleccionado(s)
+          </span>
+          <div class="flex gap-2">
+            <button @click="changeStatus()"
+              class="px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors">
+              Cambiar estado
+            </button>
+            <button @click="exportSelected()"
+              class="px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors">
+              Exportar
+            </button>
+            <button @click="deleteSelected()"
+              class="px-3 py-1.5 text-sm bg-rose-600 hover:bg-rose-700 rounded-lg transition-colors">
+              Eliminar seleccionados
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+
+  <script>
+    function crudLayout() {
+      return {
+        items: [
+          { id: 1, name: 'Carlos Ramirez', email: 'carlos.ramirez@empresa.com', initials: 'CR', role: 'Admin', department: 'Ingenieria', phone: '+52 55 1234 5678', registered: '15 mar, 2024', lastAccess: 'Hace 2 horas', active: true },
+          { id: 2, name: 'Ana Garcia', email: 'ana.garcia@empresa.com', initials: 'AG', role: 'Editor', department: 'Diseno', phone: '+52 55 8765 4321', registered: '22 abr, 2024', lastAccess: 'Hace 1 dia', active: true },
+          { id: 3, name: 'Miguel Torres', email: 'miguel.torres@empresa.com', initials: 'MT', role: 'Viewer', department: 'Marketing', phone: '+52 55 5555 1234', registered: '10 jun, 2024', lastAccess: 'Hace 1 semana', active: false },
+          { id: 4, name: 'Laura Martinez', email: 'laura.martinez@empresa.com', initials: 'LM', role: 'Editor', department: 'Diseno', phone: '+52 33 9876 5432', registered: '5 ago, 2024', lastAccess: 'Hace 3 horas', active: true },
+          { id: 5, name: 'Roberto Diaz', email: 'roberto.diaz@empresa.com', initials: 'RD', role: 'Admin', department: 'Ingenieria', phone: '+52 55 2468 1357', registered: '18 sep, 2024', lastAccess: 'Hace 5 min', active: true },
+          { id: 6, name: 'Sofia Hernandez', email: 'sofia.hernandez@empresa.com', initials: 'SH', role: 'Viewer', department: 'Ventas', phone: '+52 81 1122 3344', registered: '3 nov, 2024', lastAccess: 'Hace 2 semanas', active: false }
+        ],
+        selectedId: null,
+        search: '',
+
+        get filteredItems() {
+          if (!this.search.trim()) return this.items;
+          const q = this.search.toLowerCase();
+          return this.items.filter(i => i.name.toLowerCase().includes(q) || i.email.toLowerCase().includes(q));
+        },
+
+        get selectedUser() {
+          return this.items.find(i => i.id === this.selectedId) || null;
+        },
+
+        selectItem(id) {
+          this.selectedId = id;
+        }
+      };
+    }
+
+    function crudTableLayout() {
+      return {
+        items: [
+          { id: 1, name: 'Carlos Ramirez', email: 'carlos@empresa.com', initials: 'CR', role: 'Admin', active: true },
+          { id: 2, name: 'Ana Garcia', email: 'ana@empresa.com', initials: 'AG', role: 'Editor', active: true },
+          { id: 3, name: 'Miguel Torres', email: 'miguel@empresa.com', initials: 'MT', role: 'Viewer', active: false },
+          { id: 4, name: 'Laura Martinez', email: 'laura@empresa.com', initials: 'LM', role: 'Editor', active: true },
+          { id: 5, name: 'Roberto Diaz', email: 'roberto@empresa.com', initials: 'RD', role: 'Admin', active: true },
+          { id: 6, name: 'Sofia Hernandez', email: 'sofia@empresa.com', initials: 'SH', role: 'Viewer', active: false }
+        ],
+        selectedIds: [],
+
+        toggleItem(id) {
+          const index = this.selectedIds.indexOf(id);
+          if (index === -1) this.selectedIds.push(id);
+          else this.selectedIds.splice(index, 1);
+        },
+
+        toggleAll(checked) {
+          this.selectedIds = checked ? this.items.map(i => i.id) : [];
+        },
+
+        deleteSelected() {
+          this.items = this.items.filter(i => !this.selectedIds.includes(i.id));
+          this.selectedIds = [];
+        },
+
+        exportSelected() {
+          alert('Exportando ' + this.selectedIds.length + ' elementos...');
+        },
+
+        changeStatus() {
+          this.items.forEach(i => {
+            if (this.selectedIds.includes(i.id)) i.active = !i.active;
+          });
+          this.selectedIds = [];
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

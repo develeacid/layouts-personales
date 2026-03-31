@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C85 Video Participant Tile</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C85 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Video Participant Tile</h1>
+      <p class="text-sm text-zinc-600 mt-1">Tiles de participantes de videollamada con estados de camara, microfono y pantalla compartida.</p>
+    </header>
+
+    <!-- Variante 1: Tile con camara activa -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Tile con camara activa</h2>
+      <div class="max-w-sm">
+        <div class="relative bg-zinc-800 rounded-xl aspect-video overflow-hidden ring-2 ring-emerald-400">
+          <!-- Simulacion de video -->
+          <div class="absolute inset-0 bg-linear-to-br from-zinc-700 to-zinc-900 flex items-center justify-center">
+            <div class="w-16 h-16 rounded-full bg-zinc-600 flex items-center justify-center text-lg font-medium text-white">MR</div>
+          </div>
+          <!-- Overlay inferior -->
+          <div class="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/60 to-transparent px-3 py-2">
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-white font-medium">Maria Rodriguez</span>
+              <div class="flex items-center gap-1.5">
+                <span class="text-emerald-400">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                  </svg>
+                </span>
+                <span class="text-white">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- Indicador hablando -->
+          <div class="absolute top-2 left-2">
+            <span class="flex items-center gap-1 text-xs text-emerald-400 bg-black/40 rounded-full px-2 py-0.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Hablando
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Tile con camara apagada -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Tile con camara apagada</h2>
+      <div class="max-w-sm">
+        <div class="relative bg-zinc-800 rounded-xl aspect-video overflow-hidden">
+          <div class="absolute inset-0 flex flex-col items-center justify-center gap-2">
+            <div class="w-16 h-16 rounded-full bg-zinc-600 flex items-center justify-center text-lg font-medium text-white">CL</div>
+            <span class="text-sm text-zinc-300 font-medium">Carlos Lopez</span>
+          </div>
+          <!-- Overlay inferior -->
+          <div class="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/60 to-transparent px-3 py-2">
+            <div class="flex items-center justify-end">
+              <div class="flex items-center gap-1.5">
+                <span class="text-white">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                  </svg>
+                </span>
+                <span class="text-rose-400">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 01-2.25-2.25v-9a2.25 2.25 0 012.25-2.25h9m3.75 12V7.5M21 3L3 21" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Tile de pantalla compartida -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Tile de pantalla compartida</h2>
+      <div class="max-w-lg">
+        <div class="relative bg-zinc-800 rounded-xl aspect-video overflow-hidden ring-2 ring-blue-500">
+          <!-- Simulacion de pantalla compartida -->
+          <div class="absolute inset-0 bg-linear-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
+            <div class="text-center">
+              <svg class="w-12 h-12 text-zinc-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m0 18V3" />
+              </svg>
+              <p class="text-sm text-zinc-500 mt-2">Presentacion_Q2.pdf</p>
+            </div>
+          </div>
+          <!-- Badge compartiendo -->
+          <div class="absolute top-2 left-2">
+            <span class="badge-blue text-xs flex items-center gap-1">
+              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m0 18V3" />
+              </svg>
+              Compartiendo pantalla
+            </span>
+          </div>
+          <!-- Overlay inferior -->
+          <div class="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/60 to-transparent px-3 py-2">
+            <span class="text-sm text-white font-medium">Ana Garcia</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 4: Grid de participantes -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 4 — Grid de participantes</h2>
+      <div class="bg-zinc-900 rounded-xl p-4" x-data="videoGrid()">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          <template x-for="p in participants" :key="p.id">
+            <div class="relative rounded-xl overflow-hidden aspect-video"
+              :class="{
+                'ring-2 ring-emerald-400': p.speaking && !p.sharing,
+                'ring-2 ring-blue-500 sm:col-span-2': p.sharing,
+                'bg-zinc-800': true
+              }">
+              <!-- Camara encendida -->
+              <div x-show="p.camera" class="absolute inset-0 bg-linear-to-br from-zinc-700 to-zinc-900 flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-zinc-600 flex items-center justify-center text-lg font-medium text-white" x-text="p.initials"></div>
+              </div>
+              <!-- Camara apagada -->
+              <div x-show="!p.camera && !p.sharing" class="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                <div class="w-16 h-16 rounded-full bg-zinc-600 flex items-center justify-center text-lg font-medium text-white" x-text="p.initials"></div>
+                <span class="text-sm text-zinc-300 font-medium" x-text="p.name"></span>
+              </div>
+              <!-- Pantalla compartida -->
+              <div x-show="p.sharing" class="absolute inset-0 bg-linear-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
+                <div class="text-center">
+                  <svg class="w-10 h-10 text-zinc-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m0 18V3" />
+                  </svg>
+                  <p class="text-xs text-zinc-500 mt-1">Pantalla compartida</p>
+                </div>
+              </div>
+              <!-- Badge compartiendo -->
+              <div x-show="p.sharing" class="absolute top-2 left-2">
+                <span class="badge-blue text-xs">Compartiendo pantalla</span>
+              </div>
+              <!-- Indicador hablando -->
+              <div x-show="p.speaking && !p.sharing" class="absolute top-2 left-2">
+                <span class="flex items-center gap-1 text-xs text-emerald-400 bg-black/40 rounded-full px-2 py-0.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  Hablando
+                </span>
+              </div>
+              <!-- Overlay inferior -->
+              <div class="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/60 to-transparent px-3 py-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-white font-medium" x-text="p.name"></span>
+                  <div class="flex items-center gap-1.5">
+                    <button @click="toggleMic(p.id)" class="transition-colors"
+                      :class="p.mic ? 'text-white' : 'text-rose-400'">
+                      <svg x-show="p.mic" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                      </svg>
+                      <svg x-show="!p.mic" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3zM2.25 2.25l19.5 19.5" />
+                      </svg>
+                    </button>
+                    <button @click="toggleCamera(p.id)" class="transition-colors"
+                      :class="p.camera ? 'text-white' : 'text-rose-400'">
+                      <svg x-show="p.camera" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                      </svg>
+                      <svg x-show="!p.camera" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 01-2.25-2.25v-9a2.25 2.25 0 012.25-2.25h9m3.75 12V7.5M21 3L3 21" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 5: Tile propio (esquina) -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 5 — Tile propio (esquina)</h2>
+      <div class="relative bg-zinc-900 rounded-xl h-96 overflow-hidden" x-data="{ myMic: true, myCamera: true }">
+        <!-- Contenido principal simulado -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <p class="text-zinc-500 text-sm">Vista principal de la llamada</p>
+        </div>
+
+        <!-- Tile propio en esquina -->
+        <div class="absolute bottom-4 right-4 w-40 rounded-lg overflow-hidden shadow-lg ring-1 ring-white/10">
+          <div class="relative bg-zinc-800 aspect-video">
+            <!-- Camara encendida -->
+            <div x-show="myCamera" class="absolute inset-0 bg-linear-to-br from-zinc-600 to-zinc-800 flex items-center justify-center">
+              <div class="w-10 h-10 rounded-full bg-zinc-500 flex items-center justify-center text-xs font-medium text-white">TU</div>
+            </div>
+            <!-- Camara apagada -->
+            <div x-show="!myCamera" class="absolute inset-0 flex flex-col items-center justify-center gap-1">
+              <div class="w-10 h-10 rounded-full bg-zinc-600 flex items-center justify-center text-xs font-medium text-white">TU</div>
+            </div>
+            <!-- Overlay inferior -->
+            <div class="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/60 to-transparent px-2 py-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-white font-medium">Tu</span>
+                <div class="flex items-center gap-1">
+                  <button @click="myMic = !myMic"
+                    class="w-6 h-6 rounded-full flex items-center justify-center transition-colors"
+                    :class="myMic ? 'bg-zinc-600 text-white' : 'bg-rose-500 text-white'">
+                    <svg x-show="myMic" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                    </svg>
+                    <svg x-show="!myMic" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3zM2.25 2.25l19.5 19.5" />
+                    </svg>
+                  </button>
+                  <button @click="myCamera = !myCamera"
+                    class="w-6 h-6 rounded-full flex items-center justify-center transition-colors"
+                    :class="myCamera ? 'bg-zinc-600 text-white' : 'bg-rose-500 text-white'">
+                    <svg x-show="myCamera" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                    </svg>
+                    <svg x-show="!myCamera" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 01-2.25-2.25v-9a2.25 2.25 0 012.25-2.25h9m3.75 12V7.5M21 3L3 21" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function videoGrid() {
+      return {
+        participants: [
+          { id: 1, name: 'Maria Rodriguez', initials: 'MR', camera: true, mic: true, speaking: true, sharing: false },
+          { id: 2, name: 'Carlos Lopez', initials: 'CL', camera: false, mic: true, speaking: false, sharing: false },
+          { id: 3, name: 'Ana Garcia', initials: 'AG', camera: true, mic: true, speaking: false, sharing: true },
+          { id: 4, name: 'Pedro Sanchez', initials: 'PS', camera: true, mic: false, speaking: false, sharing: false },
+          { id: 5, name: 'Laura Martinez', initials: 'LM', camera: false, mic: false, speaking: false, sharing: false },
+          { id: 6, name: 'Roberto Diaz', initials: 'RD', camera: true, mic: true, speaking: false, sharing: false }
+        ],
+        toggleMic(id) {
+          const p = this.participants.find(p => p.id === id);
+          if (p) p.mic = !p.mic;
+        },
+        toggleCamera(id) {
+          const p = this.participants.find(p => p.id === id);
+          if (p) p.camera = !p.camera;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
