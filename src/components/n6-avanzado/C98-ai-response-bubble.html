@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C98 AI Response Bubble</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C98 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">AI Response Bubble</h1>
+      <p class="text-sm text-zinc-600 mt-1">Variantes de output de respuesta de inteligencia artificial.</p>
+    </header>
+
+    <!-- Variante 1: Respuesta estatica -->
+    <section class="space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Variante 1 — Respuesta estatica</h2>
+      <div class="max-w-2xl" x-data="{ copied: false }">
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-5">
+          <!-- Header -->
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-zinc-900">Asistente AI</p>
+              <p class="text-xs text-zinc-400">Hace 2 minutos</p>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="prose-sm text-sm text-zinc-700 space-y-3">
+            <p>Para implementar un sistema de autenticacion robusto en tu aplicacion, te recomiendo seguir estos pasos:</p>
+            <ol class="list-decimal list-inside space-y-1.5 text-sm text-zinc-700">
+              <li><strong class="text-zinc-900">Configura el proveedor OAuth</strong> — Registra tu aplicacion en Google Cloud Console y obtiene las credenciales.</li>
+              <li><strong class="text-zinc-900">Instala las dependencias</strong> — Necesitaras <code class="text-sm bg-zinc-100 px-1.5 py-0.5 rounded font-mono">passport</code> y <code class="text-sm bg-zinc-100 px-1.5 py-0.5 rounded font-mono">passport-google-oauth20</code>.</li>
+              <li><strong class="text-zinc-900">Implementa el middleware</strong> — Configura las rutas de callback y el manejo de sesiones.</li>
+            </ol>
+            <p>Aqui tienes un ejemplo basico:</p>
+            <div class="bg-zinc-900 rounded-lg p-4 overflow-x-auto">
+              <pre class="text-sm font-mono text-zinc-100 leading-relaxed"><code>const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20');
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_ID,
+  clientSecret: process.env.GOOGLE_SECRET,
+  callbackURL: '/auth/callback'
+}, (token, tokenSecret, profile, done) => {
+  return done(null, profile);
+}));</code></pre>
+            </div>
+            <p>Esto te dara una base solida. Luego puedes agregar:</p>
+            <ul class="list-disc list-inside space-y-1 text-sm text-zinc-700">
+              <li>Refresh tokens para mantener la sesion</li>
+              <li>Rate limiting para prevenir abusos</li>
+              <li>Logging de intentos de autenticacion</li>
+            </ul>
+          </div>
+
+          <!-- Footer actions -->
+          <div class="flex items-center gap-2 mt-4 pt-3 border-t border-zinc-100">
+            <button @click="navigator.clipboard.writeText($el.closest('.rounded-xl').querySelector('.prose-sm').innerText); copied = true; setTimeout(() => copied = false, 2000)"
+              class="btn-ghost btn-sm flex items-center gap-1.5 text-xs">
+              <svg x-show="!copied" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <svg x-show="copied" x-cloak class="w-3.5 h-3.5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              <span x-text="copied ? 'Copiado' : 'Copiar'"></span>
+            </button>
+            <button class="btn-ghost btn-sm flex items-center gap-1.5 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Regenerar
+            </button>
+            <div class="ml-auto flex items-center gap-1">
+              <button class="btn-ghost btn-sm">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
+              </button>
+              <button class="btn-ghost btn-sm">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Streaming simulado -->
+    <section class="space-y-4" x-data="aiResponse()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Variante 2 — Respuesta con streaming</h2>
+      <div class="max-w-2xl space-y-3">
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-5">
+          <!-- Header -->
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+              <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-zinc-900">Asistente AI</p>
+              <p class="text-xs text-zinc-400">Ahora</p>
+            </div>
+          </div>
+
+          <!-- Streaming text -->
+          <div class="text-sm text-zinc-700 leading-relaxed whitespace-pre-wrap">
+            <span x-text="currentText"></span><span x-show="isStreaming" class="cursor-blink inline-block w-0.5 h-4 bg-zinc-900 ml-0.5 align-text-bottom"></span>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex items-center gap-2 mt-4 pt-3 border-t border-zinc-100">
+            <button x-show="isStreaming" @click="stopStreaming()"
+              class="btn-danger btn-sm flex items-center gap-1.5 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+              Detener
+            </button>
+            <button x-show="!isStreaming" @click="regenerate(0)"
+              class="btn-ghost btn-sm flex items-center gap-1.5 text-xs">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              Regenerar
+            </button>
+          </div>
+        </div>
+
+        <button @click="startStreaming(streamingDemoText)" class="btn-primary btn-sm"
+          :disabled="isStreaming">
+          Iniciar streaming demo
+        </button>
+      </div>
+    </section>
+
+    <!-- Variante 3: Conversacion completa -->
+    <section class="space-y-4" x-data="aiResponse()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Variante 3 — Conversacion completa</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden max-w-2xl" style="height: 560px;">
+        <div class="flex flex-col h-full">
+          <!-- Messages area -->
+          <div class="flex-1 overflow-y-auto p-4 space-y-4" x-ref="convoArea">
+            <template x-for="(msg, idx) in messages" :key="idx">
+              <div>
+                <!-- User message (right, blue) -->
+                <div x-show="msg.role === 'user'" class="flex justify-end">
+                  <div class="max-w-sm">
+                    <div class="bg-blue-600 text-white rounded-2xl rounded-br-md px-4 py-3">
+                      <p class="text-sm leading-relaxed" x-text="msg.text"></p>
+                    </div>
+                    <p class="text-xs text-zinc-400 text-right mt-1" x-text="msg.time"></p>
+                  </div>
+                </div>
+
+                <!-- AI message (left, white) -->
+                <div x-show="msg.role === 'assistant'" class="flex justify-start">
+                  <div class="max-w-sm">
+                    <div class="flex items-center gap-2 mb-1">
+                      <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
+                        <svg class="w-3 h-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082"/></svg>
+                      </div>
+                      <span class="text-xs font-medium text-zinc-500">Asistente AI</span>
+                    </div>
+                    <div class="bg-zinc-100 rounded-2xl rounded-bl-md px-4 py-3">
+                      <p class="text-sm text-zinc-700 leading-relaxed whitespace-pre-wrap" x-text="msg.text"></p>
+                    </div>
+                    <div class="flex items-center gap-1 mt-1">
+                      <span class="text-xs text-zinc-400" x-text="msg.time"></span>
+                      <button @click="copyResponse(msg.text)" class="btn-ghost btn-sm ml-1 opacity-0 group-hover:opacity-100">
+                        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <!-- Input -->
+          <div class="px-4 py-3 border-t border-zinc-200 shrink-0">
+            <div class="flex items-end gap-2">
+              <textarea x-model="convoInput" @keydown.enter.prevent="sendConvoMessage()"
+                rows="1" class="input flex-1 resize-none" placeholder="Escribe un mensaje..."></textarea>
+              <button @click="sendConvoMessage()" class="btn-primary btn-sm shrink-0"
+                :disabled="!convoInput.trim()">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .cursor-blink { animation: blink 1s step-end infinite; }
+  </style>
+  <script>
+  function aiResponse() {
+    return {
+      messages: [
+        { role: 'user', text: 'Como puedo crear un custom hook en React para manejar formularios?', time: '10:30' },
+        { role: 'assistant', text: 'Puedes crear un hook personalizado useForm que maneje el estado del formulario, la validacion y el envio. La idea es encapsular toda la logica repetitiva en un solo lugar.\n\nEl hook recibira los valores iniciales y una funcion de validacion opcional, y retornara el estado actual, handlers de cambio y la funcion de submit.', time: '10:30' },
+        { role: 'user', text: 'Puedes mostrarme un ejemplo basico del codigo?', time: '10:32' },
+        { role: 'assistant', text: 'Claro, aqui tienes un ejemplo basico:\n\nfunction useForm(initialValues) {\n  const [values, setValues] = useState(initialValues);\n  const [errors, setErrors] = useState({});\n\n  const handleChange = (name, value) => {\n    setValues(prev => ({...prev, [name]: value}));\n  };\n\n  const reset = () => setValues(initialValues);\n\n  return { values, errors, handleChange, reset };\n}\n\nLuego lo usas asi en tu componente:\nconst { values, handleChange } = useForm({ email: \'\', password: \'\' });', time: '10:32' },
+        { role: 'user', text: 'Como agrego validacion al hook?', time: '10:35' },
+        { role: 'assistant', text: 'Para agregar validacion, puedes pasar una funcion validate como segundo parametro. Esta funcion recibe los values y retorna un objeto de errores:\n\nfunction useForm(initialValues, validate) {\n  // ...estado anterior\n\n  const handleSubmit = (onSubmit) => {\n    const validationErrors = validate ? validate(values) : {};\n    setErrors(validationErrors);\n    if (Object.keys(validationErrors).length === 0) {\n      onSubmit(values);\n    }\n  };\n\n  return { values, errors, handleChange, handleSubmit, reset };\n}\n\nY la funcion de validacion seria algo como:\nconst validate = (values) => {\n  const errors = {};\n  if (!values.email) errors.email = \'Requerido\';\n  if (!values.password) errors.password = \'Requerido\';\n  return errors;\n};', time: '10:35' },
+      ],
+      convoInput: '',
+
+      // Streaming state
+      isStreaming: false,
+      streamIndex: 0,
+      currentText: '',
+      streamInterval: null,
+      streamingDemoText: 'El patron de diseno Observer es uno de los mas utilizados en desarrollo de software. Permite definir una relacion de uno a muchos entre objetos, de modo que cuando un objeto cambia de estado, todos sus dependientes son notificados y actualizados automaticamente.\n\nEn JavaScript, este patron se implementa frecuentemente con EventEmitters o el patron Pub/Sub. Los frameworks reactivos como React, Vue y Angular utilizan variantes de este patron internamente para manejar la reactividad del estado.\n\nUn ejemplo simple seria un sistema de notificaciones donde multiples componentes se suscriben a cambios en el estado global.',
+
+      startStreaming(text) {
+        this.isStreaming = true;
+        this.streamIndex = 0;
+        this.currentText = '';
+        const chars = text.split('');
+        this.streamInterval = setInterval(() => {
+          if (this.streamIndex < chars.length) {
+            this.currentText += chars[this.streamIndex];
+            this.streamIndex++;
+          } else {
+            this.stopStreaming();
+          }
+        }, 20);
+      },
+
+      stopStreaming() {
+        this.isStreaming = false;
+        if (this.streamInterval) {
+          clearInterval(this.streamInterval);
+          this.streamInterval = null;
+        }
+      },
+
+      copyResponse(text) {
+        navigator.clipboard.writeText(text);
+      },
+
+      regenerate(index) {
+        this.startStreaming(this.streamingDemoText);
+      },
+
+      sendConvoMessage() {
+        if (!this.convoInput.trim()) return;
+        this.messages.push({
+          role: 'user',
+          text: this.convoInput,
+          time: new Date().toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' })
+        });
+        const userMsg = this.convoInput;
+        this.convoInput = '';
+        // Simulate AI response
+        setTimeout(() => {
+          this.messages.push({
+            role: 'assistant',
+            text: 'Entiendo tu pregunta sobre "' + userMsg.slice(0, 40) + '". Dejame pensar en la mejor forma de responder...\n\nEsta es una respuesta simulada para demostrar el flujo de conversacion. En una implementacion real, aqui se conectaria con la API del modelo de lenguaje.',
+            time: new Date().toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' })
+          });
+          this.$nextTick(() => {
+            if (this.$refs.convoArea) {
+              this.$refs.convoArea.scrollTop = this.$refs.convoArea.scrollHeight;
+            }
+          });
+        }, 800);
+      }
+    };
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

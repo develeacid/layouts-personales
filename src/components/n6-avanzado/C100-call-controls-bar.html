@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C100 Call Controls Bar</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C100 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Call Controls Bar</h1>
+      <p class="text-sm text-zinc-600 mt-1">Barra de controles de videollamada con toggles y opciones.</p>
+    </header>
+
+    <!-- Variante 1: Barra inferior centrada -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Barra inferior centrada</h2>
+
+      <div class="bg-zinc-800 border border-zinc-700 rounded-xl shadow-sm p-8 min-h-64 flex items-end justify-center" x-data="callControls()">
+        <div class="relative">
+          <!-- Dropdown mas opciones -->
+          <div x-show="showMore" x-cloak
+            x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-100"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-2"
+            @click.outside="showMore = false"
+            class="absolute bottom-full mb-3 right-16 bg-zinc-800 border border-zinc-700 rounded-xl shadow-2xl py-2 w-52 z-10">
+            <button @click="recording = !recording; showMore = false" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-200 hover:bg-zinc-700 transition-colors">
+              <svg class="w-4 h-4 shrink-0" :class="recording ? 'text-rose-400' : 'text-zinc-400'" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /></svg>
+              <span x-text="recording ? 'Detener grabacion' : 'Grabar reunion'"></span>
+            </button>
+            <button class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-200 hover:bg-zinc-700 transition-colors">
+              <svg class="w-4 h-4 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V4.5a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v15a1.5 1.5 0 001.5 1.5z" /></svg>
+              Fondos virtuales
+            </button>
+            <button class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-200 hover:bg-zinc-700 transition-colors">
+              <svg class="w-4 h-4 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              Configuracion
+            </button>
+          </div>
+
+          <!-- Barra principal -->
+          <div class="bg-zinc-900/90 backdrop-blur rounded-2xl px-4 py-3 flex items-center gap-2">
+            <!-- Microfono -->
+            <button @click="toggleMic()" :class="mic ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-600 text-white hover:bg-rose-700'" class="relative w-12 h-12 rounded-full flex items-center justify-center transition-colors">
+              <!-- Mic on -->
+              <svg x-show="mic" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+              <!-- Mic off -->
+              <svg x-show="!mic" x-cloak class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            </button>
+
+            <!-- Camara -->
+            <button @click="toggleCamera()" :class="camera ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-600 text-white hover:bg-rose-700'" class="relative w-12 h-12 rounded-full flex items-center justify-center transition-colors">
+              <svg x-show="camera" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+              <svg x-show="!camera" x-cloak class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            </button>
+
+            <!-- Compartir pantalla -->
+            <button @click="toggleSharing()" :class="sharing ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-700 text-white hover:bg-zinc-600'" class="w-12 h-12 rounded-full flex items-center justify-center transition-colors">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" /></svg>
+            </button>
+
+            <!-- Chat -->
+            <button @click="chatOpen = !chatOpen" :class="chatOpen ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-700 text-white hover:bg-zinc-600'" class="relative w-12 h-12 rounded-full flex items-center justify-center transition-colors">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>
+              <!-- Badge no leidos -->
+              <span x-show="!chatOpen" class="absolute -top-1 -right-1 w-5 h-5 bg-rose-500 text-white text-xs font-bold rounded-full flex items-center justify-center">3</span>
+            </button>
+
+            <!-- Mas opciones -->
+            <button @click="showMore = !showMore" :class="showMore ? 'bg-zinc-600 text-white' : 'bg-zinc-700 text-white hover:bg-zinc-600'" class="w-12 h-12 rounded-full flex items-center justify-center transition-colors">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg>
+            </button>
+
+            <!-- Separador -->
+            <div class="w-px h-8 bg-zinc-600 mx-1"></div>
+
+            <!-- Colgar -->
+            <button @click="hangUp()" class="w-14 h-12 bg-rose-600 hover:bg-rose-700 text-white rounded-full flex items-center justify-center transition-colors">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75A2.25 2.25 0 014.5 4.5h3.068a2.25 2.25 0 012.167 1.645l.435 1.565a2.25 2.25 0 01-.925 2.44l-.622.42A9.003 9.003 0 0013.92 15.87l.42-.622a2.25 2.25 0 012.44-.925l1.565.435a2.25 2.25 0 011.645 2.167V19.5a2.25 2.25 0 01-2.25 2.25h-.75C8.768 21.75 2.25 15.232 2.25 7.5v-.75z" transform="rotate(135 12 12)" /></svg>
+            </button>
+          </div>
+
+          <!-- Recording indicator -->
+          <div x-show="recording" x-cloak class="flex items-center justify-center mt-3 gap-2">
+            <span class="w-2.5 h-2.5 bg-rose-500 rounded-full animate-pulse"></span>
+            <span class="text-xs text-rose-400 font-medium">Grabando</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Barra con info de llamada -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Barra con info de llamada</h2>
+
+      <div class="bg-zinc-800 border border-zinc-700 rounded-xl shadow-sm p-8 min-h-64 flex items-end justify-center" x-data="callControls()" x-init="startTimer()">
+        <div class="w-full">
+          <div class="bg-zinc-900/90 backdrop-blur rounded-2xl px-6 py-3 flex items-center justify-between gap-4">
+            <!-- Info izquierda -->
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse shrink-0"></div>
+              <div class="min-w-0">
+                <p class="text-sm font-medium text-white truncate">Reunion de equipo</p>
+                <p class="text-xs text-zinc-400" x-text="formattedDuration"></p>
+              </div>
+            </div>
+
+            <!-- Controles centrales -->
+            <div class="flex items-center gap-2">
+              <button @click="toggleMic()" :class="mic ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-600 text-white hover:bg-rose-700'" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                <svg x-show="mic" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                <svg x-show="!mic" x-cloak class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+              </button>
+
+              <button @click="toggleCamera()" :class="camera ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-600 text-white hover:bg-rose-700'" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                <svg x-show="camera" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+                <svg x-show="!camera" x-cloak class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+              </button>
+
+              <button @click="toggleSharing()" :class="sharing ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-700 text-white hover:bg-zinc-600'" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" /></svg>
+              </button>
+
+              <button @click="chatOpen = !chatOpen" :class="chatOpen ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-700 text-white hover:bg-zinc-600'" class="relative w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>
+                <span x-show="!chatOpen" class="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 text-white text-xs font-bold rounded-full flex items-center justify-center" style="font-size: 10px;">3</span>
+              </button>
+
+              <div class="w-px h-8 bg-zinc-600 mx-1"></div>
+
+              <button @click="hangUp()" class="w-12 h-10 bg-rose-600 hover:bg-rose-700 text-white rounded-full flex items-center justify-center transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75A2.25 2.25 0 014.5 4.5h3.068a2.25 2.25 0 012.167 1.645l.435 1.565a2.25 2.25 0 01-.925 2.44l-.622.42A9.003 9.003 0 0013.92 15.87l.42-.622a2.25 2.25 0 012.44-.925l1.565.435a2.25 2.25 0 011.645 2.167V19.5a2.25 2.25 0 01-2.25 2.25h-.75C8.768 21.75 2.25 15.232 2.25 7.5v-.75z" transform="rotate(135 12 12)" /></svg>
+              </button>
+            </div>
+
+            <!-- Info derecha -->
+            <div class="flex items-center gap-2 text-zinc-400">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
+              <span class="text-sm font-medium">8</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Controles compactos (mobile) -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Controles compactos (mobile)</h2>
+
+      <div class="bg-zinc-800 border border-zinc-700 rounded-xl shadow-sm p-8 min-h-48 flex items-end justify-center max-w-sm mx-auto" x-data="callControls()">
+        <div class="relative w-full">
+          <!-- Dropdown compacto -->
+          <div x-show="showMore" x-cloak
+            x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            @click.outside="showMore = false"
+            class="absolute bottom-full mb-3 right-0 bg-zinc-800 border border-zinc-700 rounded-xl shadow-2xl py-2 w-48 z-10">
+            <button @click="toggleSharing(); showMore = false" :class="sharing ? 'text-blue-400' : 'text-zinc-200'" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-zinc-700 transition-colors">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" /></svg>
+              Compartir pantalla
+            </button>
+            <button @click="chatOpen = !chatOpen; showMore = false" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-200 hover:bg-zinc-700 transition-colors">
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>
+              Chat
+            </button>
+            <button @click="recording = !recording; showMore = false" class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-zinc-200 hover:bg-zinc-700 transition-colors">
+              <svg class="w-4 h-4 shrink-0" :class="recording ? 'text-rose-400' : 'text-zinc-400'" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /></svg>
+              <span x-text="recording ? 'Detener' : 'Grabar'"></span>
+            </button>
+          </div>
+
+          <!-- Barra compacta -->
+          <div class="bg-zinc-900/90 backdrop-blur rounded-2xl px-4 py-3 flex items-center justify-center gap-4">
+            <button @click="toggleMic()" :class="mic ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-600 text-white hover:bg-rose-700'" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+              <svg x-show="mic" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+              <svg x-show="!mic" x-cloak class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            </button>
+
+            <button @click="toggleCamera()" :class="camera ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-600 text-white hover:bg-rose-700'" class="w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+              <svg x-show="camera" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+              <svg x-show="!camera" x-cloak class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            </button>
+
+            <button @click="hangUp()" class="w-12 h-10 bg-rose-600 hover:bg-rose-700 text-white rounded-full flex items-center justify-center transition-colors">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75A2.25 2.25 0 014.5 4.5h3.068a2.25 2.25 0 012.167 1.645l.435 1.565a2.25 2.25 0 01-.925 2.44l-.622.42A9.003 9.003 0 0013.92 15.87l.42-.622a2.25 2.25 0 012.44-.925l1.565.435a2.25 2.25 0 011.645 2.167V19.5a2.25 2.25 0 01-2.25 2.25h-.75C8.768 21.75 2.25 15.232 2.25 7.5v-.75z" transform="rotate(135 12 12)" /></svg>
+            </button>
+
+            <button @click="showMore = !showMore" class="w-10 h-10 bg-zinc-700 text-white hover:bg-zinc-600 rounded-full flex items-center justify-center transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function callControls() {
+      return {
+        mic: true,
+        camera: true,
+        sharing: false,
+        chatOpen: false,
+        showMore: false,
+        recording: false,
+        duration: 0,
+        durationInterval: null,
+
+        toggleMic() {
+          this.mic = !this.mic;
+        },
+
+        toggleCamera() {
+          this.camera = !this.camera;
+        },
+
+        toggleSharing() {
+          this.sharing = !this.sharing;
+        },
+
+        hangUp() {
+          if (this.durationInterval) {
+            clearInterval(this.durationInterval);
+            this.durationInterval = null;
+          }
+          this.mic = false;
+          this.camera = false;
+          this.sharing = false;
+          this.chatOpen = false;
+          this.recording = false;
+          alert('Llamada finalizada');
+          // Reset
+          this.mic = true;
+          this.camera = true;
+          this.duration = 0;
+        },
+
+        startTimer() {
+          if (this.durationInterval) return;
+          this.durationInterval = setInterval(() => {
+            this.duration++;
+          }, 1000);
+        },
+
+        get formattedDuration() {
+          const h = Math.floor(this.duration / 3600);
+          const m = Math.floor((this.duration % 3600) / 60);
+          const s = this.duration % 60;
+          return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

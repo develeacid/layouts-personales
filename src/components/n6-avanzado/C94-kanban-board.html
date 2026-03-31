@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C94 Kanban Board</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C94 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Kanban Board</h1>
+      <p class="text-sm text-zinc-600 mt-1">Board kanban completo con drag & drop entre columnas.</p>
+    </header>
+
+    <section x-data="kanbanBoard()">
+      <!-- Board -->
+      <div class="flex overflow-x-auto gap-4 pb-4">
+        <template x-for="(col, colIndex) in columns" :key="col.id">
+          <div
+            class="w-72 shrink-0 rounded-xl border bg-zinc-50 transition-all duration-200"
+            :class="dragOverColumn === colIndex ? 'ring-2 ring-blue-200 bg-blue-50 border-blue-200' : 'border-zinc-200'"
+            @dragover.prevent="dragOverColumn = colIndex"
+            @dragleave="dragOverColumn = null"
+            @drop="onDrop(colIndex)"
+          >
+            <!-- Column header -->
+            <div class="p-4 pb-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-semibold text-zinc-900" x-text="col.name"></h3>
+                  <span class="text-xs font-medium rounded-full px-2 py-0.5"
+                    :class="col.badgeClass"
+                    x-text="col.cards.length"></span>
+                </div>
+                <button @click="openAddModal(colIndex)"
+                  class="w-6 h-6 rounded-md flex items-center justify-center text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Cards list -->
+            <div class="px-3 pb-3 space-y-2 min-h-24">
+              <template x-for="card in col.cards" :key="card.id">
+                <div
+                  draggable="true"
+                  @dragstart="startDrag(card, colIndex)"
+                  @dragend="draggedCard = null; draggedFromColumn = null; dragOverColumn = null"
+                  class="bg-white border border-zinc-200 rounded-xl shadow-sm p-3 cursor-grab active:cursor-grabbing hover:shadow-md hover:-translate-y-px transition-all duration-150"
+                >
+                  <div class="flex items-start justify-between gap-2">
+                    <h4 class="text-sm font-medium text-zinc-900 leading-snug" x-text="card.title"></h4>
+                    <span class="shrink-0 text-xs font-medium rounded-full px-2 py-0.5"
+                      :class="{
+                        'badge-rose': card.priority === 'Alta',
+                        'badge-amber': card.priority === 'Media',
+                        'badge-blue': card.priority === 'Baja'
+                      }"
+                      x-text="card.priority"></span>
+                  </div>
+
+                  <p x-show="card.description" class="text-xs text-zinc-500 mt-1 line-clamp-2" x-text="card.description"></p>
+
+                  <div class="flex items-center justify-between mt-3 pt-2 border-t border-zinc-100">
+                    <div class="flex items-center gap-2">
+                      <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" x-text="card.avatar"></div>
+                      <span class="text-xs text-zinc-400" x-text="card.date"></span>
+                    </div>
+
+                    <!-- Move dropdown -->
+                    <div class="relative" x-data="{ open: false }">
+                      <button @click="open = !open"
+                        class="w-6 h-6 rounded-md flex items-center justify-center text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 transition-colors">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01"/></svg>
+                      </button>
+                      <div x-show="open" @click.outside="open = false" x-cloak
+                        class="absolute right-0 top-8 z-20 w-40 bg-white border border-zinc-200 rounded-lg shadow-lg py-1">
+                        <p class="text-xs font-medium text-zinc-400 px-3 py-1">Mover a</p>
+                        <template x-for="(targetCol, targetIndex) in columns" :key="targetCol.id">
+                          <button x-show="targetIndex !== colIndex"
+                            @click="moveCard(card.id, colIndex, targetIndex); open = false"
+                            class="w-full text-left text-sm text-zinc-700 hover:bg-zinc-50 px-3 py-1.5"
+                            x-text="targetCol.name"></button>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </div>
+
+            <!-- Add button -->
+            <div class="px-3 pb-3">
+              <button @click="openAddModal(colIndex)"
+                class="w-full text-sm text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 rounded-lg py-2 transition-colors flex items-center justify-center gap-1">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                Agregar card
+              </button>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- Add Card Modal -->
+      <template x-teleport="body">
+        <div x-show="showAddModal" x-cloak
+          class="fixed inset-0 z-50 flex items-center justify-center p-4"
+          @keydown.escape.window="showAddModal = false">
+          <div class="absolute inset-0 bg-black/40" @click="showAddModal = false"></div>
+          <div class="relative bg-white rounded-xl shadow-xl border border-zinc-200 w-full max-w-md p-6 space-y-4"
+            @click.stop>
+            <h3 class="text-lg font-semibold text-zinc-900">Nueva card</h3>
+
+            <div class="space-y-3">
+              <div>
+                <label class="label">Titulo</label>
+                <input x-model="newCard.title" type="text" class="input" placeholder="Titulo de la tarea" />
+              </div>
+              <div>
+                <label class="label">Descripcion</label>
+                <textarea x-model="newCard.description" class="input" rows="2" placeholder="Descripcion breve"></textarea>
+              </div>
+              <div>
+                <label class="label">Prioridad</label>
+                <select x-model="newCard.priority" class="input">
+                  <option value="Alta">Alta</option>
+                  <option value="Media">Media</option>
+                  <option value="Baja">Baja</option>
+                </select>
+              </div>
+              <div>
+                <label class="label">Asignado (iniciales)</label>
+                <input x-model="newCard.avatar" type="text" class="input" placeholder="AB" maxlength="2" />
+              </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2 pt-2">
+              <button @click="showAddModal = false" class="btn-secondary btn-sm">Cancelar</button>
+              <button @click="addCard(addToColumn)" class="btn-primary btn-sm">Agregar</button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+  function kanbanBoard() {
+    return {
+      columns: [
+        {
+          id: 'backlog', name: 'Backlog', badgeClass: 'bg-zinc-100 text-zinc-600',
+          cards: [
+            { id: 1, title: 'Investigar integracion con API de pagos', description: 'Evaluar Stripe vs MercadoPago para el checkout', priority: 'Media', avatar: 'LC', date: '28 mar' },
+            { id: 2, title: 'Redactar documentacion de onboarding', description: '', priority: 'Baja', avatar: 'MR', date: '25 mar' },
+            { id: 3, title: 'Configurar monitoreo de errores', description: 'Sentry o similar para produccion', priority: 'Alta', avatar: 'JP', date: '26 mar' },
+          ]
+        },
+        {
+          id: 'progress', name: 'En progreso', badgeClass: 'bg-blue-100 text-blue-700',
+          cards: [
+            { id: 4, title: 'Disenar sistema de componentes', description: 'Tokens, variantes y documentacion', priority: 'Alta', avatar: 'AM', date: '20 mar' },
+            { id: 5, title: 'Implementar autenticacion OAuth', description: 'Google y GitHub como providers', priority: 'Alta', avatar: 'LC', date: '22 mar' },
+            { id: 6, title: 'Migrar base de datos a PostgreSQL', description: '', priority: 'Media', avatar: 'JP', date: '24 mar' },
+          ]
+        },
+        {
+          id: 'review', name: 'En revision', badgeClass: 'bg-amber-100 text-amber-700',
+          cards: [
+            { id: 7, title: 'Refactorizar modulo de notificaciones', description: 'Separar logica de envio y plantillas', priority: 'Media', avatar: 'SR', date: '18 mar' },
+            { id: 8, title: 'Tests E2E del flujo de compra', description: 'Cypress para los 5 escenarios principales', priority: 'Alta', avatar: 'MR', date: '19 mar' },
+          ]
+        },
+        {
+          id: 'done', name: 'Completado', badgeClass: 'bg-green-100 text-green-700',
+          cards: [
+            { id: 9, title: 'Setup del proyecto con Vite', description: '', priority: 'Media', avatar: 'AM', date: '10 mar' },
+            { id: 10, title: 'Diseno del modelo de datos', description: 'Esquema ER completo con relaciones', priority: 'Alta', avatar: 'LC', date: '12 mar' },
+            { id: 11, title: 'Landing page responsive', description: '', priority: 'Baja', avatar: 'SR', date: '15 mar' },
+          ]
+        }
+      ],
+      draggedCard: null,
+      draggedFromColumn: null,
+      dragOverColumn: null,
+      showAddModal: false,
+      addToColumn: 0,
+      newCard: { title: '', description: '', priority: 'Media', avatar: '' },
+      nextId: 12,
+
+      openAddModal(colIndex) {
+        this.addToColumn = colIndex;
+        this.newCard = { title: '', description: '', priority: 'Media', avatar: '' };
+        this.showAddModal = true;
+      },
+
+      addCard(colIndex) {
+        if (!this.newCard.title.trim()) return;
+        this.columns[colIndex].cards.push({
+          id: this.nextId++,
+          title: this.newCard.title,
+          description: this.newCard.description,
+          priority: this.newCard.priority,
+          avatar: this.newCard.avatar || '??',
+          date: 'Hoy'
+        });
+        this.showAddModal = false;
+      },
+
+      moveCard(cardId, fromCol, toCol) {
+        const fromCards = this.columns[fromCol].cards;
+        const cardIndex = fromCards.findIndex(c => c.id === cardId);
+        if (cardIndex === -1) return;
+        const [card] = fromCards.splice(cardIndex, 1);
+        this.columns[toCol].cards.push(card);
+      },
+
+      startDrag(card, colIndex) {
+        this.draggedCard = card;
+        this.draggedFromColumn = colIndex;
+      },
+
+      onDrop(colIndex) {
+        if (this.draggedCard && this.draggedFromColumn !== null && this.draggedFromColumn !== colIndex) {
+          this.moveCard(this.draggedCard.id, this.draggedFromColumn, colIndex);
+        }
+        this.draggedCard = null;
+        this.draggedFromColumn = null;
+        this.dragOverColumn = null;
+      }
+    };
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

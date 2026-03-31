@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C97 AI Prompt Input</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C97 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">AI Prompt Input</h1>
+      <p class="text-sm text-zinc-600 mt-1">Variantes de input para prompts de inteligencia artificial.</p>
+    </header>
+
+    <!-- Variante 1: Input basico -->
+    <section class="space-y-4" x-data="aiPromptInput()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Variante 1 — Input basico</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 max-w-2xl">
+        <div class="relative">
+          <textarea
+            x-model="prompt"
+            @input="autoResize($event)"
+            class="input resize-none pr-12 min-h-12"
+            style="max-height: 200px"
+            rows="1"
+            placeholder="Escribe tu prompt..."></textarea>
+          <button @click="send()"
+            class="absolute right-2 bottom-2 w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+            :class="prompt.trim() ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-100 text-zinc-300 cursor-not-allowed'"
+            :disabled="!prompt.trim()">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+          </button>
+        </div>
+        <div class="flex items-center justify-between mt-2">
+          <p class="text-xs text-zinc-400">
+            <span x-text="prompt.length"></span> caracteres · ~<span x-text="estimatedTokens"></span> tokens
+          </p>
+          <p class="text-xs text-zinc-400">Enter para enviar</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Input con configuracion -->
+    <section class="space-y-4" x-data="aiPromptInput()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Variante 2 — Input con configuracion</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 max-w-2xl space-y-5">
+
+        <!-- Model selector -->
+        <div class="flex flex-wrap items-center gap-3">
+          <label class="label mb-0">Modelo</label>
+          <div class="flex gap-2">
+            <template x-for="m in ['GPT-4', 'Claude', 'Gemini']" :key="m">
+              <button @click="model = m"
+                class="text-sm font-medium px-3 py-1.5 rounded-lg border transition-colors"
+                :class="model === m ? 'border-blue-300 bg-blue-50 text-blue-700' : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50'"
+                x-text="m"></button>
+            </template>
+          </div>
+        </div>
+
+        <!-- Parameters -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="label">Temperatura: <span x-text="temperature" class="font-semibold text-zinc-900"></span></label>
+            <input type="range" x-model.number="temperature" min="0" max="1" step="0.1"
+              class="w-full h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+            <div class="flex justify-between text-xs text-zinc-400 mt-0.5">
+              <span>Preciso</span>
+              <span>Creativo</span>
+            </div>
+          </div>
+          <div>
+            <label class="label">Max tokens: <span x-text="maxTokens" class="font-semibold text-zinc-900"></span></label>
+            <input type="range" x-model.number="maxTokens" min="100" max="4000" step="100"
+              class="w-full h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+            <div class="flex justify-between text-xs text-zinc-400 mt-0.5">
+              <span>100</span>
+              <span>4000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Streaming toggle -->
+        <div class="flex items-center justify-between py-2 border-t border-zinc-100">
+          <div>
+            <p class="text-sm font-medium text-zinc-900">Modo streaming</p>
+            <p class="text-xs text-zinc-500">Muestra la respuesta en tiempo real</p>
+          </div>
+          <button @click="streaming = !streaming"
+            class="relative w-10 h-6 rounded-full transition-colors"
+            :class="streaming ? 'bg-blue-600' : 'bg-zinc-200'">
+            <span class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform"
+              :class="streaming ? 'translate-x-4' : 'translate-x-0'"></span>
+          </button>
+        </div>
+
+        <!-- System prompt collapsible -->
+        <div x-data="{ expanded: false }" class="border-t border-zinc-100 pt-3">
+          <button @click="expanded = !expanded" class="flex items-center gap-2 text-sm font-medium text-zinc-700 hover:text-zinc-900">
+            <svg class="w-4 h-4 transition-transform" :class="expanded ? 'rotate-90' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            System prompt
+          </button>
+          <div x-show="expanded" x-collapse x-cloak class="mt-2">
+            <textarea x-model="systemPrompt" class="input resize-none" rows="3"
+              placeholder="Eres un asistente util que..."></textarea>
+          </div>
+        </div>
+
+        <!-- Main textarea -->
+        <div>
+          <textarea
+            x-model="prompt"
+            @input="autoResize($event)"
+            class="input resize-none min-h-24"
+            style="max-height: 200px"
+            rows="3"
+            placeholder="Escribe tu prompt..."></textarea>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <p class="text-xs text-zinc-400">
+            <span x-text="prompt.length"></span> caracteres · ~<span x-text="estimatedTokens"></span> tokens
+          </p>
+          <button @click="send()" class="btn-primary"
+            :class="prompt.trim() ? '' : 'opacity-50 cursor-not-allowed'"
+            :disabled="!prompt.trim()">
+            Enviar prompt
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Input con historial -->
+    <section class="space-y-4" x-data="aiPromptInput()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Variante 3 — Input con historial</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 max-w-2xl space-y-4">
+
+        <!-- Recent prompts chips -->
+        <div>
+          <p class="text-xs font-medium text-zinc-400 uppercase tracking-wide mb-2">Prompts recientes</p>
+          <div class="flex flex-wrap gap-2">
+            <template x-for="(rp, i) in recentPrompts" :key="i">
+              <button @click="selectRecent(rp)"
+                class="text-xs font-medium px-3 py-1.5 rounded-full border border-zinc-200 text-zinc-600 hover:bg-zinc-50 hover:border-zinc-300 transition-colors truncate max-w-56"
+                x-text="rp"></button>
+            </template>
+          </div>
+        </div>
+
+        <!-- Quick action buttons -->
+        <div class="flex flex-wrap gap-2">
+          <button @click="prompt = 'Resume el siguiente texto:\n\n'" class="btn-secondary btn-sm flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16"/></svg>
+            Resumir
+          </button>
+          <button @click="prompt = 'Traduce al ingles:\n\n'" class="btn-secondary btn-sm flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+            Traducir
+          </button>
+          <button @click="prompt = 'Explica de forma sencilla:\n\n'" class="btn-secondary btn-sm flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            Explicar
+          </button>
+          <button @click="prompt = 'Escribe una funcion en JavaScript que:\n\n'" class="btn-secondary btn-sm flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            Codigo
+          </button>
+        </div>
+
+        <!-- Textarea -->
+        <div class="relative">
+          <textarea
+            x-model="prompt"
+            @input="autoResize($event)"
+            class="input resize-none pr-12 min-h-20"
+            style="max-height: 200px"
+            rows="3"
+            placeholder="Escribe tu prompt..."></textarea>
+          <button @click="send()"
+            class="absolute right-2 bottom-2 w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+            :class="prompt.trim() ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-100 text-zinc-300 cursor-not-allowed'"
+            :disabled="!prompt.trim()">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <p class="text-xs text-zinc-400">
+            <span x-text="prompt.length"></span> caracteres · ~<span x-text="estimatedTokens"></span> tokens
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+  function aiPromptInput() {
+    return {
+      prompt: '',
+      model: 'Claude',
+      temperature: 0.7,
+      maxTokens: 2000,
+      streaming: true,
+      systemPrompt: '',
+      recentPrompts: [
+        'Explica como funciona el event loop de JavaScript',
+        'Escribe un componente React para un formulario de login',
+        'Resume las mejores practicas de accesibilidad web',
+        'Genera tests unitarios para una funcion de ordenamiento',
+        'Traduce este texto al frances manteniendo el tono formal'
+      ],
+
+      get estimatedTokens() {
+        return Math.ceil(this.prompt.length / 4);
+      },
+
+      autoResize(event) {
+        const el = event.target;
+        el.style.height = 'auto';
+        el.style.height = Math.min(el.scrollHeight, 200) + 'px';
+      },
+
+      send() {
+        if (!this.prompt.trim()) return;
+        // Add to recent prompts
+        const trimmed = this.prompt.trim();
+        this.recentPrompts = [trimmed, ...this.recentPrompts.filter(p => p !== trimmed)].slice(0, 5);
+        console.log('Enviando:', { prompt: trimmed, model: this.model, temperature: this.temperature, maxTokens: this.maxTokens, streaming: this.streaming });
+        this.prompt = '';
+      },
+
+      selectRecent(prompt) {
+        this.prompt = prompt;
+      }
+    };
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

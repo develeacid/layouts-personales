@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C90 Promotional Sections</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C90 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Promotional Sections</h1>
+      <p class="text-sm text-zinc-600 mt-1">Banners de oferta con countdown timer reactivo.</p>
+    </header>
+
+    <!-- Variante 1: Banner hero con countdown -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Banner hero con countdown</h2>
+
+      <div x-data="promotionalSection()" class="bg-zinc-900 text-white rounded-xl p-8 md:p-12 overflow-hidden relative">
+        <div class="relative z-10 text-center space-y-6">
+          <span class="inline-block text-xs font-semibold uppercase tracking-widest text-amber-400">Oferta por tiempo limitado</span>
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight">Hasta 50% de descuento</h2>
+          <p class="text-zinc-400 text-sm md:text-base max-w-lg mx-auto">En toda nuestra coleccion de audio premium. No dejes pasar esta oportunidad unica.</p>
+
+          <!-- Countdown -->
+          <div class="flex items-center justify-center gap-4 md:gap-6">
+            <div class="text-center">
+              <div class="bg-zinc-800 rounded-lg px-4 py-3 min-w-16">
+                <span class="text-2xl md:text-3xl font-bold font-mono" x-text="String(days).padStart(2, '0')"></span>
+              </div>
+              <p class="text-xs text-zinc-500 mt-1.5">Dias</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-zinc-800 rounded-lg px-4 py-3 min-w-16">
+                <span class="text-2xl md:text-3xl font-bold font-mono" x-text="String(hours).padStart(2, '0')"></span>
+              </div>
+              <p class="text-xs text-zinc-500 mt-1.5">Horas</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-zinc-800 rounded-lg px-4 py-3 min-w-16">
+                <span class="text-2xl md:text-3xl font-bold font-mono" x-text="String(minutes).padStart(2, '0')"></span>
+              </div>
+              <p class="text-xs text-zinc-500 mt-1.5">Minutos</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-zinc-800 rounded-lg px-4 py-3 min-w-16">
+                <span class="text-2xl md:text-3xl font-bold font-mono" x-text="String(seconds).padStart(2, '0')"></span>
+              </div>
+              <p class="text-xs text-zinc-500 mt-1.5">Segundos</p>
+            </div>
+          </div>
+
+          <button class="bg-blue-600 text-white hover:bg-blue-700 px-8 py-3 text-sm font-semibold rounded-lg transition-colors duration-150">
+            Comprar ahora
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Banner compacto horizontal -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Banner compacto horizontal</h2>
+
+      <div x-data="promotionalSection()" class="bg-blue-600 text-white rounded-xl px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6 text-blue-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
+          </svg>
+          <p class="text-sm font-semibold">Flash Sale: 30% de descuento en accesorios</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2 text-sm font-mono">
+            <span x-text="String(hours).padStart(2, '0')"></span>:<span x-text="String(minutes).padStart(2, '0')"></span>:<span x-text="String(seconds).padStart(2, '0')"></span>
+          </div>
+          <button class="bg-white text-blue-600 hover:bg-blue-50 px-4 py-1.5 text-sm font-semibold rounded-lg transition-colors duration-150">
+            Ver ofertas
+          </button>
+        </div>
+      </div>
+
+      <div x-data="promotionalSection()" class="bg-amber-500 text-white rounded-xl px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6 text-amber-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+          </svg>
+          <p class="text-sm font-semibold">Ultimas horas: envio gratis en todo el sitio</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2 text-sm font-mono">
+            <span x-text="String(hours).padStart(2, '0')"></span>:<span x-text="String(minutes).padStart(2, '0')"></span>:<span x-text="String(seconds).padStart(2, '0')"></span>
+          </div>
+          <button class="bg-white text-amber-600 hover:bg-amber-50 px-4 py-1.5 text-sm font-semibold rounded-lg transition-colors duration-150">
+            Comprar
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Card de oferta especial -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Card de oferta especial</h2>
+
+      <div x-data="promotionalSection()" class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden max-w-sm">
+        <div class="relative">
+          <div class="bg-zinc-100 aspect-square flex items-center justify-center">
+            <svg class="w-20 h-20 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+            </svg>
+          </div>
+          <!-- Overlay descuento -->
+          <div class="absolute top-3 left-3 bg-rose-600 text-white text-xs font-bold px-2.5 py-1 rounded-lg">
+            -40%
+          </div>
+        </div>
+        <div class="p-5 space-y-3">
+          <h3 class="text-base font-semibold text-zinc-900">Auriculares Premium Pro</h3>
+          <div class="flex items-baseline gap-2">
+            <span class="text-xl font-bold text-zinc-900">$89.99</span>
+            <span class="text-sm text-zinc-400 line-through">$149.99</span>
+          </div>
+          <!-- Countdown compacto -->
+          <div class="flex items-center gap-2 text-xs text-zinc-500">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Termina en:</span>
+            <span class="font-mono font-medium text-zinc-900" x-text="String(days).padStart(2, '0') + 'd ' + String(hours).padStart(2, '0') + 'h ' + String(minutes).padStart(2, '0') + 'm ' + String(seconds).padStart(2, '0') + 's'"></span>
+          </div>
+          <button class="btn-primary w-full">Comprar ahora</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function promotionalSection() {
+      return {
+        targetDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000 + 5 * 60 * 60 * 1000 + 30 * 60 * 1000),
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+        init() {
+          this.startCountdown();
+        },
+        startCountdown() {
+          const update = () => {
+            const now = new Date();
+            const diff = this.targetDate - now;
+            if (diff <= 0) {
+              this.days = 0;
+              this.hours = 0;
+              this.minutes = 0;
+              this.seconds = 0;
+              return;
+            }
+            this.days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            this.hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            this.minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            this.seconds = Math.floor((diff % (1000 * 60)) / 1000);
+          };
+          update();
+          setInterval(update, 1000);
+        }
+      }
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

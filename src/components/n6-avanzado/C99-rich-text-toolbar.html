@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C99 Rich Text Toolbar</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C99 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Rich Text Toolbar</h1>
+      <p class="text-sm text-zinc-600 mt-1">Barra de formato de texto enriquecido con editor visual y Markdown.</p>
+    </header>
+
+    <!-- Variante 1: Toolbar completa -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Toolbar completa</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="richTextEditor()">
+        <!-- Toolbar -->
+        <div class="flex items-center flex-wrap gap-1 border border-zinc-200 rounded-lg bg-zinc-50 p-1.5 mb-4">
+          <!-- Formato texto -->
+          <div class="flex items-center gap-0.5">
+            <button type="button" @click="formatText('bold')" :class="{ 'bg-blue-100 text-blue-700': queryState('bold') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Bold</span>
+            </button>
+            <button type="button" @click="formatText('italic')" :class="{ 'bg-blue-100 text-blue-700': queryState('italic') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 4h4m-2 0v16m-4 0h8" transform="skewX(-10)" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Italic</span>
+            </button>
+            <button type="button" @click="formatText('underline')" :class="{ 'bg-blue-100 text-blue-700': queryState('underline') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 5v6a5 5 0 0010 0V5M5 19h14" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Underline</span>
+            </button>
+            <button type="button" @click="formatText('strikeThrough')" :class="{ 'bg-blue-100 text-blue-700': queryState('strikeThrough') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 4H9a3 3 0 00-1 5.83M4 12h16M8 20h7a3 3 0 001-5.83" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Strikethrough</span>
+            </button>
+          </div>
+
+          <!-- Divisor -->
+          <div class="w-px h-6 bg-zinc-300 mx-1"></div>
+
+          <!-- Headings -->
+          <div class="flex items-center gap-0.5">
+            <button type="button" @click="formatBlock('h1')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 text-xs font-bold transition-colors">
+              H1
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading 1</span>
+            </button>
+            <button type="button" @click="formatBlock('h2')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 text-xs font-bold transition-colors">
+              H2
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading 2</span>
+            </button>
+            <button type="button" @click="formatBlock('h3')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 text-xs font-bold transition-colors">
+              H3
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading 3</span>
+            </button>
+          </div>
+
+          <!-- Divisor -->
+          <div class="w-px h-6 bg-zinc-300 mx-1"></div>
+
+          <!-- Listas -->
+          <div class="flex items-center gap-0.5">
+            <button type="button" @click="formatText('insertUnorderedList')" :class="{ 'bg-blue-100 text-blue-700': queryState('insertUnorderedList') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Lista desordenada</span>
+            </button>
+            <button type="button" @click="formatText('insertOrderedList')" :class="{ 'bg-blue-100 text-blue-700': queryState('insertOrderedList') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6h11M10 12h11M10 18h11M3 5l2 1V4M3 11h2l-2 2M3 18h1.5l.5-.5.5.5H7" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Lista ordenada</span>
+            </button>
+          </div>
+
+          <!-- Divisor -->
+          <div class="w-px h-6 bg-zinc-300 mx-1"></div>
+
+          <!-- Alineacion -->
+          <div class="flex items-center gap-0.5">
+            <button type="button" @click="formatText('justifyLeft')" :class="{ 'bg-blue-100 text-blue-700': queryState('justifyLeft') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M3 12h12M3 18h18" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Izquierda</span>
+            </button>
+            <button type="button" @click="formatText('justifyCenter')" :class="{ 'bg-blue-100 text-blue-700': queryState('justifyCenter') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M6 12h12M3 18h18" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Centro</span>
+            </button>
+            <button type="button" @click="formatText('justifyRight')" :class="{ 'bg-blue-100 text-blue-700': queryState('justifyRight') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M9 12h12M3 18h18" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Derecha</span>
+            </button>
+          </div>
+
+          <!-- Divisor -->
+          <div class="w-px h-6 bg-zinc-300 mx-1"></div>
+
+          <!-- Insertar -->
+          <div class="flex items-center gap-0.5">
+            <button type="button" @click="insertLink()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Link</span>
+            </button>
+            <button type="button" @click="insertImage()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V4.5a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v15a1.5 1.5 0 001.5 1.5z" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Imagen</span>
+            </button>
+            <button type="button" @click="formatText('formatBlock', '<pre>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25M6.75 17.25L1.5 12l5.25-5.25" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Codigo</span>
+            </button>
+            <button type="button" @click="formatText('formatBlock', '<blockquote>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Cita</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Area editable -->
+        <div x-ref="editorFull"
+          contenteditable="true"
+          @mouseup="checkActiveStates()"
+          @keyup="checkActiveStates()"
+          class="min-h-48 border border-zinc-200 rounded-lg p-4 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent prose prose-sm max-w-none"
+        >
+          <p>Selecciona texto y usa la barra de herramientas para darle formato. Prueba con <strong>negrita</strong>, <em>cursiva</em> y <u>subrayado</u>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Toolbar compacta (bubble) -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Toolbar compacta (bubble)</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="richTextEditor()">
+        <div class="relative">
+          <!-- Bubble toolbar -->
+          <div x-show="showBubble" x-cloak
+            x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 scale-95"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-100"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-95"
+            class="absolute z-20 bg-zinc-900 text-white rounded-lg shadow-xl px-2 py-1.5 flex items-center gap-1"
+            :style="'top: ' + bubblePosition.top + 'px; left: ' + bubblePosition.left + 'px;'"
+          >
+            <button type="button" @mousedown.prevent="formatText('bold')" :class="{ 'bg-zinc-700': queryState('bold') }" class="w-7 h-7 flex items-center justify-center rounded hover:bg-zinc-700 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" /></svg>
+            </button>
+            <button type="button" @mousedown.prevent="formatText('italic')" :class="{ 'bg-zinc-700': queryState('italic') }" class="w-7 h-7 flex items-center justify-center rounded hover:bg-zinc-700 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 4h4m-2 0v16m-4 0h8" transform="skewX(-10)" /></svg>
+            </button>
+            <div class="w-px h-5 bg-zinc-600 mx-0.5"></div>
+            <button type="button" @mousedown.prevent="insertLink()" class="w-7 h-7 flex items-center justify-center rounded hover:bg-zinc-700 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+            </button>
+            <button type="button" @mousedown.prevent="formatText('formatBlock', '<pre>')" class="w-7 h-7 flex items-center justify-center rounded hover:bg-zinc-700 transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25M6.75 17.25L1.5 12l5.25-5.25" /></svg>
+            </button>
+          </div>
+
+          <!-- Area editable -->
+          <div x-ref="editorBubble"
+            contenteditable="true"
+            @mouseup="handleBubbleSelection($event, $refs.editorBubble)"
+            @keyup="showBubble = false"
+            @blur="setTimeout(() => showBubble = false, 200)"
+            class="min-h-48 border border-zinc-200 rounded-lg p-4 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent prose prose-sm max-w-none"
+          >
+            <p>Selecciona cualquier texto de este editor para ver aparecer la barra de formato flotante. Prueba seleccionando esta frase para aplicar negrita, cursiva o insertar un enlace.</p>
+            <p>Este editor usa una toolbar tipo "bubble" que aparece contextualmente sobre el texto seleccionado, similar a editores como Medium o Notion.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Toolbar con preview Markdown -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Toolbar con preview Markdown</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="richTextEditor()">
+        <!-- Mode toggle -->
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-1 border border-zinc-200 rounded-lg bg-zinc-50 p-1">
+            <!-- MD toolbar buttons -->
+            <button type="button" @click="insertMarkdown('heading')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 text-xs font-bold transition-colors">
+              H
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading</span>
+            </button>
+            <button type="button" @click="insertMarkdown('bold')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Bold</span>
+            </button>
+            <button type="button" @click="insertMarkdown('italic')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 4h4m-2 0v16m-4 0h8" transform="skewX(-10)" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Italic</span>
+            </button>
+            <button type="button" @click="insertMarkdown('link')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Link</span>
+            </button>
+            <button type="button" @click="insertMarkdown('code')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25M6.75 17.25L1.5 12l5.25-5.25" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Codigo</span>
+            </button>
+            <button type="button" @click="insertMarkdown('image')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V4.5a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v15a1.5 1.5 0 001.5 1.5z" /></svg>
+              <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Imagen</span>
+            </button>
+          </div>
+
+          <div class="flex items-center border border-zinc-200 rounded-lg overflow-hidden">
+            <button @click="mode = 'edit'" :class="mode === 'edit' ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-600 hover:bg-zinc-50'" class="px-3 py-1.5 text-xs font-medium transition-colors">Editar</button>
+            <button @click="mode = 'preview'" :class="mode === 'preview' ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-600 hover:bg-zinc-50'" class="px-3 py-1.5 text-xs font-medium transition-colors">Preview</button>
+          </div>
+        </div>
+
+        <!-- Editor -->
+        <div x-show="mode === 'edit'">
+          <textarea x-ref="mdEditor" x-model="content" class="w-full min-h-48 border border-zinc-200 rounded-lg p-4 text-sm text-zinc-800 font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y" placeholder="Escribe Markdown aqui...">
+          </textarea>
+        </div>
+
+        <!-- Preview -->
+        <div x-show="mode === 'preview'" x-cloak>
+          <div class="min-h-48 border border-zinc-200 rounded-lg p-4 text-sm text-zinc-800 prose prose-sm max-w-none" x-html="renderedMarkdown"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function richTextEditor() {
+      return {
+        content: '# Titulo de ejemplo\n\nEste es un parrafo con **texto en negrita** y _texto en cursiva_.\n\n## Subtitulo\n\n- Elemento de lista 1\n- Elemento de lista 2\n- Elemento de lista 3\n\n`codigo inline` y mas texto normal.\n\n[Un enlace](https://ejemplo.com)',
+        showBubble: false,
+        bubblePosition: { top: 0, left: 0 },
+        mode: 'edit',
+        activeStates: {},
+
+        formatText(command, value) {
+          if (value) {
+            document.execCommand(command, false, value);
+          } else {
+            document.execCommand(command, false, null);
+          }
+          this.checkActiveStates();
+        },
+
+        formatBlock(tag) {
+          document.execCommand('formatBlock', false, '<' + tag + '>');
+        },
+
+        queryState(command) {
+          try {
+            return document.queryCommandState(command);
+          } catch (e) {
+            return false;
+          }
+        },
+
+        checkActiveStates() {
+          this.activeStates = {
+            bold: this.queryState('bold'),
+            italic: this.queryState('italic'),
+            underline: this.queryState('underline'),
+            strikeThrough: this.queryState('strikeThrough')
+          };
+        },
+
+        insertLink() {
+          const url = prompt('Ingresa la URL:', 'https://');
+          if (url) {
+            document.execCommand('createLink', false, url);
+          }
+        },
+
+        insertImage() {
+          const url = prompt('Ingresa la URL de la imagen:', 'https://');
+          if (url) {
+            document.execCommand('insertImage', false, url);
+          }
+        },
+
+        handleBubbleSelection(event, editor) {
+          const selection = window.getSelection();
+          if (selection.toString().trim().length > 0) {
+            const range = selection.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            const editorRect = editor.getBoundingClientRect();
+            this.bubblePosition = {
+              top: rect.top - editorRect.top - 44,
+              left: rect.left - editorRect.left + (rect.width / 2) - 80
+            };
+            this.showBubble = true;
+          } else {
+            this.showBubble = false;
+          }
+        },
+
+        insertMarkdown(syntax) {
+          const textarea = this.$refs.mdEditor;
+          if (!textarea) return;
+          const start = textarea.selectionStart;
+          const end = textarea.selectionEnd;
+          const text = this.content;
+          const selected = text.substring(start, end) || 'texto';
+          let replacement = '';
+
+          switch (syntax) {
+            case 'heading':
+              replacement = '## ' + selected;
+              break;
+            case 'bold':
+              replacement = '**' + selected + '**';
+              break;
+            case 'italic':
+              replacement = '_' + selected + '_';
+              break;
+            case 'link':
+              replacement = '[' + selected + '](url)';
+              break;
+            case 'code':
+              replacement = '`' + selected + '`';
+              break;
+            case 'image':
+              replacement = '![' + selected + '](url)';
+              break;
+          }
+
+          this.content = text.substring(0, start) + replacement + text.substring(end);
+          this.$nextTick(() => {
+            textarea.focus();
+            textarea.selectionStart = start;
+            textarea.selectionEnd = start + replacement.length;
+          });
+        },
+
+        get renderedMarkdown() {
+          let html = this.content;
+          // Headings
+          html = html.replace(/^### (.+)$/gm, '<h3 class="text-base font-semibold text-zinc-900 mt-4 mb-2">$1</h3>');
+          html = html.replace(/^## (.+)$/gm, '<h2 class="text-lg font-semibold text-zinc-900 mt-4 mb-2">$1</h2>');
+          html = html.replace(/^# (.+)$/gm, '<h1 class="text-xl font-bold text-zinc-900 mt-4 mb-2">$1</h1>');
+          // Bold and italic
+          html = html.replace(/\*\*(.+?)\*\*/g, '<strong class="font-semibold">$1</strong>');
+          html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+          // Code
+          html = html.replace(/`(.+?)`/g, '<code class="px-1.5 py-0.5 bg-zinc-100 text-zinc-800 rounded text-xs font-mono">$1</code>');
+          // Links
+          html = html.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-blue-600 underline">$1</a>');
+          // Images
+          html = html.replace(/!\[(.+?)\]\((.+?)\)/g, '<img src="$2" alt="$1" class="rounded-lg max-w-full" />');
+          // Lists
+          html = html.replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-zinc-700">$1</li>');
+          html = html.replace(/(<li[^>]*>.*<\/li>\n?)+/g, '<ul class="my-2">$&</ul>');
+          // Paragraphs
+          html = html.replace(/^(?!<[hluoi])((?!^\s*$).+)$/gm, '<p class="text-zinc-700 my-1">$1</p>');
+          return html;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

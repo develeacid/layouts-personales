@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C101 Video Grid Layout</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C101 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Video Grid Layout</h1>
+      <p class="text-sm text-zinc-600 mt-1">Grid de tiles de video para videollamada con multiples layouts.</p>
+    </header>
+
+    <section class="space-y-6" x-data="videoGridLayout()">
+      <!-- Selector de layout -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-sm font-medium text-zinc-700">Layout:</span>
+        <template x-for="l in ['speaker', '2', '4', '6', '9', 'sharing']" :key="l">
+          <button @click="setLayout(l)"
+            :class="layout === l ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-50'"
+            class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors"
+            x-text="l === 'speaker' ? 'Speaker' : l === 'sharing' ? 'Compartida' : l + 'p'">
+          </button>
+        </template>
+      </div>
+
+      <!-- Variante 1: Speaker view -->
+      <div x-show="layout === 'speaker'" class="space-y-3">
+        <h2 class="text-sm font-medium text-zinc-900">Speaker View</h2>
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4 space-y-3">
+          <!-- Main speaker -->
+          <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden cursor-pointer"
+            :class="{ 'ring-2 ring-emerald-400': participants[speakerIndex].speaking }">
+            <!-- Avatar o video -->
+            <template x-if="!participants[speakerIndex].camera">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-20 h-20 rounded-full bg-zinc-700 flex items-center justify-center text-2xl font-medium text-zinc-300" x-text="participants[speakerIndex].initials"></div>
+              </div>
+            </template>
+            <template x-if="participants[speakerIndex].camera">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-20 h-20 rounded-full bg-zinc-700 flex items-center justify-center text-2xl font-medium text-zinc-300" x-text="participants[speakerIndex].initials"></div>
+                <div class="absolute inset-0 bg-linear-to-t from-zinc-900/60 to-transparent"></div>
+              </div>
+            </template>
+            <!-- Overlay info -->
+            <div class="absolute bottom-0 left-0 right-0 p-3 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium text-white" x-text="participants[speakerIndex].name"></span>
+                <span x-show="participants[speakerIndex].speaking" class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span :class="participants[speakerIndex].mic ? 'text-white' : 'text-rose-400'">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                </span>
+                <span :class="participants[speakerIndex].camera ? 'text-white' : 'text-rose-400'">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Thumbnails strip -->
+          <div class="flex gap-2 overflow-x-auto pb-1">
+            <template x-for="(p, i) in participants" :key="i">
+              <div x-show="i !== speakerIndex" @click="setSpeaker(i)"
+                class="shrink-0 w-28 h-20 bg-zinc-800 rounded-lg overflow-hidden cursor-pointer relative transition-all hover:ring-2 hover:ring-blue-400"
+                :class="{ 'ring-2 ring-emerald-400': p.speaking }">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-300" x-text="p.initials"></div>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 px-1.5 py-1 bg-zinc-900/70">
+                  <div class="flex items-center gap-1">
+                    <span class="text-xs text-white truncate" x-text="p.name.split(' ')[0]"></span>
+                    <span x-show="!p.mic" class="text-rose-400 shrink-0">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" /></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variante 2: Grid de 2 participantes -->
+      <div x-show="layout === '2'" class="space-y-3">
+        <h2 class="text-sm font-medium text-zinc-900">2 Participantes</h2>
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+          <div class="grid grid-cols-2 gap-2">
+            <template x-for="(p, i) in participants.slice(0, 2)" :key="i">
+              <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden"
+                :class="{ 'ring-2 ring-emerald-400': p.speaking }">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-16 h-16 rounded-full bg-zinc-700 flex items-center justify-center text-xl font-medium text-zinc-300" x-text="p.initials"></div>
+                </div>
+                <template x-if="p.camera">
+                  <div class="absolute inset-0 bg-linear-to-t from-zinc-900/60 to-transparent"></div>
+                </template>
+                <div class="absolute bottom-0 left-0 right-0 p-3 flex items-center justify-between">
+                  <span class="text-sm font-medium text-white" x-text="p.name"></span>
+                  <div class="flex items-center gap-1.5">
+                    <span :class="p.mic ? 'text-white' : 'text-rose-400'">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                    </span>
+                    <span :class="p.camera ? 'text-white' : 'text-rose-400'">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variante 3: Grid de 4 participantes (2x2) -->
+      <div x-show="layout === '4'" class="space-y-3">
+        <h2 class="text-sm font-medium text-zinc-900">4 Participantes (2x2)</h2>
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+          <div class="grid grid-cols-2 gap-2">
+            <template x-for="(p, i) in participants.slice(0, 4)" :key="i">
+              <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden"
+                :class="{ 'ring-2 ring-emerald-400': p.speaking }">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-14 h-14 rounded-full bg-zinc-700 flex items-center justify-center text-lg font-medium text-zinc-300" x-text="p.initials"></div>
+                </div>
+                <template x-if="p.camera">
+                  <div class="absolute inset-0 bg-linear-to-t from-zinc-900/60 to-transparent"></div>
+                </template>
+                <div class="absolute bottom-0 left-0 right-0 p-2 flex items-center justify-between">
+                  <span class="text-xs font-medium text-white" x-text="p.name"></span>
+                  <div class="flex items-center gap-1">
+                    <span :class="p.mic ? 'text-white' : 'text-rose-400'">
+                      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                    </span>
+                    <span :class="p.camera ? 'text-white' : 'text-rose-400'">
+                      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variante 4: Grid de 6 participantes (3x2) -->
+      <div x-show="layout === '6'" class="space-y-3">
+        <h2 class="text-sm font-medium text-zinc-900">6 Participantes (3x2)</h2>
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <template x-for="(p, i) in participants.slice(0, 6)" :key="i">
+              <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden"
+                :class="{ 'ring-2 ring-emerald-400': p.speaking }">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-12 h-12 rounded-full bg-zinc-700 flex items-center justify-center text-sm font-medium text-zinc-300" x-text="p.initials"></div>
+                </div>
+                <template x-if="p.camera">
+                  <div class="absolute inset-0 bg-linear-to-t from-zinc-900/60 to-transparent"></div>
+                </template>
+                <div class="absolute bottom-0 left-0 right-0 p-2 flex items-center justify-between">
+                  <span class="text-xs font-medium text-white truncate" x-text="p.name"></span>
+                  <div class="flex items-center gap-1">
+                    <span :class="p.mic ? 'text-white' : 'text-rose-400'">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                    </span>
+                    <span :class="p.camera ? 'text-white' : 'text-rose-400'">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variante 5: Grid de 9 participantes (3x3) -->
+      <div x-show="layout === '9'" class="space-y-3">
+        <h2 class="text-sm font-medium text-zinc-900">9 Participantes (3x3)</h2>
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+          <div class="grid grid-cols-3 gap-2">
+            <template x-for="(p, i) in participants" :key="i">
+              <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden"
+                :class="{ 'ring-2 ring-emerald-400': p.speaking }">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-300" x-text="p.initials"></div>
+                </div>
+                <template x-if="p.camera">
+                  <div class="absolute inset-0 bg-linear-to-t from-zinc-900/60 to-transparent"></div>
+                </template>
+                <div class="absolute bottom-0 left-0 right-0 px-2 py-1.5 flex items-center justify-between">
+                  <span class="text-xs font-medium text-white truncate" x-text="p.name.split(' ')[0]"></span>
+                  <div class="flex items-center gap-0.5">
+                    <span :class="p.mic ? 'text-white' : 'text-rose-400'">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                    </span>
+                    <span :class="p.camera ? 'text-white' : 'text-rose-400'">
+                      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9.75a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H4.5A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variante 6: Grid con pantalla compartida -->
+      <div x-show="layout === 'sharing'" class="space-y-3">
+        <h2 class="text-sm font-medium text-zinc-900">Pantalla Compartida</h2>
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+          <div class="flex gap-3">
+            <!-- Pantalla compartida grande -->
+            <div class="flex-1 min-w-0">
+              <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center bg-zinc-900">
+                  <div class="text-center">
+                    <svg class="w-12 h-12 text-zinc-500 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" /></svg>
+                    <p class="text-sm text-zinc-400">Contenido compartido</p>
+                  </div>
+                </div>
+                <!-- Badge compartiendo -->
+                <div class="absolute top-3 left-3">
+                  <span class="badge-blue flex items-center gap-1.5 px-2.5 py-1">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" /></svg>
+                    <span class="text-xs font-medium" x-text="participants[speakerIndex].name + ' esta compartiendo'"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Strip lateral de participantes -->
+            <div class="w-36 shrink-0 flex flex-col gap-2 overflow-y-auto max-h-96">
+              <template x-for="(p, i) in participants" :key="i">
+                <div @click="setSpeaker(i)"
+                  class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden cursor-pointer shrink-0 transition-all hover:ring-2 hover:ring-blue-400"
+                  :class="{ 'ring-2 ring-emerald-400': p.speaking }">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-300" x-text="p.initials"></div>
+                  </div>
+                  <div class="absolute bottom-0 left-0 right-0 px-1.5 py-1 bg-zinc-900/70">
+                    <div class="flex items-center gap-1">
+                      <span class="text-xs text-white truncate" x-text="p.name.split(' ')[0]"></span>
+                      <span x-show="!p.mic" class="text-rose-400 shrink-0">
+                        <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /><line x1="3" y1="3" x2="21" y2="21" stroke="currentColor" stroke-width="3" stroke-linecap="round" /></svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function videoGridLayout() {
+      return {
+        layout: 'speaker',
+        speakerIndex: 0,
+        participants: [
+          { name: 'Ana Garcia', initials: 'AG', mic: true, camera: true, speaking: true },
+          { name: 'Carlos Lopez', initials: 'CL', mic: true, camera: true, speaking: false },
+          { name: 'Maria Torres', initials: 'MT', mic: false, camera: true, speaking: false },
+          { name: 'Diego Ruiz', initials: 'DR', mic: true, camera: false, speaking: false },
+          { name: 'Laura Mendez', initials: 'LM', mic: true, camera: true, speaking: false },
+          { name: 'Pedro Sanchez', initials: 'PS', mic: false, camera: false, speaking: false },
+          { name: 'Sofia Herrera', initials: 'SH', mic: true, camera: true, speaking: false },
+          { name: 'Andres Vega', initials: 'AV', mic: true, camera: false, speaking: false },
+          { name: 'Elena Rios', initials: 'ER', mic: false, camera: true, speaking: false }
+        ],
+
+        setSpeaker(index) {
+          this.participants[this.speakerIndex].speaking = false;
+          this.speakerIndex = index;
+          this.participants[index].speaking = true;
+        },
+
+        setLayout(type) {
+          this.layout = type;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
