@@ -24,11 +24,18 @@
         styles.push(s.textContent);
       }
     });
+    // Extraer CDNs externos (excepto Alpine)
+    const cdns = [];
+    doc.querySelectorAll('script[src]').forEach(s => {
+      if (!s.src.includes('alpinejs')) {
+        cdns.push(s.getAttribute('src'));
+      }
+    });
     // Extraer contenido del body (sin scripts, sin styles)
     const body = doc.body;
     body.querySelectorAll('script').forEach(s => s.remove());
     body.querySelectorAll('style').forEach(s => s.remove());
-    return { html: body.innerHTML, scripts, styles };
+    return { html: body.innerHTML, scripts, styles, cdns };
   }
 
   // ── Limpiar Alpine del main ──────────────────────────────
@@ -92,7 +99,7 @@
 
       // Inyectar botones de descarga si es componente N1-N6
       if (typeof injectDownloadButtons === 'function') {
-        injectDownloadButtons(main, path, text, parsed.scripts, parsed.styles);
+        injectDownloadButtons(main, path, text, parsed.scripts, parsed.styles, parsed.cdns);
       }
 
       // Actualizar estado

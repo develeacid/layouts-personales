@@ -14,9 +14,9 @@ async function getCssContent() {
   return _cssCache || '';
 }
 
-function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, parsedStyles) {
+function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, parsedStyles, parsedCdns) {
   // Solo componentes N1-N6
-  const isComponent = /\/src\/components\/n[1-6]-/.test(filePath);
+  const isComponent = /\/src\/components\/n[1-8]-/.test(filePath);
   if (!isComponent) return;
 
   // Pre-cargar CSS en background
@@ -25,6 +25,7 @@ function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, pars
   // Guardar scripts/styles parseados del HTML original (no están en el DOM del container)
   const _parsedScripts = parsedScripts || [];
   const _parsedStyles = parsedStyles || [];
+  const _parsedCdns = parsedCdns || [];
 
   const fileName = filePath.split('/').pop().replace('.html', '');
 
@@ -62,7 +63,7 @@ function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, pars
     `;
     btn.addEventListener('click', async () => {
       const css = await getCssContent();
-      const variantHtml = buildVariantFile(section, fileName, i + 1, css, _parsedScripts, _parsedStyles);
+      const variantHtml = buildVariantFile(section, fileName, i + 1, css, _parsedScripts, _parsedStyles, _parsedCdns);
       downloadFile(`${fileName}-variante-${i + 1}.html`, variantHtml);
     });
     section.appendChild(btn);
@@ -79,7 +80,7 @@ function makeStandalone(html, css) {
 }
 
 // ── Construir archivo standalone de una variante ─────────
-function buildVariantFile(section, fileName, variantNum, css, scripts, styles) {
+function buildVariantFile(section, fileName, variantNum, css, scripts, styles, cdns) {
   // Clonar sección limpiando el botón de descarga
   const clone = section.cloneNode(true);
   const dlBtn = clone.querySelector('.absolute.top-0.right-0');
@@ -102,6 +103,7 @@ ${styles.length ? `  <style>${styles.join('\n')}</style>` : ''}
     ${clone.outerHTML}
   </div>
   <style>[x-cloak] { display: none !important; }</style>
+${(cdns || []).map(url => `  <script src="${url}"></script>`).join('\n')}
 ${scripts.map(s => `  <script>${s}</script>`).join('\n')}
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
