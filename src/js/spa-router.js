@@ -71,6 +71,7 @@
 
       // Inyectar HTML
       const container = document.createElement('div');
+      container.className = 'h-full';
       container.innerHTML = parsed.html;
       main.appendChild(container);
 
