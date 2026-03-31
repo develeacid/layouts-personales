@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C54 Contact Forms</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C54 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Contact Forms</h1>
+      <p class="text-sm text-zinc-600 mt-1">Formulario de contacto con validacion y feedback visual.</p>
+    </header>
+
+    <!-- Variante 1: Formulario estandar -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Formulario estandar</h2>
+
+      <div class="card" x-data="contactForm()">
+        <!-- Mensaje de exito -->
+        <div x-show="submitted" x-cloak
+          x-transition:enter="transition ease-out duration-300"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          class="text-center py-8">
+          <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-zinc-900">Mensaje enviado</h3>
+          <p class="text-sm text-zinc-500 mt-1">Gracias por contactarnos. Te responderemos pronto.</p>
+          <button @click="reset()" class="btn-ghost btn-sm mt-4">Enviar otro mensaje</button>
+        </div>
+
+        <!-- Formulario -->
+        <form x-show="!submitted" @submit.prevent="submit()" class="space-y-5">
+          <!-- Nombre -->
+          <div>
+            <label class="label">Nombre completo</label>
+            <input type="text" class="input" :class="errors.name && 'input-error'"
+              x-model="fields.name" placeholder="Tu nombre"
+              @blur="validateField('name')" />
+            <p x-show="errors.name" x-text="errors.name" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label class="label">Correo electronico</label>
+            <input type="email" class="input" :class="errors.email && 'input-error'"
+              x-model="fields.email" placeholder="tu@email.com"
+              @blur="validateField('email')" />
+            <p x-show="errors.email" x-text="errors.email" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Asunto -->
+          <div>
+            <label class="label">Asunto</label>
+            <select class="input" :class="errors.subject && 'input-error'"
+              x-model="fields.subject" @blur="validateField('subject')">
+              <option value="">Selecciona un asunto</option>
+              <option value="general">Consulta general</option>
+              <option value="soporte">Soporte tecnico</option>
+              <option value="ventas">Ventas</option>
+              <option value="otro">Otro</option>
+            </select>
+            <p x-show="errors.subject" x-text="errors.subject" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Mensaje -->
+          <div>
+            <label class="label">Mensaje</label>
+            <textarea class="input min-h-30 resize-y" :class="errors.message && 'input-error'"
+              x-model="fields.message" placeholder="Escribe tu mensaje..."
+              @blur="validateField('message')"></textarea>
+            <p x-show="errors.message" x-text="errors.message" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn-primary w-full justify-center"
+            :disabled="!isValid || loading"
+            :class="{ 'opacity-50 cursor-not-allowed': !isValid || loading }">
+            <svg x-show="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+            <span x-text="loading ? 'Enviando...' : 'Enviar mensaje'"></span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Variante 2: Formulario con columnas -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Formulario con columnas</h2>
+
+      <div class="card" x-data="contactFormColumns()">
+        <!-- Mensaje de exito -->
+        <div x-show="submitted" x-cloak
+          x-transition:enter="transition ease-out duration-300"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          class="text-center py-8">
+          <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-zinc-900">Mensaje enviado</h3>
+          <p class="text-sm text-zinc-500 mt-1">Nos pondremos en contacto contigo pronto.</p>
+          <button @click="reset()" class="btn-ghost btn-sm mt-4">Enviar otro mensaje</button>
+        </div>
+
+        <!-- Formulario -->
+        <form x-show="!submitted" @submit.prevent="submit()" class="space-y-5">
+          <!-- Nombre + Apellido -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="label">Nombre</label>
+              <input type="text" class="input" :class="errors.firstName && 'input-error'"
+                x-model="fields.firstName" placeholder="Nombre"
+                @blur="validateField('firstName')" />
+              <p x-show="errors.firstName" x-text="errors.firstName" class="error-msg" x-cloak></p>
+            </div>
+            <div>
+              <label class="label">Apellido</label>
+              <input type="text" class="input" :class="errors.lastName && 'input-error'"
+                x-model="fields.lastName" placeholder="Apellido"
+                @blur="validateField('lastName')" />
+              <p x-show="errors.lastName" x-text="errors.lastName" class="error-msg" x-cloak></p>
+            </div>
+          </div>
+
+          <!-- Email + Telefono -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="label">Correo electronico</label>
+              <input type="email" class="input" :class="errors.email && 'input-error'"
+                x-model="fields.email" placeholder="tu@email.com"
+                @blur="validateField('email')" />
+              <p x-show="errors.email" x-text="errors.email" class="error-msg" x-cloak></p>
+            </div>
+            <div>
+              <label class="label">Telefono</label>
+              <input type="tel" class="input" :class="errors.phone && 'input-error'"
+                x-model="fields.phone" placeholder="+52 55 1234 5678"
+                @blur="validateField('phone')" />
+              <p x-show="errors.phone" x-text="errors.phone" class="error-msg" x-cloak></p>
+            </div>
+          </div>
+
+          <!-- Mensaje -->
+          <div>
+            <label class="label">Mensaje</label>
+            <textarea class="input min-h-30 resize-y" :class="errors.message && 'input-error'"
+              x-model="fields.message" placeholder="Escribe tu mensaje..."
+              @blur="validateField('message')"></textarea>
+            <p x-show="errors.message" x-text="errors.message" class="error-msg" x-cloak></p>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn-primary w-full justify-center"
+            :disabled="!isValid || loading"
+            :class="{ 'opacity-50 cursor-not-allowed': !isValid || loading }">
+            <svg x-show="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+            <span x-text="loading ? 'Enviando...' : 'Enviar mensaje'"></span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+
+  <script>
+    function contactForm() {
+      return {
+        fields: { name: '', email: '', subject: '', message: '' },
+        errors: { name: '', email: '', subject: '', message: '' },
+        submitted: false,
+        loading: false,
+
+        get isValid() {
+          return this.fields.name.trim() !== '' &&
+            this.fields.email.trim() !== '' &&
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.fields.email) &&
+            this.fields.subject !== '' &&
+            this.fields.message.trim() !== '';
+        },
+
+        validateField(field) {
+          this.errors[field] = '';
+          if (field === 'name' && !this.fields.name.trim()) {
+            this.errors.name = 'El nombre es obligatorio.';
+          }
+          if (field === 'email') {
+            if (!this.fields.email.trim()) this.errors.email = 'El email es obligatorio.';
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.fields.email)) this.errors.email = 'Ingresa un email valido.';
+          }
+          if (field === 'subject' && !this.fields.subject) {
+            this.errors.subject = 'Selecciona un asunto.';
+          }
+          if (field === 'message' && !this.fields.message.trim()) {
+            this.errors.message = 'El mensaje es obligatorio.';
+          }
+        },
+
+        validate() {
+          ['name', 'email', 'subject', 'message'].forEach(f => this.validateField(f));
+          return !Object.values(this.errors).some(e => e);
+        },
+
+        async submit() {
+          if (!this.validate()) return;
+          this.loading = true;
+          await new Promise(r => setTimeout(r, 1500));
+          this.loading = false;
+          this.submitted = true;
+        },
+
+        reset() {
+          this.fields = { name: '', email: '', subject: '', message: '' };
+          this.errors = { name: '', email: '', subject: '', message: '' };
+          this.submitted = false;
+        }
+      };
+    }
+
+    function contactFormColumns() {
+      return {
+        fields: { firstName: '', lastName: '', email: '', phone: '', message: '' },
+        errors: { firstName: '', lastName: '', email: '', phone: '', message: '' },
+        submitted: false,
+        loading: false,
+
+        get isValid() {
+          return this.fields.firstName.trim() !== '' &&
+            this.fields.lastName.trim() !== '' &&
+            this.fields.email.trim() !== '' &&
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.fields.email) &&
+            this.fields.message.trim() !== '';
+        },
+
+        validateField(field) {
+          this.errors[field] = '';
+          if (field === 'firstName' && !this.fields.firstName.trim()) {
+            this.errors.firstName = 'El nombre es obligatorio.';
+          }
+          if (field === 'lastName' && !this.fields.lastName.trim()) {
+            this.errors.lastName = 'El apellido es obligatorio.';
+          }
+          if (field === 'email') {
+            if (!this.fields.email.trim()) this.errors.email = 'El email es obligatorio.';
+            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.fields.email)) this.errors.email = 'Ingresa un email valido.';
+          }
+          if (field === 'phone' && this.fields.phone.trim() && !/^[\d\s\+\-()]{7,}$/.test(this.fields.phone)) {
+            this.errors.phone = 'Ingresa un telefono valido.';
+          }
+          if (field === 'message' && !this.fields.message.trim()) {
+            this.errors.message = 'El mensaje es obligatorio.';
+          }
+        },
+
+        validate() {
+          ['firstName', 'lastName', 'email', 'phone', 'message'].forEach(f => this.validateField(f));
+          return !Object.values(this.errors).some(e => e);
+        },
+
+        async submit() {
+          if (!this.validate()) return;
+          this.loading = true;
+          await new Promise(r => setTimeout(r, 1500));
+          this.loading = false;
+          this.submitted = true;
+        },
+
+        reset() {
+          this.fields = { firstName: '', lastName: '', email: '', phone: '', message: '' };
+          this.errors = { firstName: '', lastName: '', email: '', phone: '', message: '' };
+          this.submitted = false;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

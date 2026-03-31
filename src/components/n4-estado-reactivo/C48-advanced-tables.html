@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C48 Advanced Tables</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C48 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Advanced Tables</h1>
+      <p class="text-sm text-zinc-600 mt-1">Tabla completa con sort, búsqueda, selección bulk y paginación.</p>
+    </header>
+
+    <!-- Tabla avanzada completa -->
+    <section class="space-y-4" x-data="advancedTable()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Tabla completa</h2>
+
+      <!-- Toolbar: búsqueda + acciones bulk -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+        <div class="relative flex-1">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input type="text" x-model="search" placeholder="Buscar usuarios..."
+                 class="input pl-10 w-full" />
+        </div>
+        <div x-show="selected.length > 0" x-cloak x-transition
+             class="flex items-center gap-2">
+          <span class="text-sm font-medium text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg"
+                x-text="selected.length + ' seleccionado' + (selected.length > 1 ? 's' : '')"></span>
+          <button class="btn-ghost text-xs text-rose-600 hover:text-rose-700 hover:bg-rose-50">
+            <svg class="w-3.5 h-3.5 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+            Eliminar
+          </button>
+          <button class="btn-ghost text-xs">
+            <svg class="w-3.5 h-3.5 mr-1 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            Exportar
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-x-auto">
+        <table class="w-full text-sm text-left min-w-175">
+          <thead class="bg-zinc-50 border-b border-zinc-200">
+            <tr>
+              <th class="px-4 py-3 w-10">
+                <input type="checkbox"
+                       :checked="selected.length === paginatedRows.length && paginatedRows.length > 0"
+                       :indeterminate="selected.length > 0 && selected.length < paginatedRows.length"
+                       @change="toggleSelectAll()"
+                       class="rounded border-zinc-300 text-blue-600 focus:ring-2 focus:ring-blue-200" />
+              </th>
+              <template x-for="col in columns" :key="col.key">
+                <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 cursor-pointer select-none hover:text-zinc-900 transition-colors duration-150"
+                    @click="toggleSort(col.key)">
+                  <span class="inline-flex items-center gap-1">
+                    <span x-text="col.label"></span>
+                    <span class="inline-flex flex-col -space-y-1.5">
+                      <svg class="w-3 h-3 transition-colors duration-150"
+                           :class="sortColumn === col.key && sortDirection === 'asc' ? 'text-blue-600' : 'text-zinc-300'"
+                           fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+                      </svg>
+                      <svg class="w-3 h-3 transition-colors duration-150"
+                           :class="sortColumn === col.key && sortDirection === 'desc' ? 'text-blue-600' : 'text-zinc-300'"
+                           fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
+                  </span>
+                </th>
+              </template>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-100">
+            <template x-for="row in paginatedRows" :key="row.id">
+              <tr class="hover:bg-zinc-50 transition-colors duration-150"
+                  :class="selected.includes(row.id) && 'bg-blue-50/50'">
+                <td class="px-4 py-3">
+                  <input type="checkbox" :value="row.id" x-model.number="selected"
+                         class="rounded border-zinc-300 text-blue-600 focus:ring-2 focus:ring-blue-200" />
+                </td>
+                <td class="px-4 py-3 font-medium text-zinc-900" x-text="row.name"></td>
+                <td class="px-4 py-3 text-zinc-600" x-text="row.email"></td>
+                <td class="px-4 py-3 text-zinc-600" x-text="row.role"></td>
+                <td class="px-4 py-3">
+                  <span :class="row.status === 'Activo' ? 'badge-green' : row.status === 'Pendiente' ? 'badge-amber' : 'badge-rose'"
+                        x-text="row.status"></span>
+                </td>
+                <td class="px-4 py-3 text-zinc-500" x-text="row.date"></td>
+              </tr>
+            </template>
+            <tr x-show="filteredRows.length === 0">
+              <td colspan="6" class="px-4 py-8 text-center text-sm text-zinc-400">No se encontraron resultados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm">
+        <p class="text-zinc-500">
+          Mostrando
+          <span class="font-medium text-zinc-900" x-text="filteredRows.length === 0 ? 0 : ((currentPage - 1) * perPage) + 1"></span>–<span class="font-medium text-zinc-900" x-text="Math.min(currentPage * perPage, filteredRows.length)"></span>
+          de <span class="font-medium text-zinc-900" x-text="filteredRows.length"></span>
+        </p>
+        <div class="flex items-center gap-2">
+          <button @click="currentPage = Math.max(1, currentPage - 1)"
+                  :disabled="currentPage === 1"
+                  :class="currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-zinc-100'"
+                  class="btn-secondary text-xs">Anterior</button>
+          <template x-for="page in totalPages" :key="page">
+            <button @click="currentPage = page"
+                    :class="currentPage === page ? 'bg-blue-600 text-white border-blue-600' : 'hover:bg-zinc-100'"
+                    class="w-8 h-8 rounded-lg border border-zinc-200 text-xs font-medium transition-colors duration-150"
+                    x-text="page"></button>
+          </template>
+          <button @click="currentPage = Math.min(totalPages, currentPage + 1)"
+                  :disabled="currentPage === totalPages"
+                  :class="currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-zinc-100'"
+                  class="btn-secondary text-xs">Siguiente</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function advancedTable() {
+      return {
+        search: '',
+        sortColumn: 'name',
+        sortDirection: 'asc',
+        currentPage: 1,
+        perPage: 5,
+        selected: [],
+        columns: [
+          { key: 'name', label: 'Nombre' },
+          { key: 'email', label: 'Email' },
+          { key: 'role', label: 'Rol' },
+          { key: 'status', label: 'Estado' },
+          { key: 'date', label: 'Fecha' },
+        ],
+        rows: [
+          { id: 1,  name: 'Ana Torres',       email: 'ana@example.com',       role: 'Admin',     status: 'Activo',    date: '2024-01-15' },
+          { id: 2,  name: 'Carlos Ruiz',       email: 'carlos@example.com',    role: 'Editor',    status: 'Pendiente', date: '2024-02-20' },
+          { id: 3,  name: 'Laura Gómez',       email: 'laura@example.com',     role: 'Viewer',    status: 'Activo',    date: '2024-03-10' },
+          { id: 4,  name: 'Miguel Fernández',  email: 'miguel@example.com',    role: 'Admin',     status: 'Inactivo',  date: '2023-11-05' },
+          { id: 5,  name: 'Elena Martín',      email: 'elena@example.com',     role: 'Editor',    status: 'Activo',    date: '2024-04-22' },
+          { id: 6,  name: 'Pedro Sánchez',     email: 'pedro@example.com',     role: 'Viewer',    status: 'Activo',    date: '2024-05-01' },
+          { id: 7,  name: 'Sofía López',       email: 'sofia@example.com',     role: 'Admin',     status: 'Pendiente', date: '2024-01-30' },
+          { id: 8,  name: 'Diego Navarro',     email: 'diego@example.com',     role: 'Editor',    status: 'Activo',    date: '2024-06-12' },
+          { id: 9,  name: 'Marta Jiménez',     email: 'marta@example.com',     role: 'Viewer',    status: 'Inactivo',  date: '2023-09-18' },
+          { id: 10, name: 'Javier Moreno',     email: 'javier@example.com',    role: 'Admin',     status: 'Activo',    date: '2024-07-05' },
+          { id: 11, name: 'Isabel Díaz',       email: 'isabel@example.com',    role: 'Editor',    status: 'Activo',    date: '2024-02-14' },
+          { id: 12, name: 'Raúl Herrero',      email: 'raul@example.com',      role: 'Viewer',    status: 'Pendiente', date: '2024-08-20' },
+          { id: 13, name: 'Carmen Vega',       email: 'carmen@example.com',    role: 'Admin',     status: 'Activo',    date: '2024-03-28' },
+          { id: 14, name: 'Andrés Gil',        email: 'andres@example.com',    role: 'Editor',    status: 'Inactivo',  date: '2023-12-01' },
+          { id: 15, name: 'Lucía Romero',      email: 'lucia@example.com',     role: 'Viewer',    status: 'Activo',    date: '2024-09-15' },
+          { id: 16, name: 'Pablo Ortiz',       email: 'pablo@example.com',     role: 'Admin',     status: 'Pendiente', date: '2024-04-10' },
+          { id: 17, name: 'Natalia Blanco',    email: 'natalia@example.com',   role: 'Editor',    status: 'Activo',    date: '2024-05-22' },
+          { id: 18, name: 'Tomás Guerrero',    email: 'tomas@example.com',     role: 'Viewer',    status: 'Activo',    date: '2024-10-03' },
+        ],
+        get filteredRows() {
+          let result = this.rows;
+          if (this.search) {
+            const q = this.search.toLowerCase();
+            result = result.filter(r =>
+              r.name.toLowerCase().includes(q) ||
+              r.email.toLowerCase().includes(q) ||
+              r.role.toLowerCase().includes(q) ||
+              r.status.toLowerCase().includes(q)
+            );
+          }
+          return [...result].sort((a, b) => {
+            const valA = a[this.sortColumn];
+            const valB = b[this.sortColumn];
+            const cmp = String(valA).localeCompare(String(valB), 'es');
+            return this.sortDirection === 'asc' ? cmp : -cmp;
+          });
+        },
+        get totalPages() {
+          return Math.max(1, Math.ceil(this.filteredRows.length / this.perPage));
+        },
+        get paginatedRows() {
+          const start = (this.currentPage - 1) * this.perPage;
+          return this.filteredRows.slice(start, start + this.perPage);
+        },
+        init() {
+          this.$watch('search', () => {
+            this.currentPage = 1;
+            this.selected = [];
+          });
+        },
+        toggleSort(col) {
+          if (this.sortColumn === col) {
+            this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+          } else {
+            this.sortColumn = col;
+            this.sortDirection = 'asc';
+          }
+        },
+        toggleSelectAll() {
+          if (this.selected.length === this.paginatedRows.length) {
+            this.selected = [];
+          } else {
+            this.selected = this.paginatedRows.map(r => r.id);
+          }
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

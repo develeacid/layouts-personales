@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C65 Stepper</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C65 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Stepper</h1>
+      <p class="text-sm text-zinc-600 mt-1">Progress steps horizontal, vertical y compacto con navegación entre pasos.</p>
+    </header>
+
+    <!-- Variante 1: Stepper horizontal -->
+    <section class="space-y-4" x-data="progressSteps()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Stepper horizontal</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-8">
+
+        <!-- Steps indicator -->
+        <div class="flex items-center">
+          <template x-for="(step, index) in steps" :key="index">
+            <div class="flex items-center" :class="index < steps.length - 1 ? 'flex-1' : ''">
+              <!-- Circle -->
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold transition-colors duration-200 shrink-0"
+                  :class="{
+                    'bg-emerald-500 text-white': index < currentStep,
+                    'bg-blue-600 text-white': index === currentStep,
+                    'bg-zinc-200 text-zinc-500': index > currentStep
+                  }"
+                >
+                  <template x-if="index < currentStep">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </template>
+                  <template x-if="index >= currentStep">
+                    <span x-text="index + 1"></span>
+                  </template>
+                </div>
+                <span
+                  class="text-xs mt-2 font-medium text-center hidden sm:block"
+                  :class="index <= currentStep ? 'text-zinc-900' : 'text-zinc-400'"
+                  x-text="step.name"
+                ></span>
+              </div>
+              <!-- Connector line -->
+              <template x-if="index < steps.length - 1">
+                <div
+                  class="flex-1 h-0.5 mx-2 sm:mx-3 transition-colors duration-200"
+                  :class="index < currentStep ? 'bg-emerald-500' : 'bg-zinc-200'"
+                ></div>
+              </template>
+            </div>
+          </template>
+        </div>
+
+        <!-- Step content -->
+        <div class="min-h-32">
+          <template x-if="currentStep === 0">
+            <div class="space-y-4">
+              <h3 class="text-sm font-semibold text-zinc-900">Datos personales</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="label">Nombre</label>
+                  <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="Juan" />
+                </div>
+                <div>
+                  <label class="label">Apellido</label>
+                  <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="Garcia" />
+                </div>
+              </div>
+              <div>
+                <label class="label">Email</label>
+                <input type="email" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="juan@ejemplo.com" />
+              </div>
+            </div>
+          </template>
+          <template x-if="currentStep === 1">
+            <div class="space-y-4">
+              <h3 class="text-sm font-semibold text-zinc-900">Direccion</h3>
+              <div>
+                <label class="label">Calle</label>
+                <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="Calle Mayor 10" />
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="label">Ciudad</label>
+                  <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="Madrid" />
+                </div>
+                <div>
+                  <label class="label">Codigo postal</label>
+                  <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="28001" />
+                </div>
+              </div>
+            </div>
+          </template>
+          <template x-if="currentStep === 2">
+            <div class="space-y-4">
+              <h3 class="text-sm font-semibold text-zinc-900">Pago</h3>
+              <div>
+                <label class="label">Numero de tarjeta</label>
+                <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="4242 4242 4242 4242" />
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="label">Expiracion</label>
+                  <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="MM/AA" />
+                </div>
+                <div>
+                  <label class="label">CVC</label>
+                  <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="123" />
+                </div>
+              </div>
+            </div>
+          </template>
+          <template x-if="currentStep === 3">
+            <div class="text-center space-y-3 py-4">
+              <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto">
+                <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <h3 class="text-sm font-semibold text-zinc-900">Pedido confirmado</h3>
+              <p class="text-sm text-zinc-500">Tu pedido ha sido procesado correctamente.</p>
+            </div>
+          </template>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex items-center justify-between pt-4 border-t border-zinc-100">
+          <button
+            class="btn-secondary text-sm"
+            :class="currentStep === 0 ? 'invisible' : ''"
+            @click="prevStep()"
+          >Anterior</button>
+          <button
+            class="btn-primary text-sm"
+            @click="nextStep()"
+            x-show="currentStep < steps.length - 1"
+          >Siguiente</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Stepper vertical -->
+    <section class="space-y-4" x-data="progressSteps()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Stepper vertical</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+        <div class="space-y-0">
+          <template x-for="(step, index) in steps" :key="index">
+            <div class="flex gap-4">
+              <!-- Circle + line column -->
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold shrink-0 transition-colors duration-200"
+                  :class="{
+                    'bg-emerald-500 text-white': index < currentStep,
+                    'bg-blue-600 text-white': index === currentStep,
+                    'bg-zinc-200 text-zinc-500': index > currentStep
+                  }"
+                >
+                  <template x-if="index < currentStep">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  </template>
+                  <template x-if="index >= currentStep">
+                    <span x-text="index + 1"></span>
+                  </template>
+                </div>
+                <template x-if="index < steps.length - 1">
+                  <div
+                    class="w-0.5 flex-1 min-h-16 transition-colors duration-200"
+                    :class="index < currentStep ? 'bg-emerald-500' : 'bg-zinc-200'"
+                  ></div>
+                </template>
+              </div>
+              <!-- Content -->
+              <div class="pb-8" :class="index === steps.length - 1 ? 'pb-0' : ''">
+                <h3
+                  class="text-sm font-semibold mt-2"
+                  :class="index <= currentStep ? 'text-zinc-900' : 'text-zinc-400'"
+                  x-text="step.name"
+                ></h3>
+                <p
+                  class="text-xs mt-1"
+                  :class="index <= currentStep ? 'text-zinc-500' : 'text-zinc-400'"
+                  x-text="step.description"
+                ></p>
+                <template x-if="index === currentStep">
+                  <div class="mt-3 flex items-center gap-2">
+                    <button class="btn-primary text-xs" @click="nextStep()" x-show="currentStep < steps.length - 1">Continuar</button>
+                    <button class="btn-secondary text-xs" @click="prevStep()" x-show="currentStep > 0">Volver</button>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Stepper compacto (dots) -->
+    <section class="space-y-4" x-data="progressSteps()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Stepper compacto (dots)</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6">
+
+        <!-- Dots -->
+        <div class="flex items-center justify-center gap-3">
+          <template x-for="(step, index) in steps" :key="index">
+            <button
+              class="rounded-full transition-all duration-200 cursor-pointer"
+              :class="{
+                'w-3 h-3 bg-emerald-500': index < currentStep,
+                'w-4 h-4 bg-blue-600': index === currentStep,
+                'w-3 h-3 bg-zinc-300': index > currentStep
+              }"
+              @click="goToStep(index)"
+            ></button>
+          </template>
+        </div>
+
+        <!-- Current step label -->
+        <p class="text-center text-sm font-medium text-zinc-900" x-text="steps[currentStep].name"></p>
+        <p class="text-center text-xs text-zinc-500" x-text="steps[currentStep].description"></p>
+
+        <!-- Progress bar -->
+        <div class="space-y-2">
+          <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+            <div
+              class="h-full bg-blue-600 rounded-full transition-all duration-300"
+              :style="'width: ' + progress + '%'"
+            ></div>
+          </div>
+          <p class="text-xs text-zinc-400 text-center">Paso <span x-text="currentStep + 1"></span> de <span x-text="steps.length"></span></p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex items-center justify-between pt-2">
+          <button
+            class="btn-secondary text-xs"
+            :class="currentStep === 0 ? 'invisible' : ''"
+            @click="prevStep()"
+          >Anterior</button>
+          <button
+            class="btn-primary text-xs"
+            @click="nextStep()"
+            x-show="currentStep < steps.length - 1"
+          >Siguiente</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function progressSteps() {
+      return {
+        currentStep: 0,
+        steps: [
+          { name: 'Datos personales', description: 'Nombre, email y telefono de contacto' },
+          { name: 'Direccion', description: 'Direccion de envio del pedido' },
+          { name: 'Pago', description: 'Metodo de pago y datos de facturacion' },
+          { name: 'Confirmacion', description: 'Revisa y confirma tu pedido' }
+        ],
+
+        get progress() {
+          return ((this.currentStep) / (this.steps.length - 1)) * 100;
+        },
+
+        nextStep() {
+          if (this.currentStep < this.steps.length - 1) {
+            this.currentStep++;
+          }
+        },
+
+        prevStep() {
+          if (this.currentStep > 0) {
+            this.currentStep--;
+          }
+        },
+
+        goToStep(index) {
+          if (index >= 0 && index < this.steps.length) {
+            this.currentStep = index;
+          }
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

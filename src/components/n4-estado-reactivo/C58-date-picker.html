@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C58 Date Picker</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C58 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Date Picker</h1>
+      <p class="text-sm text-zinc-600 mt-1">Selector de fecha con calendario dropdown y seleccion de rango.</p>
+    </header>
+
+    <!-- Variante 1: Date picker dropdown -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Date picker dropdown</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6"
+        x-data="datePicker()"
+        @click.outside="showCalendar = false"
+        @keydown.escape.window="showCalendar = false">
+
+        <div class="relative">
+          <label class="block text-xs font-medium text-zinc-600 mb-1.5">Fecha</label>
+          <div class="relative">
+            <input
+              type="text"
+              readonly
+              :value="selectedDate ? formatDate(selectedDate) : ''"
+              placeholder="DD/MM/YYYY"
+              @click="showCalendar = !showCalendar; selectingRange = false"
+              class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+
+          <!-- Calendario dropdown -->
+          <div x-show="showCalendar && !selectingRange" x-cloak
+            x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-100"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-1"
+            class="absolute z-10 mt-2 bg-white border border-zinc-200 rounded-xl shadow-lg p-4 w-72">
+
+            <!-- Header mes -->
+            <div class="flex items-center justify-between mb-3">
+              <button @click="prevMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-600 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <span class="text-sm font-semibold text-zinc-900" x-text="monthNames[currentMonth] + ' ' + currentYear"></span>
+              <button @click="nextMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-600 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Dias de la semana -->
+            <div class="grid grid-cols-7 mb-1">
+              <template x-for="d in ['L','M','X','J','V','S','D']" :key="d">
+                <div class="text-center text-xs font-medium text-zinc-400 py-1" x-text="d"></div>
+              </template>
+            </div>
+
+            <!-- Dias del mes -->
+            <div class="grid grid-cols-7">
+              <template x-for="(cell, idx) in calendarDays" :key="idx">
+                <button type="button"
+                  @click="if (cell.day) { selectDate(cell); showCalendar = false; }"
+                  :class="{
+                    'text-zinc-300 cursor-default': !cell.isCurrentMonth && cell.day,
+                    'text-zinc-900 hover:bg-zinc-100': cell.isCurrentMonth && !cell.isSelected && !cell.isToday,
+                    'ring-2 ring-blue-200 text-blue-700 font-semibold': cell.isToday && !cell.isSelected,
+                    'bg-blue-600 text-white rounded-full hover:bg-blue-700': cell.isSelected,
+                    'invisible': !cell.day
+                  }"
+                  class="w-9 h-9 text-sm rounded-lg flex items-center justify-center transition-colors"
+                  x-text="cell.day">
+                </button>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Date range picker -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Date range picker</h2>
+
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6"
+        x-data="datePicker()"
+        @click.outside="showCalendar = false"
+        @keydown.escape.window="showCalendar = false">
+
+        <div class="relative">
+          <div class="flex gap-4">
+            <div class="flex-1">
+              <label class="block text-xs font-medium text-zinc-600 mb-1.5">Desde</label>
+              <input
+                type="text"
+                readonly
+                :value="rangeStart ? formatDate(rangeStart) : ''"
+                placeholder="DD/MM/YYYY"
+                @click="showCalendar = true; selectingRange = 'start'"
+                class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+            <div class="flex-1">
+              <label class="block text-xs font-medium text-zinc-600 mb-1.5">Hasta</label>
+              <input
+                type="text"
+                readonly
+                :value="rangeEnd ? formatDate(rangeEnd) : ''"
+                placeholder="DD/MM/YYYY"
+                @click="showCalendar = true; selectingRange = 'end'"
+                class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+          </div>
+
+          <!-- Calendario dropdown rango -->
+          <div x-show="showCalendar && selectingRange" x-cloak
+            x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0 translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-100"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-1"
+            class="absolute z-10 mt-2 bg-white border border-zinc-200 rounded-xl shadow-lg p-4 w-72">
+
+            <div class="mb-2">
+              <span class="text-xs font-medium text-blue-600"
+                x-text="selectingRange === 'start' ? 'Selecciona fecha de inicio' : 'Selecciona fecha de fin'"></span>
+            </div>
+
+            <!-- Header mes -->
+            <div class="flex items-center justify-between mb-3">
+              <button @click="prevMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-600 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <span class="text-sm font-semibold text-zinc-900" x-text="monthNames[currentMonth] + ' ' + currentYear"></span>
+              <button @click="nextMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-600 transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Dias de la semana -->
+            <div class="grid grid-cols-7 mb-1">
+              <template x-for="d in ['L','M','X','J','V','S','D']" :key="d">
+                <div class="text-center text-xs font-medium text-zinc-400 py-1" x-text="d"></div>
+              </template>
+            </div>
+
+            <!-- Dias del mes -->
+            <div class="grid grid-cols-7">
+              <template x-for="(cell, idx) in calendarDays" :key="idx">
+                <button type="button"
+                  @click="if (cell.day) selectRangeDate(cell)"
+                  :class="{
+                    'text-zinc-300 cursor-default': !cell.isCurrentMonth && cell.day,
+                    'text-zinc-900 hover:bg-zinc-100': cell.isCurrentMonth && !cell.isSelected && !cell.isInRange && !cell.isToday,
+                    'ring-2 ring-blue-200 text-blue-700 font-semibold': cell.isToday && !cell.isSelected && !cell.isInRange,
+                    'bg-blue-600 text-white rounded-full hover:bg-blue-700': cell.isSelected,
+                    'bg-blue-50 text-blue-700': cell.isInRange && !cell.isSelected,
+                    'invisible': !cell.day
+                  }"
+                  class="w-9 h-9 text-sm rounded-lg flex items-center justify-center transition-colors"
+                  x-text="cell.day">
+                </button>
+              </template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+  function datePicker() {
+    const today = new Date();
+    return {
+      selectedDate: null,
+      rangeStart: null,
+      rangeEnd: null,
+      currentMonth: today.getMonth(),
+      currentYear: today.getFullYear(),
+      showCalendar: false,
+      selectingRange: false,
+      monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+
+      daysInMonth(month, year) {
+        return new Date(year, month + 1, 0).getDate();
+      },
+
+      firstDayOfMonth(month, year) {
+        const day = new Date(year, month, 1).getDay();
+        // Convertir: JS 0=domingo → 0=lunes
+        return day === 0 ? 6 : day - 1;
+      },
+
+      prevMonth() {
+        if (this.currentMonth === 0) {
+          this.currentMonth = 11;
+          this.currentYear--;
+        } else {
+          this.currentMonth--;
+        }
+      },
+
+      nextMonth() {
+        if (this.currentMonth === 11) {
+          this.currentMonth = 0;
+          this.currentYear++;
+        } else {
+          this.currentMonth++;
+        }
+      },
+
+      selectDate(cell) {
+        this.selectedDate = { day: cell.day, month: cell.month, year: cell.year };
+      },
+
+      selectRangeDate(cell) {
+        const d = { day: cell.day, month: cell.month, year: cell.year };
+        if (this.selectingRange === 'start') {
+          this.rangeStart = d;
+          this.rangeEnd = null;
+          this.selectingRange = 'end';
+        } else {
+          const startTs = new Date(this.rangeStart.year, this.rangeStart.month, this.rangeStart.day).getTime();
+          const endTs = new Date(d.year, d.month, d.day).getTime();
+          if (endTs < startTs) {
+            this.rangeStart = d;
+            this.rangeEnd = null;
+            this.selectingRange = 'end';
+          } else {
+            this.rangeEnd = d;
+            this.showCalendar = false;
+            this.selectingRange = false;
+          }
+        }
+      },
+
+      formatDate(d) {
+        if (!d) return '';
+        const dd = String(d.day).padStart(2, '0');
+        const mm = String(d.month + 1).padStart(2, '0');
+        return dd + '/' + mm + '/' + d.year;
+      },
+
+      _toTimestamp(d) {
+        return new Date(d.year, d.month, d.day).getTime();
+      },
+
+      get calendarDays() {
+        const days = [];
+        const totalDays = this.daysInMonth(this.currentMonth, this.currentYear);
+        const firstDay = this.firstDayOfMonth(this.currentMonth, this.currentYear);
+
+        const todayD = new Date();
+        const todayDay = todayD.getDate();
+        const todayMonth = todayD.getMonth();
+        const todayYear = todayD.getFullYear();
+
+        // Dias del mes anterior
+        const prevM = this.currentMonth === 0 ? 11 : this.currentMonth - 1;
+        const prevY = this.currentMonth === 0 ? this.currentYear - 1 : this.currentYear;
+        const prevDays = this.daysInMonth(prevM, prevY);
+
+        for (let i = firstDay - 1; i >= 0; i--) {
+          const day = prevDays - i;
+          days.push(this._buildCell(day, prevM, prevY, false, todayDay, todayMonth, todayYear));
+        }
+
+        // Dias del mes actual
+        for (let d = 1; d <= totalDays; d++) {
+          days.push(this._buildCell(d, this.currentMonth, this.currentYear, true, todayDay, todayMonth, todayYear));
+        }
+
+        // Dias del mes siguiente
+        const nextM = this.currentMonth === 11 ? 0 : this.currentMonth + 1;
+        const nextY = this.currentMonth === 11 ? this.currentYear + 1 : this.currentYear;
+        const remaining = 42 - days.length;
+        for (let d = 1; d <= remaining; d++) {
+          days.push(this._buildCell(d, nextM, nextY, false, todayDay, todayMonth, todayYear));
+        }
+
+        return days;
+      },
+
+      _buildCell(day, month, year, isCurrentMonth, todayDay, todayMonth, todayYear) {
+        const isToday = day === todayDay && month === todayMonth && year === todayYear;
+        const isSelected = this._isDateEqual(this.selectedDate, day, month, year) ||
+                           this._isDateEqual(this.rangeStart, day, month, year) ||
+                           this._isDateEqual(this.rangeEnd, day, month, year);
+        const isInRange = this._isInRange(day, month, year);
+
+        return { day, month, year, isCurrentMonth, isToday, isSelected, isInRange };
+      },
+
+      _isDateEqual(d, day, month, year) {
+        return d && d.day === day && d.month === month && d.year === year;
+      },
+
+      _isInRange(day, month, year) {
+        if (!this.rangeStart || !this.rangeEnd) return false;
+        const ts = new Date(year, month, day).getTime();
+        const startTs = this._toTimestamp(this.rangeStart);
+        const endTs = this._toTimestamp(this.rangeEnd);
+        return ts > startTs && ts < endTs;
+      }
+    };
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

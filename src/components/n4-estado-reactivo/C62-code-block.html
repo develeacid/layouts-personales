@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C62 Bloques de Código</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C62 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Bloques de Código</h1>
+      <p class="text-sm text-zinc-600 mt-1">Code blocks con copiar, números de línea, syntax highlighting y toggle inline/block.</p>
+    </header>
+
+    <!-- Variante 1: Code block simple -->
+    <section class="space-y-4" x-data="codeBlock()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Code block simple</h2>
+      <div class="rounded-xl overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-2 bg-zinc-900">
+          <span class="text-xs font-medium text-zinc-400">JavaScript</span>
+          <button
+            class="text-xs font-medium text-zinc-400 hover:text-zinc-200 transition-colors duration-150 cursor-pointer"
+            @click="copyCode($refs.code1.textContent)"
+          >
+            <span x-show="!copied" class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copiar
+            </span>
+            <span x-show="copied" x-cloak class="inline-flex items-center gap-1 text-emerald-400">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Copiado!
+            </span>
+          </button>
+        </div>
+        <div class="bg-zinc-950 p-4 overflow-x-auto">
+          <pre class="font-mono text-sm text-zinc-100 leading-relaxed" x-ref="code1">function fibonacci(n) {
+  if (n &lt;= 1) return n;
+  let a = 0, b = 1;
+  for (let i = 2; i &lt;= n; i++) {
+    [a, b] = [b, a + b];
+  }
+  return b;
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 2: Con números de línea -->
+    <section class="space-y-4" x-data="codeBlock()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Con números de línea</h2>
+      <div class="rounded-xl overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-2 bg-zinc-900">
+          <span class="text-xs font-medium text-zinc-400">HTML</span>
+          <button
+            class="text-xs font-medium text-zinc-400 hover:text-zinc-200 transition-colors duration-150 cursor-pointer"
+            @click="copyCode($refs.code2.textContent)"
+          >
+            <span x-show="!copied" class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copiar
+            </span>
+            <span x-show="copied" x-cloak class="inline-flex items-center gap-1 text-emerald-400">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Copiado!
+            </span>
+          </button>
+        </div>
+        <div class="bg-zinc-950 overflow-x-auto">
+          <div class="flex">
+            <div class="py-4 pl-4 pr-3 border-r border-zinc-700 select-none">
+              <pre class="font-mono text-sm text-zinc-500 leading-relaxed text-right">1
+2
+3
+4
+5
+6
+7</pre>
+            </div>
+            <div class="p-4 flex-1">
+              <pre class="font-mono text-sm text-zinc-100 leading-relaxed" x-ref="code2">&lt;nav class="navbar"&gt;
+  &lt;div class="container"&gt;
+    &lt;a href="/" class="logo"&gt;LayoutOS&lt;/a&gt;
+    &lt;ul class="nav-links"&gt;
+      &lt;li&gt;&lt;a href="/docs"&gt;Docs&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 3: Syntax highlighting manual -->
+    <section class="space-y-4" x-data="codeBlock()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Syntax highlighting manual</h2>
+      <div class="rounded-xl overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-2 bg-zinc-900">
+          <span class="text-xs font-medium text-zinc-400">JavaScript</span>
+          <button
+            class="text-xs font-medium text-zinc-400 hover:text-zinc-200 transition-colors duration-150 cursor-pointer"
+            @click="copyCode($refs.code3.textContent)"
+          >
+            <span x-show="!copied" class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copiar
+            </span>
+            <span x-show="copied" x-cloak class="inline-flex items-center gap-1 text-emerald-400">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+              Copiado!
+            </span>
+          </button>
+        </div>
+        <div class="bg-zinc-950 p-4 overflow-x-auto">
+          <pre class="font-mono text-sm leading-relaxed" x-ref="code3"><span class="text-zinc-500">// Calcula el factorial de un número</span>
+<span class="text-violet-400">function</span> <span class="text-blue-400">factorial</span>(<span class="text-zinc-100">n</span>) {
+  <span class="text-violet-400">if</span> (<span class="text-zinc-100">n</span> &lt;= <span class="text-amber-400">1</span>) <span class="text-violet-400">return</span> <span class="text-amber-400">1</span>;
+  <span class="text-violet-400">return</span> <span class="text-zinc-100">n</span> * <span class="text-blue-400">factorial</span>(<span class="text-zinc-100">n</span> - <span class="text-amber-400">1</span>);
+}
+
+<span class="text-violet-400">const</span> <span class="text-zinc-100">result</span> = <span class="text-blue-400">factorial</span>(<span class="text-amber-400">5</span>);
+<span class="text-zinc-100">console</span>.<span class="text-blue-400">log</span>(<span class="text-emerald-400">`Resultado: ${</span><span class="text-zinc-100">result</span><span class="text-emerald-400">}`</span>); <span class="text-zinc-500">// 120</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 4: Inline code vs block toggle -->
+    <section class="space-y-4" x-data="codeBlock()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Inline vs Block toggle</h2>
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-4">
+        <div class="flex items-center gap-2">
+          <button
+            class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors duration-150 cursor-pointer"
+            :class="view === 'inline' ? 'bg-blue-600 text-white' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'"
+            @click="view = 'inline'"
+          >Inline</button>
+          <button
+            class="px-3 py-1.5 text-xs font-medium rounded-lg transition-colors duration-150 cursor-pointer"
+            :class="view === 'block' ? 'bg-blue-600 text-white' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'"
+            @click="view = 'block'"
+          >Block</button>
+        </div>
+
+        <!-- Inline view -->
+        <div x-show="view === 'inline'" class="text-sm text-zinc-700 leading-relaxed">
+          <p>Usa <code class="bg-zinc-100 text-zinc-800 px-1.5 py-0.5 rounded text-sm font-mono">document.querySelector()</code> para seleccionar elementos del DOM. Luego llama a <code class="bg-zinc-100 text-zinc-800 px-1.5 py-0.5 rounded text-sm font-mono">.addEventListener('click', handler)</code> para escuchar eventos.</p>
+        </div>
+
+        <!-- Block view -->
+        <div x-show="view === 'block'" x-cloak>
+          <div class="rounded-xl overflow-hidden">
+            <div class="bg-zinc-950 p-4 overflow-x-auto">
+              <pre class="font-mono text-sm text-zinc-100 leading-relaxed">document.querySelector()
+.addEventListener('click', handler)</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function codeBlock() {
+      return {
+        copied: false,
+        view: 'inline',
+        copyCode(text) {
+          navigator.clipboard.writeText(text).then(() => {
+            this.copied = true;
+            setTimeout(() => { this.copied = false; }, 2000);
+          });
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
