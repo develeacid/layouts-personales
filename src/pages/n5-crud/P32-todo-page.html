@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Tareas</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="todoPage()">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800"><span class="text-sm font-semibold text-white">LayoutOS</span></div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          Facturas
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+          Transacciones
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"/></svg>
+          Tickets
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+          Email
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-white bg-zinc-800">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Tareas
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/></svg>
+          Proyectos
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          Archivos
+        </a>
+      </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Tareas</h1>
+        <button @click="showNewTask = true" class="btn-primary btn-sm">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+          Nueva tarea
+        </button>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <div class="max-w-4xl mx-auto space-y-6">
+
+          <!-- Progress -->
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium text-zinc-700" x-text="completedCount + ' de ' + tasks.length + ' completadas (' + progressPercent + '%)'"></span>
+            </div>
+            <div class="w-full h-2 bg-zinc-100 rounded-full overflow-hidden">
+              <div class="h-full bg-blue-600 rounded-full transition-all duration-300" :style="'width:' + progressPercent + '%'"></div>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="flex gap-2">
+            <template x-for="f in filters" :key="f.key">
+              <button @click="filter = f.key" class="btn-sm"
+                      :class="filter === f.key ? 'btn-primary' : 'btn-ghost'"
+                      x-text="f.label"></button>
+            </template>
+          </div>
+
+          <!-- Add task inline -->
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4" x-show="showNewTask || true">
+            <form @submit.prevent="addTask()" class="flex items-center gap-3">
+              <input type="text" x-model="newTaskTitle" class="input flex-1" placeholder="Escribe una tarea y presiona Enter..." @keydown.escape="showNewTask = false" />
+              <select x-model="newTaskPriority" class="input w-32">
+                <option value="low">Baja</option>
+                <option value="medium">Media</option>
+                <option value="high">Alta</option>
+              </select>
+              <button type="submit" class="btn-primary btn-sm">Agregar</button>
+            </form>
+          </div>
+
+          <!-- Task list -->
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm divide-y divide-zinc-100">
+            <template x-for="(task, index) in filteredTasks" :key="task.id">
+              <div class="flex items-center gap-4 px-6 py-3 group">
+                <!-- Move dropdown -->
+                <div class="relative" x-data="{ moveOpen: false }">
+                  <button @click="moveOpen = !moveOpen" class="text-zinc-300 hover:text-zinc-500 cursor-grab opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                  </button>
+                  <div x-show="moveOpen" @click.away="moveOpen = false" x-cloak class="absolute left-0 top-6 z-10 bg-white border border-zinc-200 rounded-lg shadow-lg py-1 w-36">
+                    <button @click="moveTask(task, 'up'); moveOpen = false" class="w-full text-left px-3 py-1.5 text-sm text-zinc-600 hover:bg-zinc-50">Mover arriba</button>
+                    <button @click="moveTask(task, 'down'); moveOpen = false" class="w-full text-left px-3 py-1.5 text-sm text-zinc-600 hover:bg-zinc-50">Mover abajo</button>
+                  </div>
+                </div>
+                <!-- Checkbox -->
+                <input type="checkbox" x-model="task.done" class="rounded border-zinc-300 text-blue-600 w-4 h-4" />
+                <!-- Title -->
+                <span class="flex-1 text-sm" :class="task.done ? 'line-through text-zinc-400' : 'text-zinc-900'" x-text="task.title"></span>
+                <!-- Priority badge -->
+                <span class="text-xs"
+                      :class="{'badge-rose': task.priority === 'high', 'badge-amber': task.priority === 'medium', 'badge-zinc': task.priority === 'low'}"
+                      x-text="task.priority === 'high' ? 'Alta' : task.priority === 'medium' ? 'Media' : 'Baja'"></span>
+                <!-- Date -->
+                <span class="text-xs text-zinc-400 w-20 text-right" x-text="task.date"></span>
+                <!-- Assignee -->
+                <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
+                     :class="task.done ? 'bg-zinc-100 text-zinc-400' : 'bg-blue-100 text-blue-700'"
+                     x-text="task.assignee"></div>
+              </div>
+            </template>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function todoPage() {
+      return {
+        filter: 'all',
+        showNewTask: false,
+        newTaskTitle: '',
+        newTaskPriority: 'medium',
+        nextId: 21,
+        filters: [
+          { key: 'all', label: 'Todas' },
+          { key: 'pending', label: 'Pendientes' },
+          { key: 'done', label: 'Completadas' },
+          { key: 'today', label: 'Hoy' },
+          { key: 'week', label: 'Esta semana' }
+        ],
+        tasks: [
+          { id: 1, title: 'Revisar mockups de la landing page', done: true, priority: 'high', date: '31 Mar', assignee: 'AG' },
+          { id: 2, title: 'Implementar autenticacion OAuth', done: true, priority: 'high', date: '31 Mar', assignee: 'CL' },
+          { id: 3, title: 'Configurar pipeline de CI/CD', done: true, priority: 'medium', date: '30 Mar', assignee: 'MS' },
+          { id: 4, title: 'Escribir tests unitarios para el modulo de pagos', done: true, priority: 'high', date: '30 Mar', assignee: 'PR' },
+          { id: 5, title: 'Actualizar documentacion de la API', done: true, priority: 'medium', date: '29 Mar', assignee: 'DH' },
+          { id: 6, title: 'Optimizar queries de base de datos', done: true, priority: 'medium', date: '29 Mar', assignee: 'CL' },
+          { id: 7, title: 'Disenar flujo de onboarding', done: true, priority: 'low', date: '28 Mar', assignee: 'LT' },
+          { id: 8, title: 'Migrar servicios a contenedores Docker', done: true, priority: 'high', date: '28 Mar', assignee: 'MS' },
+          { id: 9, title: 'Crear componente de tabla reutilizable', done: true, priority: 'medium', date: '27 Mar', assignee: 'AG' },
+          { id: 10, title: 'Configurar monitoring con Grafana', done: true, priority: 'low', date: '27 Mar', assignee: 'PR' },
+          { id: 11, title: 'Implementar notificaciones push', done: true, priority: 'medium', date: '26 Mar', assignee: 'DH' },
+          { id: 12, title: 'Revisar pull requests pendientes', done: true, priority: 'low', date: '26 Mar', assignee: 'CL' },
+          { id: 13, title: 'Preparar demo para el cliente', done: false, priority: 'high', date: '31 Mar', assignee: 'AG' },
+          { id: 14, title: 'Corregir bug en el filtro de busqueda', done: false, priority: 'high', date: '31 Mar', assignee: 'CL' },
+          { id: 15, title: 'Integrar pasarela de pago Stripe', done: false, priority: 'high', date: '1 Abr', assignee: 'MS' },
+          { id: 16, title: 'Redactar email de lanzamiento', done: false, priority: 'medium', date: '2 Abr', assignee: 'LT' },
+          { id: 17, title: 'Configurar CDN para assets estaticos', done: false, priority: 'low', date: '3 Abr', assignee: 'PR' },
+          { id: 18, title: 'Crear backups automaticos de la BD', done: false, priority: 'medium', date: '3 Abr', assignee: 'DH' },
+          { id: 19, title: 'Auditar accesibilidad del dashboard', done: false, priority: 'low', date: '4 Abr', assignee: 'AG' },
+          { id: 20, title: 'Planificar sprint de Abril', done: false, priority: 'medium', date: '5 Abr', assignee: 'CL' }
+        ],
+        get filteredTasks() {
+          if (this.filter === 'pending') return this.tasks.filter(t => !t.done);
+          if (this.filter === 'done') return this.tasks.filter(t => t.done);
+          if (this.filter === 'today') return this.tasks.filter(t => t.date === '31 Mar');
+          if (this.filter === 'week') return this.tasks.filter(t => ['31 Mar', '1 Abr', '2 Abr', '3 Abr', '4 Abr', '5 Abr'].includes(t.date));
+          return this.tasks;
+        },
+        get completedCount() {
+          return this.tasks.filter(t => t.done).length;
+        },
+        get progressPercent() {
+          return Math.round((this.completedCount / this.tasks.length) * 100);
+        },
+        addTask() {
+          if (!this.newTaskTitle.trim()) return;
+          this.tasks.push({ id: this.nextId++, title: this.newTaskTitle.trim(), done: false, priority: this.newTaskPriority, date: '31 Mar', assignee: 'YO' });
+          this.newTaskTitle = '';
+        },
+        moveTask(task, dir) {
+          const idx = this.tasks.indexOf(task);
+          if (dir === 'up' && idx > 0) { [this.tasks[idx - 1], this.tasks[idx]] = [this.tasks[idx], this.tasks[idx - 1]]; }
+          if (dir === 'down' && idx < this.tasks.length - 1) { [this.tasks[idx], this.tasks[idx + 1]] = [this.tasks[idx + 1], this.tasks[idx]]; }
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

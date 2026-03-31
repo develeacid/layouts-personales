@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Proyectos</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="projectsPage()">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800"><span class="text-sm font-semibold text-white">LayoutOS</span></div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          Facturas
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+          Transacciones
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"/></svg>
+          Tickets
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+          Email
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Tareas
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-white bg-zinc-800">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/></svg>
+          Proyectos
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+          Archivos
+        </a>
+      </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Proyectos</h1>
+        <div class="flex items-center gap-2">
+          <!-- Toggle grid/list -->
+          <div class="flex border border-zinc-200 rounded-lg overflow-hidden">
+            <button @click="view = 'grid'" class="px-3 py-1.5 text-sm transition-colors" :class="view === 'grid' ? 'bg-zinc-900 text-white' : 'text-zinc-500 hover:bg-zinc-50'">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z"/></svg>
+            </button>
+            <button @click="view = 'list'" class="px-3 py-1.5 text-sm transition-colors" :class="view === 'list' ? 'bg-zinc-900 text-white' : 'text-zinc-500 hover:bg-zinc-50'">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+            </button>
+          </div>
+          <button class="btn-primary btn-sm">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+            Nuevo proyecto
+          </button>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- Filters -->
+        <div class="flex items-center gap-4 mb-6">
+          <input type="text" x-model="search" class="input w-64" placeholder="Buscar proyectos..." />
+          <div class="flex gap-2">
+            <template x-for="s in statuses" :key="s.key">
+              <button @click="statusFilter = statusFilter === s.key ? 'all' : s.key" class="btn-sm"
+                      :class="statusFilter === s.key ? 'btn-primary' : 'btn-ghost'"
+                      x-text="s.label"></button>
+            </template>
+          </div>
+        </div>
+
+        <!-- Grid view -->
+        <div x-show="view === 'grid'" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <template x-for="p in filteredProjects" :key="p.id">
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow">
+              <div class="flex items-start justify-between mb-3">
+                <h3 class="text-sm font-semibold text-zinc-900" x-text="p.name"></h3>
+                <span class="text-xs shrink-0 ml-2"
+                      :class="{'badge-green': p.status === 'active', 'badge-amber': p.status === 'paused', 'badge-blue': p.status === 'completed'}"
+                      x-text="p.status === 'active' ? 'Activo' : p.status === 'paused' ? 'En pausa' : 'Completado'"></span>
+              </div>
+              <p class="text-sm text-zinc-500 mb-4 line-clamp-2" x-text="p.description"></p>
+              <!-- Progress -->
+              <div class="mb-4">
+                <div class="flex items-center justify-between text-xs text-zinc-500 mb-1">
+                  <span>Progreso</span>
+                  <span x-text="p.progress + '%'"></span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                  <div class="h-full rounded-full transition-all"
+                       :class="p.status === 'completed' ? 'bg-emerald-500' : 'bg-blue-600'"
+                       :style="'width:' + p.progress + '%'"></div>
+                </div>
+              </div>
+              <!-- Footer -->
+              <div class="flex items-center justify-between">
+                <!-- Avatar stack -->
+                <div class="flex -space-x-2">
+                  <template x-for="m in p.members" :key="m">
+                    <div class="w-7 h-7 rounded-full border-2 border-white flex items-center justify-center text-xs font-semibold bg-zinc-100 text-zinc-600" x-text="m"></div>
+                  </template>
+                </div>
+                <span class="text-xs text-zinc-400" x-text="p.date"></span>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- List view -->
+        <div x-show="view === 'list'" class="bg-white border border-zinc-200 rounded-xl shadow-sm">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-zinc-200">
+                <th class="text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider px-6 py-3">Proyecto</th>
+                <th class="text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider px-6 py-3">Estado</th>
+                <th class="text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider px-6 py-3">Progreso</th>
+                <th class="text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider px-6 py-3">Miembros</th>
+                <th class="text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider px-6 py-3">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="p in filteredProjects" :key="p.id">
+                <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+                  <td class="px-6 py-3">
+                    <p class="text-sm font-medium text-zinc-900" x-text="p.name"></p>
+                    <p class="text-xs text-zinc-500 truncate max-w-xs" x-text="p.description"></p>
+                  </td>
+                  <td class="px-6 py-3">
+                    <span class="text-xs"
+                          :class="{'badge-green': p.status === 'active', 'badge-amber': p.status === 'paused', 'badge-blue': p.status === 'completed'}"
+                          x-text="p.status === 'active' ? 'Activo' : p.status === 'paused' ? 'En pausa' : 'Completado'"></span>
+                  </td>
+                  <td class="px-6 py-3">
+                    <div class="flex items-center gap-2">
+                      <div class="w-24 h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-600 rounded-full" :style="'width:' + p.progress + '%'"></div>
+                      </div>
+                      <span class="text-xs text-zinc-500" x-text="p.progress + '%'"></span>
+                    </div>
+                  </td>
+                  <td class="px-6 py-3">
+                    <div class="flex -space-x-1">
+                      <template x-for="m in p.members" :key="m">
+                        <div class="w-6 h-6 rounded-full border-2 border-white flex items-center justify-center text-xs font-semibold bg-zinc-100 text-zinc-600" x-text="m"></div>
+                      </template>
+                    </div>
+                  </td>
+                  <td class="px-6 py-3 text-sm text-zinc-500" x-text="p.date"></td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function projectsPage() {
+      return {
+        view: 'grid',
+        search: '',
+        statusFilter: 'all',
+        statuses: [
+          { key: 'active', label: 'Activo' },
+          { key: 'paused', label: 'En pausa' },
+          { key: 'completed', label: 'Completado' }
+        ],
+        projects: [
+          { id: 1, name: 'LayoutOS Dashboard', description: 'Rediseno completo del dashboard principal con nuevos widgets y metricas en tiempo real.', status: 'active', progress: 72, members: ['AG', 'CL', 'MS'], date: '15 Abr 2024' },
+          { id: 2, name: 'API v3 Migration', description: 'Migracion de la API RESTful a la version 3 con GraphQL y mejoras de rendimiento.', status: 'active', progress: 45, members: ['CL', 'DH'], date: '30 May 2024' },
+          { id: 3, name: 'Mobile App', description: 'Desarrollo de la aplicacion mobile nativa para iOS y Android con React Native.', status: 'active', progress: 28, members: ['PR', 'LT', 'AG'], date: '1 Jul 2024' },
+          { id: 4, name: 'Sistema de Pagos', description: 'Integracion con multiples pasarelas de pago y sistema de facturacion automatica.', status: 'completed', progress: 100, members: ['MS', 'CL'], date: '28 Feb 2024' },
+          { id: 5, name: 'Analytics Platform', description: 'Plataforma de analytics con reportes personalizados y exportacion de datos.', status: 'paused', progress: 60, members: ['DH', 'AG', 'PR'], date: '15 Jun 2024' },
+          { id: 6, name: 'CRM Integration', description: 'Integracion bidireccional con los principales CRM del mercado.', status: 'active', progress: 15, members: ['LT', 'MS'], date: '1 Ago 2024' },
+          { id: 7, name: 'Security Audit', description: 'Auditoria completa de seguridad, penetration testing y cumplimiento GDPR.', status: 'completed', progress: 100, members: ['CL', 'DH', 'MS'], date: '10 Mar 2024' },
+          { id: 8, name: 'Chatbot IA', description: 'Desarrollo de chatbot con inteligencia artificial para soporte al cliente 24/7.', status: 'paused', progress: 35, members: ['PR', 'AG'], date: '30 Jun 2024' }
+        ],
+        get filteredProjects() {
+          let result = this.projects;
+          if (this.statusFilter !== 'all') result = result.filter(p => p.status === this.statusFilter);
+          if (this.search) {
+            const q = this.search.toLowerCase();
+            result = result.filter(p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q));
+          }
+          return result;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
