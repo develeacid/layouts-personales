@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C110 · Pie / Donut</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-white text-zinc-900 antialiased">
+
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+
+    <!-- Header -->
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C110 · Nivel 8</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Pie / Donut</h1>
+      <p class="text-sm text-zinc-600 mt-1">Nivel 1 · Estructura plana — distribución proporcional de un total entre categorías.</p>
+    </header>
+
+    <!-- ================================================================== -->
+    <!-- V1 · Pie básico                                                    -->
+    <!-- ================================================================== -->
+    <section x-data="pieBasic()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+      <div>
+        <h2 class="text-lg font-semibold text-zinc-900">V1 · Pie básico</h2>
+        <p class="text-sm text-zinc-500 mt-1">Gráfica de pastel clásica con etiquetas de nombre y porcentaje.</p>
+      </div>
+
+      <!-- Estructura de datos -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 leading-relaxed">data: [
+  { fuente: 'Orgánico', visitas: 4850 },
+  { fuente: 'Directo', visitas: 2300 },
+  { fuente: 'Referral', visitas: 1800 },
+  { fuente: 'Social',  visitas: 1200 },
+  { fuente: 'Email',   visitas: 800  },
+]</pre>
+      </div>
+
+      <!-- Tabla editable -->
+      <div class="overflow-hidden rounded-lg border border-zinc-200">
+        <table class="w-full text-sm">
+          <thead class="bg-zinc-50">
+            <tr>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600">Fuente</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600">Visitas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(d, i) in data" :key="i">
+              <tr class="border-t border-zinc-100">
+                <td class="px-4 py-2 text-zinc-700" x-text="d.fuente"></td>
+                <td class="px-4 py-2">
+                  <input type="number" x-model.number="d.visitas" class="w-24 rounded border border-zinc-300 px-2 py-1 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Gráfica -->
+      <div x-ref="chart" class="w-full h-80"></div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- V2 · Donut                                                         -->
+    <!-- ================================================================== -->
+    <section x-data="pieDonut()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+      <div>
+        <h2 class="text-lg font-semibold text-zinc-900">V2 · Donut</h2>
+        <p class="text-sm text-zinc-500 mt-1">Variante con agujero central que muestra el total acumulado.</p>
+      </div>
+
+      <!-- Estructura de datos -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 leading-relaxed">data: [
+  { fuente: 'Orgánico', visitas: 4850 },
+  { fuente: 'Directo', visitas: 2300 },
+  { fuente: 'Referral', visitas: 1800 },
+  { fuente: 'Social',  visitas: 1200 },
+  { fuente: 'Email',   visitas: 800  },
+]</pre>
+      </div>
+
+      <!-- Tabla editable -->
+      <div class="overflow-hidden rounded-lg border border-zinc-200">
+        <table class="w-full text-sm">
+          <thead class="bg-zinc-50">
+            <tr>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600">Fuente</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600">Visitas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(d, i) in data" :key="i">
+              <tr class="border-t border-zinc-100">
+                <td class="px-4 py-2 text-zinc-700" x-text="d.fuente"></td>
+                <td class="px-4 py-2">
+                  <input type="number" x-model.number="d.visitas" class="w-24 rounded border border-zinc-300 px-2 py-1 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Gráfica -->
+      <div x-ref="chart" class="w-full h-80"></div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- V3 · Con leyenda detallada                                         -->
+    <!-- ================================================================== -->
+    <section x-data="pieLegend()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+      <div>
+        <h2 class="text-lg font-semibold text-zinc-900">V3 · Con leyenda detallada</h2>
+        <p class="text-sm text-zinc-500 mt-1">Pie desplazado a la izquierda con leyenda vertical a la derecha mostrando nombre, valor y porcentaje.</p>
+      </div>
+
+      <!-- Estructura de datos -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 leading-relaxed">data: [
+  { fuente: 'Orgánico', visitas: 4850 },
+  { fuente: 'Directo', visitas: 2300 },
+  { fuente: 'Referral', visitas: 1800 },
+  { fuente: 'Social',  visitas: 1200 },
+  { fuente: 'Email',   visitas: 800  },
+]</pre>
+      </div>
+
+      <!-- Tabla editable -->
+      <div class="overflow-hidden rounded-lg border border-zinc-200">
+        <table class="w-full text-sm">
+          <thead class="bg-zinc-50">
+            <tr>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600">Fuente</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600">Visitas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(d, i) in data" :key="i">
+              <tr class="border-t border-zinc-100">
+                <td class="px-4 py-2 text-zinc-700" x-text="d.fuente"></td>
+                <td class="px-4 py-2">
+                  <input type="number" x-model.number="d.visitas" class="w-24 rounded border border-zinc-300 px-2 py-1 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Gráfica -->
+      <div x-ref="chart" class="w-full h-80"></div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- V4 · Nightingale (rose)                                            -->
+    <!-- ================================================================== -->
+    <section x-data="pieRose()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+      <div>
+        <h2 class="text-lg font-semibold text-zinc-900">V4 · Nightingale (rose)</h2>
+        <p class="text-sm text-zinc-500 mt-1">Variante donde el radio de cada sector codifica el valor, creando un efecto de rosa de los vientos.</p>
+      </div>
+
+      <!-- Estructura de datos -->
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 leading-relaxed">data: [
+  { fuente: 'Orgánico', visitas: 4850 },
+  { fuente: 'Directo', visitas: 2300 },
+  { fuente: 'Referral', visitas: 1800 },
+  { fuente: 'Social',  visitas: 1200 },
+  { fuente: 'Email',   visitas: 800  },
+]</pre>
+      </div>
+
+      <!-- Tabla editable -->
+      <div class="overflow-hidden rounded-lg border border-zinc-200">
+        <table class="w-full text-sm">
+          <thead class="bg-zinc-50">
+            <tr>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600">Fuente</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600">Visitas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(d, i) in data" :key="i">
+              <tr class="border-t border-zinc-100">
+                <td class="px-4 py-2 text-zinc-700" x-text="d.fuente"></td>
+                <td class="px-4 py-2">
+                  <input type="number" x-model.number="d.visitas" class="w-24 rounded border border-zinc-300 px-2 py-1 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Gráfica -->
+      <div x-ref="chart" class="w-full h-96"></div>
+    </section>
+
+  </div>
+
+  <!-- ================================================================== -->
+  <!-- Scripts                                                            -->
+  <!-- ================================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+  <script>
+    /* ------------------------------------------------------------------ */
+    /* chartBase — patrón reutilizable                                    */
+    /* ------------------------------------------------------------------ */
+    function chartBase() {
+      return {
+        chart: null,
+        _resizeHandler: null,
+        initChart() {
+          this.chart = echarts.init(this.$refs.chart);
+          this.render();
+          this.$watch('data', () => this.render(), { deep: true });
+          this._resizeHandler = () => this.chart.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        destroy() {
+          window.removeEventListener('resize', this._resizeHandler);
+          this.chart.dispose();
+        }
+      };
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* V1 · Pie básico                                                    */
+    /* ------------------------------------------------------------------ */
+    function pieBasic() {
+      return {
+        ...chartBase(),
+        data: [
+          { fuente: 'Orgánico', visitas: 4850 },
+          { fuente: 'Directo', visitas: 2300 },
+          { fuente: 'Referral', visitas: 1800 },
+          { fuente: 'Social', visitas: 1200 },
+          { fuente: 'Email', visitas: 800 },
+        ],
+        render() {
+          const total = this.data.reduce((s, d) => s + d.visitas, 0);
+          this.chart.setOption({
+            color: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+            tooltip: {
+              trigger: 'item',
+              formatter(params) {
+                const pct = ((params.value / total) * 100).toFixed(1);
+                return `${params.name}<br/>${params.value.toLocaleString()} visitas (${pct}%)`;
+              }
+            },
+            series: [
+              {
+                type: 'pie',
+                radius: '60%',
+                data: this.data.map(d => ({ name: d.fuente, value: d.visitas })),
+                label: {
+                  show: true,
+                  formatter(params) {
+                    return `${params.name}\n${params.percent}%`;
+                  }
+                },
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.2)'
+                  }
+                }
+              }
+            ]
+          });
+        }
+      };
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* V2 · Donut                                                         */
+    /* ------------------------------------------------------------------ */
+    function pieDonut() {
+      return {
+        ...chartBase(),
+        data: [
+          { fuente: 'Orgánico', visitas: 4850 },
+          { fuente: 'Directo', visitas: 2300 },
+          { fuente: 'Referral', visitas: 1800 },
+          { fuente: 'Social', visitas: 1200 },
+          { fuente: 'Email', visitas: 800 },
+        ],
+        render() {
+          const total = this.data.reduce((s, d) => s + d.visitas, 0);
+          this.chart.setOption({
+            color: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+            tooltip: {
+              trigger: 'item',
+              formatter(params) {
+                const pct = ((params.value / total) * 100).toFixed(1);
+                return `${params.name}<br/>${params.value.toLocaleString()} visitas (${pct}%)`;
+              }
+            },
+            graphic: [
+              {
+                type: 'text',
+                left: 'center',
+                top: 'center',
+                style: {
+                  text: `Total\n${total.toLocaleString()}`,
+                  textAlign: 'center',
+                  fill: '#18181b',
+                  fontSize: 16,
+                  fontWeight: 600,
+                  lineHeight: 22
+                }
+              }
+            ],
+            series: [
+              {
+                type: 'pie',
+                radius: ['40%', '70%'],
+                data: this.data.map(d => ({ name: d.fuente, value: d.visitas })),
+                label: {
+                  show: true,
+                  formatter(params) {
+                    return `${params.name} ${params.percent}%`;
+                  }
+                },
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.2)'
+                  }
+                }
+              }
+            ]
+          });
+        }
+      };
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* V3 · Con leyenda detallada                                         */
+    /* ------------------------------------------------------------------ */
+    function pieLegend() {
+      return {
+        ...chartBase(),
+        data: [
+          { fuente: 'Orgánico', visitas: 4850 },
+          { fuente: 'Directo', visitas: 2300 },
+          { fuente: 'Referral', visitas: 1800 },
+          { fuente: 'Social', visitas: 1200 },
+          { fuente: 'Email', visitas: 800 },
+        ],
+        render() {
+          const total = this.data.reduce((s, d) => s + d.visitas, 0);
+          const dataMap = Object.fromEntries(this.data.map(d => [d.fuente, d.visitas]));
+          this.chart.setOption({
+            color: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+            tooltip: {
+              trigger: 'item',
+              formatter(params) {
+                const pct = ((params.value / total) * 100).toFixed(1);
+                return `${params.name}<br/>${params.value.toLocaleString()} visitas (${pct}%)`;
+              }
+            },
+            legend: {
+              orient: 'vertical',
+              right: 10,
+              top: 'middle',
+              textStyle: {
+                fontSize: 13,
+                color: '#3f3f46'
+              },
+              formatter(name) {
+                const val = dataMap[name] || 0;
+                const pct = ((val / total) * 100).toFixed(1);
+                return `${name}  ${val.toLocaleString()}  (${pct}%)`;
+              }
+            },
+            series: [
+              {
+                type: 'pie',
+                radius: '55%',
+                center: ['35%', '50%'],
+                data: this.data.map(d => ({ name: d.fuente, value: d.visitas })),
+                label: {
+                  show: false
+                },
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.2)'
+                  }
+                }
+              }
+            ]
+          });
+        }
+      };
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* V4 · Nightingale (rose)                                            */
+    /* ------------------------------------------------------------------ */
+    function pieRose() {
+      return {
+        ...chartBase(),
+        data: [
+          { fuente: 'Orgánico', visitas: 4850 },
+          { fuente: 'Directo', visitas: 2300 },
+          { fuente: 'Referral', visitas: 1800 },
+          { fuente: 'Social', visitas: 1200 },
+          { fuente: 'Email', visitas: 800 },
+        ],
+        render() {
+          const total = this.data.reduce((s, d) => s + d.visitas, 0);
+          this.chart.setOption({
+            color: ['#6366f1', '#06b6d4', '#f43f5e', '#f97316', '#a855f7'],
+            tooltip: {
+              trigger: 'item',
+              formatter(params) {
+                const pct = ((params.value / total) * 100).toFixed(1);
+                return `${params.name}<br/>${params.value.toLocaleString()} visitas (${pct}%)`;
+              }
+            },
+            series: [
+              {
+                type: 'pie',
+                roseType: 'area',
+                radius: ['20%', '65%'],
+                data: this.data.map(d => ({ name: d.fuente, value: d.visitas })),
+                label: {
+                  show: true,
+                  formatter(params) {
+                    return `${params.name}\n${params.value.toLocaleString()}`;
+                  }
+                },
+                emphasis: {
+                  itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.2)'
+                  }
+                }
+              }
+            ]
+          });
+        }
+      };
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js" defer></script>
+
+</body>
+</html>
