@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C113 Candlestick Chart</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+
+    <!-- Header -->
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C113 · Nivel 8</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Candlestick</h1>
+      <p class="text-sm text-zinc-600 mt-1">Nivel 2 · Multiatributo — cada punto contiene 4 valores (Open, High, Low, Close) para análisis financiero.</p>
+    </header>
+
+    <!-- ===================== VARIANTE 1: OHLC básico ===================== -->
+    <section x-data="candleBasic()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900">1 · OHLC básico</h2>
+      <p class="text-sm text-zinc-600">Análisis de mercado financiero / crypto — velas japonesas con apertura, máximo, mínimo y cierre diarios.</p>
+
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 font-mono">data: [
+  { date:'2024-01-02', open:2320.26, close:2302.60, low:2287.56, high:2362.94 },
+  { date:'2024-01-03', open:2300.00, close:2291.30, low:2288.26, high:2308.38 },
+  ...
+]</pre>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
+          <thead class="bg-zinc-50">
+            <tr>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Date</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Open</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">High</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Low</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Close</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(item, i) in data" :key="i">
+              <tr class="border-t border-zinc-100">
+                <td class="px-4 py-2 text-zinc-700" x-text="item.date"></td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.open"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.high"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.low"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.close"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+    </section>
+
+    <!-- ===================== VARIANTE 2: Con volumen ===================== -->
+    <section x-data="candleVolume()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900">2 · Con volumen</h2>
+      <p class="text-sm text-zinc-600">Velas japonesas con gráfica de barras de volumen sincronizada debajo, con zoom compartido.</p>
+
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 font-mono">data: [
+  { date:'2024-01-02', open:2320.26, close:2302.60, low:2287.56, high:2362.94, volume:3842 },
+  { date:'2024-01-03', open:2300.00, close:2291.30, low:2288.26, high:2308.38, volume:2156 },
+  ...
+]</pre>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
+          <thead class="bg-zinc-50">
+            <tr>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Date</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Open</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">High</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Low</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Close</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(item, i) in data" :key="i">
+              <tr class="border-t border-zinc-100">
+                <td class="px-4 py-2 text-zinc-700" x-text="item.date"></td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.open"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.high"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.low"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.close"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" x-model.number="item.volume"
+                    class="w-20 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+    </section>
+
+    <!-- ===================== VARIANTE 3: Con media móvil ===================== -->
+    <section x-data="candleSMA()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900">3 · Con media móvil (SMA 5)</h2>
+      <p class="text-sm text-zinc-600">Velas japonesas con línea de media móvil simple de 5 periodos superpuesta para detectar tendencias.</p>
+
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 font-mono">data: [
+  { date:'2024-01-02', open:2320.26, close:2302.60, low:2287.56, high:2362.94 },
+  ...
+]
+// SMA(5) = promedio de close de los últimos 5 días</pre>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
+          <thead class="bg-zinc-50">
+            <tr>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Date</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Open</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">High</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Low</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Close</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="(item, i) in data" :key="i">
+              <tr class="border-t border-zinc-100">
+                <td class="px-4 py-2 text-zinc-700" x-text="item.date"></td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.open"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.high"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.low"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+                <td class="px-4 py-2">
+                  <input type="number" step="0.01" x-model.number="item.close"
+                    class="w-24 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+    </section>
+
+    <!-- ===================== VARIANTE 4: Con zoom ===================== -->
+    <section x-data="candleZoom()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900">4 · Con zoom</h2>
+      <p class="text-sm text-zinc-600">Velas japonesas con slider de zoom y zoom por scroll para explorar rangos de fechas.</p>
+
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 font-mono">data: [
+  { date:'2024-01-02', open:2320.26, close:2302.60, low:2287.56, high:2362.94 },
+  ...  // 20 días de trading con dataZoom slider + inside
+]</pre>
+      </div>
+
+      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+    </section>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script>
+    function chartBase() {
+      return {
+        chart: null,
+        _resizeHandler: null,
+        initChart() {
+          this.chart = echarts.init(this.$refs.chart);
+          this.render();
+          this.$watch('data', () => this.render(), { deep: true });
+          this._resizeHandler = () => this.chart.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        destroy() {
+          window.removeEventListener('resize', this._resizeHandler);
+          this.chart.dispose();
+        }
+      };
+    }
+
+    function candleBasic() {
+      return {
+        ...chartBase(),
+        data: [
+          { date:'2024-01-02', open:2320.26, close:2302.60, low:2287.56, high:2362.94 },
+          { date:'2024-01-03', open:2300.00, close:2291.30, low:2288.26, high:2308.38 },
+          { date:'2024-01-04', open:2295.35, close:2346.50, low:2295.35, high:2346.92 },
+          { date:'2024-01-05', open:2347.22, close:2358.98, low:2337.35, high:2363.89 },
+          { date:'2024-01-08', open:2360.75, close:2321.32, low:2317.25, high:2369.88 },
+          { date:'2024-01-09', open:2322.94, close:2314.16, low:2308.76, high:2330.88 },
+          { date:'2024-01-10', open:2320.62, close:2325.82, low:2315.01, high:2338.78 },
+          { date:'2024-01-11', open:2326.12, close:2318.46, low:2311.23, high:2334.65 },
+          { date:'2024-01-12', open:2315.18, close:2362.85, low:2312.42, high:2366.34 },
+          { date:'2024-01-15', open:2364.00, close:2382.48, low:2354.36, high:2390.12 },
+          { date:'2024-01-16', open:2383.49, close:2371.23, low:2369.57, high:2395.80 },
+          { date:'2024-01-17', open:2370.00, close:2398.56, low:2366.12, high:2402.89 },
+          { date:'2024-01-18', open:2394.22, close:2410.78, low:2389.45, high:2418.34 },
+          { date:'2024-01-19', open:2410.50, close:2405.92, low:2398.76, high:2420.11 },
+          { date:'2024-01-22', open:2408.33, close:2415.67, low:2401.12, high:2425.89 },
+          { date:'2024-01-23', open:2418.42, close:2390.10, low:2385.29, high:2428.13 },
+          { date:'2024-01-24', open:2392.50, close:2425.92, low:2388.88, high:2430.56 },
+          { date:'2024-01-25', open:2424.00, close:2432.68, low:2418.53, high:2440.22 },
+          { date:'2024-01-26', open:2430.88, close:2418.45, low:2412.67, high:2442.31 },
+          { date:'2024-01-29', open:2420.11, close:2445.34, low:2415.78, high:2450.98 },
+        ],
+        init() {
+          this.initChart();
+        },
+        render() {
+          this.chart.setOption({
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: { type: 'cross' },
+              formatter(params) {
+                const d = params[0];
+                return `<strong>${d.axisValue}</strong><br/>
+                  Open: ${d.data[1]}<br/>
+                  Close: ${d.data[2]}<br/>
+                  Low: ${d.data[3]}<br/>
+                  High: ${d.data[4]}`;
+              }
+            },
+            grid: { left: 60, right: 20, top: 20, bottom: 30 },
+            xAxis: {
+              type: 'category',
+              data: this.data.map(d => d.date),
+              axisLabel: { rotate: 45, fontSize: 10 }
+            },
+            yAxis: {
+              type: 'value',
+              scale: true
+            },
+            series: [
+              {
+                type: 'candlestick',
+                data: this.data.map(d => [d.open, d.close, d.low, d.high]),
+                itemStyle: {
+                  color: '#10b981',
+                  color0: '#ef4444',
+                  borderColor: '#10b981',
+                  borderColor0: '#ef4444'
+                }
+              }
+            ]
+          });
+        }
+      };
+    }
+
+    function candleVolume() {
+      return {
+        ...chartBase(),
+        data: [
+          { date:'2024-01-02', open:2320.26, close:2302.60, low:2287.56, high:2362.94, volume:3842 },
+          { date:'2024-01-03', open:2300.00, close:2291.30, low:2288.26, high:2308.38, volume:2156 },
+          { date:'2024-01-04', open:2295.35, close:2346.50, low:2295.35, high:2346.92, volume:4231 },
+          { date:'2024-01-05', open:2347.22, close:2358.98, low:2337.35, high:2363.89, volume:3578 },
+          { date:'2024-01-08', open:2360.75, close:2321.32, low:2317.25, high:2369.88, volume:4890 },
+          { date:'2024-01-09', open:2322.94, close:2314.16, low:2308.76, high:2330.88, volume:1987 },
+          { date:'2024-01-10', open:2320.62, close:2325.82, low:2315.01, high:2338.78, volume:2743 },
+          { date:'2024-01-11', open:2326.12, close:2318.46, low:2311.23, high:2334.65, volume:2105 },
+          { date:'2024-01-12', open:2315.18, close:2362.85, low:2312.42, high:2366.34, volume:4512 },
+          { date:'2024-01-15', open:2364.00, close:2382.48, low:2354.36, high:2390.12, volume:3689 },
+          { date:'2024-01-16', open:2383.49, close:2371.23, low:2369.57, high:2395.80, volume:2934 },
+          { date:'2024-01-17', open:2370.00, close:2398.56, low:2366.12, high:2402.89, volume:4178 },
+          { date:'2024-01-18', open:2394.22, close:2410.78, low:2389.45, high:2418.34, volume:3456 },
+          { date:'2024-01-19', open:2410.50, close:2405.92, low:2398.76, high:2420.11, volume:1823 },
+          { date:'2024-01-22', open:2408.33, close:2415.67, low:2401.12, high:2425.89, volume:2567 },
+          { date:'2024-01-23', open:2418.42, close:2390.10, low:2385.29, high:2428.13, volume:4721 },
+          { date:'2024-01-24', open:2392.50, close:2425.92, low:2388.88, high:2430.56, volume:3945 },
+          { date:'2024-01-25', open:2424.00, close:2432.68, low:2418.53, high:2440.22, volume:2890 },
+          { date:'2024-01-26', open:2430.88, close:2418.45, low:2412.67, high:2442.31, volume:3214 },
+          { date:'2024-01-29', open:2420.11, close:2445.34, low:2415.78, high:2450.98, volume:4067 },
+        ],
+        init() {
+          this.initChart();
+        },
+        render() {
+          const dates = this.data.map(d => d.date);
+          const volumeColors = this.data.map(d =>
+            d.close >= d.open ? '#10b981' : '#ef4444'
+          );
+          this.chart.setOption({
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: { type: 'cross' }
+            },
+            grid: [
+              { left: 60, right: 20, top: '10%', height: '55%' },
+              { left: 60, right: 20, top: '72%', height: '18%' }
+            ],
+            xAxis: [
+              {
+                type: 'category',
+                data: dates,
+                gridIndex: 0,
+                axisLabel: { show: false }
+              },
+              {
+                type: 'category',
+                data: dates,
+                gridIndex: 1,
+                axisLabel: { rotate: 45, fontSize: 10 }
+              }
+            ],
+            yAxis: [
+              { type: 'value', scale: true, gridIndex: 0 },
+              { type: 'value', scale: true, gridIndex: 1, splitNumber: 3 }
+            ],
+            dataZoom: [
+              {
+                type: 'slider',
+                xAxisIndex: [0, 1],
+                start: 0,
+                end: 100,
+                bottom: 2
+              },
+              {
+                type: 'inside',
+                xAxisIndex: [0, 1],
+                start: 0,
+                end: 100
+              }
+            ],
+            series: [
+              {
+                type: 'candlestick',
+                data: this.data.map(d => [d.open, d.close, d.low, d.high]),
+                xAxisIndex: 0,
+                yAxisIndex: 0,
+                itemStyle: {
+                  color: '#10b981',
+                  color0: '#ef4444',
+                  borderColor: '#10b981',
+                  borderColor0: '#ef4444'
+                }
+              },
+              {
+                type: 'bar',
+                data: this.data.map((d, i) => ({
+                  value: d.volume,
+                  itemStyle: { color: volumeColors[i] }
+                })),
+                xAxisIndex: 1,
+                yAxisIndex: 1
+              }
+            ]
+          });
+        }
+      };
+    }
+
+    function candleSMA() {
+      return {
+        ...chartBase(),
+        data: [
+          { date:'2024-01-02', open:2320.26, close:2302.60, low:2287.56, high:2362.94 },
+          { date:'2024-01-03', open:2300.00, close:2291.30, low:2288.26, high:2308.38 },
+          { date:'2024-01-04', open:2295.35, close:2346.50, low:2295.35, high:2346.92 },
+          { date:'2024-01-05', open:2347.22, close:2358.98, low:2337.35, high:2363.89 },
+          { date:'2024-01-08', open:2360.75, close:2321.32, low:2317.25, high:2369.88 },
+          { date:'2024-01-09', open:2322.94, close:2314.16, low:2308.76, high:2330.88 },
+          { date:'2024-01-10', open:2320.62, close:2325.82, low:2315.01, high:2338.78 },
+          { date:'2024-01-11', open:2326.12, close:2318.46, low:2311.23, high:2334.65 },
+          { date:'2024-01-12', open:2315.18, close:2362.85, low:2312.42, high:2366.34 },
+          { date:'2024-01-15', open:2364.00, close:2382.48, low:2354.36, high:2390.12 },
+          { date:'2024-01-16', open:2383.49, close:2371.23, low:2369.57, high:2395.80 },
+          { date:'2024-01-17', open:2370.00, close:2398.56, low:2366.12, high:2402.89 },
+          { date:'2024-01-18', open:2394.22, close:2410.78, low:2389.45, high:2418.34 },
+          { date:'2024-01-19', open:2410.50, close:2405.92, low:2398.76, high:2420.11 },
+          { date:'2024-01-22', open:2408.33, close:2415.67, low:2401.12, high:2425.89 },
+          { date:'2024-01-23', open:2418.42, close:2390.10, low:2385.29, high:2428.13 },
+          { date:'2024-01-24', open:2392.50, close:2425.92, low:2388.88, high:2430.56 },
+          { date:'2024-01-25', open:2424.00, close:2432.68, low:2418.53, high:2440.22 },
+          { date:'2024-01-26', open:2430.88, close:2418.45, low:2412.67, high:2442.31 },
+          { date:'2024-01-29', open:2420.11, close:2445.34, low:2415.78, high:2450.98 },
+        ],
+        init() {
+          this.initChart();
+        },
+        render() {
+          const sma = this.data.map((_, i) => {
+            if (i < 4) return null;
+            const sum = this.data.slice(i - 4, i + 1).reduce((acc, d) => acc + d.close, 0);
+            return Math.round((sum / 5) * 100) / 100;
+          });
+          this.chart.setOption({
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: { type: 'cross' }
+            },
+            legend: { data: ['Candlestick', 'SMA(5)'], top: 0 },
+            grid: { left: 60, right: 20, top: 40, bottom: 30 },
+            xAxis: {
+              type: 'category',
+              data: this.data.map(d => d.date),
+              axisLabel: { rotate: 45, fontSize: 10 }
+            },
+            yAxis: {
+              type: 'value',
+              scale: true
+            },
+            series: [
+              {
+                name: 'Candlestick',
+                type: 'candlestick',
+                data: this.data.map(d => [d.open, d.close, d.low, d.high]),
+                itemStyle: {
+                  color: '#10b981',
+                  color0: '#ef4444',
+                  borderColor: '#10b981',
+                  borderColor0: '#ef4444'
+                }
+              },
+              {
+                name: 'SMA(5)',
+                type: 'line',
+                smooth: true,
+                data: sma,
+                lineStyle: { color: '#f59e0b', width: 2 },
+                itemStyle: { color: '#f59e0b' },
+                symbol: 'none'
+              }
+            ]
+          });
+        }
+      };
+    }
+
+    function candleZoom() {
+      return {
+        ...chartBase(),
+        data: [
+          { date:'2024-01-02', open:2320.26, close:2302.60, low:2287.56, high:2362.94 },
+          { date:'2024-01-03', open:2300.00, close:2291.30, low:2288.26, high:2308.38 },
+          { date:'2024-01-04', open:2295.35, close:2346.50, low:2295.35, high:2346.92 },
+          { date:'2024-01-05', open:2347.22, close:2358.98, low:2337.35, high:2363.89 },
+          { date:'2024-01-08', open:2360.75, close:2321.32, low:2317.25, high:2369.88 },
+          { date:'2024-01-09', open:2322.94, close:2314.16, low:2308.76, high:2330.88 },
+          { date:'2024-01-10', open:2320.62, close:2325.82, low:2315.01, high:2338.78 },
+          { date:'2024-01-11', open:2326.12, close:2318.46, low:2311.23, high:2334.65 },
+          { date:'2024-01-12', open:2315.18, close:2362.85, low:2312.42, high:2366.34 },
+          { date:'2024-01-15', open:2364.00, close:2382.48, low:2354.36, high:2390.12 },
+          { date:'2024-01-16', open:2383.49, close:2371.23, low:2369.57, high:2395.80 },
+          { date:'2024-01-17', open:2370.00, close:2398.56, low:2366.12, high:2402.89 },
+          { date:'2024-01-18', open:2394.22, close:2410.78, low:2389.45, high:2418.34 },
+          { date:'2024-01-19', open:2410.50, close:2405.92, low:2398.76, high:2420.11 },
+          { date:'2024-01-22', open:2408.33, close:2415.67, low:2401.12, high:2425.89 },
+          { date:'2024-01-23', open:2418.42, close:2390.10, low:2385.29, high:2428.13 },
+          { date:'2024-01-24', open:2392.50, close:2425.92, low:2388.88, high:2430.56 },
+          { date:'2024-01-25', open:2424.00, close:2432.68, low:2418.53, high:2440.22 },
+          { date:'2024-01-26', open:2430.88, close:2418.45, low:2412.67, high:2442.31 },
+          { date:'2024-01-29', open:2420.11, close:2445.34, low:2415.78, high:2450.98 },
+        ],
+        init() {
+          this.initChart();
+        },
+        render() {
+          this.chart.setOption({
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: { type: 'cross' }
+            },
+            grid: { left: 60, right: 20, top: 20, bottom: 80 },
+            xAxis: {
+              type: 'category',
+              data: this.data.map(d => d.date),
+              axisLabel: { rotate: 45, fontSize: 10 }
+            },
+            yAxis: {
+              type: 'value',
+              scale: true
+            },
+            dataZoom: [
+              {
+                type: 'slider',
+                start: 40,
+                end: 100,
+                bottom: 10
+              },
+              {
+                type: 'inside',
+                start: 40,
+                end: 100
+              }
+            ],
+            series: [
+              {
+                type: 'candlestick',
+                data: this.data.map(d => [d.open, d.close, d.low, d.high]),
+                itemStyle: {
+                  color: '#10b981',
+                  color0: '#ef4444',
+                  borderColor: '#10b981',
+                  borderColor0: '#ef4444'
+                }
+              }
+            ]
+          });
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
