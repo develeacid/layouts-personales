@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Notificaciones</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <style>[x-cloak] { display: none !important; }</style>
+
+  <div class="h-full flex" x-data="notificationsPage()">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-zinc-200 flex flex-col shrink-0">
+      <!-- Logo -->
+      <div class="px-5 py-5 border-b border-zinc-100">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+          </div>
+          <span class="text-sm font-semibold text-zinc-900">LayoutOS</span>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-600 rounded-lg hover:bg-zinc-50 transition-colors">
+          <svg class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z" /></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg">
+          <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" /></svg>
+          Notificaciones
+          <span x-show="unreadCount > 0" class="ml-auto badge-blue text-xs" x-text="unreadCount"></span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-600 rounded-lg hover:bg-zinc-50 transition-colors">
+          <svg class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          Configuracion
+        </a>
+      </nav>
+
+      <!-- User -->
+      <div class="px-3 py-4 border-t border-zinc-100">
+        <div class="flex items-center gap-3 px-3">
+          <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
+            <span class="text-xs font-semibold text-blue-700">AG</span>
+          </div>
+          <div class="min-w-0">
+            <p class="text-sm font-medium text-zinc-900 truncate">Ana Garcia</p>
+            <p class="text-xs text-zinc-400 truncate">ana@layoutos.com</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 overflow-y-auto">
+      <div class="max-w-4xl mx-auto px-6 py-8">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <h1 class="text-xl font-semibold text-zinc-900">Notificaciones</h1>
+            <span x-show="unreadCount > 0" class="badge-blue text-xs" x-text="unreadCount + ' sin leer'"></span>
+          </div>
+          <button @click="markAllRead()" x-show="unreadCount > 0" class="btn-ghost text-xs cursor-pointer">
+            Marcar todas como leidas
+          </button>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="border-b border-zinc-200 mb-6">
+          <nav class="flex gap-6">
+            <template x-for="f in ['all', 'unread', 'archived']" :key="f">
+              <button
+                @click="filter = f"
+                :class="filter === f ? 'border-blue-600 text-blue-600 font-medium' : 'border-transparent text-zinc-400 hover:text-zinc-600'"
+                class="text-sm pb-3 border-b-2 transition-colors duration-150 cursor-pointer capitalize"
+                x-text="f === 'all' ? 'Todas' : f === 'unread' ? 'No leidas' : 'Archivadas'"
+              ></button>
+            </template>
+          </nav>
+        </div>
+
+        <!-- Notifications list -->
+        <div class="space-y-1">
+          <template x-for="notif in filteredNotifications" :key="notif.id">
+            <div
+              @click="toggleRead(notif.id)"
+              class="flex items-start gap-4 px-4 py-4 rounded-xl cursor-pointer transition-colors duration-150"
+              :class="notif.read ? 'hover:bg-zinc-50' : 'bg-blue-50/40 hover:bg-blue-50/60'"
+            >
+              <!-- Icon / Avatar -->
+              <div class="shrink-0 mt-0.5">
+                <template x-if="notif.type === 'mention'">
+                  <div class="w-9 h-9 bg-blue-100 rounded-full flex items-center justify-center">
+                    <span class="text-xs font-semibold text-blue-700" x-text="notif.avatar"></span>
+                  </div>
+                </template>
+                <template x-if="notif.type === 'assignment'">
+                  <div class="w-9 h-9 bg-violet-100 rounded-full flex items-center justify-center">
+                    <svg class="w-4 h-4 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                  </div>
+                </template>
+                <template x-if="notif.type === 'comment'">
+                  <div class="w-9 h-9 bg-emerald-100 rounded-full flex items-center justify-center">
+                    <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                  </div>
+                </template>
+                <template x-if="notif.type === 'system'">
+                  <div class="w-9 h-9 bg-amber-100 rounded-full flex items-center justify-center">
+                    <svg class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  </div>
+                </template>
+                <template x-if="notif.type === 'invitation'">
+                  <div class="w-9 h-9 bg-rose-100 rounded-full flex items-center justify-center">
+                    <svg class="w-4 h-4 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                  </div>
+                </template>
+              </div>
+
+              <!-- Content -->
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-sm text-zinc-900" :class="!notif.read ? 'font-medium' : ''">
+                      <span x-text="notif.title"></span>
+                    </p>
+                    <p class="text-xs text-zinc-500 mt-0.5" x-text="notif.description"></p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <span class="text-xs text-zinc-400" x-text="notif.time"></span>
+                    <div x-show="!notif.read" class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Archive toggle -->
+              <div class="shrink-0 flex items-center" @click.stop>
+                <button
+                  @click="archive(notif.id)"
+                  class="text-zinc-300 hover:text-zinc-500 transition-colors cursor-pointer p-1"
+                  :title="notif.archived ? 'Desarchivar' : 'Archivar'"
+                >
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </template>
+
+          <!-- Empty state -->
+          <div x-show="filteredNotifications.length === 0" class="text-center py-16">
+            <div class="w-14 h-14 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-7 h-7 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" /></svg>
+            </div>
+            <p class="text-sm font-medium text-zinc-900">Sin notificaciones</p>
+            <p class="text-xs text-zinc-400 mt-1" x-text="filter === 'archived' ? 'No tienes notificaciones archivadas' : filter === 'unread' ? 'Todas las notificaciones han sido leidas' : 'No hay notificaciones'"></p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function notificationsPage() {
+      return {
+        filter: 'all',
+        notifications: [
+          { id: 1, type: 'mention', avatar: 'CM', title: 'Carlos Mendez te menciono', description: 'En el ticket #1234: "@ana revisa el deploy de staging"', time: 'Hace 5 min', read: false, archived: false },
+          { id: 2, type: 'assignment', avatar: '', title: 'Nueva tarea asignada', description: 'Revisio de PR: Migrar autenticacion a OAuth 2.0', time: 'Hace 12 min', read: false, archived: false },
+          { id: 3, type: 'comment', avatar: '', title: 'Nuevo comentario en tu PR', description: 'Laura Rios: "El approach de lazy loading se ve genial, solo una sugerencia..."', time: 'Hace 30 min', read: false, archived: false },
+          { id: 4, type: 'system', avatar: '', title: 'Deploy completado', description: 'El deploy a produccion v2.4.1 se completo exitosamente', time: 'Hace 1h', read: false, archived: false },
+          { id: 5, type: 'invitation', avatar: '', title: 'Invitacion a equipo', description: 'Diego Torres te invito al equipo "Platform Engineering"', time: 'Hace 2h', read: true, archived: false },
+          { id: 6, type: 'mention', avatar: 'SR', title: 'Sofia Ramirez te menciono', description: 'En el canal #design: "el nuevo sidebar quedo increible @ana"', time: 'Hace 3h', read: true, archived: false },
+          { id: 7, type: 'system', avatar: '', title: 'Actualizacion de seguridad', description: 'Se detecto un inicio de sesion desde un nuevo dispositivo en Madrid', time: 'Hace 5h', read: true, archived: false },
+          { id: 8, type: 'comment', avatar: '', title: 'Respuesta a tu comentario', description: 'Miguel Ortiz respondio: "De acuerdo, implemento los cambios hoy"', time: 'Hace 6h', read: true, archived: false },
+          { id: 9, type: 'assignment', avatar: '', title: 'Tarea completada', description: 'La tarea "Optimizar queries de dashboard" fue marcada como completada', time: 'Ayer', read: true, archived: false },
+          { id: 10, type: 'invitation', avatar: '', title: 'Invitacion a reunion', description: 'Sprint Review - Viernes 14:00. Confirmar asistencia', time: 'Ayer', read: true, archived: false }
+        ],
+
+        get unreadCount() {
+          return this.notifications.filter(n => !n.read && !n.archived).length;
+        },
+
+        get filteredNotifications() {
+          if (this.filter === 'unread') return this.notifications.filter(n => !n.read && !n.archived);
+          if (this.filter === 'archived') return this.notifications.filter(n => n.archived);
+          return this.notifications.filter(n => !n.archived);
+        },
+
+        markAllRead() {
+          this.notifications.forEach(n => n.read = true);
+        },
+
+        toggleRead(id) {
+          const notif = this.notifications.find(n => n.id === id);
+          if (notif) notif.read = true;
+        },
+
+        archive(id) {
+          const notif = this.notifications.find(n => n.id === id);
+          if (notif) notif.archived = !notif.archived;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

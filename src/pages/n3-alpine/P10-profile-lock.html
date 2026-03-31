@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Profile Lock</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-zinc-100 antialiased">
+
+  <style>[x-cloak] { display: none !important; }</style>
+
+  <div class="min-h-full flex items-center justify-center px-4 py-12" x-data="profileLockPage()">
+
+    <div class="w-full max-w-sm space-y-6">
+
+      <!-- Card -->
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-8">
+
+        <!-- Avatar -->
+        <div class="text-center mb-6">
+          <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <span class="text-2xl font-semibold text-blue-700">AG</span>
+          </div>
+          <h2 class="text-base font-semibold text-zinc-900">Ana Garcia</h2>
+          <div class="flex items-center justify-center gap-1.5 mt-1">
+            <div class="w-2 h-2 bg-amber-400 rounded-full"></div>
+            <span class="text-xs text-zinc-500">Sesion bloqueada</span>
+          </div>
+          <p class="text-xs text-zinc-400 mt-2">Bloqueado hace 15 minutos</p>
+        </div>
+
+        <!-- Auth method tabs -->
+        <div class="inline-flex bg-zinc-100 rounded-lg p-1 gap-1 w-full mb-6">
+          <button @click="authMethod = 'password'" :class="authMethod === 'password' ? 'bg-white text-zinc-900 shadow-xs font-medium' : 'text-zinc-500 hover:text-zinc-700'" class="flex-1 text-xs px-3 py-1.5 rounded-md transition-all duration-150 cursor-pointer">Contrasena</button>
+          <button @click="authMethod = 'pin'" :class="authMethod === 'pin' ? 'bg-white text-zinc-900 shadow-xs font-medium' : 'text-zinc-500 hover:text-zinc-700'" class="flex-1 text-xs px-3 py-1.5 rounded-md transition-all duration-150 cursor-pointer">PIN</button>
+          <button @click="authMethod = 'biometric'" :class="authMethod === 'biometric' ? 'bg-white text-zinc-900 shadow-xs font-medium' : 'text-zinc-500 hover:text-zinc-700'" class="flex-1 text-xs px-3 py-1.5 rounded-md transition-all duration-150 cursor-pointer">Biometrico</button>
+        </div>
+
+        <!-- Password method -->
+        <div x-show="authMethod === 'password'" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+          <div class="space-y-4">
+            <div class="relative">
+              <input
+                :type="showPassword ? 'text' : 'password'"
+                x-model="password"
+                class="input pr-10"
+                placeholder="Ingresa tu contrasena"
+                @keydown.enter="unlock()"
+              />
+              <button @click="showPassword = !showPassword" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 cursor-pointer">
+                <svg x-show="!showPassword" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                <svg x-show="showPassword" x-cloak class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.542 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
+              </button>
+            </div>
+            <p x-show="error" class="error-msg" x-text="error"></p>
+            <button @click="unlock()" :disabled="!password || loading" class="btn-primary w-full" :class="(!password || loading) ? 'opacity-50 cursor-not-allowed' : ''">
+              <span x-show="!loading">Desbloquear</span>
+              <span x-show="loading" class="inline-flex items-center gap-2">
+                <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                Desbloqueando...
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- PIN method -->
+        <div x-show="authMethod === 'pin'" x-cloak x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+          <p class="text-xs text-zinc-500 text-center mb-4">Ingresa tu PIN de 4 digitos</p>
+          <div class="flex justify-center gap-3 mb-6" @paste.prevent="handlePinPaste($event)">
+            <template x-for="(digit, index) in pin" :key="index">
+              <input
+                type="text"
+                maxlength="1"
+                inputmode="numeric"
+                :id="'pin-' + index"
+                class="w-12 h-14 text-center text-xl font-semibold border border-zinc-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all"
+                :value="digit"
+                @input="handlePinInput($event, index)"
+                @keydown.backspace="handlePinBackspace($event, index)"
+                @focus="$event.target.select()"
+              />
+            </template>
+          </div>
+          <button @click="unlockPin()" :disabled="pin.join('').length < 4 || loading" class="btn-primary w-full" :class="(pin.join('').length < 4 || loading) ? 'opacity-50 cursor-not-allowed' : ''">Desbloquear</button>
+        </div>
+
+        <!-- Biometric method -->
+        <div x-show="authMethod === 'biometric'" x-cloak x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+          <div class="text-center py-4">
+            <button @click="unlockBiometric()" class="group cursor-pointer">
+              <div class="w-20 h-20 bg-zinc-50 border-2 border-zinc-200 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:border-blue-300 group-hover:bg-blue-50 transition-colors duration-200" :class="bioScanning ? 'border-blue-400 bg-blue-50 animate-pulse' : ''">
+                <svg class="w-10 h-10 text-zinc-400 group-hover:text-blue-500 transition-colors" :class="bioScanning ? 'text-blue-500' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0119.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 004.5 10.5a48.667 48.667 0 00-1.26 8.636M12 10.5a2.25 2.25 0 00-2.25 2.25c0 .694.073 1.372.213 2.025M12 10.5c1.242 0 2.25 1.008 2.25 2.25 0 .85-.073 1.684-.213 2.498M6.75 10.5a5.25 5.25 0 0110.5 0c0 3.073-.257 6.083-.745 9.004M12 10.5a7.5 7.5 0 00-7.419 8.58" />
+                </svg>
+              </div>
+            </button>
+            <p class="text-sm text-zinc-600 font-medium" x-text="bioScanning ? 'Escaneando...' : 'Toca para escanear huella'"></p>
+            <p class="text-xs text-zinc-400 mt-1">Coloca tu dedo en el sensor</p>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center">
+          <button class="text-xs text-blue-600 hover:text-blue-700 font-medium cursor-pointer">Cambiar de cuenta</button>
+        </div>
+      </div>
+
+      <p class="text-center text-xs text-zinc-400">&copy; 2026 LayoutOS</p>
+    </div>
+
+    <!-- Toast container -->
+    <template x-teleport="body">
+      <div class="fixed top-4 right-4 z-50 space-y-2 w-80">
+        <template x-for="toast in toasts" :key="toast.id">
+          <div
+            x-show="toast.visible"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-x-8"
+            x-transition:enter-end="opacity-100 translate-x-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-x-0"
+            x-transition:leave-end="opacity-0 translate-x-8"
+            class="flex items-start gap-3 bg-white border border-zinc-200 rounded-xl shadow-lg px-4 py-3"
+          >
+            <div class="shrink-0 mt-0.5">
+              <div class="w-5 h-5 rounded-full flex items-center justify-center" :class="toast.type === 'error' ? 'bg-rose-100' : 'bg-emerald-100'">
+                <svg x-show="toast.type !== 'error'" class="w-3 h-3 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                <svg x-show="toast.type === 'error'" class="w-3 h-3 text-rose-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </div>
+            </div>
+            <p class="text-xs text-zinc-900 flex-1 pt-0.5" x-text="toast.message"></p>
+          </div>
+        </template>
+      </div>
+    </template>
+  </div>
+
+  <script>
+    function profileLockPage() {
+      return {
+        authMethod: 'password',
+        password: '',
+        showPassword: false,
+        pin: ['', '', '', ''],
+        loading: false,
+        error: '',
+        bioScanning: false,
+        toasts: [],
+
+        unlock() {
+          if (!this.password) return;
+          this.error = '';
+          this.loading = true;
+          setTimeout(() => {
+            this.loading = false;
+            if (this.password.length >= 4) {
+              this.addToast('Sesion desbloqueada', 'success');
+            } else {
+              this.error = 'Contrasena incorrecta';
+              this.addToast('Contrasena incorrecta', 'error');
+            }
+          }, 1200);
+        },
+
+        handlePinInput(event, index) {
+          const value = event.target.value.replace(/\D/g, '');
+          this.pin[index] = value.slice(-1);
+          event.target.value = this.pin[index];
+          if (value && index < 3) {
+            document.getElementById('pin-' + (index + 1))?.focus();
+          }
+          if (this.pin.join('').length === 4) {
+            this.unlockPin();
+          }
+        },
+
+        handlePinBackspace(event, index) {
+          if (!this.pin[index] && index > 0) {
+            document.getElementById('pin-' + (index - 1))?.focus();
+          }
+          this.pin[index] = '';
+        },
+
+        handlePinPaste(event) {
+          const paste = (event.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 4);
+          for (let i = 0; i < 4; i++) {
+            this.pin[i] = paste[i] || '';
+            const el = document.getElementById('pin-' + i);
+            if (el) el.value = this.pin[i];
+          }
+        },
+
+        unlockPin() {
+          if (this.pin.join('').length < 4) return;
+          this.loading = true;
+          setTimeout(() => {
+            this.loading = false;
+            this.addToast('Sesion desbloqueada con PIN', 'success');
+          }, 1000);
+        },
+
+        unlockBiometric() {
+          this.bioScanning = true;
+          setTimeout(() => {
+            this.bioScanning = false;
+            this.addToast('Huella verificada. Sesion desbloqueada', 'success');
+          }, 2000);
+        },
+
+        addToast(message, type = 'success') {
+          const id = Date.now() + Math.random();
+          this.toasts.push({ id, message, type, visible: true });
+          setTimeout(() => {
+            const toast = this.toasts.find(t => t.id === id);
+            if (toast) toast.visible = false;
+            setTimeout(() => { this.toasts = this.toasts.filter(t => t.id !== id); }, 300);
+          }, 4000);
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
