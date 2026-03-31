@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C104 Dashboard Footers</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <style>[x-cloak] { display: none !important; }</style>
+
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C104 · Nivel 7</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Dashboard Footers</h1>
+      <p class="text-sm text-zinc-600 mt-1">Footers de dashboard: simple, con status y sticky con almacenamiento.</p>
+    </header>
+
+    <!-- Variante 1 — Footer simple -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Footer simple</h2>
+
+      <div class="border border-zinc-200 rounded-xl overflow-hidden">
+        <div class="bg-zinc-50 px-6 py-10">
+          <p class="text-sm text-zinc-400 text-center">Contenido de la página</p>
+        </div>
+        <footer class="bg-white border-t border-zinc-200 px-6 py-4 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-xs text-zinc-400">&copy; 2024 LayoutOS</span>
+            <span class="badge-zinc">v2.1.0</span>
+          </div>
+          <nav class="flex items-center gap-4">
+            <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Docs</a>
+            <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">API</a>
+            <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Status</a>
+            <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Soporte</a>
+          </nav>
+        </footer>
+      </div>
+    </section>
+
+    <!-- Variante 2 — Footer con status -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Footer con status</h2>
+
+      <div x-data="{ systemOk: true }" class="border border-zinc-200 rounded-xl overflow-hidden">
+        <div class="bg-zinc-50 px-6 py-8">
+          <p class="text-sm text-zinc-400 text-center mb-4">Contenido de la página</p>
+          <div class="flex justify-center">
+            <label class="flex items-center gap-2 text-sm text-zinc-600 cursor-pointer select-none">
+              <input type="checkbox" x-model="systemOk" class="rounded border-zinc-300" />
+              Sistemas operativos
+            </label>
+          </div>
+        </div>
+        <footer class="bg-white border-t border-zinc-200 px-6 py-4 flex items-center justify-between">
+          <span class="text-xs text-zinc-400">&copy; 2024 LayoutOS</span>
+          <div class="flex items-center gap-2">
+            <span class="relative flex h-2.5 w-2.5">
+              <span :class="systemOk ? 'bg-green-500' : 'bg-red-500'" class="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping"></span>
+              <span :class="systemOk ? 'bg-green-500' : 'bg-red-500'" class="relative inline-flex rounded-full h-2.5 w-2.5"></span>
+            </span>
+            <span class="text-xs" :class="systemOk ? 'text-green-600' : 'text-red-600'"
+              x-text="systemOk ? 'Todos los sistemas operativos' : 'Degradación parcial'"></span>
+          </div>
+          <nav class="flex items-center gap-4">
+            <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Docs</a>
+            <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">API</a>
+            <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Status</a>
+            <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Soporte</a>
+          </nav>
+        </footer>
+      </div>
+    </section>
+
+    <!-- Variante 3 — Footer sticky con storage -->
+    <section class="space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Footer sticky con storage</h2>
+
+      <div x-data="{ usedGB: 2.4, totalGB: 5 }" class="border border-zinc-200 rounded-xl overflow-hidden relative">
+        <div class="bg-zinc-50 px-6 py-16">
+          <p class="text-sm text-zinc-400 text-center">Contenido de la página con footer sticky abajo</p>
+        </div>
+        <footer class="sticky bottom-0 bg-white/80 backdrop-blur border-t border-zinc-200 px-6 py-3">
+          <div class="flex items-center justify-between gap-6">
+            <div class="flex-1 max-w-xs">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-xs font-medium text-zinc-600">Almacenamiento</span>
+                <span class="text-xs text-zinc-500" x-text="usedGB + ' GB / ' + totalGB + ' GB'"></span>
+              </div>
+              <div class="bg-zinc-200 rounded-full h-1.5">
+                <div class="bg-blue-600 rounded-full h-1.5 transition-all duration-500" style="width:48%"></div>
+              </div>
+            </div>
+            <button class="btn-primary btn-sm shrink-0">Actualizar plan</button>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </div>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
