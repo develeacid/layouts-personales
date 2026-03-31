@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · C116 Heatmap Matrix</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+
+    <!-- Header -->
+    <header>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C116 · Nivel 8</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Heatmap</h1>
+      <p class="text-sm text-zinc-600 mt-1">Nivel 3 · Matriz — visualiza densidad o intensidad cruzando dos dimensiones con color como tercer valor.</p>
+    </header>
+
+    <!-- ===================== VARIANTE 1: Heatmap básico ===================== -->
+    <section x-data="heatBasic()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900">1 · Heatmap básico</h2>
+      <p class="text-sm text-zinc-600">Volumen de tickets de soporte por día de la semana y franja horaria.</p>
+
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 font-mono">xLabels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
+yLabels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+data: [[dayIndex, hourIndex, value], ...]  // 70 puntos</pre>
+      </div>
+
+      <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
+        <thead class="bg-zinc-50">
+          <tr>
+            <th class="px-3 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Hora</th>
+            <template x-for="day in xLabels" :key="day">
+              <th class="px-3 py-2 text-left text-xs font-medium text-zinc-500 uppercase" x-text="day"></th>
+            </template>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="(hour, hi) in yLabels" :key="hi">
+            <tr class="border-t border-zinc-100">
+              <td class="px-3 py-2 font-medium text-zinc-700" x-text="hour"></td>
+              <template x-for="(day, di) in xLabels" :key="di">
+                <td class="px-3 py-2">
+                  <input type="number" min="0" max="30"
+                    :value="data.find(d => d[0] === di && d[1] === hi)?.[2]"
+                    @input="updateCell(di, hi, +$event.target.value)"
+                    class="w-14 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" />
+                </td>
+              </template>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+
+      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+    </section>
+
+    <!-- ===================== VARIANTE 2: Con etiquetas en celdas ===================== -->
+    <section x-data="heatLabels()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900">2 · Con etiquetas en celdas</h2>
+      <p class="text-sm text-zinc-600">Mismo heatmap con el valor numérico visible dentro de cada celda de la matriz.</p>
+
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 font-mono">// Mismos datos que V1 con label visible
+label: { show: true, formatter: (p) => p.value[2], fontSize: 10 }</pre>
+      </div>
+
+      <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
+        <thead class="bg-zinc-50">
+          <tr>
+            <th class="px-3 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Hora</th>
+            <template x-for="day in xLabels" :key="day">
+              <th class="px-3 py-2 text-left text-xs font-medium text-zinc-500 uppercase" x-text="day"></th>
+            </template>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="(hour, hi) in yLabels" :key="hi">
+            <tr class="border-t border-zinc-100">
+              <td class="px-3 py-2 font-medium text-zinc-700" x-text="hour"></td>
+              <template x-for="(day, di) in xLabels" :key="di">
+                <td class="px-3 py-2">
+                  <input type="number" min="0" max="30"
+                    :value="data.find(d => d[0] === di && d[1] === hi)?.[2]"
+                    @input="updateCell(di, hi, +$event.target.value)"
+                    class="w-14 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" />
+                </td>
+              </template>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+
+      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+    </section>
+
+    <!-- ===================== VARIANTE 3: Estilo calendario (GitHub contributions) ===================== -->
+    <section x-data="heatCalendar()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900">3 · Estilo calendario (GitHub contributions)</h2>
+      <p class="text-sm text-zinc-600">Un año completo de actividad representado como mapa de calor sobre un calendario de 52 semanas.</p>
+
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 font-mono">calendar: { range: '2024', cellSize: [14, 14] }
+data: [['2024-01-01', 3], ['2024-01-02', 7], ...]  // 364 entradas</pre>
+      </div>
+
+      <div x-ref="chart" class="w-full h-48 bg-white border border-zinc-200 rounded-lg"></div>
+    </section>
+
+    <!-- ===================== VARIANTE 4: Matriz de correlación ===================== -->
+    <section x-data="heatCorrelation()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900">4 · Matriz de correlación</h2>
+      <p class="text-sm text-zinc-600">Correlación simétrica NxN entre variables de negocio, con escala divergente azul-blanco-rojo.</p>
+
+      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+        <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
+        <pre class="text-xs text-zinc-700 font-mono">variables: ['Ventas', 'Marketing', 'Tráfico', 'Conversión', 'Ticket']
+data: [[0,0,1], [0,1,0.85], ...]  // Matriz simétrica 5×5</pre>
+      </div>
+
+      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+    </section>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script>
+    function chartBase() {
+      return {
+        chart: null,
+        _resizeHandler: null,
+        initChart() {
+          this.chart = echarts.init(this.$refs.chart);
+          this.render();
+          this.$watch('data', () => this.render(), { deep: true });
+          this._resizeHandler = () => this.chart.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        destroy() {
+          window.removeEventListener('resize', this._resizeHandler);
+          this.chart.dispose();
+        }
+      };
+    }
+
+    function ticketData() {
+      return [
+        [0, 0, 8],  [0, 1, 12], [0, 2, 18], [0, 3, 22], [0, 4, 25], [0, 5, 20], [0, 6, 15], [0, 7, 13], [0, 8, 10], [0, 9, 7],
+        [1, 0, 7],  [1, 1, 14], [1, 2, 20], [1, 3, 24], [1, 4, 21], [1, 5, 18], [1, 6, 16], [1, 7, 12], [1, 8, 9],  [1, 9, 6],
+        [2, 0, 9],  [2, 1, 15], [2, 2, 22], [2, 3, 25], [2, 4, 23], [2, 5, 19], [2, 6, 14], [2, 7, 11], [2, 8, 8],  [2, 9, 5],
+        [3, 0, 10], [3, 1, 13], [3, 2, 19], [3, 3, 21], [3, 4, 20], [3, 5, 17], [3, 6, 13], [3, 7, 10], [3, 8, 7],  [3, 9, 6],
+        [4, 0, 6],  [4, 1, 11], [4, 2, 17], [4, 3, 19], [4, 4, 18], [4, 5, 15], [4, 6, 12], [4, 7, 9],  [4, 8, 7],  [4, 9, 5],
+        [5, 0, 2],  [5, 1, 3],  [5, 2, 5],  [5, 3, 7],  [5, 4, 8],  [5, 5, 6],  [5, 6, 4],  [5, 7, 3],  [5, 8, 2],  [5, 9, 1],
+        [6, 0, 1],  [6, 1, 2],  [6, 2, 4],  [6, 3, 6],  [6, 4, 5],  [6, 5, 4],  [6, 6, 3],  [6, 7, 2],  [6, 8, 1],  [6, 9, 0]
+      ];
+    }
+
+    function heatBasic() {
+      return {
+        ...chartBase(),
+        xLabels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+        yLabels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+        data: ticketData(),
+        updateCell(di, hi, val) {
+          const idx = this.data.findIndex(d => d[0] === di && d[1] === hi);
+          if (idx !== -1) this.data[idx] = [di, hi, val];
+        },
+        init() {
+          this.initChart();
+        },
+        render() {
+          this.chart.setOption({
+            tooltip: {
+              position: 'top',
+              formatter: (p) => {
+                return this.xLabels[p.value[0]] + ' ' + this.yLabels[p.value[1]] + ': <b>' + p.value[2] + ' tickets</b>';
+              }
+            },
+            grid: {
+              top: 30,
+              bottom: 40,
+              left: 60,
+              right: 40
+            },
+            xAxis: {
+              type: 'category',
+              data: this.xLabels,
+              splitArea: { show: true }
+            },
+            yAxis: {
+              type: 'category',
+              data: this.yLabels,
+              splitArea: { show: true }
+            },
+            visualMap: {
+              min: 0,
+              max: 25,
+              calculable: true,
+              orient: 'horizontal',
+              left: 'center',
+              bottom: 0,
+              inRange: {
+                color: ['#f0fdf4', '#22c55e', '#15803d']
+              }
+            },
+            series: [{
+              type: 'heatmap',
+              data: this.data,
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
+            }]
+          });
+        }
+      };
+    }
+
+    function heatLabels() {
+      return {
+        ...chartBase(),
+        xLabels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+        yLabels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+        data: ticketData(),
+        updateCell(di, hi, val) {
+          const idx = this.data.findIndex(d => d[0] === di && d[1] === hi);
+          if (idx !== -1) this.data[idx] = [di, hi, val];
+        },
+        init() {
+          this.initChart();
+        },
+        render() {
+          this.chart.setOption({
+            tooltip: {
+              position: 'top',
+              formatter: (p) => {
+                return this.xLabels[p.value[0]] + ' ' + this.yLabels[p.value[1]] + ': <b>' + p.value[2] + ' tickets</b>';
+              }
+            },
+            grid: {
+              top: 30,
+              bottom: 40,
+              left: 60,
+              right: 40
+            },
+            xAxis: {
+              type: 'category',
+              data: this.xLabels,
+              splitArea: { show: true }
+            },
+            yAxis: {
+              type: 'category',
+              data: this.yLabels,
+              splitArea: { show: true }
+            },
+            visualMap: {
+              min: 0,
+              max: 25,
+              calculable: true,
+              orient: 'horizontal',
+              left: 'center',
+              bottom: 0,
+              inRange: {
+                color: ['#f0fdf4', '#22c55e', '#15803d']
+              }
+            },
+            series: [{
+              type: 'heatmap',
+              data: this.data,
+              label: {
+                show: true,
+                formatter: (p) => p.value[2],
+                fontSize: 10,
+                color: '#374151'
+              },
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
+            }]
+          });
+        }
+      };
+    }
+
+    function heatCalendar() {
+      return {
+        ...chartBase(),
+        data: (function () {
+          var d = [];
+          var start = new Date('2024-01-01');
+          for (var i = 0; i < 364; i++) {
+            var date = new Date(start);
+            date.setDate(start.getDate() + i);
+            var year = date.getFullYear();
+            var month = String(date.getMonth() + 1).padStart(2, '0');
+            var day = String(date.getDate()).padStart(2, '0');
+            var key = year + '-' + month + '-' + day;
+            var dow = date.getDay();
+            var isWeekend = (dow === 0 || dow === 6);
+            var val = isWeekend
+              ? Math.floor(Math.random() * 4)
+              : Math.floor(Math.random() * 10) + 1;
+            d.push([key, val]);
+          }
+          return d;
+        })(),
+        init() {
+          this.initChart();
+        },
+        render() {
+          this.chart.setOption({
+            tooltip: {
+              position: 'top',
+              formatter: (p) => p.value[0] + ': <b>' + p.value[1] + ' contribuciones</b>'
+            },
+            visualMap: {
+              min: 0,
+              max: 10,
+              show: false,
+              inRange: {
+                color: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
+              }
+            },
+            calendar: {
+              range: '2024',
+              cellSize: [14, 14],
+              top: 30,
+              left: 50,
+              right: 20,
+              itemStyle: {
+                borderWidth: 3,
+                borderColor: '#fff'
+              },
+              yearLabel: { show: true },
+              monthLabel: { show: true },
+              dayLabel: { show: true, firstDay: 1, nameMap: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'] }
+            },
+            series: [{
+              type: 'heatmap',
+              coordinateSystem: 'calendar',
+              data: this.data
+            }]
+          });
+        }
+      };
+    }
+
+    function heatCorrelation() {
+      return {
+        ...chartBase(),
+        variables: ['Ventas', 'Marketing', 'Tráfico', 'Conversión', 'Ticket'],
+        data: [
+          [0, 0, 1],    [0, 1, 0.85], [0, 2, 0.72], [0, 3, 0.65],  [0, 4, 0.45],
+          [1, 0, 0.85], [1, 1, 1],    [1, 2, 0.90], [1, 3, 0.55],  [1, 4, 0.30],
+          [2, 0, 0.72], [2, 1, 0.90], [2, 2, 1],    [2, 3, 0.78],  [2, 4, 0.22],
+          [3, 0, 0.65], [3, 1, 0.55], [3, 2, 0.78], [3, 3, 1],     [3, 4, 0.88],
+          [4, 0, 0.45], [4, 1, 0.30], [4, 2, 0.22], [4, 3, 0.88],  [4, 4, 1]
+        ],
+        init() {
+          this.initChart();
+        },
+        render() {
+          this.chart.setOption({
+            tooltip: {
+              position: 'top',
+              formatter: (p) => {
+                return this.variables[p.value[0]] + ' vs ' + this.variables[p.value[1]] + ': <b>' + p.value[2].toFixed(2) + '</b>';
+              }
+            },
+            grid: {
+              top: 10,
+              bottom: 80,
+              left: 90,
+              right: 40
+            },
+            xAxis: {
+              type: 'category',
+              data: this.variables,
+              splitArea: { show: true },
+              axisLabel: { rotate: 45 }
+            },
+            yAxis: {
+              type: 'category',
+              data: this.variables,
+              splitArea: { show: true }
+            },
+            visualMap: {
+              min: -1,
+              max: 1,
+              calculable: true,
+              orient: 'horizontal',
+              left: 'center',
+              bottom: 0,
+              inRange: {
+                color: ['#3b82f6', '#dbeafe', '#ffffff', '#fecaca', '#ef4444']
+              }
+            },
+            series: [{
+              type: 'heatmap',
+              data: this.data,
+              label: {
+                show: true,
+                formatter: (p) => p.value[2].toFixed(2),
+                fontSize: 11,
+                color: '#374151'
+              },
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
+            }]
+          });
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
