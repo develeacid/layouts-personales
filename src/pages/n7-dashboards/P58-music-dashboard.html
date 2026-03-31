@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Music Dashboard</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="musicDashboard()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+        <span class="ml-2 text-xs text-pink-400">Music</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Reproductor
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Biblioteca
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Explorar
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          Favoritos
+        </a>
+      </nav>
+      <!-- Playlists in sidebar -->
+      <div class="px-3 py-4 border-t border-zinc-800">
+        <p class="text-xs text-zinc-500 uppercase tracking-wide px-3 mb-2">Playlists</p>
+        <template x-for="pl in playlists" :key="pl.name">
+          <a href="#" class="flex items-center gap-2 px-3 py-1.5 text-xs text-zinc-400 hover:text-white rounded transition" @click.prevent="activePlaylist = pl.name" :class="activePlaylist === pl.name ? 'text-white bg-zinc-800/50' : ''">
+            <span x-text="pl.name"></span>
+            <span class="text-zinc-600 ml-auto" x-text="pl.count"></span>
+          </a>
+        </template>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Reproductor</h1>
+        <div class="flex items-center gap-4">
+          <!-- Volume -->
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <input type="range" min="0" max="100" x-model="volume" class="w-20 h-1 accent-zinc-900">
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- Now playing -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 mb-6">
+          <div class="flex flex-col sm:flex-row items-center gap-6">
+            <!-- Album art placeholder -->
+            <div class="w-32 h-32 rounded-xl bg-zinc-100 border border-zinc-200 flex items-center justify-center">
+              <svg class="w-12 h-12 text-zinc-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            </div>
+            <div class="flex-1 text-center sm:text-left">
+              <p class="text-lg font-bold text-zinc-900" x-text="nowPlaying.title"></p>
+              <p class="text-sm text-zinc-500" x-text="nowPlaying.artist"></p>
+              <p class="text-xs text-zinc-400 mt-1" x-text="nowPlaying.album"></p>
+              <!-- Progress bar -->
+              <div class="mt-4">
+                <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-zinc-900 rounded-full transition-all" :style="'width:' + progress + '%'"></div>
+                </div>
+                <div class="flex justify-between mt-1">
+                  <span class="text-xs text-zinc-400" x-text="currentTime"></span>
+                  <span class="text-xs text-zinc-400" x-text="nowPlaying.duration"></span>
+                </div>
+              </div>
+              <!-- Controls -->
+              <div class="flex items-center justify-center sm:justify-start gap-4 mt-4">
+                <button class="w-9 h-9 rounded-full flex items-center justify-center text-zinc-500 hover:bg-zinc-100 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+                </button>
+                <button class="w-12 h-12 rounded-full bg-zinc-900 text-white flex items-center justify-center hover:bg-zinc-800 transition" @click="playing = !playing">
+                  <svg x-show="!playing" class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  <svg x-show="playing" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                </button>
+                <button class="w-9 h-9 rounded-full flex items-center justify-center text-zinc-500 hover:bg-zinc-100 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Playlist tabs + song list -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm">
+          <div class="border-b border-zinc-200 px-6">
+            <nav class="flex gap-6">
+              <template x-for="pl in playlists" :key="pl.name">
+                <button class="py-3 text-sm font-medium border-b-2 transition"
+                  :class="activePlaylist === pl.name ? 'border-zinc-900 text-zinc-900' : 'border-transparent text-zinc-400 hover:text-zinc-600'"
+                  @click="activePlaylist = pl.name" x-text="pl.name"></button>
+              </template>
+            </nav>
+          </div>
+          <div class="divide-y divide-zinc-50">
+            <template x-for="(song, i) in songs" :key="song.title">
+              <div class="flex items-center gap-4 px-6 py-3 hover:bg-zinc-50 transition group">
+                <span class="text-xs text-zinc-400 w-5 text-right" x-text="i + 1"></span>
+                <button class="w-8 h-8 rounded-full flex items-center justify-center text-zinc-400 group-hover:text-zinc-900 group-hover:bg-zinc-100 transition">
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </button>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-zinc-800 truncate" x-text="song.title"></p>
+                  <p class="text-xs text-zinc-400" x-text="song.artist"></p>
+                </div>
+                <span class="text-xs text-zinc-400" x-text="song.duration"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function musicDashboard() {
+      return {
+        playing: false,
+        volume: 75,
+        progress: 35,
+        currentTime: '1:24',
+        activePlaylist: 'Favoritos',
+        nowPlaying: {
+          title: 'Bohemian Rhapsody',
+          artist: 'Queen',
+          album: 'A Night at the Opera',
+          duration: '5:55'
+        },
+        playlists: [
+          { name: 'Favoritos', count: 24 },
+          { name: 'Chill', count: 18 },
+          { name: 'Workout', count: 32 }
+        ],
+        songs: [
+          { title: 'Bohemian Rhapsody', artist: 'Queen', duration: '5:55' },
+          { title: 'Hotel California', artist: 'Eagles', duration: '6:30' },
+          { title: 'Stairway to Heaven', artist: 'Led Zeppelin', duration: '8:02' },
+          { title: 'Imagine', artist: 'John Lennon', duration: '3:07' },
+          { title: 'Smells Like Teen Spirit', artist: 'Nirvana', duration: '5:01' },
+          { title: 'Billie Jean', artist: 'Michael Jackson', duration: '4:54' },
+          { title: 'Comfortably Numb', artist: 'Pink Floyd', duration: '6:23' },
+          { title: 'Yesterday', artist: 'The Beatles', duration: '2:05' }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

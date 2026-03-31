@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Crypto Dashboard</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="cryptoDashboard()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+        <span class="ml-2 text-xs text-amber-400">Crypto</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Portfolio
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-8"/></svg>
+          Trading
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Historial
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Alertas
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Crypto Portfolio</h1>
+        <div class="flex items-center gap-3">
+          <button class="btn-sm btn-primary">Comprar</button>
+          <button class="btn-sm btn-secondary">Vender</button>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- KPIs -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Portfolio</p>
+            <p class="text-2xl font-bold text-zinc-900 mt-1">$23,456</p>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Cambio 24h</p>
+            <p class="text-2xl font-bold text-emerald-600 mt-1">+3.2%</p>
+            <p class="text-xs text-emerald-600 mt-1">+$728.40</p>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Bitcoin</p>
+            <p class="text-2xl font-bold text-amber-600 mt-1">$43,200</p>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Ethereum</p>
+            <p class="text-2xl font-bold text-indigo-600 mt-1">$2,340</p>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm mb-6">
+          <div class="border-b border-zinc-200 px-6">
+            <nav class="flex gap-6">
+              <template x-for="tab in tabs" :key="tab">
+                <button class="py-3 text-sm font-medium border-b-2 transition"
+                  :class="activeTab === tab ? 'border-zinc-900 text-zinc-900' : 'border-transparent text-zinc-400 hover:text-zinc-600'"
+                  @click="activeTab = tab" x-text="tab"></button>
+              </template>
+            </nav>
+          </div>
+
+          <!-- Portfolio tab -->
+          <div x-show="activeTab === 'Portfolio'" class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-100 text-left">
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Moneda</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Cantidad</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Precio</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Valor</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">24h</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="h in holdings" :key="h.coin">
+                  <tr class="border-b border-zinc-50 hover:bg-zinc-50 transition">
+                    <td class="px-6 py-3">
+                      <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" :class="h.bg" x-text="h.symbol"></div>
+                        <span class="font-medium text-zinc-800" x-text="h.coin"></span>
+                      </div>
+                    </td>
+                    <td class="px-6 py-3 text-zinc-600 font-mono text-xs" x-text="h.amount"></td>
+                    <td class="px-6 py-3 text-zinc-700" x-text="h.price"></td>
+                    <td class="px-6 py-3 font-medium text-zinc-900" x-text="h.value"></td>
+                    <td class="px-6 py-3 font-medium" :class="h.change.startsWith('+') ? 'text-emerald-600' : 'text-rose-600'" x-text="h.change"></td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Trading tab -->
+          <div x-show="activeTab === 'Trading'" class="p-6">
+            <div class="h-48 bg-zinc-50 border border-dashed border-zinc-300 rounded-lg flex items-center justify-center text-sm text-zinc-400">
+              Panel de trading
+            </div>
+          </div>
+
+          <!-- History tab -->
+          <div x-show="activeTab === 'Historial'" class="p-6">
+            <div class="h-48 bg-zinc-50 border border-dashed border-zinc-300 rounded-lg flex items-center justify-center text-sm text-zinc-400">
+              Historial de transacciones
+            </div>
+          </div>
+        </div>
+
+        <!-- Price alerts -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+          <h2 class="text-sm font-semibold text-zinc-900 mb-4">Alertas de precio</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <template x-for="alert in priceAlerts" :key="alert.coin + alert.target">
+              <div class="flex items-center justify-between p-3 rounded-lg" :class="alert.triggered ? 'bg-amber-50 border border-amber-200' : 'bg-zinc-50'">
+                <div>
+                  <p class="text-sm font-medium text-zinc-800" x-text="alert.coin"></p>
+                  <p class="text-xs text-zinc-500" x-text="alert.condition + ' ' + alert.target"></p>
+                </div>
+                <span class="px-2 py-0.5 rounded-full text-xs font-medium"
+                  :class="alert.triggered ? 'bg-amber-100 text-amber-700' : 'bg-zinc-200 text-zinc-600'"
+                  x-text="alert.triggered ? 'Activada' : 'Activa'"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function cryptoDashboard() {
+      return {
+        activeTab: 'Portfolio',
+        tabs: ['Portfolio', 'Trading', 'Historial'],
+        holdings: [
+          { coin: 'Bitcoin', symbol: 'B', bg: 'bg-amber-500', amount: '0.3421', price: '$43,200', value: '$14,781', change: '+2.8%' },
+          { coin: 'Ethereum', symbol: 'E', bg: 'bg-indigo-500', amount: '2.1500', price: '$2,340', value: '$5,031', change: '+4.1%' },
+          { coin: 'Solana', symbol: 'S', bg: 'bg-violet-500', amount: '18.500', price: '$124.50', value: '$2,303', change: '-1.2%' },
+          { coin: 'Cardano', symbol: 'A', bg: 'bg-blue-500', amount: '2,400', price: '$0.56', value: '$1,341', change: '+6.7%' }
+        ],
+        priceAlerts: [
+          { coin: 'Bitcoin', condition: 'Mayor a', target: '$45,000', triggered: false },
+          { coin: 'Ethereum', condition: 'Mayor a', target: '$2,500', triggered: false },
+          { coin: 'Solana', condition: 'Menor a', target: '$120', triggered: true },
+          { coin: 'Bitcoin', condition: 'Menor a', target: '$40,000', triggered: false }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

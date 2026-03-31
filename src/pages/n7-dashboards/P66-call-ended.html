@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Llamada Finalizada</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="h-full flex items-center justify-center p-6" x-data="callEnded()">
+    <div class="w-full max-w-md">
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-8 text-center">
+        <!-- Phone icon -->
+        <div class="w-16 h-16 rounded-full bg-zinc-100 flex items-center justify-center mx-auto mb-5">
+          <svg class="w-8 h-8 text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+
+        <h2 class="text-xl font-bold text-zinc-900 mb-1">Llamada finalizada</h2>
+        <p class="text-3xl font-mono font-bold text-zinc-900 mb-4">00:23:45</p>
+
+        <!-- Summary -->
+        <div class="bg-zinc-50 rounded-lg p-4 mb-6 text-left">
+          <h3 class="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-3">Resumen</h3>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-zinc-600">Participantes</span>
+              <span class="text-sm font-medium text-zinc-900">4 personas</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-zinc-600">Duracion</span>
+              <span class="text-sm font-medium text-zinc-900">23 min 45 seg</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-zinc-600">Tipo</span>
+              <span class="text-sm font-medium text-zinc-900">Videollamada grupal</span>
+            </div>
+          </div>
+          <!-- Participant avatars -->
+          <div class="flex items-center gap-1 mt-3 pt-3 border-t border-zinc-200">
+            <div class="w-7 h-7 rounded-full bg-indigo-600 flex items-center justify-center text-xs font-bold text-white">TU</div>
+            <div class="w-7 h-7 rounded-full bg-pink-600 flex items-center justify-center text-xs font-bold text-white">AG</div>
+            <div class="w-7 h-7 rounded-full bg-emerald-600 flex items-center justify-center text-xs font-bold text-white">CL</div>
+            <div class="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center text-xs font-bold text-white">MT</div>
+          </div>
+        </div>
+
+        <!-- Rating -->
+        <div class="mb-6">
+          <p class="text-sm font-medium text-zinc-700 mb-3">Como fue la calidad de la llamada?</p>
+          <div class="flex items-center justify-center gap-2 mb-4">
+            <template x-for="star in 5" :key="star">
+              <button class="transition transform hover:scale-110"
+                @click="rating = star"
+                @mouseenter="hoverRating = star"
+                @mouseleave="hoverRating = 0">
+                <svg class="w-8 h-8" :class="(hoverRating || rating) >= star ? 'text-amber-400' : 'text-zinc-200'" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </button>
+            </template>
+          </div>
+          <textarea
+            x-model="comment"
+            rows="3"
+            placeholder="Comentarios adicionales (opcional)..."
+            class="w-full border border-zinc-200 rounded-lg px-4 py-2.5 text-sm text-zinc-700 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none"></textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-3">
+          <a href="#" class="flex-1 py-2.5 rounded-lg text-sm font-medium text-center border border-zinc-200 text-zinc-700 hover:bg-zinc-50 transition">
+            Volver al dashboard
+          </a>
+          <a href="#" class="flex-1 py-2.5 rounded-lg text-sm font-medium text-center bg-indigo-600 text-white hover:bg-indigo-700 transition">
+            Nueva llamada
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function callEnded() {
+      return {
+        rating: 0,
+        hoverRating: 0,
+        comment: ''
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

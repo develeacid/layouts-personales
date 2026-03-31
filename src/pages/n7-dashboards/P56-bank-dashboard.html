@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Banca Personal</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="bankDashboard()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+        <span class="ml-2 text-xs text-emerald-400">Bank</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Resumen
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          Transferencias
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Tarjetas
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-8"/></svg>
+          Inversiones
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Mi banca</h1>
+        <div class="flex items-center gap-3">
+          <button class="btn-sm btn-primary">Transferir</button>
+          <button class="btn-sm btn-secondary">Pagar</button>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- KPIs -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Balance total</p>
+            <p class="text-2xl font-bold text-zinc-900 mt-1">$45,678</p>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Ingresos mes</p>
+            <p class="text-2xl font-bold text-emerald-600 mt-1">$8,234</p>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Gastos mes</p>
+            <p class="text-2xl font-bold text-rose-600 mt-1">$5,678</p>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Ahorro</p>
+            <p class="text-2xl font-bold text-blue-600 mt-1">$2,556</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <!-- Transactions -->
+          <div class="lg:col-span-2 bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Ultimas transacciones</h2>
+            <div class="space-y-1">
+              <template x-for="tx in transactions" :key="tx.id">
+                <div class="flex items-center justify-between py-3 border-b border-zinc-50 last:border-0">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm" :class="tx.iconBg">
+                      <span x-text="tx.icon"></span>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-zinc-800" x-text="tx.description"></p>
+                      <p class="text-xs text-zinc-400" x-text="tx.date"></p>
+                    </div>
+                  </div>
+                  <span class="text-sm font-semibold" :class="tx.amount > 0 ? 'text-emerald-600' : 'text-zinc-900'" x-text="(tx.amount > 0 ? '+' : '') + '$' + Math.abs(tx.amount).toLocaleString()"></span>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Accounts + upcoming bill -->
+          <div class="space-y-6">
+            <!-- Accounts -->
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+              <h2 class="text-sm font-semibold text-zinc-900 mb-4">Mis cuentas</h2>
+              <div class="space-y-3">
+                <template x-for="acc in accounts" :key="acc.name">
+                  <div class="p-3 rounded-lg border border-zinc-100">
+                    <div class="flex items-center justify-between">
+                      <p class="text-sm text-zinc-700" x-text="acc.name"></p>
+                      <span class="text-xs px-2 py-0.5 rounded-full font-medium" :class="acc.badgeClass" x-text="acc.type"></span>
+                    </div>
+                    <p class="text-lg font-bold text-zinc-900 mt-1" x-text="'$' + acc.balance.toLocaleString()"></p>
+                  </div>
+                </template>
+              </div>
+            </div>
+
+            <!-- Upcoming bill -->
+            <div class="bg-white border border-amber-200 rounded-xl shadow-sm p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center">
+                  <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <h3 class="text-sm font-semibold text-amber-800">Factura proxima</h3>
+              </div>
+              <p class="text-sm text-zinc-700">Seguro vehicular - MAPFRE</p>
+              <p class="text-xl font-bold text-zinc-900 mt-1">$234.00</p>
+              <p class="text-xs text-amber-600 mt-2">Vence el 3 de Abril, 2026</p>
+              <button class="btn-sm btn-primary mt-3 w-full text-center">Pagar ahora</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function bankDashboard() {
+      return {
+        transactions: [
+          { id: 1, description: 'Nomina empresa', icon: 'N', iconBg: 'bg-emerald-100 text-emerald-600', amount: 4500, date: '31 Mar 2026' },
+          { id: 2, description: 'Supermercado Exito', icon: 'S', iconBg: 'bg-orange-100 text-orange-600', amount: -187.50, date: '30 Mar 2026' },
+          { id: 3, description: 'Netflix', icon: 'N', iconBg: 'bg-rose-100 text-rose-600', amount: -15.99, date: '29 Mar 2026' },
+          { id: 4, description: 'Transferencia recibida', icon: 'T', iconBg: 'bg-blue-100 text-blue-600', amount: 350, date: '28 Mar 2026' },
+          { id: 5, description: 'Gasolina Shell', icon: 'G', iconBg: 'bg-amber-100 text-amber-600', amount: -65.00, date: '28 Mar 2026' },
+          { id: 6, description: 'Restaurante El Cielo', icon: 'R', iconBg: 'bg-pink-100 text-pink-600', amount: -89.00, date: '27 Mar 2026' },
+          { id: 7, description: 'Freelance proyecto', icon: 'F', iconBg: 'bg-violet-100 text-violet-600', amount: 1200, date: '26 Mar 2026' },
+          { id: 8, description: 'Spotify', icon: 'S', iconBg: 'bg-emerald-100 text-emerald-600', amount: -9.99, date: '25 Mar 2026' },
+          { id: 9, description: 'Amazon compra', icon: 'A', iconBg: 'bg-cyan-100 text-cyan-600', amount: -234.00, date: '24 Mar 2026' },
+          { id: 10, description: 'Gimnasio SmartFit', icon: 'G', iconBg: 'bg-indigo-100 text-indigo-600', amount: -42.00, date: '23 Mar 2026' }
+        ],
+        accounts: [
+          { name: 'Cuenta Corriente', type: 'Principal', balance: 28450, badgeClass: 'bg-blue-100 text-blue-700' },
+          { name: 'Cuenta Ahorro', type: 'Ahorro', balance: 12228, badgeClass: 'bg-emerald-100 text-emerald-700' },
+          { name: 'Fondo Inversion', type: 'Inversion', balance: 5000, badgeClass: 'bg-violet-100 text-violet-700' }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

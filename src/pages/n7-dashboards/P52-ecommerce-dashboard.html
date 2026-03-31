@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · E-commerce Dashboard</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="ecommerceDashboard()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+        <span class="ml-2 text-xs text-amber-400">Store</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Productos
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          Pedidos
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Clientes
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">E-commerce</h1>
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
+            3 productos con bajo stock
+          </span>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- KPIs -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <template x-for="kpi in kpis" :key="kpi.label">
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+              <p class="text-xs text-zinc-500 uppercase tracking-wide" x-text="kpi.label"></p>
+              <p class="text-2xl font-bold text-zinc-900 mt-1" x-text="kpi.value"></p>
+              <p class="text-xs mt-2" :class="kpi.positive ? 'text-emerald-600' : 'text-rose-600'" x-text="kpi.delta"></p>
+            </div>
+          </template>
+        </div>
+
+        <!-- Top products -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 mb-6">
+          <h2 class="text-sm font-semibold text-zinc-900 mb-4">Top productos</h2>
+          <div class="space-y-3">
+            <template x-for="(product, i) in topProducts" :key="product.name">
+              <div class="flex items-center gap-4 p-3 rounded-lg hover:bg-zinc-50 transition">
+                <span class="text-xs font-bold text-zinc-400 w-5" x-text="'#' + (i + 1)"></span>
+                <div class="w-10 h-10 rounded-lg bg-zinc-100 border border-zinc-200 flex items-center justify-center text-zinc-400 text-xs">IMG</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-sm font-medium text-zinc-900 truncate" x-text="product.name"></p>
+                  <p class="text-xs text-zinc-500" x-text="product.category"></p>
+                </div>
+                <div class="text-right">
+                  <p class="text-sm font-semibold text-zinc-900" x-text="product.sales + ' ventas'"></p>
+                  <p class="text-xs" :class="product.stock < 10 ? 'text-amber-600 font-medium' : 'text-zinc-400'" x-text="'Stock: ' + product.stock"></p>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Recent orders -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm">
+          <div class="px-6 py-4 border-b border-zinc-100 flex items-center justify-between">
+            <h2 class="text-sm font-semibold text-zinc-900">Pedidos recientes</h2>
+            <button class="btn-sm btn-ghost text-xs">Ver todos</button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-100 text-left">
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Pedido</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Cliente</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Total</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Estado</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="order in orders" :key="order.id">
+                  <tr class="border-b border-zinc-50 hover:bg-zinc-50 transition">
+                    <td class="px-6 py-3 font-mono text-xs text-indigo-600" x-text="order.id"></td>
+                    <td class="px-6 py-3 text-zinc-800" x-text="order.customer"></td>
+                    <td class="px-6 py-3 font-medium text-zinc-900" x-text="order.total"></td>
+                    <td class="px-6 py-3">
+                      <span class="px-2 py-0.5 rounded-full text-xs font-medium"
+                        :class="{
+                          'bg-emerald-50 text-emerald-700': order.status === 'Entregado',
+                          'bg-blue-50 text-blue-700': order.status === 'En camino',
+                          'bg-amber-50 text-amber-700': order.status === 'Preparando',
+                          'bg-zinc-100 text-zinc-600': order.status === 'Pendiente'
+                        }"
+                        x-text="order.status"></span>
+                    </td>
+                    <td class="px-6 py-3 text-zinc-500 text-xs" x-text="order.date"></td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function ecommerceDashboard() {
+      return {
+        kpis: [
+          { label: 'Ventas hoy', value: '$3,456', delta: '+18% vs ayer', positive: true },
+          { label: 'Pedidos', value: '28', delta: '+5 vs ayer', positive: true },
+          { label: 'Ticket promedio', value: '$123', delta: '+$8 vs semana ant.', positive: true },
+          { label: 'Tasa devolucion', value: '2.3%', delta: '+0.5% vs mes ant.', positive: false }
+        ],
+        topProducts: [
+          { name: 'Auriculares Bluetooth Pro', category: 'Electronica', sales: 142, stock: 34 },
+          { name: 'Camiseta Premium Algodon', category: 'Ropa', sales: 98, stock: 7 },
+          { name: 'Mochila Urban Explorer', category: 'Accesorios', sales: 87, stock: 22 },
+          { name: 'Taza Termica 500ml', category: 'Hogar', sales: 76, stock: 3 },
+          { name: 'Cargador USB-C Rapido', category: 'Electronica', sales: 65, stock: 5 }
+        ],
+        orders: [
+          { id: '#ORD-2845', customer: 'Maria Gonzalez', total: '$234.00', status: 'Entregado', date: '31 Mar' },
+          { id: '#ORD-2844', customer: 'Luis Ramirez', total: '$89.50', status: 'En camino', date: '31 Mar' },
+          { id: '#ORD-2843', customer: 'Carmen Ortiz', total: '$156.00', status: 'Preparando', date: '30 Mar' },
+          { id: '#ORD-2842', customer: 'Javier Santos', total: '$312.75', status: 'Entregado', date: '30 Mar' },
+          { id: '#ORD-2841', customer: 'Patricia Mendez', total: '$67.00', status: 'Pendiente', date: '29 Mar' },
+          { id: '#ORD-2840', customer: 'Ricardo Flores', total: '$445.20', status: 'En camino', date: '29 Mar' }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

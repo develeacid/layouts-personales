@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Marketing Dashboard</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="marketingDashboard()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+        <span class="ml-2 text-xs text-cyan-400">Marketing</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-8"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Campanas
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Leads
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Automatizacion
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Marketing Hub</h1>
+        <div class="flex items-center gap-3">
+          <button class="btn-sm btn-primary">Nueva campana</button>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- KPIs -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <template x-for="kpi in kpis" :key="kpi.label">
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+              <p class="text-xs text-zinc-500 uppercase tracking-wide" x-text="kpi.label"></p>
+              <p class="text-2xl font-bold text-zinc-900 mt-1" x-text="kpi.value"></p>
+              <p class="text-xs mt-2" :class="kpi.positive ? 'text-emerald-600' : 'text-rose-600'" x-text="kpi.delta"></p>
+            </div>
+          </template>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <!-- Campaigns table -->
+          <div class="lg:col-span-2 bg-white border border-zinc-200 rounded-xl shadow-sm">
+            <div class="px-6 py-4 border-b border-zinc-100">
+              <h2 class="text-sm font-semibold text-zinc-900">Campanas activas</h2>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-zinc-100 text-left">
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Campana</th>
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Canal</th>
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Presupuesto</th>
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">CTR</th>
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="c in campaigns" :key="c.name">
+                    <tr class="border-b border-zinc-50 hover:bg-zinc-50 transition">
+                      <td class="px-6 py-3 text-zinc-800 font-medium" x-text="c.name"></td>
+                      <td class="px-6 py-3">
+                        <span class="px-2 py-0.5 rounded text-xs font-medium" :class="c.channelColor" x-text="c.channel"></span>
+                      </td>
+                      <td class="px-6 py-3 text-zinc-600" x-text="c.budget"></td>
+                      <td class="px-6 py-3 font-medium" :class="parseFloat(c.ctr) > 3 ? 'text-emerald-600' : 'text-zinc-600'" x-text="c.ctr"></td>
+                      <td class="px-6 py-3">
+                        <span class="inline-block w-2 h-2 rounded-full mr-1.5" :class="c.active ? 'bg-emerald-500' : 'bg-zinc-300'"></span>
+                        <span class="text-xs text-zinc-600" x-text="c.active ? 'Activa' : 'Pausada'"></span>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Traffic sources -->
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <h2 class="text-sm font-semibold text-zinc-900 mb-5">Fuentes de trafico</h2>
+            <div class="space-y-4">
+              <template x-for="src in trafficSources" :key="src.name">
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="text-sm text-zinc-700" x-text="src.name"></span>
+                    <span class="text-xs font-medium text-zinc-500" x-text="src.visits"></span>
+                  </div>
+                  <div class="h-2 bg-zinc-100 rounded-full overflow-hidden">
+                    <div class="h-full rounded-full" :class="src.color" :style="'width:' + src.pct + '%'"></div>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent leads -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+          <h2 class="text-sm font-semibold text-zinc-900 mb-4">Ultimos leads capturados</h2>
+          <div class="space-y-3">
+            <template x-for="lead in leads" :key="lead.email">
+              <div class="flex items-center justify-between p-3 bg-zinc-50 rounded-lg">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white" :class="lead.bg" x-text="lead.initials"></div>
+                  <div>
+                    <p class="text-sm font-medium text-zinc-800" x-text="lead.name"></p>
+                    <p class="text-xs text-zinc-500" x-text="lead.email"></p>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-medium" :class="lead.sourceColor" x-text="lead.source"></span>
+                  <p class="text-xs text-zinc-400 mt-1" x-text="lead.time"></p>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function marketingDashboard() {
+      return {
+        kpis: [
+          { label: 'Visitantes', value: '45.2k', delta: '+22% vs mes anterior', positive: true },
+          { label: 'Leads', value: '892', delta: '+134 esta semana', positive: true },
+          { label: 'Conversion', value: '3.2%', delta: '+0.8% vs mes anterior', positive: true },
+          { label: 'CAC', value: '$42', delta: '+$5 vs mes anterior', positive: false }
+        ],
+        campaigns: [
+          { name: 'Black Friday Early', channel: 'Email', channelColor: 'bg-blue-100 text-blue-700', budget: '$2,400', ctr: '4.2%', active: true },
+          { name: 'Social Spring Sale', channel: 'Instagram', channelColor: 'bg-pink-100 text-pink-700', budget: '$1,800', ctr: '3.7%', active: true },
+          { name: 'Google Ads Q1', channel: 'Google', channelColor: 'bg-emerald-100 text-emerald-700', budget: '$3,200', ctr: '2.1%', active: true },
+          { name: 'Newsletter Marzo', channel: 'Email', channelColor: 'bg-blue-100 text-blue-700', budget: '$400', ctr: '5.8%', active: true },
+          { name: 'Facebook Retarget', channel: 'Facebook', channelColor: 'bg-indigo-100 text-indigo-700', budget: '$900', ctr: '1.9%', active: false }
+        ],
+        trafficSources: [
+          { name: 'Organico', visits: '18.4k', pct: 41, color: 'bg-emerald-500' },
+          { name: 'Directo', visits: '9.8k', pct: 22, color: 'bg-blue-500' },
+          { name: 'Social', visits: '8.1k', pct: 18, color: 'bg-pink-500' },
+          { name: 'Email', visits: '5.4k', pct: 12, color: 'bg-violet-500' },
+          { name: 'Referral', visits: '3.5k', pct: 7, color: 'bg-amber-500' }
+        ],
+        leads: [
+          { name: 'Valentina Ruiz', initials: 'VR', email: 'val@empresa.com', source: 'Formulario', sourceColor: 'bg-blue-100 text-blue-700', time: 'Hace 3 min', bg: 'bg-blue-500' },
+          { name: 'Marcos Pereira', initials: 'MP', email: 'marcos@tech.io', source: 'Landing', sourceColor: 'bg-violet-100 text-violet-700', time: 'Hace 15 min', bg: 'bg-violet-500' },
+          { name: 'Isabel Castro', initials: 'IC', email: 'isabel@shop.co', source: 'Webinar', sourceColor: 'bg-emerald-100 text-emerald-700', time: 'Hace 28 min', bg: 'bg-emerald-500' },
+          { name: 'Adrian Molina', initials: 'AM', email: 'adrian@biz.net', source: 'Social', sourceColor: 'bg-pink-100 text-pink-700', time: 'Hace 45 min', bg: 'bg-pink-500' },
+          { name: 'Camila Ortega', initials: 'CO', email: 'camila@mail.com', source: 'Formulario', sourceColor: 'bg-blue-100 text-blue-700', time: 'Hace 1h', bg: 'bg-cyan-500' }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

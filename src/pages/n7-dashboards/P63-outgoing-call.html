@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Llamada Saliente</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-zinc-900 antialiased">
+  <div class="h-full flex flex-col items-center justify-center" x-data="outgoingCall()">
+    <!-- Timer -->
+    <p class="text-sm font-mono text-zinc-500 mb-8" x-text="timer"></p>
+
+    <!-- Avatar -->
+    <div class="relative mb-6">
+      <div class="w-28 h-28 rounded-full bg-indigo-600 flex items-center justify-center text-4xl font-bold text-white">
+        MG
+      </div>
+      <!-- Pulse ring -->
+      <div class="absolute inset-0 rounded-full border-2 border-indigo-400 animate-ping opacity-30"></div>
+    </div>
+
+    <!-- Name -->
+    <h2 class="text-xl font-bold text-white mb-2">Maria Gonzalez</h2>
+
+    <!-- Status with dots -->
+    <div class="flex items-center gap-1 mb-12">
+      <span class="text-sm text-zinc-400">Llamando</span>
+      <span class="flex gap-1 ml-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-zinc-500 animate-bounce" style="animation-delay: 0ms"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-zinc-500 animate-bounce" style="animation-delay: 150ms"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-zinc-500 animate-bounce" style="animation-delay: 300ms"></span>
+      </span>
+    </div>
+
+    <!-- Controls -->
+    <div class="flex items-center gap-6">
+      <button class="w-14 h-14 rounded-full flex items-center justify-center transition"
+        :class="micOn ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-500 text-white'"
+        @click="micOn = !micOn">
+        <svg x-show="micOn" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        <svg x-show="!micOn" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/></svg>
+      </button>
+      <button class="w-14 h-14 rounded-full flex items-center justify-center transition"
+        :class="camOn ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-500 text-white'"
+        @click="camOn = !camOn">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      </button>
+      <button class="w-16 h-16 rounded-full bg-rose-600 text-white flex items-center justify-center hover:bg-rose-700 transition">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" transform="rotate(135 12 12)"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-6px); }
+    }
+  </style>
+  <script>
+    function outgoingCall() {
+      return {
+        micOn: true,
+        camOn: true,
+        timer: '00:00:12'
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Dashboard Base</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="dashboardBase()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-8"/></svg>
+          Analytics
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 17H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4"/><path d="M12 15v6"/><path d="M8 21h8"/></svg>
+          Reports
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </a>
+      </nav>
+      <div class="px-4 py-3 border-t border-zinc-800">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-xs text-white font-medium">JD</div>
+          <div class="text-xs"><p class="text-white font-medium">John Doe</p><p class="text-zinc-500">Admin</p></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Dashboard</h1>
+        <div class="flex items-center gap-3">
+          <span class="text-xs text-zinc-500">Hoy, 31 Mar 2026</span>
+          <button class="btn-sm btn-secondary">Exportar</button>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- KPIs -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <template x-for="kpi in kpis" :key="kpi.label">
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+              <p class="text-xs text-zinc-500 uppercase tracking-wide" x-text="kpi.label"></p>
+              <p class="text-2xl font-bold text-zinc-900 mt-1" x-text="kpi.value"></p>
+              <p class="text-xs mt-2" :class="kpi.positive ? 'text-emerald-600' : 'text-rose-600'">
+                <span x-text="kpi.delta"></span> vs mes anterior
+              </p>
+            </div>
+          </template>
+        </div>
+
+        <!-- Grid: Chart + Timeline -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div class="lg:col-span-2 bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Grafico de ventas</h2>
+            <div class="h-48 bg-zinc-50 border border-dashed border-zinc-300 rounded-lg flex items-center justify-center text-sm text-zinc-400">
+              Grafico de ventas
+            </div>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Timeline de actividad</h2>
+            <div class="space-y-4">
+              <template x-for="(event, i) in timeline" :key="i">
+                <div class="flex gap-3">
+                  <div class="flex flex-col items-center">
+                    <div class="w-2 h-2 rounded-full bg-indigo-500 mt-1.5"></div>
+                    <div class="w-px flex-1 bg-zinc-200" x-show="i < timeline.length - 1"></div>
+                  </div>
+                  <div class="pb-4">
+                    <p class="text-sm text-zinc-800" x-text="event.text"></p>
+                    <p class="text-xs text-zinc-400 mt-0.5" x-text="event.time"></p>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm">
+          <div class="px-6 py-4 border-b border-zinc-100">
+            <h2 class="text-sm font-semibold text-zinc-900">Actividad reciente</h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-100 text-left">
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Usuario</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Accion</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Fecha</th>
+                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="row in activityTable" :key="row.user">
+                  <tr class="border-b border-zinc-50 hover:bg-zinc-50 transition">
+                    <td class="px-6 py-3 text-zinc-800 font-medium" x-text="row.user"></td>
+                    <td class="px-6 py-3 text-zinc-600" x-text="row.action"></td>
+                    <td class="px-6 py-3 text-zinc-500" x-text="row.date"></td>
+                    <td class="px-6 py-3">
+                      <span class="inline-block px-2 py-0.5 text-xs rounded-full font-medium"
+                        :class="row.status === 'Completado' ? 'bg-emerald-50 text-emerald-700' : row.status === 'Pendiente' ? 'bg-amber-50 text-amber-700' : 'bg-zinc-100 text-zinc-600'"
+                        x-text="row.status"></span>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function dashboardBase() {
+      return {
+        kpis: [
+          { label: 'Usuarios', value: '2,845', delta: '+12.5%', positive: true },
+          { label: 'Ingresos', value: '$48,290', delta: '+8.2%', positive: true },
+          { label: 'Pedidos', value: '1,423', delta: '-3.1%', positive: false },
+          { label: 'Tasa conversion', value: '3.6%', delta: '+0.4%', positive: true }
+        ],
+        timeline: [
+          { text: 'Nuevo usuario registrado', time: 'Hace 5 min' },
+          { text: 'Pedido #1234 completado', time: 'Hace 12 min' },
+          { text: 'Reporte semanal generado', time: 'Hace 1h' },
+          { text: 'Actualizacion de inventario', time: 'Hace 2h' },
+          { text: 'Campana email enviada', time: 'Hace 3h' }
+        ],
+        activityTable: [
+          { user: 'Ana Garcia', action: 'Creo nuevo proyecto', date: '31 Mar 2026', status: 'Completado' },
+          { user: 'Carlos Lopez', action: 'Actualizo perfil', date: '31 Mar 2026', status: 'Completado' },
+          { user: 'Maria Torres', action: 'Subio documento', date: '30 Mar 2026', status: 'Pendiente' },
+          { user: 'Pedro Ruiz', action: 'Elimino registro', date: '30 Mar 2026', status: 'Completado' },
+          { user: 'Laura Diaz', action: 'Exporto reporte', date: '29 Mar 2026', status: 'Completado' },
+          { user: 'Diego Morales', action: 'Cambio contrasena', date: '29 Mar 2026', status: 'Pendiente' },
+          { user: 'Sofia Herrera', action: 'Invito usuario', date: '28 Mar 2026', status: 'En proceso' },
+          { user: 'Andres Vega', action: 'Configuro webhook', date: '28 Mar 2026', status: 'Completado' }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

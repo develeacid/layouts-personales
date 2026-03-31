@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Atencion al Cliente</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="customerServiceDashboard()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+        <span class="ml-2 text-xs text-sky-400">Support</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Chat en vivo
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Inbox
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Base de conocimiento
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Centro de Soporte</h1>
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-sky-50 text-sky-700 border border-sky-200">
+            4 chats activos
+          </span>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- KPIs -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Tickets abiertos</p>
+            <p class="text-2xl font-bold text-zinc-900 mt-1">23</p>
+            <p class="text-xs text-rose-600 mt-1">+5 hoy</p>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Tiempo respuesta</p>
+            <p class="text-2xl font-bold text-amber-600 mt-1">2.4h</p>
+            <p class="text-xs text-emerald-600 mt-1">-0.3h vs ayer</p>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Satisfaccion</p>
+            <p class="text-2xl font-bold text-emerald-600 mt-1">94%</p>
+            <p class="text-xs text-emerald-600 mt-1">+2% vs semana</p>
+          </div>
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 uppercase tracking-wide">Resueltos hoy</p>
+            <p class="text-2xl font-bold text-blue-600 mt-1">18</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <!-- Chat preview -->
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-sm font-semibold text-zinc-900">Chat activo</h2>
+              <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            </div>
+            <div class="space-y-3">
+              <template x-for="msg in chatPreview" :key="msg.text">
+                <div class="flex gap-2" :class="msg.agent ? 'justify-end' : ''">
+                  <div class="max-w-[85%] rounded-lg px-3 py-2 text-sm"
+                    :class="msg.agent ? 'bg-sky-100 text-sky-900' : 'bg-zinc-100 text-zinc-700'">
+                    <p class="text-xs font-medium mb-0.5" :class="msg.agent ? 'text-sky-600' : 'text-zinc-500'" x-text="msg.from"></p>
+                    <p x-text="msg.text"></p>
+                  </div>
+                </div>
+              </template>
+            </div>
+            <div class="mt-4 flex gap-2">
+              <input type="text" placeholder="Escribe un mensaje..." class="flex-1 text-sm border border-zinc-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500" />
+              <button class="btn-sm btn-primary">Enviar</button>
+            </div>
+          </div>
+
+          <!-- Priority tickets -->
+          <div class="lg:col-span-2 bg-white border border-zinc-200 rounded-xl shadow-sm">
+            <div class="px-6 py-4 border-b border-zinc-100">
+              <h2 class="text-sm font-semibold text-zinc-900">Tickets prioritarios</h2>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="border-b border-zinc-100 text-left">
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Ticket</th>
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Asunto</th>
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Prioridad</th>
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Agente</th>
+                    <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Tiempo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="t in priorityTickets" :key="t.id">
+                    <tr class="border-b border-zinc-50 hover:bg-zinc-50 transition">
+                      <td class="px-6 py-3 font-mono text-xs text-sky-600" x-text="t.id"></td>
+                      <td class="px-6 py-3 text-zinc-800 font-medium" x-text="t.subject"></td>
+                      <td class="px-6 py-3">
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium"
+                          :class="{
+                            'bg-rose-50 text-rose-700': t.priority === 'Critica',
+                            'bg-amber-50 text-amber-700': t.priority === 'Alta',
+                            'bg-blue-50 text-blue-700': t.priority === 'Media'
+                          }"
+                          x-text="t.priority"></span>
+                      </td>
+                      <td class="px-6 py-3 text-zinc-600" x-text="t.agent"></td>
+                      <td class="px-6 py-3 text-xs" :class="t.overdue ? 'text-rose-600 font-medium' : 'text-zinc-500'" x-text="t.time"></td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email inbox -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+          <h2 class="text-sm font-semibold text-zinc-900 mb-4">Inbox de emails recientes</h2>
+          <div class="space-y-2">
+            <template x-for="email in emails" :key="email.subject">
+              <div class="flex items-center gap-4 p-3 rounded-lg border border-zinc-100 hover:bg-zinc-50 transition cursor-pointer">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white" :class="email.bg" x-text="email.initials"></div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <p class="text-sm font-medium text-zinc-800 truncate" x-text="email.from"></p>
+                    <span x-show="email.unread" class="w-2 h-2 rounded-full bg-sky-500"></span>
+                  </div>
+                  <p class="text-sm text-zinc-600 truncate" x-text="email.subject"></p>
+                </div>
+                <span class="text-xs text-zinc-400 whitespace-nowrap" x-text="email.time"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function customerServiceDashboard() {
+      return {
+        chatPreview: [
+          { from: 'Cliente - Ana R.', text: 'Hola, no puedo acceder a mi cuenta desde esta manana', agent: false },
+          { from: 'Agente - Carlos', text: 'Hola Ana, vamos a revisar tu cuenta. Puedes darme tu email registrado?', agent: true },
+          { from: 'Cliente - Ana R.', text: 'Si, es ana.ramirez@mail.com', agent: false }
+        ],
+        priorityTickets: [
+          { id: '#TK-4521', subject: 'Servidor caido - produccion', priority: 'Critica', agent: 'Carlos M.', time: '45 min', overdue: true },
+          { id: '#TK-4518', subject: 'Error en facturacion duplicada', priority: 'Alta', agent: 'Laura P.', time: '1.5h', overdue: false },
+          { id: '#TK-4515', subject: 'No se pueden exportar reportes', priority: 'Alta', agent: 'Diego S.', time: '2h', overdue: false },
+          { id: '#TK-4512', subject: 'Integracion API fallando', priority: 'Media', agent: 'Carlos M.', time: '3h', overdue: false },
+          { id: '#TK-4509', subject: 'Problema con notificaciones email', priority: 'Media', agent: 'Laura P.', time: '4h', overdue: false }
+        ],
+        emails: [
+          { from: 'Pedro Gomez', initials: 'PG', bg: 'bg-blue-500', subject: 'Re: Problema con la suscripcion', time: 'Hace 5 min', unread: true },
+          { from: 'Empresa ABC', initials: 'EA', bg: 'bg-violet-500', subject: 'Solicitud de soporte tecnico urgente', time: 'Hace 20 min', unread: true },
+          { from: 'Maria Fernandez', initials: 'MF', bg: 'bg-emerald-500', subject: 'Gracias por resolver mi caso', time: 'Hace 1h', unread: false },
+          { from: 'Juan Vargas', initials: 'JV', bg: 'bg-amber-500', subject: 'Consulta sobre precios enterprise', time: 'Hace 2h', unread: false },
+          { from: 'Soporte Cloud', initials: 'SC', bg: 'bg-cyan-500', subject: 'Alerta: Uso de almacenamiento al 90%', time: 'Hace 3h', unread: true }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

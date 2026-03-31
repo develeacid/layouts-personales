@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Videollamada</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-zinc-900 antialiased">
+  <div class="h-full flex flex-col" x-data="videoCallPage()">
+    <!-- Top bar -->
+    <div class="h-12 flex items-center justify-between px-6 bg-zinc-900/80 border-b border-zinc-800">
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-medium text-white">Reunion de equipo</span>
+        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-500/20 text-rose-400 flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+          EN VIVO
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-mono text-zinc-400" x-text="timer"></span>
+        <span class="text-xs text-zinc-500">6 participantes</span>
+      </div>
+    </div>
+
+    <!-- Participant grid + chat panel -->
+    <div class="flex-1 flex overflow-hidden">
+      <!-- Video grid -->
+      <div class="flex-1 p-4">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 h-full">
+          <template x-for="p in participants" :key="p.name">
+            <div class="relative rounded-xl overflow-hidden bg-zinc-800 flex items-center justify-center"
+              :class="p.speaking ? 'ring-2 ring-emerald-500' : ''">
+              <!-- Avatar -->
+              <div class="flex flex-col items-center gap-2">
+                <div class="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold text-white" :class="p.bg" x-text="p.initials"></div>
+                <span class="text-sm text-white font-medium" x-text="p.name"></span>
+              </div>
+              <!-- Indicators -->
+              <div class="absolute bottom-3 left-3 flex items-center gap-2">
+                <span class="w-7 h-7 rounded-full flex items-center justify-center" :class="p.mic ? 'bg-zinc-700/80 text-white' : 'bg-rose-500/80 text-white'">
+                  <svg x-show="p.mic" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                  <svg x-show="!p.mic" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2c0 .67-.1 1.32-.27 1.93"/></svg>
+                </span>
+                <span x-show="!p.cam" class="w-7 h-7 rounded-full bg-rose-500/80 text-white flex items-center justify-center">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M21 21H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3m3-3h6l2 3h4a2 2 0 0 1 2 2v9.34"/></svg>
+                </span>
+              </div>
+              <!-- Speaking indicator -->
+              <div x-show="p.speaking" class="absolute top-3 right-3">
+                <span class="flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </span>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Chat panel -->
+      <div x-show="chatOpen" x-transition class="w-80 bg-zinc-850 border-l border-zinc-800 flex flex-col" style="background-color: rgb(30 30 30);">
+        <div class="px-4 py-3 border-b border-zinc-800 flex items-center justify-between">
+          <h3 class="text-sm font-semibold text-white">Chat</h3>
+          <button @click="chatOpen = false" class="text-zinc-400 hover:text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="flex-1 overflow-y-auto p-4 space-y-3">
+          <template x-for="msg in chatMessages" :key="msg.text">
+            <div>
+              <p class="text-xs font-medium text-zinc-400" x-text="msg.from"></p>
+              <p class="text-sm text-zinc-200 mt-0.5" x-text="msg.text"></p>
+            </div>
+          </template>
+        </div>
+        <div class="p-3 border-t border-zinc-800">
+          <input type="text" placeholder="Escribe un mensaje..." class="w-full text-sm bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-600" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="h-20 bg-zinc-900 border-t border-zinc-800 flex items-center justify-center gap-3">
+      <button class="w-12 h-12 rounded-full flex items-center justify-center transition"
+        :class="micOn ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-500 text-white hover:bg-rose-600'"
+        @click="micOn = !micOn">
+        <svg x-show="micOn" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+        <svg x-show="!micOn" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/></svg>
+      </button>
+      <button class="w-12 h-12 rounded-full flex items-center justify-center transition"
+        :class="camOn ? 'bg-zinc-700 text-white hover:bg-zinc-600' : 'bg-rose-500 text-white hover:bg-rose-600'"
+        @click="camOn = !camOn">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      </button>
+      <button class="w-12 h-12 rounded-full bg-zinc-700 text-white flex items-center justify-center hover:bg-zinc-600 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </button>
+      <button class="w-12 h-12 rounded-full flex items-center justify-center transition"
+        :class="chatOpen ? 'bg-sky-600 text-white' : 'bg-zinc-700 text-white hover:bg-zinc-600'"
+        @click="chatOpen = !chatOpen">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </button>
+      <button class="w-12 h-12 rounded-full bg-zinc-700 text-white flex items-center justify-center hover:bg-zinc-600 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+      </button>
+      <button class="w-12 h-12 rounded-full bg-rose-600 text-white flex items-center justify-center hover:bg-rose-700 transition ml-4">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" transform="rotate(135 12 12)"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function videoCallPage() {
+      return {
+        micOn: true,
+        camOn: true,
+        chatOpen: false,
+        timer: '00:23:45',
+        participants: [
+          { name: 'Tu (Moderador)', initials: 'TU', bg: 'bg-indigo-600', mic: true, cam: true, speaking: true },
+          { name: 'Ana Garcia', initials: 'AG', bg: 'bg-pink-600', mic: true, cam: true, speaking: false },
+          { name: 'Carlos Lopez', initials: 'CL', bg: 'bg-emerald-600', mic: false, cam: true, speaking: false },
+          { name: 'Maria Torres', initials: 'MT', bg: 'bg-amber-600', mic: true, cam: false, speaking: false },
+          { name: 'Pedro Ruiz', initials: 'PR', bg: 'bg-cyan-600', mic: true, cam: true, speaking: false },
+          { name: 'Laura Diaz', initials: 'LD', bg: 'bg-violet-600', mic: false, cam: false, speaking: false }
+        ],
+        chatMessages: [
+          { from: 'Ana Garcia', text: 'Hola, ya estoy conectada' },
+          { from: 'Carlos Lopez', text: 'Pueden compartir el documento?' },
+          { from: 'Tu', text: 'Si, lo comparto ahora mismo' },
+          { from: 'Maria Torres', text: 'Perfecto, gracias' }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
