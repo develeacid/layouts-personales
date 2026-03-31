@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Soporte</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="supportTicketsPage()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Dashboard</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Usuarios</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Productos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Billing</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Facturas</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Transacciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Eventos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Integraciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">API Keys</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg bg-blue-600 text-white">Soporte</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Soporte</h1>
+        <button class="btn-primary btn-sm" @click="showModal = true">Nuevo ticket</button>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- Tabs -->
+        <div class="flex gap-1 border-b border-zinc-200 mb-6">
+          <template x-for="tab in tabs" :key="tab">
+            <button
+              class="px-4 py-2 text-sm font-medium border-b-2 transition-colors"
+              :class="activeTab === tab ? 'border-blue-600 text-blue-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'"
+              @click="activeTab = tab"
+              x-text="tab + ' (' + tabCount(tab) + ')'"
+            ></button>
+          </template>
+        </div>
+
+        <!-- Table -->
+        <div class="card overflow-hidden p-0">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-200 bg-zinc-50 text-left">
+                  <th class="px-4 py-3 font-medium text-zinc-600">#</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Asunto</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Prioridad</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Estado</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Fecha</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Ultima respuesta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="ticket in filteredTickets" :key="ticket.id">
+                  <tr class="border-b border-zinc-100 hover:bg-zinc-50">
+                    <td class="px-4 py-3 font-medium text-zinc-900" x-text="'#' + ticket.id"></td>
+                    <td class="px-4 py-3 text-zinc-900" x-text="ticket.subject"></td>
+                    <td class="px-4 py-3">
+                      <span
+                        :class="{ 'badge-rose': ticket.priority === 'Alta', 'badge-amber': ticket.priority === 'Media', 'badge-zinc': ticket.priority === 'Baja' }"
+                        x-text="ticket.priority"
+                      ></span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <span
+                        :class="{ 'badge-green': ticket.status === 'Abierto', 'badge-blue': ticket.status === 'En progreso', 'badge-zinc': ticket.status === 'Cerrado' }"
+                        x-text="ticket.status"
+                      ></span>
+                    </td>
+                    <td class="px-4 py-3 text-zinc-500" x-text="ticket.date"></td>
+                    <td class="px-4 py-3 text-zinc-500" x-text="ticket.lastReply"></td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal crear ticket -->
+    <div x-show="showModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/50" @click="showModal = false"></div>
+      <div class="relative bg-white rounded-xl shadow-lg w-full max-w-lg p-6" @click.stop>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-4">Nuevo ticket</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="label">Asunto</label>
+            <input type="text" class="input w-full" x-model="newTicket.subject" placeholder="Describe brevemente tu problema" />
+          </div>
+          <div>
+            <label class="label">Categoria</label>
+            <select class="input w-full" x-model="newTicket.category">
+              <option value="">Seleccionar...</option>
+              <option value="Bug">Bug</option>
+              <option value="Feature">Feature request</option>
+              <option value="Billing">Billing</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Prioridad</label>
+            <div class="flex gap-4 mt-1">
+              <template x-for="p in ['Baja', 'Media', 'Alta']" :key="p">
+                <label class="flex items-center gap-2 text-sm text-zinc-700">
+                  <input type="radio" name="priority" :value="p" x-model="newTicket.priority" class="border-zinc-300" />
+                  <span x-text="p"></span>
+                </label>
+              </template>
+            </div>
+          </div>
+          <div>
+            <label class="label">Descripcion</label>
+            <textarea class="input w-full" rows="4" x-model="newTicket.description" placeholder="Describe tu problema en detalle..."></textarea>
+          </div>
+        </div>
+        <div class="flex justify-end gap-3 mt-6">
+          <button class="btn-secondary btn-sm" @click="showModal = false">Cancelar</button>
+          <button class="btn-primary btn-sm" @click="createTicket()">Crear ticket</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function supportTicketsPage() {
+      return {
+        tabs: ['Abiertos', 'Cerrados', 'Todos'],
+        activeTab: 'Abiertos',
+        showModal: false,
+        newTicket: { subject: '', category: '', priority: 'Media', description: '' },
+        tickets: [
+          { id: 1001, subject: 'Error al exportar CSV', priority: 'Alta', status: 'Abierto', date: '30 Mar 2026', lastReply: 'Hace 1h' },
+          { id: 1002, subject: 'Solicitud de integracion con Zapier', priority: 'Media', status: 'Abierto', date: '29 Mar 2026', lastReply: 'Hace 3h' },
+          { id: 1003, subject: 'Problema con facturacion duplicada', priority: 'Alta', status: 'En progreso', date: '28 Mar 2026', lastReply: 'Hace 5h' },
+          { id: 1004, subject: 'No se cargan las imagenes del perfil', priority: 'Media', status: 'Abierto', date: '27 Mar 2026', lastReply: 'Hace 1d' },
+          { id: 1005, subject: 'Sugerencia: modo oscuro en dashboard', priority: 'Baja', status: 'Cerrado', date: '25 Mar 2026', lastReply: 'Hace 2d' },
+          { id: 1006, subject: 'API rate limit muy bajo', priority: 'Alta', status: 'En progreso', date: '24 Mar 2026', lastReply: 'Hace 2d' },
+          { id: 1007, subject: 'Error 500 en endpoint de pagos', priority: 'Alta', status: 'Cerrado', date: '20 Mar 2026', lastReply: 'Hace 5d' },
+          { id: 1008, subject: 'Consulta sobre plan Enterprise', priority: 'Baja', status: 'Cerrado', date: '18 Mar 2026', lastReply: 'Hace 1sem' }
+        ],
+        get filteredTickets() {
+          if (this.activeTab === 'Todos') return this.tickets;
+          if (this.activeTab === 'Abiertos') return this.tickets.filter(t => t.status === 'Abierto' || t.status === 'En progreso');
+          return this.tickets.filter(t => t.status === 'Cerrado');
+        },
+        tabCount(tab) {
+          if (tab === 'Todos') return this.tickets.length;
+          if (tab === 'Abiertos') return this.tickets.filter(t => t.status === 'Abierto' || t.status === 'En progreso').length;
+          return this.tickets.filter(t => t.status === 'Cerrado').length;
+        },
+        createTicket() {
+          if (!this.newTicket.subject) return;
+          this.tickets.unshift({
+            id: Math.max(...this.tickets.map(t => t.id)) + 1,
+            subject: this.newTicket.subject,
+            priority: this.newTicket.priority,
+            status: 'Abierto',
+            date: 'Hoy',
+            lastReply: 'Ahora'
+          });
+          this.newTicket = { subject: '', category: '', priority: 'Media', description: '' };
+          this.showModal = false;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

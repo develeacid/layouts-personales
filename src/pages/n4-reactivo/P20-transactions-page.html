@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Transacciones</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="transactionsPage()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Dashboard</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Usuarios</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Productos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Billing</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Facturas</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg bg-blue-600 text-white">Transacciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Eventos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Integraciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">API Keys</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Soporte</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Transacciones</h1>
+        <button class="btn-secondary btn-sm">Exportar</button>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6 space-y-6">
+        <!-- Summary cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="card">
+            <p class="text-sm text-zinc-500 mb-1">Total ingresos</p>
+            <p class="text-2xl font-bold text-green-600" x-text="'$' + totalIncome.toLocaleString()"></p>
+          </div>
+          <div class="card">
+            <p class="text-sm text-zinc-500 mb-1">Total gastos</p>
+            <p class="text-2xl font-bold text-rose-600" x-text="'$' + totalExpense.toLocaleString()"></p>
+          </div>
+          <div class="card">
+            <p class="text-sm text-zinc-500 mb-1">Balance</p>
+            <p class="text-2xl font-bold" :class="balance >= 0 ? 'text-green-600' : 'text-rose-600'" x-text="(balance >= 0 ? '+$' : '-$') + Math.abs(balance).toLocaleString()"></p>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-wrap items-center gap-3">
+          <input type="text" class="input w-64" placeholder="Buscar transacciones..." x-model="search" />
+          <select class="input w-44" x-model="filterType">
+            <option value="">Todos los tipos</option>
+            <option value="Ingreso">Ingreso</option>
+            <option value="Gasto">Gasto</option>
+            <option value="Transferencia">Transferencia</option>
+          </select>
+          <input type="date" class="input w-40" x-model="dateFrom" />
+          <input type="date" class="input w-40" x-model="dateTo" />
+        </div>
+
+        <!-- Table -->
+        <div class="card overflow-hidden p-0">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-200 bg-zinc-50 text-left">
+                  <th class="px-4 py-3 font-medium text-zinc-600">Fecha</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Descripcion</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Categoria</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Tipo</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600 text-right">Monto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="tx in paginatedTransactions" :key="tx.id">
+                  <tr class="border-b border-zinc-100 hover:bg-zinc-50">
+                    <td class="px-4 py-3 text-zinc-500" x-text="tx.date"></td>
+                    <td class="px-4 py-3 text-zinc-900" x-text="tx.description"></td>
+                    <td class="px-4 py-3 text-zinc-500" x-text="tx.category"></td>
+                    <td class="px-4 py-3">
+                      <span
+                        :class="{ 'badge-green': tx.type === 'Ingreso', 'badge-rose': tx.type === 'Gasto', 'badge-blue': tx.type === 'Transferencia' }"
+                        x-text="tx.type"
+                      ></span>
+                    </td>
+                    <td class="px-4 py-3 text-right font-medium" :class="tx.amount >= 0 ? 'text-green-600' : 'text-rose-600'" x-text="(tx.amount >= 0 ? '+' : '') + '$' + Math.abs(tx.amount).toLocaleString()"></td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <div class="flex items-center justify-between px-4 py-3 border-t border-zinc-200 bg-zinc-50">
+            <span class="text-sm text-zinc-500">Mostrando <span x-text="paginationStart"></span>-<span x-text="paginationEnd"></span> de <span x-text="filteredTransactions.length"></span></span>
+            <div class="flex items-center gap-1">
+              <button class="btn-ghost btn-sm" @click="page--" :disabled="page === 1">Anterior</button>
+              <template x-for="p in totalPages" :key="p">
+                <button class="btn-ghost btn-sm" :class="p === page ? 'bg-blue-50 text-blue-600' : ''" @click="page = p" x-text="p"></button>
+              </template>
+              <button class="btn-ghost btn-sm" @click="page++" :disabled="page === totalPages">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function transactionsPage() {
+      return {
+        search: '',
+        filterType: '',
+        dateFrom: '',
+        dateTo: '',
+        page: 1,
+        perPage: 10,
+        transactions: [
+          { id: 1, date: '30 Mar 2026', description: 'Pago cliente Acme Corp', category: 'Ventas', type: 'Ingreso', amount: 2500 },
+          { id: 2, date: '28 Mar 2026', description: 'Suscripcion AWS', category: 'Infraestructura', type: 'Gasto', amount: -189 },
+          { id: 3, date: '27 Mar 2026', description: 'Transferencia a cuenta ahorro', category: 'Interno', type: 'Transferencia', amount: -500 },
+          { id: 4, date: '25 Mar 2026', description: 'Pago cliente TechStart', category: 'Ventas', type: 'Ingreso', amount: 1800 },
+          { id: 5, date: '24 Mar 2026', description: 'Licencia Figma', category: 'Software', type: 'Gasto', amount: -15 },
+          { id: 6, date: '22 Mar 2026', description: 'Pago freelancer diseno', category: 'Personal', type: 'Gasto', amount: -600 },
+          { id: 7, date: '20 Mar 2026', description: 'Pago cliente Digital Labs', category: 'Ventas', type: 'Ingreso', amount: 4200 },
+          { id: 8, date: '18 Mar 2026', description: 'Google Workspace', category: 'Software', type: 'Gasto', amount: -72 },
+          { id: 9, date: '15 Mar 2026', description: 'Transferencia desde reservas', category: 'Interno', type: 'Transferencia', amount: 1000 },
+          { id: 10, date: '12 Mar 2026', description: 'Pago cliente CloudNet', category: 'Ventas', type: 'Ingreso', amount: 950 },
+          { id: 11, date: '10 Mar 2026', description: 'Dominio anual', category: 'Infraestructura', type: 'Gasto', amount: -14 },
+          { id: 12, date: '08 Mar 2026', description: 'Pago cliente DataFlow', category: 'Ventas', type: 'Ingreso', amount: 3100 }
+        ],
+        get filteredTransactions() {
+          return this.transactions.filter(tx => {
+            const matchSearch = tx.description.toLowerCase().includes(this.search.toLowerCase()) || tx.category.toLowerCase().includes(this.search.toLowerCase());
+            const matchType = !this.filterType || tx.type === this.filterType;
+            return matchSearch && matchType;
+          });
+        },
+        get paginatedTransactions() {
+          const start = (this.page - 1) * this.perPage;
+          return this.filteredTransactions.slice(start, start + this.perPage);
+        },
+        get totalPages() {
+          return Math.max(1, Math.ceil(this.filteredTransactions.length / this.perPage));
+        },
+        get paginationStart() {
+          return (this.page - 1) * this.perPage + 1;
+        },
+        get paginationEnd() {
+          return Math.min(this.page * this.perPage, this.filteredTransactions.length);
+        },
+        get totalIncome() {
+          return this.transactions.filter(t => t.type === 'Ingreso').reduce((s, t) => s + t.amount, 0);
+        },
+        get totalExpense() {
+          return Math.abs(this.transactions.filter(t => t.type === 'Gasto').reduce((s, t) => s + t.amount, 0));
+        },
+        get balance() {
+          return this.totalIncome - this.totalExpense;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

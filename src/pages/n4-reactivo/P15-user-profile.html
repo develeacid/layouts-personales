@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Perfil</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="userProfilePage()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Dashboard</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg bg-blue-600 text-white">Usuarios</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Productos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Billing</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Facturas</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Transacciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Eventos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Integraciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">API Keys</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Soporte</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Perfil de Usuario</h1>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- Profile header -->
+        <div class="card mb-6">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div class="w-20 h-20 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-2xl font-bold">AG</div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-lg font-semibold text-zinc-900">Ana Garcia</h2>
+                <span class="badge-blue">Admin</span>
+              </div>
+              <p class="text-sm text-zinc-500">ana@correo.com</p>
+            </div>
+            <div class="flex gap-6 text-center">
+              <div>
+                <p class="text-xl font-bold text-zinc-900">12</p>
+                <p class="text-xs text-zinc-500">Proyectos</p>
+              </div>
+              <div>
+                <p class="text-xl font-bold text-zinc-900">48</p>
+                <p class="text-xs text-zinc-500">Tareas</p>
+              </div>
+              <div>
+                <p class="text-xl font-bold text-zinc-900">324</p>
+                <p class="text-xs text-zinc-500">Commits</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex gap-1 border-b border-zinc-200 mb-6">
+          <template x-for="tab in tabs" :key="tab">
+            <button
+              class="px-4 py-2 text-sm font-medium border-b-2 transition-colors"
+              :class="activeTab === tab ? 'border-blue-600 text-blue-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'"
+              @click="activeTab = tab"
+              x-text="tab"
+            ></button>
+          </template>
+        </div>
+
+        <!-- Actividad -->
+        <div x-show="activeTab === 'Actividad'">
+          <div class="space-y-4">
+            <template x-for="item in activity" :key="item.id">
+              <div class="flex gap-4">
+                <div class="flex flex-col items-center">
+                  <div class="w-8 h-8 rounded-full bg-zinc-100 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10" stroke="currentColor" fill="none"/></svg>
+                  </div>
+                  <div class="w-px flex-1 bg-zinc-200 mt-2"></div>
+                </div>
+                <div class="pb-6">
+                  <p class="text-sm text-zinc-900"><span class="font-medium" x-text="item.action"></span> <span class="text-zinc-500" x-text="item.target"></span></p>
+                  <p class="text-xs text-zinc-400 mt-1" x-text="item.time"></p>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Proyectos -->
+        <div x-show="activeTab === 'Proyectos'">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <template x-for="project in projects" :key="project.name">
+              <div class="card">
+                <div class="flex items-start justify-between mb-3">
+                  <h3 class="text-sm font-semibold text-zinc-900" x-text="project.name"></h3>
+                  <span :class="project.statusClass" x-text="project.status"></span>
+                </div>
+                <p class="text-sm text-zinc-500 mb-4" x-text="project.description"></p>
+                <div class="flex items-center justify-between text-xs text-zinc-400">
+                  <span x-text="project.tasks + ' tareas'"></span>
+                  <span x-text="project.updated"></span>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Equipos -->
+        <div x-show="activeTab === 'Equipos'">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <template x-for="team in teams" :key="team.name">
+              <div class="card">
+                <h3 class="text-sm font-semibold text-zinc-900 mb-1" x-text="team.name"></h3>
+                <p class="text-sm text-zinc-500 mb-3" x-text="team.members + ' miembros'"></p>
+                <div class="flex -space-x-2">
+                  <template x-for="(m, i) in team.avatars" :key="i">
+                    <div class="w-7 h-7 rounded-full border-2 border-white text-xs font-semibold flex items-center justify-center" :class="m.bg" x-text="m.initials"></div>
+                  </template>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function userProfilePage() {
+      return {
+        tabs: ['Actividad', 'Proyectos', 'Equipos'],
+        activeTab: 'Actividad',
+        activity: [
+          { id: 1, action: 'Creo el proyecto', target: 'LayoutOS v2', time: 'Hace 2 horas' },
+          { id: 2, action: 'Completo la tarea', target: 'Disenar sidebar', time: 'Hace 3 horas' },
+          { id: 3, action: 'Comento en', target: 'PR #142 - Refactor auth', time: 'Hace 5 horas' },
+          { id: 4, action: 'Subio 3 commits a', target: 'feature/dashboard', time: 'Ayer' },
+          { id: 5, action: 'Creo la tarea', target: 'Implementar filtros avanzados', time: 'Ayer' },
+          { id: 6, action: 'Se unio al equipo', target: 'Backend Core', time: 'Hace 2 dias' },
+          { id: 7, action: 'Actualizo el perfil', target: '', time: 'Hace 3 dias' },
+          { id: 8, action: 'Cerro el issue', target: '#89 - Bug en paginacion', time: 'Hace 4 dias' }
+        ],
+        projects: [
+          { name: 'LayoutOS', description: 'Sistema de diseno y componentes UI', tasks: 24, updated: 'Hace 2h', status: 'Activo', statusClass: 'badge-green' },
+          { name: 'API Gateway', description: 'Middleware de autenticacion y routing', tasks: 12, updated: 'Hace 1d', status: 'Activo', statusClass: 'badge-green' },
+          { name: 'Mobile App', description: 'Aplicacion movil con React Native', tasks: 8, updated: 'Hace 3d', status: 'En pausa', statusClass: 'badge-amber' },
+          { name: 'Docs Site', description: 'Documentacion publica del producto', tasks: 5, updated: 'Hace 1sem', status: 'Completado', statusClass: 'badge-zinc' }
+        ],
+        teams: [
+          { name: 'Frontend', members: 5, avatars: [{ initials: 'AG', bg: 'bg-blue-100 text-blue-700' }, { initials: 'CL', bg: 'bg-green-100 text-green-700' }, { initials: 'MT', bg: 'bg-amber-100 text-amber-700' }] },
+          { name: 'Backend Core', members: 4, avatars: [{ initials: 'PR', bg: 'bg-rose-100 text-rose-700' }, { initials: 'AG', bg: 'bg-blue-100 text-blue-700' }, { initials: 'JM', bg: 'bg-purple-100 text-purple-700' }] },
+          { name: 'DevOps', members: 3, avatars: [{ initials: 'LD', bg: 'bg-teal-100 text-teal-700' }, { initials: 'DM', bg: 'bg-orange-100 text-orange-700' }] }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

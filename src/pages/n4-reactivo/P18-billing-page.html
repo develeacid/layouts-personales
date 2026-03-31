@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Billing</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="billingPage()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Dashboard</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Usuarios</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Productos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg bg-blue-600 text-white">Billing</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Facturas</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Transacciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Eventos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Integraciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">API Keys</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Soporte</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Billing</h1>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6 space-y-6">
+        <!-- Current plan -->
+        <div class="card">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-3 mb-1">
+                <h2 class="text-lg font-semibold text-zinc-900">Plan Pro</h2>
+                <span class="badge-green">Activo</span>
+              </div>
+              <p class="text-sm text-zinc-500">$29/mes - Se renueva el 15 de Abril, 2026</p>
+            </div>
+            <button class="btn-secondary btn-sm">Cambiar plan</button>
+          </div>
+        </div>
+
+        <!-- KPI cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="card">
+            <p class="text-sm text-zinc-500 mb-1">Gasto este mes</p>
+            <p class="text-2xl font-bold text-zinc-900">$245</p>
+          </div>
+          <div class="card">
+            <p class="text-sm text-zinc-500 mb-1">Proximo cobro</p>
+            <p class="text-2xl font-bold text-zinc-900">$29</p>
+            <p class="text-xs text-zinc-400 mt-1">15 Abr 2026</p>
+          </div>
+          <div class="card">
+            <p class="text-sm text-zinc-500 mb-1">Metodo de pago</p>
+            <div class="flex items-center gap-2 mt-1">
+              <div class="w-10 h-7 bg-blue-600 rounded text-white text-xs font-bold flex items-center justify-center">VISA</div>
+              <span class="text-sm font-medium text-zinc-900">****1234</span>
+            </div>
+            <button class="text-xs text-blue-600 hover:underline mt-2">Cambiar</button>
+          </div>
+        </div>
+
+        <!-- Invoice history -->
+        <div class="card overflow-hidden p-0">
+          <div class="px-6 py-4 border-b border-zinc-200">
+            <h2 class="text-sm font-semibold text-zinc-900">Historial de facturas</h2>
+          </div>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-zinc-200 bg-zinc-50 text-left">
+                <th class="px-6 py-3 font-medium text-zinc-600">Fecha</th>
+                <th class="px-6 py-3 font-medium text-zinc-600">Descripcion</th>
+                <th class="px-6 py-3 font-medium text-zinc-600">Monto</th>
+                <th class="px-6 py-3 font-medium text-zinc-600">Estado</th>
+                <th class="px-6 py-3 font-medium text-zinc-600"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="inv in invoices" :key="inv.id">
+                <tr class="border-b border-zinc-100 hover:bg-zinc-50">
+                  <td class="px-6 py-3 text-zinc-500" x-text="inv.date"></td>
+                  <td class="px-6 py-3 text-zinc-900" x-text="inv.description"></td>
+                  <td class="px-6 py-3 font-medium text-zinc-900" x-text="'$' + inv.amount"></td>
+                  <td class="px-6 py-3">
+                    <span :class="inv.status === 'Pagada' ? 'badge-green' : 'badge-amber'" x-text="inv.status"></span>
+                  </td>
+                  <td class="px-6 py-3 text-right">
+                    <button class="btn-ghost btn-sm">Descargar</button>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function billingPage() {
+      return {
+        invoices: [
+          { id: 1, date: '01 Mar 2026', description: 'Plan Pro - Marzo', amount: 29, status: 'Pagada' },
+          { id: 2, date: '01 Feb 2026', description: 'Plan Pro - Febrero', amount: 29, status: 'Pagada' },
+          { id: 3, date: '15 Ene 2026', description: 'Addon: Storage extra 50GB', amount: 15, status: 'Pagada' },
+          { id: 4, date: '01 Ene 2026', description: 'Plan Pro - Enero', amount: 29, status: 'Pagada' },
+          { id: 5, date: '01 Dic 2025', description: 'Plan Pro - Diciembre', amount: 29, status: 'Pagada' },
+          { id: 6, date: '01 Nov 2025', description: 'Plan Pro - Noviembre', amount: 29, status: 'Pendiente' }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Usuarios</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="usersPage()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg bg-blue-600 text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9.12-2.26a4 4 0 10-5.24 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Usuarios
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          Productos
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+          Billing
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Facturas
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/></svg>
+          Transacciones
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Eventos
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+          Integraciones
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+          API Keys
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Soporte
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Usuarios</h1>
+        <button class="btn-primary btn-sm">Nuevo usuario</button>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- Filters -->
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          <input type="text" class="input w-64" placeholder="Buscar usuarios..." x-model="search" />
+          <select class="input w-40" x-model="filterStatus">
+            <option value="">Todos</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+          <select class="input w-40" x-model="filterRole">
+            <option value="">Todos los roles</option>
+            <option value="Admin">Admin</option>
+            <option value="Editor">Editor</option>
+            <option value="Viewer">Viewer</option>
+          </select>
+        </div>
+
+        <!-- Table -->
+        <div class="card overflow-hidden p-0">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-200 bg-zinc-50 text-left">
+                  <th class="px-4 py-3 w-10">
+                    <input type="checkbox" class="rounded border-zinc-300" @change="toggleAll($event)" />
+                  </th>
+                  <th class="px-4 py-3 font-medium text-zinc-600 cursor-pointer" @click="sortBy('name')">
+                    <span class="flex items-center gap-1">Nombre <span x-text="sortIcon('name')"></span></span>
+                  </th>
+                  <th class="px-4 py-3 font-medium text-zinc-600 cursor-pointer" @click="sortBy('email')">
+                    <span class="flex items-center gap-1">Email <span x-text="sortIcon('email')"></span></span>
+                  </th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Rol</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Estado</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600 cursor-pointer" @click="sortBy('date')">
+                    <span class="flex items-center gap-1">Registro <span x-text="sortIcon('date')"></span></span>
+                  </th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="user in paginatedUsers" :key="user.id">
+                  <tr class="border-b border-zinc-100 hover:bg-zinc-50 transition-colors">
+                    <td class="px-4 py-3">
+                      <input type="checkbox" class="rounded border-zinc-300" :checked="selected.includes(user.id)" @change="toggleSelect(user.id)" />
+                    </td>
+                    <td class="px-4 py-3">
+                      <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-semibold" x-text="user.name.split(' ').map(n=>n[0]).join('')"></div>
+                        <span class="font-medium text-zinc-900" x-text="user.name"></span>
+                      </div>
+                    </td>
+                    <td class="px-4 py-3 text-zinc-500" x-text="user.email"></td>
+                    <td class="px-4 py-3">
+                      <span class="badge-blue" x-show="user.role === 'Admin'" x-text="user.role"></span>
+                      <span class="badge-zinc" x-show="user.role === 'Editor'" x-text="user.role"></span>
+                      <span class="badge-zinc" x-show="user.role === 'Viewer'" x-text="user.role"></span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <span :class="user.status === 'Activo' ? 'badge-green' : 'badge-rose'" x-text="user.status"></span>
+                    </td>
+                    <td class="px-4 py-3 text-zinc-500" x-text="user.date"></td>
+                    <td class="px-4 py-3">
+                      <div class="flex items-center gap-2">
+                        <button class="btn-ghost btn-sm">Editar</button>
+                        <button class="btn-danger btn-sm">Eliminar</button>
+                      </div>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <div class="flex items-center justify-between px-4 py-3 border-t border-zinc-200 bg-zinc-50">
+            <span class="text-sm text-zinc-500">Mostrando <span x-text="paginationStart"></span>-<span x-text="paginationEnd"></span> de <span x-text="filteredUsers.length"></span></span>
+            <div class="flex items-center gap-1">
+              <button class="btn-ghost btn-sm" @click="page--" :disabled="page === 1">Anterior</button>
+              <template x-for="p in totalPages" :key="p">
+                <button class="btn-ghost btn-sm" :class="p === page ? 'bg-blue-50 text-blue-600' : ''" @click="page = p" x-text="p"></button>
+              </template>
+              <button class="btn-ghost btn-sm" @click="page++" :disabled="page === totalPages">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function usersPage() {
+      return {
+        search: '',
+        filterStatus: '',
+        filterRole: '',
+        sortField: 'name',
+        sortDir: 'asc',
+        page: 1,
+        perPage: 10,
+        selected: [],
+        users: [
+          { id: 1, name: 'Ana Garcia', email: 'ana@correo.com', role: 'Admin', status: 'Activo', date: '12 Ene 2025' },
+          { id: 2, name: 'Carlos Lopez', email: 'carlos@correo.com', role: 'Editor', status: 'Activo', date: '05 Feb 2025' },
+          { id: 3, name: 'Maria Torres', email: 'maria@correo.com', role: 'Viewer', status: 'Inactivo', date: '18 Mar 2025' },
+          { id: 4, name: 'Pedro Ruiz', email: 'pedro@correo.com', role: 'Editor', status: 'Activo', date: '22 Abr 2025' },
+          { id: 5, name: 'Laura Diaz', email: 'laura@correo.com', role: 'Admin', status: 'Activo', date: '01 May 2025' },
+          { id: 6, name: 'Jorge Mendez', email: 'jorge@correo.com', role: 'Viewer', status: 'Inactivo', date: '15 Jun 2025' },
+          { id: 7, name: 'Sofia Herrera', email: 'sofia@correo.com', role: 'Editor', status: 'Activo', date: '28 Jul 2025' },
+          { id: 8, name: 'Diego Morales', email: 'diego@correo.com', role: 'Viewer', status: 'Activo', date: '10 Ago 2025' },
+          { id: 9, name: 'Elena Castro', email: 'elena@correo.com', role: 'Admin', status: 'Activo', date: '03 Sep 2025' },
+          { id: 10, name: 'Roberto Vega', email: 'roberto@correo.com', role: 'Editor', status: 'Inactivo', date: '20 Oct 2025' },
+        ],
+        get filteredUsers() {
+          return this.users
+            .filter(u => {
+              const matchSearch = u.name.toLowerCase().includes(this.search.toLowerCase()) || u.email.toLowerCase().includes(this.search.toLowerCase());
+              const matchStatus = !this.filterStatus || u.status === this.filterStatus;
+              const matchRole = !this.filterRole || u.role === this.filterRole;
+              return matchSearch && matchStatus && matchRole;
+            })
+            .sort((a, b) => {
+              const mod = this.sortDir === 'asc' ? 1 : -1;
+              if (this.sortField === 'name') return a.name.localeCompare(b.name) * mod;
+              if (this.sortField === 'email') return a.email.localeCompare(b.email) * mod;
+              return 0;
+            });
+        },
+        get paginatedUsers() {
+          const start = (this.page - 1) * this.perPage;
+          return this.filteredUsers.slice(start, start + this.perPage);
+        },
+        get totalPages() {
+          return Math.max(1, Math.ceil(this.filteredUsers.length / this.perPage));
+        },
+        get paginationStart() {
+          return (this.page - 1) * this.perPage + 1;
+        },
+        get paginationEnd() {
+          return Math.min(this.page * this.perPage, this.filteredUsers.length);
+        },
+        sortBy(field) {
+          if (this.sortField === field) {
+            this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+          } else {
+            this.sortField = field;
+            this.sortDir = 'asc';
+          }
+        },
+        sortIcon(field) {
+          if (this.sortField !== field) return '';
+          return this.sortDir === 'asc' ? '\u2191' : '\u2193';
+        },
+        toggleAll(e) {
+          this.selected = e.target.checked ? this.paginatedUsers.map(u => u.id) : [];
+        },
+        toggleSelect(id) {
+          const idx = this.selected.indexOf(id);
+          idx > -1 ? this.selected.splice(idx, 1) : this.selected.push(id);
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Configuracion</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="userSettingsPage()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Dashboard</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg bg-blue-600 text-white">Usuarios</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Productos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Billing</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Facturas</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Transacciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Eventos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Integraciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">API Keys</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Soporte</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Configuracion de Usuario</h1>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- Tabs -->
+        <div class="flex gap-1 border-b border-zinc-200 mb-6">
+          <template x-for="tab in tabs" :key="tab">
+            <button
+              class="px-4 py-2 text-sm font-medium border-b-2 transition-colors"
+              :class="activeTab === tab ? 'border-blue-600 text-blue-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'"
+              @click="activeTab = tab"
+              x-text="tab"
+            ></button>
+          </template>
+        </div>
+
+        <!-- Perfil -->
+        <div x-show="activeTab === 'Perfil'" class="space-y-6 max-w-2xl">
+          <div class="card">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-16 h-16 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-lg font-bold">AG</div>
+              <div>
+                <p class="text-sm font-medium text-zinc-900">Ana Garcia</p>
+                <button class="text-sm text-blue-600 hover:underline mt-1">Cambiar avatar</button>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <label class="label">Nombre completo</label>
+                <input type="text" class="input w-full" x-model="profile.name" />
+              </div>
+              <div>
+                <label class="label">Email</label>
+                <input type="email" class="input w-full" x-model="profile.email" />
+              </div>
+              <div>
+                <label class="label">Bio</label>
+                <textarea class="input w-full" rows="3" x-model="profile.bio"></textarea>
+              </div>
+              <div>
+                <label class="label">Website</label>
+                <input type="url" class="input w-full" x-model="profile.website" />
+              </div>
+              <div class="flex justify-end">
+                <button class="btn-primary btn-sm" @click="saved = true; setTimeout(() => saved = false, 2000)">
+                  <span x-show="!saved">Guardar cambios</span>
+                  <span x-show="saved">Guardado</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seguridad -->
+        <div x-show="activeTab === 'Seguridad'" class="space-y-6 max-w-2xl">
+          <div class="card">
+            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Cambiar contrasena</h2>
+            <div class="space-y-4">
+              <div>
+                <label class="label">Contrasena actual</label>
+                <input type="password" class="input w-full" />
+              </div>
+              <div>
+                <label class="label">Nueva contrasena</label>
+                <input type="password" class="input w-full" />
+              </div>
+              <div>
+                <label class="label">Confirmar contrasena</label>
+                <input type="password" class="input w-full" />
+              </div>
+              <div class="flex justify-end">
+                <button class="btn-primary btn-sm">Actualizar contrasena</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-sm font-semibold text-zinc-900">Autenticacion en dos pasos (2FA)</h2>
+                <p class="text-sm text-zinc-500 mt-1">Anade una capa extra de seguridad a tu cuenta</p>
+              </div>
+              <button
+                class="relative w-11 h-6 rounded-full transition-colors cursor-pointer"
+                :class="twoFactor ? 'bg-blue-600' : 'bg-zinc-300'"
+                @click="twoFactor = !twoFactor"
+              >
+                <span class="absolute top-0.5 left-0 w-5 h-5 bg-white rounded-full shadow-sm transition-transform" :class="twoFactor ? 'translate-x-5' : 'translate-x-0.5'"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Sesiones activas</h2>
+            <div class="space-y-3">
+              <template x-for="session in sessions" :key="session.id">
+                <div class="flex items-center justify-between py-2 border-b border-zinc-100 last:border-0">
+                  <div>
+                    <p class="text-sm font-medium text-zinc-900" x-text="session.device"></p>
+                    <p class="text-xs text-zinc-500" x-text="session.location + ' · ' + session.time"></p>
+                  </div>
+                  <span x-show="session.current" class="badge-green">Actual</span>
+                  <button x-show="!session.current" class="btn-ghost btn-sm text-rose-600">Revocar</button>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notificaciones -->
+        <div x-show="activeTab === 'Notificaciones'" class="space-y-6 max-w-2xl">
+          <div class="card">
+            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Preferencias de notificaciones</h2>
+            <div class="space-y-4">
+              <template x-for="cat in notifCategories" :key="cat.name">
+                <div class="border-b border-zinc-100 pb-4 last:border-0">
+                  <p class="text-sm font-medium text-zinc-900 mb-3" x-text="cat.name"></p>
+                  <div class="flex items-center gap-6">
+                    <label class="flex items-center gap-2 text-sm text-zinc-600">
+                      <input type="checkbox" class="rounded border-zinc-300" x-model="cat.email" /> Email
+                    </label>
+                    <label class="flex items-center gap-2 text-sm text-zinc-600">
+                      <input type="checkbox" class="rounded border-zinc-300" x-model="cat.push" /> Push
+                    </label>
+                    <label class="flex items-center gap-2 text-sm text-zinc-600">
+                      <input type="checkbox" class="rounded border-zinc-300" x-model="cat.inApp" /> In-app
+                    </label>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Apariencia -->
+        <div x-show="activeTab === 'Apariencia'" class="space-y-6 max-w-2xl">
+          <div class="card">
+            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Tema</h2>
+            <div class="flex gap-4">
+              <button
+                class="flex-1 border-2 rounded-xl p-4 text-center transition-colors"
+                :class="theme === 'light' ? 'border-blue-600 bg-blue-50' : 'border-zinc-200'"
+                @click="theme = 'light'"
+              >
+                <div class="w-full h-20 bg-white border border-zinc-200 rounded-lg mb-2"></div>
+                <span class="text-sm font-medium text-zinc-900">Claro</span>
+              </button>
+              <button
+                class="flex-1 border-2 rounded-xl p-4 text-center transition-colors"
+                :class="theme === 'dark' ? 'border-blue-600 bg-blue-50' : 'border-zinc-200'"
+                @click="theme = 'dark'"
+              >
+                <div class="w-full h-20 bg-zinc-800 border border-zinc-700 rounded-lg mb-2"></div>
+                <span class="text-sm font-medium text-zinc-900">Oscuro</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Densidad</h2>
+            <div class="flex gap-3">
+              <template x-for="d in ['Compacto', 'Normal', 'Amplio']" :key="d">
+                <button
+                  class="btn-sm"
+                  :class="density === d ? 'btn-primary' : 'btn-secondary'"
+                  @click="density = d"
+                  x-text="d"
+                ></button>
+              </template>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function userSettingsPage() {
+      return {
+        tabs: ['Perfil', 'Seguridad', 'Notificaciones', 'Apariencia'],
+        activeTab: 'Perfil',
+        saved: false,
+        twoFactor: false,
+        theme: 'light',
+        density: 'Normal',
+        profile: {
+          name: 'Ana Garcia',
+          email: 'ana@correo.com',
+          bio: 'Desarrolladora full-stack con experiencia en Vue y Node.',
+          website: 'https://anagarcia.dev'
+        },
+        sessions: [
+          { id: 1, device: 'Chrome en macOS', location: 'Madrid, ES', time: 'Ahora', current: true },
+          { id: 2, device: 'Safari en iPhone', location: 'Madrid, ES', time: 'Hace 2h', current: false },
+          { id: 3, device: 'Firefox en Windows', location: 'Barcelona, ES', time: 'Hace 3 dias', current: false }
+        ],
+        notifCategories: [
+          { name: 'Seguridad', email: true, push: true, inApp: true },
+          { name: 'Actualizaciones de producto', email: true, push: false, inApp: true },
+          { name: 'Comentarios', email: false, push: true, inApp: true },
+          { name: 'Marketing', email: false, push: false, inApp: false }
+        ]
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Facturas</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="invoicesPage()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Dashboard</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Usuarios</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Productos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Billing</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg bg-blue-600 text-white">Facturas</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Transacciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Eventos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Integraciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">API Keys</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Soporte</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Facturas</h1>
+        <button class="btn-primary btn-sm" @click="showModal = true">Nueva factura</button>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- Filters -->
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          <input type="text" class="input w-64" placeholder="Buscar facturas..." x-model="search" />
+          <select class="input w-40" x-model="filterStatus">
+            <option value="">Todos los estados</option>
+            <option value="Pagada">Pagada</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Vencida">Vencida</option>
+          </select>
+          <input type="date" class="input w-40" x-model="filterDateFrom" />
+          <input type="date" class="input w-40" x-model="filterDateTo" />
+        </div>
+
+        <!-- Table -->
+        <div class="card overflow-hidden p-0">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-200 bg-zinc-50 text-left">
+                  <th class="px-4 py-3 font-medium text-zinc-600">#</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Cliente</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Monto</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Emision</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Vencimiento</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Estado</th>
+                  <th class="px-4 py-3 font-medium text-zinc-600">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="inv in paginatedInvoices" :key="inv.id">
+                  <tr class="border-b border-zinc-100 hover:bg-zinc-50">
+                    <td class="px-4 py-3 font-medium text-zinc-900" x-text="inv.number"></td>
+                    <td class="px-4 py-3 text-zinc-900" x-text="inv.client"></td>
+                    <td class="px-4 py-3 font-medium text-zinc-900" x-text="'$' + inv.amount.toLocaleString()"></td>
+                    <td class="px-4 py-3 text-zinc-500" x-text="inv.issued"></td>
+                    <td class="px-4 py-3 text-zinc-500" x-text="inv.due"></td>
+                    <td class="px-4 py-3">
+                      <span
+                        :class="{ 'badge-green': inv.status === 'Pagada', 'badge-amber': inv.status === 'Pendiente', 'badge-rose': inv.status === 'Vencida' }"
+                        x-text="inv.status"
+                      ></span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <div class="flex items-center gap-2">
+                        <button class="btn-ghost btn-sm">Ver</button>
+                        <button class="btn-ghost btn-sm">Descargar</button>
+                      </div>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <div class="flex items-center justify-between px-4 py-3 border-t border-zinc-200 bg-zinc-50">
+            <span class="text-sm text-zinc-500">Mostrando <span x-text="paginationStart"></span>-<span x-text="paginationEnd"></span> de <span x-text="filteredInvoices.length"></span></span>
+            <div class="flex items-center gap-1">
+              <button class="btn-ghost btn-sm" @click="page--" :disabled="page === 1">Anterior</button>
+              <template x-for="p in totalPages" :key="p">
+                <button class="btn-ghost btn-sm" :class="p === page ? 'bg-blue-50 text-blue-600' : ''" @click="page = p" x-text="p"></button>
+              </template>
+              <button class="btn-ghost btn-sm" @click="page++" :disabled="page === totalPages">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal crear factura -->
+    <div x-show="showModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/50" @click="showModal = false"></div>
+      <div class="relative bg-white rounded-xl shadow-lg w-full max-w-md p-6" @click.stop>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-4">Nueva factura</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="label">Cliente</label>
+            <input type="text" class="input w-full" x-model="newInvoice.client" placeholder="Nombre del cliente" />
+          </div>
+          <div>
+            <label class="label">Monto</label>
+            <input type="number" class="input w-full" x-model="newInvoice.amount" placeholder="0.00" />
+          </div>
+          <div>
+            <label class="label">Fecha de vencimiento</label>
+            <input type="date" class="input w-full" x-model="newInvoice.due" />
+          </div>
+        </div>
+        <div class="flex justify-end gap-3 mt-6">
+          <button class="btn-secondary btn-sm" @click="showModal = false">Cancelar</button>
+          <button class="btn-primary btn-sm" @click="createInvoice()">Crear factura</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function invoicesPage() {
+      return {
+        search: '',
+        filterStatus: '',
+        filterDateFrom: '',
+        filterDateTo: '',
+        page: 1,
+        perPage: 10,
+        showModal: false,
+        newInvoice: { client: '', amount: '', due: '' },
+        invoices: [
+          { id: 1, number: 'INV-001', client: 'Acme Corp', amount: 2500, issued: '01 Mar 2026', due: '31 Mar 2026', status: 'Pagada' },
+          { id: 2, number: 'INV-002', client: 'TechStart SL', amount: 1800, issued: '05 Mar 2026', due: '04 Abr 2026', status: 'Pendiente' },
+          { id: 3, number: 'INV-003', client: 'Digital Labs', amount: 4200, issued: '10 Feb 2026', due: '12 Mar 2026', status: 'Vencida' },
+          { id: 4, number: 'INV-004', client: 'CloudNet', amount: 950, issued: '15 Feb 2026', due: '17 Mar 2026', status: 'Pagada' },
+          { id: 5, number: 'INV-005', client: 'DataFlow Inc', amount: 3100, issued: '20 Feb 2026', due: '22 Mar 2026', status: 'Pagada' },
+          { id: 6, number: 'INV-006', client: 'WebSphere', amount: 1400, issued: '01 Ene 2026', due: '31 Ene 2026', status: 'Vencida' },
+          { id: 7, number: 'INV-007', client: 'AppVenture', amount: 2200, issued: '10 Ene 2026', due: '09 Feb 2026', status: 'Pagada' },
+          { id: 8, number: 'INV-008', client: 'NexGen', amount: 5500, issued: '15 Dic 2025', due: '14 Ene 2026', status: 'Pagada' },
+          { id: 9, number: 'INV-009', client: 'Pixel Studio', amount: 800, issued: '20 Dic 2025', due: '19 Ene 2026', status: 'Pendiente' },
+          { id: 10, number: 'INV-010', client: 'CodeCraft', amount: 3700, issued: '01 Dic 2025', due: '31 Dic 2025', status: 'Pagada' }
+        ],
+        get filteredInvoices() {
+          return this.invoices.filter(inv => {
+            const matchSearch = inv.client.toLowerCase().includes(this.search.toLowerCase()) || inv.number.toLowerCase().includes(this.search.toLowerCase());
+            const matchStatus = !this.filterStatus || inv.status === this.filterStatus;
+            return matchSearch && matchStatus;
+          });
+        },
+        get paginatedInvoices() {
+          const start = (this.page - 1) * this.perPage;
+          return this.filteredInvoices.slice(start, start + this.perPage);
+        },
+        get totalPages() {
+          return Math.max(1, Math.ceil(this.filteredInvoices.length / this.perPage));
+        },
+        get paginationStart() {
+          return (this.page - 1) * this.perPage + 1;
+        },
+        get paginationEnd() {
+          return Math.min(this.page * this.perPage, this.filteredInvoices.length);
+        },
+        createInvoice() {
+          if (!this.newInvoice.client || !this.newInvoice.amount) return;
+          const id = this.invoices.length + 1;
+          this.invoices.unshift({
+            id,
+            number: 'INV-' + String(id).padStart(3, '0'),
+            client: this.newInvoice.client,
+            amount: parseFloat(this.newInvoice.amount),
+            issued: 'Hoy',
+            due: this.newInvoice.due || 'Sin fecha',
+            status: 'Pendiente'
+          });
+          this.newInvoice = { client: '', amount: '', due: '' };
+          this.showModal = false;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

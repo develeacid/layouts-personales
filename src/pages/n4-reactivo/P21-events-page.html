@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Eventos</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="eventsPage()">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800">
+        <span class="text-sm font-semibold text-white">LayoutOS</span>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Dashboard</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Usuarios</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Productos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Billing</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Facturas</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Transacciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg bg-blue-600 text-white">Eventos</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Integraciones</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">API Keys</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg hover:bg-zinc-800 hover:text-white">Soporte</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Eventos</h1>
+        <div class="flex items-center gap-3">
+          <div class="flex border border-zinc-200 rounded-lg overflow-hidden">
+            <button class="px-3 py-1.5 text-sm transition-colors" :class="view === 'list' ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-400 hover:text-zinc-600'" @click="view = 'list'">Lista</button>
+            <button class="px-3 py-1.5 text-sm transition-colors" :class="view === 'calendar' ? 'bg-zinc-100 text-zinc-900' : 'text-zinc-400 hover:text-zinc-600'" @click="view = 'calendar'">Calendario</button>
+          </div>
+          <button class="btn-primary btn-sm" @click="showModal = true">Nuevo evento</button>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <!-- Filters -->
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          <input type="text" class="input w-64" placeholder="Buscar eventos..." x-model="search" />
+          <select class="input w-40" x-model="filterType">
+            <option value="">Todos los tipos</option>
+            <option value="Reunion">Reunion</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Deadline">Deadline</option>
+          </select>
+        </div>
+
+        <!-- List view -->
+        <div x-show="view === 'list'" class="space-y-4">
+          <template x-for="event in filteredEvents" :key="event.id">
+            <div class="card">
+              <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                <div class="text-center sm:text-left sm:w-20">
+                  <p class="text-2xl font-bold text-zinc-900" x-text="event.day"></p>
+                  <p class="text-xs text-zinc-500 uppercase" x-text="event.month"></p>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h3 class="text-sm font-semibold text-zinc-900" x-text="event.title"></h3>
+                    <span
+                      :class="{ 'badge-blue': event.type === 'Reunion', 'badge-amber': event.type === 'Workshop', 'badge-rose': event.type === 'Deadline' }"
+                      x-text="event.type"
+                    ></span>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-4 text-sm text-zinc-500">
+                    <span x-text="event.time"></span>
+                    <span x-text="event.location"></span>
+                  </div>
+                </div>
+                <div class="flex -space-x-2">
+                  <template x-for="(a, i) in event.attendees" :key="i">
+                    <div class="w-7 h-7 rounded-full border-2 border-white text-xs font-semibold flex items-center justify-center" :class="a.bg" x-text="a.initials"></div>
+                  </template>
+                  <div x-show="event.moreAttendees > 0" class="w-7 h-7 rounded-full border-2 border-white bg-zinc-100 text-zinc-500 text-xs font-medium flex items-center justify-center" x-text="'+' + event.moreAttendees"></div>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Calendar view -->
+        <div x-show="view === 'calendar'">
+          <div class="card">
+            <div class="flex items-center justify-between mb-4">
+              <button class="btn-ghost btn-sm" @click="calMonth--">&larr;</button>
+              <h2 class="text-sm font-semibold text-zinc-900" x-text="calMonthName + ' ' + calYear"></h2>
+              <button class="btn-ghost btn-sm" @click="calMonth++">&rarr;</button>
+            </div>
+            <div class="grid grid-cols-7 text-center text-xs font-medium text-zinc-400 mb-2">
+              <span>Lun</span><span>Mar</span><span>Mie</span><span>Jue</span><span>Vie</span><span>Sab</span><span>Dom</span>
+            </div>
+            <div class="grid grid-cols-7 gap-1">
+              <template x-for="(d, i) in calDays" :key="i">
+                <div class="aspect-square flex flex-col items-center justify-center rounded-lg text-sm" :class="d.current ? 'text-zinc-900' : 'text-zinc-300'">
+                  <span x-text="d.day"></span>
+                  <div x-show="d.hasEvent" class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-0.5"></div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal crear evento -->
+    <div x-show="showModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/50" @click="showModal = false"></div>
+      <div class="relative bg-white rounded-xl shadow-lg w-full max-w-md p-6" @click.stop>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-4">Nuevo evento</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="label">Titulo</label>
+            <input type="text" class="input w-full" x-model="newEvent.title" />
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="label">Fecha</label>
+              <input type="date" class="input w-full" x-model="newEvent.date" />
+            </div>
+            <div>
+              <label class="label">Hora</label>
+              <input type="time" class="input w-full" x-model="newEvent.time" />
+            </div>
+          </div>
+          <div>
+            <label class="label">Ubicacion</label>
+            <input type="text" class="input w-full" x-model="newEvent.location" />
+          </div>
+          <div>
+            <label class="label">Tipo</label>
+            <select class="input w-full" x-model="newEvent.type">
+              <option value="Reunion">Reunion</option>
+              <option value="Workshop">Workshop</option>
+              <option value="Deadline">Deadline</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex justify-end gap-3 mt-6">
+          <button class="btn-secondary btn-sm" @click="showModal = false">Cancelar</button>
+          <button class="btn-primary btn-sm" @click="createEvent()">Crear evento</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+    function eventsPage() {
+      return {
+        view: 'list',
+        search: '',
+        filterType: '',
+        showModal: false,
+        calMonth: 2,
+        calYear: 2026,
+        newEvent: { title: '', date: '', time: '', location: '', type: 'Reunion' },
+        events: [
+          { id: 1, title: 'Sprint Planning Q2', day: '01', month: 'Abr', time: '09:00 - 10:00', location: 'Sala Norte', type: 'Reunion', attendees: [{ initials: 'AG', bg: 'bg-blue-100 text-blue-700' }, { initials: 'CL', bg: 'bg-green-100 text-green-700' }], moreAttendees: 3 },
+          { id: 2, title: 'Workshop: Alpine.js Avanzado', day: '03', month: 'Abr', time: '14:00 - 16:00', location: 'Auditorio', type: 'Workshop', attendees: [{ initials: 'MT', bg: 'bg-amber-100 text-amber-700' }], moreAttendees: 8 },
+          { id: 3, title: 'Entrega modulo de pagos', day: '05', month: 'Abr', time: '23:59', location: 'Remoto', type: 'Deadline', attendees: [{ initials: 'PR', bg: 'bg-rose-100 text-rose-700' }, { initials: 'AG', bg: 'bg-blue-100 text-blue-700' }], moreAttendees: 0 },
+          { id: 4, title: 'Sync Frontend', day: '07', month: 'Abr', time: '10:00 - 10:30', location: 'Google Meet', type: 'Reunion', attendees: [{ initials: 'SH', bg: 'bg-orange-100 text-orange-700' }, { initials: 'DM', bg: 'bg-cyan-100 text-cyan-700' }], moreAttendees: 1 },
+          { id: 5, title: 'Workshop: Testing E2E', day: '10', month: 'Abr', time: '15:00 - 17:00', location: 'Sala Sur', type: 'Workshop', attendees: [{ initials: 'EC', bg: 'bg-indigo-100 text-indigo-700' }], moreAttendees: 5 },
+          { id: 6, title: 'Review de diseno', day: '12', month: 'Abr', time: '11:00 - 12:00', location: 'Figma', type: 'Reunion', attendees: [{ initials: 'LD', bg: 'bg-purple-100 text-purple-700' }, { initials: 'AG', bg: 'bg-blue-100 text-blue-700' }], moreAttendees: 2 },
+          { id: 7, title: 'Deploy v2.0', day: '15', month: 'Abr', time: '18:00', location: 'Produccion', type: 'Deadline', attendees: [{ initials: 'JM', bg: 'bg-teal-100 text-teal-700' }], moreAttendees: 4 }
+        ],
+        get filteredEvents() {
+          return this.events.filter(e => {
+            const matchSearch = e.title.toLowerCase().includes(this.search.toLowerCase());
+            const matchType = !this.filterType || e.type === this.filterType;
+            return matchSearch && matchType;
+          });
+        },
+        get calMonthName() {
+          return ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'][this.calMonth];
+        },
+        get calDays() {
+          const first = new Date(this.calYear, this.calMonth, 1);
+          const lastDay = new Date(this.calYear, this.calMonth + 1, 0).getDate();
+          let startDay = first.getDay() === 0 ? 6 : first.getDay() - 1;
+          const days = [];
+          const eventDays = [1, 3, 5, 7, 10, 12, 15];
+          const prevMonthLast = new Date(this.calYear, this.calMonth, 0).getDate();
+          for (let i = startDay - 1; i >= 0; i--) {
+            days.push({ day: prevMonthLast - i, current: false, hasEvent: false });
+          }
+          for (let d = 1; d <= lastDay; d++) {
+            days.push({ day: d, current: true, hasEvent: eventDays.includes(d) });
+          }
+          const remaining = 42 - days.length;
+          for (let d = 1; d <= remaining; d++) {
+            days.push({ day: d, current: false, hasEvent: false });
+          }
+          return days;
+        },
+        createEvent() {
+          if (!this.newEvent.title) return;
+          this.events.push({
+            id: this.events.length + 1,
+            title: this.newEvent.title,
+            day: this.newEvent.date ? new Date(this.newEvent.date).getDate().toString().padStart(2, '0') : '??',
+            month: 'Abr',
+            time: this.newEvent.time || 'Sin hora',
+            location: this.newEvent.location || 'Sin ubicacion',
+            type: this.newEvent.type,
+            attendees: [{ initials: 'AG', bg: 'bg-blue-100 text-blue-700' }],
+            moreAttendees: 0
+          });
+          this.newEvent = { title: '', date: '', time: '', location: '', type: 'Reunion' };
+          this.showModal = false;
+        }
+      };
+    }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
