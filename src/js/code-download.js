@@ -1,10 +1,26 @@
 // src/js/code-download.js
 // Inyecta botones de descarga en componentes N1-N6
 
+// ── Cache del CSS para archivos standalone ───────────────
+let _cssCache = null;
+async function getCssContent() {
+  if (_cssCache) return _cssCache;
+  try {
+    const res = await fetch('/public/css/main.css');
+    if (res.ok) _cssCache = await res.text();
+  } catch (e) {
+    console.warn('No se pudo cargar CSS para descarga:', e);
+  }
+  return _cssCache || '';
+}
+
 function injectDownloadButtons(container, filePath, rawHtml) {
   // Solo componentes N1-N6
   const isComponent = /\/src\/components\/n[1-6]-/.test(filePath);
   if (!isComponent) return;
+
+  // Pre-cargar CSS en background
+  getCssContent();
 
   const fileName = filePath.split('/').pop().replace('.html', '');
 
@@ -19,8 +35,10 @@ function injectDownloadButtons(container, filePath, rawHtml) {
       </svg>
       Descargar componente
     `;
-    btn.addEventListener('click', () => {
-      downloadFile(`${fileName}.html`, rawHtml);
+    btn.addEventListener('click', async () => {
+      const css = await getCssContent();
+      const standalone = makeStandalone(rawHtml, css);
+      downloadFile(`${fileName}.html`, standalone);
     });
     header.appendChild(btn);
   }
@@ -38,16 +56,26 @@ function injectDownloadButtons(container, filePath, rawHtml) {
       </svg>
       <span class="text-xs">Copiar variante</span>
     `;
-    btn.addEventListener('click', () => {
-      const variantHtml = buildVariantFile(section, container, fileName, i + 1);
+    btn.addEventListener('click', async () => {
+      const css = await getCssContent();
+      const variantHtml = buildVariantFile(section, container, fileName, i + 1, css);
       downloadFile(`${fileName}-variante-${i + 1}.html`, variantHtml);
     });
     section.appendChild(btn);
   });
 }
 
+// ── Hacer HTML de componente completo standalone ─────────
+function makeStandalone(html, css) {
+  // Reemplazar <link rel="stylesheet" href="/public/css/main.css" /> por <style> inline
+  return html.replace(
+    /<link\s+rel="stylesheet"\s+href="\/public\/css\/main\.css"\s*\/?>/,
+    `<style>${css}</style>`
+  );
+}
+
 // ── Construir archivo standalone de una variante ─────────
-function buildVariantFile(section, container, fileName, variantNum) {
+function buildVariantFile(section, container, fileName, variantNum, css) {
   // Recoger scripts inline del contenedor
   const scripts = [];
   container.querySelectorAll('script').forEach(s => {
@@ -74,7 +102,8 @@ function buildVariantFile(section, container, fileName, variantNum) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LayoutOS · ${fileName} — ${title}</title>
-  <link rel="stylesheet" href="/public/css/main.css" />
+  <style>${css}</style>
+${styles.length ? `  <style>${styles.join('\n')}</style>` : ''}
 </head>
 <body class="h-full bg-page antialiased">
   <div class="max-w-5xl mx-auto px-6 py-16">
