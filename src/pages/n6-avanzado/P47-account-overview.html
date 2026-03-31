@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Mi Cuenta</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="min-h-full flex flex-col" x-data="accountOverviewPage()">
+
+    <!-- Navbar e-commerce -->
+    <nav class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+      <span class="text-sm font-bold text-zinc-900">LayoutOS Store</span>
+      <div class="flex items-center gap-6">
+        <a href="#" class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">Tienda</a>
+        <a href="#" class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">Categorías</a>
+        <a href="#" class="text-sm font-medium text-zinc-900">Mi cuenta</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="btn-ghost btn-sm p-1">
+          <svg class="w-5 h-5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="flex-1 max-w-5xl mx-auto w-full px-6 py-8">
+      <!-- Profile header -->
+      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 flex items-center gap-5 mb-8">
+        <div class="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center text-xl font-bold text-indigo-600">JG</div>
+        <div class="flex-1">
+          <h1 class="text-lg font-bold text-zinc-900">Juan García</h1>
+          <p class="text-sm text-zinc-500">juan.garcia@email.com</p>
+          <p class="text-xs text-zinc-400 mt-1">Miembro desde enero 2025</p>
+        </div>
+        <button class="btn-secondary btn-sm">Editar perfil</button>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex gap-1 border-b border-zinc-200 mb-6">
+        <template x-for="t in tabs" :key="t">
+          <button @click="activeTab = t"
+            class="px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors"
+            :class="activeTab === t ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-zinc-500 hover:text-zinc-700'"
+            x-text="t"></button>
+        </template>
+      </div>
+
+      <!-- Tab: Pedidos -->
+      <div x-show="activeTab === 'Pedidos'">
+        <div class="space-y-4">
+          <template x-for="order in orders" :key="order.id">
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+              <div class="flex items-center justify-between mb-3">
+                <div>
+                  <span class="text-sm font-semibold text-zinc-900" x-text="'Pedido ' + order.id"></span>
+                  <span class="text-xs text-zinc-400 ml-2" x-text="order.date"></span>
+                </div>
+                <span class="text-xs font-medium px-2 py-0.5 rounded-full"
+                  :class="order.status === 'Entregado' ? 'badge-success' : order.status === 'En camino' ? 'badge-info' : 'badge-warning'"
+                  x-text="order.status"></span>
+              </div>
+              <div class="flex items-center gap-4">
+                <template x-for="item in order.items" :key="item">
+                  <div class="w-10 h-10 bg-zinc-100 rounded-lg flex items-center justify-center text-xs text-zinc-400">IMG</div>
+                </template>
+                <div class="flex-1"></div>
+                <span class="text-sm font-semibold text-zinc-900" x-text="order.total"></span>
+                <button class="btn-ghost btn-sm text-xs">Ver detalles</button>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Tab: Direcciones -->
+      <div x-show="activeTab === 'Direcciones'" x-cloak>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <template x-for="addr in addresses" :key="addr.id">
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-sm font-semibold text-zinc-900" x-text="addr.label"></span>
+                <span x-show="addr.default" class="badge-success text-xs">Principal</span>
+              </div>
+              <p class="text-sm text-zinc-600" x-text="addr.name"></p>
+              <p class="text-sm text-zinc-600" x-text="addr.street"></p>
+              <p class="text-sm text-zinc-600" x-text="addr.city"></p>
+              <p class="text-sm text-zinc-600" x-text="addr.phone"></p>
+              <div class="flex gap-2 mt-4">
+                <button class="btn-ghost btn-sm text-xs">Editar</button>
+                <button class="btn-ghost btn-sm text-xs text-red-500">Eliminar</button>
+              </div>
+            </div>
+          </template>
+          <button class="border-2 border-dashed border-zinc-300 rounded-xl p-6 flex items-center justify-center text-sm text-zinc-500 hover:border-zinc-400 hover:text-zinc-700 transition-colors">
+            + Añadir dirección
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab: Pagos -->
+      <div x-show="activeTab === 'Pagos'" x-cloak>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-sm font-semibold text-zinc-900">Visa</span>
+              <span class="badge-success text-xs">Principal</span>
+            </div>
+            <p class="text-sm text-zinc-600 font-mono">**** **** **** 4242</p>
+            <p class="text-xs text-zinc-400 mt-1">Expira: 12/28</p>
+            <div class="flex gap-2 mt-4">
+              <button class="btn-ghost btn-sm text-xs">Editar</button>
+              <button class="btn-ghost btn-sm text-xs text-red-500">Eliminar</button>
+            </div>
+          </div>
+          <button class="border-2 border-dashed border-zinc-300 rounded-xl p-6 flex items-center justify-center text-sm text-zinc-500 hover:border-zinc-400 hover:text-zinc-700 transition-colors">
+            + Añadir método de pago
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab: Deseos -->
+      <div x-show="activeTab === 'Deseos'" x-cloak>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <template x-for="item in wishlist" :key="item.id">
+            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+              <div class="h-32 bg-zinc-100 flex items-center justify-center text-zinc-400 text-xs">IMG</div>
+              <div class="p-4">
+                <h3 class="text-sm font-medium text-zinc-900 mb-1" x-text="item.name"></h3>
+                <p class="text-sm font-semibold text-zinc-900 mb-3" x-text="item.price"></p>
+                <div class="flex gap-2">
+                  <button class="btn-primary btn-sm flex-1 text-xs">Añadir al carrito</button>
+                  <button @click="wishlist = wishlist.filter(w => w.id !== item.id)" class="btn-ghost btn-sm p-1">
+                    <svg class="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+  function accountOverviewPage() {
+    return {
+      activeTab: 'Pedidos',
+      tabs: ['Pedidos', 'Direcciones', 'Pagos', 'Deseos'],
+      orders: [
+        { id: '#ORD-12345', date: '31 Mar 2026', status: 'En camino', total: '$284.95', items: ['Auriculares', 'Teclado', 'Hub USB'] },
+        { id: '#ORD-12300', date: '15 Mar 2026', status: 'Entregado', total: '$59.99', items: ['Ratón ergonómico'] },
+        { id: '#ORD-12250', date: '28 Feb 2026', status: 'Entregado', total: '$149.98', items: ['Monitor LED', 'Cable HDMI'] },
+      ],
+      addresses: [
+        { id: 1, label: 'Casa', name: 'Juan García', street: 'Calle Mayor 15, 2A', city: 'Madrid, 28001', phone: '+34 612 345 678', default: true },
+        { id: 2, label: 'Oficina', name: 'Juan García', street: 'Av. de la Constitución 42, 5B', city: 'Madrid, 28014', phone: '+34 612 345 678', default: false },
+      ],
+      wishlist: [
+        { id: 1, name: 'Webcam 4K Ultra HD', price: '$89.99' },
+        { id: 2, name: 'Soporte monitor ajustable', price: '$45.99' },
+        { id: 3, name: 'Alfombrilla XXL gaming', price: '$24.99' },
+        { id: 4, name: 'Lámpara LED escritorio', price: '$39.99' },
+      ]
+    };
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

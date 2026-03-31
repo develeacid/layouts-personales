@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Datatables</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="datatablesPage()">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800"><span class="text-sm font-semibold text-white">LayoutOS</span></div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-white bg-zinc-800">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z"/></svg>
+          Kanban
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+          Calendario
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+          Chat
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+          AI
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
+          Editor
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/></svg>
+          Proyectos
+        </a>
+      </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Header -->
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900">Datatables</h1>
+        <div class="flex items-center gap-3">
+          <!-- Column toggle -->
+          <div class="relative" x-data="{ open: false }">
+            <button @click="open = !open" class="btn-secondary btn-sm">Columnas</button>
+            <div x-show="open" @click.away="open = false" x-cloak class="absolute right-0 top-10 w-48 bg-white border border-zinc-200 rounded-lg shadow-lg z-10 p-3 space-y-2">
+              <template x-for="col in allColumns" :key="col.key">
+                <label class="flex items-center gap-2 text-sm text-zinc-700 cursor-pointer">
+                  <input type="checkbox" :checked="col.visible" @change="col.visible = !col.visible" class="rounded border-zinc-300" />
+                  <span x-text="col.label"></span>
+                </label>
+              </template>
+            </div>
+          </div>
+          <button class="btn-secondary btn-sm">Exportar CSV</button>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-auto p-6">
+        <!-- Bulk actions -->
+        <div x-show="selectedRows.length > 0" x-cloak class="mb-4 flex items-center gap-3 bg-indigo-50 border border-indigo-200 rounded-lg px-4 py-2">
+          <span class="text-sm text-indigo-700 font-medium" x-text="selectedRows.length + ' seleccionados'"></span>
+          <button @click="bulkDelete()" class="btn-danger btn-sm">Eliminar</button>
+          <button @click="selectedRows = []" class="btn-ghost btn-sm">Deseleccionar</button>
+        </div>
+
+        <!-- Search + filters -->
+        <div class="flex items-center gap-4 mb-4">
+          <input x-model="search" type="text" class="input flex-1 max-w-sm" placeholder="Buscar en toda la tabla..." />
+          <select x-model="filterRole" class="input text-sm py-1.5">
+            <option value="">Todos los roles</option>
+            <option value="Admin">Admin</option>
+            <option value="Editor">Editor</option>
+            <option value="Viewer">Viewer</option>
+            <option value="Developer">Developer</option>
+          </select>
+          <select x-model="filterStatus" class="input text-sm py-1.5">
+            <option value="">Todos los estados</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+            <option value="Pendiente">Pendiente</option>
+          </select>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-zinc-200 bg-zinc-50">
+                  <th class="px-4 py-3 text-left">
+                    <input type="checkbox" @change="toggleAll($event)" :checked="allSelected" class="rounded border-zinc-300" />
+                  </th>
+                  <template x-for="col in visibleColumns" :key="col.key">
+                    <th @click="sortBy(col.key)" class="px-4 py-3 text-left text-xs font-semibold text-zinc-500 uppercase tracking-wider cursor-pointer hover:text-zinc-700 select-none">
+                      <span class="flex items-center gap-1">
+                        <span x-text="col.label"></span>
+                        <svg x-show="sortKey === col.key" class="w-3 h-3" :class="sortDir === 'asc' ? '' : 'rotate-180'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+                      </span>
+                    </th>
+                  </template>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-100">
+                <template x-for="row in paginatedRows" :key="row.id">
+                  <tr class="hover:bg-zinc-50 transition-colors" :class="selectedRows.includes(row.id) ? 'bg-indigo-50' : ''">
+                    <td class="px-4 py-3">
+                      <input type="checkbox" :checked="selectedRows.includes(row.id)" @change="toggleRow(row.id)" class="rounded border-zinc-300" />
+                    </td>
+                    <td x-show="isVisible('name')" class="px-4 py-3">
+                      <div class="flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" x-text="row.name.charAt(0)"></div>
+                        <span class="font-medium text-zinc-900" x-text="row.name"></span>
+                      </div>
+                    </td>
+                    <td x-show="isVisible('email')" class="px-4 py-3 text-zinc-600" x-text="row.email"></td>
+                    <td x-show="isVisible('role')" class="px-4 py-3">
+                      <span class="text-xs font-medium px-2 py-0.5 rounded-full"
+                        :class="row.role === 'Admin' ? 'badge-danger' : row.role === 'Developer' ? 'badge-info' : row.role === 'Editor' ? 'badge-warning' : 'badge-success'"
+                        x-text="row.role"></span>
+                    </td>
+                    <td x-show="isVisible('status')" class="px-4 py-3">
+                      <span class="text-xs font-medium px-2 py-0.5 rounded-full"
+                        :class="row.status === 'Activo' ? 'badge-success' : row.status === 'Inactivo' ? 'badge-danger' : 'badge-warning'"
+                        x-text="row.status"></span>
+                    </td>
+                    <td x-show="isVisible('joined')" class="px-4 py-3 text-zinc-500" x-text="row.joined"></td>
+                    <td x-show="isVisible('lastLogin')" class="px-4 py-3 text-zinc-500" x-text="row.lastLogin"></td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <div class="flex items-center justify-between px-4 py-3 border-t border-zinc-200 bg-zinc-50">
+            <div class="flex items-center gap-2 text-sm text-zinc-500">
+              <span>Mostrar</span>
+              <select x-model.number="perPage" class="input text-xs py-1 px-2">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+              </select>
+              <span>de <strong x-text="filteredRows.length"></strong> registros</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <button @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1" class="btn-ghost btn-sm px-2 py-1 disabled:opacity-40">Anterior</button>
+              <template x-for="p in totalPages" :key="p">
+                <button @click="currentPage = p" class="btn-ghost btn-sm px-2 py-1 text-xs"
+                  :class="currentPage === p ? 'bg-indigo-600 text-white hover:bg-indigo-700' : ''" x-text="p"></button>
+              </template>
+              <button @click="currentPage = Math.min(totalPages, currentPage + 1)" :disabled="currentPage === totalPages" class="btn-ghost btn-sm px-2 py-1 disabled:opacity-40">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+  function datatablesPage() {
+    return {
+      search: '',
+      filterRole: '',
+      filterStatus: '',
+      sortKey: 'name',
+      sortDir: 'asc',
+      currentPage: 1,
+      perPage: 10,
+      selectedRows: [],
+      allColumns: [
+        { key: 'name', label: 'Nombre', visible: true },
+        { key: 'email', label: 'Email', visible: true },
+        { key: 'role', label: 'Rol', visible: true },
+        { key: 'status', label: 'Estado', visible: true },
+        { key: 'joined', label: 'Registro', visible: true },
+        { key: 'lastLogin', label: 'Último acceso', visible: true },
+      ],
+      rows: [
+        { id: 1, name: 'Ana García', email: 'ana@layout.os', role: 'Admin', status: 'Activo', joined: '15 Ene 2025', lastLogin: 'Hace 2h' },
+        { id: 2, name: 'Luis Pérez', email: 'luis@layout.os', role: 'Developer', status: 'Activo', joined: '20 Feb 2025', lastLogin: 'Hace 1h' },
+        { id: 3, name: 'Marta Ruiz', email: 'marta@layout.os', role: 'Editor', status: 'Activo', joined: '03 Mar 2025', lastLogin: 'Hoy' },
+        { id: 4, name: 'Carlos López', email: 'carlos@layout.os', role: 'Developer', status: 'Inactivo', joined: '10 Abr 2025', lastLogin: 'Hace 3d' },
+        { id: 5, name: 'Elena Torres', email: 'elena@layout.os', role: 'Viewer', status: 'Activo', joined: '22 May 2025', lastLogin: 'Hace 5h' },
+        { id: 6, name: 'David Sánchez', email: 'david@layout.os', role: 'Admin', status: 'Activo', joined: '08 Jun 2025', lastLogin: 'Hoy' },
+        { id: 7, name: 'Laura Martín', email: 'laura@layout.os', role: 'Editor', status: 'Pendiente', joined: '14 Jul 2025', lastLogin: 'Nunca' },
+        { id: 8, name: 'Pedro Díaz', email: 'pedro@layout.os', role: 'Developer', status: 'Activo', joined: '01 Ago 2025', lastLogin: 'Hace 12h' },
+        { id: 9, name: 'Isabel Moreno', email: 'isabel@layout.os', role: 'Viewer', status: 'Inactivo', joined: '19 Sep 2025', lastLogin: 'Hace 7d' },
+        { id: 10, name: 'Javier Romero', email: 'javier@layout.os', role: 'Developer', status: 'Activo', joined: '05 Oct 2025', lastLogin: 'Hace 30m' },
+        { id: 11, name: 'Carmen Navarro', email: 'carmen@layout.os', role: 'Admin', status: 'Activo', joined: '12 Nov 2025', lastLogin: 'Hoy' },
+        { id: 12, name: 'Roberto Jiménez', email: 'roberto@layout.os', role: 'Viewer', status: 'Pendiente', joined: '28 Nov 2025', lastLogin: 'Nunca' },
+        { id: 13, name: 'Sofía Hernández', email: 'sofia@layout.os', role: 'Editor', status: 'Activo', joined: '03 Dic 2025', lastLogin: 'Hace 4h' },
+        { id: 14, name: 'Miguel Alonso', email: 'miguel@layout.os', role: 'Developer', status: 'Activo', joined: '15 Dic 2025', lastLogin: 'Hace 1h' },
+        { id: 15, name: 'Paula Gutiérrez', email: 'paula@layout.os', role: 'Viewer', status: 'Inactivo', joined: '22 Dic 2025', lastLogin: 'Hace 14d' },
+        { id: 16, name: 'Andrés Muñoz', email: 'andres@layout.os', role: 'Developer', status: 'Activo', joined: '05 Ene 2026', lastLogin: 'Hoy' },
+        { id: 17, name: 'Lucía Álvarez', email: 'lucia@layout.os', role: 'Editor', status: 'Activo', joined: '18 Ene 2026', lastLogin: 'Hace 3h' },
+        { id: 18, name: 'Fernando Castro', email: 'fernando@layout.os', role: 'Admin', status: 'Pendiente', joined: '02 Feb 2026', lastLogin: 'Nunca' },
+        { id: 19, name: 'Clara Domínguez', email: 'clara@layout.os', role: 'Viewer', status: 'Activo', joined: '14 Feb 2026', lastLogin: 'Hace 6h' },
+        { id: 20, name: 'Raúl Vázquez', email: 'raul@layout.os', role: 'Developer', status: 'Activo', joined: '25 Mar 2026', lastLogin: 'Hace 2h' },
+      ],
+      get visibleColumns() {
+        return this.allColumns.filter(c => c.visible);
+      },
+      isVisible(key) {
+        return this.allColumns.find(c => c.key === key)?.visible;
+      },
+      get filteredRows() {
+        let result = this.rows;
+        if (this.search) {
+          const s = this.search.toLowerCase();
+          result = result.filter(r => r.name.toLowerCase().includes(s) || r.email.toLowerCase().includes(s) || r.role.toLowerCase().includes(s));
+        }
+        if (this.filterRole) result = result.filter(r => r.role === this.filterRole);
+        if (this.filterStatus) result = result.filter(r => r.status === this.filterStatus);
+        result = [...result].sort((a, b) => {
+          const av = a[this.sortKey] || '';
+          const bv = b[this.sortKey] || '';
+          const cmp = av.toString().localeCompare(bv.toString());
+          return this.sortDir === 'asc' ? cmp : -cmp;
+        });
+        return result;
+      },
+      get totalPages() {
+        return Math.max(1, Math.ceil(this.filteredRows.length / this.perPage));
+      },
+      get paginatedRows() {
+        const start = (this.currentPage - 1) * this.perPage;
+        return this.filteredRows.slice(start, start + this.perPage);
+      },
+      get allSelected() {
+        return this.paginatedRows.length > 0 && this.paginatedRows.every(r => this.selectedRows.includes(r.id));
+      },
+      sortBy(key) {
+        if (this.sortKey === key) this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+        else { this.sortKey = key; this.sortDir = 'asc'; }
+      },
+      toggleRow(id) {
+        const idx = this.selectedRows.indexOf(id);
+        if (idx > -1) this.selectedRows.splice(idx, 1);
+        else this.selectedRows.push(id);
+      },
+      toggleAll(e) {
+        if (e.target.checked) {
+          this.paginatedRows.forEach(r => { if (!this.selectedRows.includes(r.id)) this.selectedRows.push(r.id); });
+        } else {
+          const ids = this.paginatedRows.map(r => r.id);
+          this.selectedRows = this.selectedRows.filter(id => !ids.includes(id));
+        }
+      },
+      bulkDelete() {
+        this.rows = this.rows.filter(r => !this.selectedRows.includes(r.id));
+        this.selectedRows = [];
+      }
+    };
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

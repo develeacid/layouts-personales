@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Calendario</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+  <div class="flex h-full" x-data="calendarPage()">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+      <div class="px-5 py-4 border-b border-zinc-800"><span class="text-sm font-semibold text-white">LayoutOS</span></div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25a2.25 2.25 0 01-2.25-2.25v-2.25z"/></svg>
+          Dashboard
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z"/></svg>
+          Kanban
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-white bg-zinc-800">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+          Calendario
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/></svg>
+          Chat
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+          AI
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z"/></svg>
+          Editor
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800/60 transition-colors">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"/></svg>
+          Proyectos
+        </a>
+      </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <!-- Header -->
+      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
+        <div class="flex items-center gap-4">
+          <h1 class="text-sm font-semibold text-zinc-900">Calendario</h1>
+          <div class="flex items-center gap-1">
+            <button @click="prevMonth()" class="btn-ghost btn-sm p-1">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+            </button>
+            <span class="text-sm font-medium text-zinc-700 min-w-32 text-center" x-text="monthNames[currentMonth] + ' ' + currentYear"></span>
+            <button @click="nextMonth()" class="btn-ghost btn-sm p-1">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+            </button>
+          </div>
+          <!-- View tabs -->
+          <div class="flex bg-zinc-100 rounded-lg p-0.5">
+            <button @click="view = 'month'" :class="view === 'month' ? 'bg-white shadow-sm text-zinc-900' : 'text-zinc-500'" class="text-xs font-medium px-3 py-1 rounded-md transition-all">Mes</button>
+            <button @click="view = 'week'" :class="view === 'week' ? 'bg-white shadow-sm text-zinc-900' : 'text-zinc-500'" class="text-xs font-medium px-3 py-1 rounded-md transition-all">Semana</button>
+          </div>
+        </div>
+        <button @click="showEventModal = true" class="btn-primary btn-sm">+ Nuevo evento</button>
+      </header>
+
+      <div class="flex-1 flex overflow-hidden">
+        <!-- Calendar grid -->
+        <main class="flex-1 overflow-y-auto p-6">
+          <!-- Month view -->
+          <div x-show="view === 'month'">
+            <div class="grid grid-cols-7 gap-px bg-zinc-200 rounded-xl overflow-hidden border border-zinc-200">
+              <!-- Day headers -->
+              <template x-for="day in ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']" :key="day">
+                <div class="bg-zinc-50 px-3 py-2 text-xs font-semibold text-zinc-500 text-center" x-text="day"></div>
+              </template>
+              <!-- Day cells -->
+              <template x-for="cell in calendarCells" :key="cell.key">
+                <div @click="selectDay(cell.day, cell.inMonth)"
+                  class="bg-white min-h-24 px-2 py-1.5 cursor-pointer hover:bg-zinc-50 transition-colors"
+                  :class="{ 'opacity-40': !cell.inMonth, 'ring-2 ring-indigo-500 ring-inset': selectedDay === cell.day && cell.inMonth }">
+                  <span class="text-xs font-medium" :class="isToday(cell.day, cell.inMonth) ? 'bg-indigo-600 text-white rounded-full w-6 h-6 flex items-center justify-center' : 'text-zinc-700'" x-text="cell.day"></span>
+                  <div class="mt-1 space-y-0.5">
+                    <template x-for="ev in getEventsForDay(cell.day, cell.inMonth)" :key="ev.id">
+                      <div class="text-xs px-1.5 py-0.5 rounded truncate" :class="ev.color" x-text="ev.title"></div>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Week view -->
+          <div x-show="view === 'week'" x-cloak>
+            <div class="grid grid-cols-7 gap-4">
+              <template x-for="(wday, idx) in weekDays" :key="idx">
+                <div class="bg-white border border-zinc-200 rounded-xl p-3 min-h-64">
+                  <div class="text-xs font-semibold text-zinc-500 mb-1" x-text="['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'][idx]"></div>
+                  <div class="text-lg font-bold text-zinc-900 mb-3" x-text="wday"></div>
+                  <div class="space-y-2">
+                    <template x-for="ev in getEventsForDay(wday, true)" :key="ev.id">
+                      <div class="text-xs p-2 rounded-lg" :class="ev.color">
+                        <div class="font-medium" x-text="ev.title"></div>
+                        <div class="opacity-75 mt-0.5" x-text="ev.time"></div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+        </main>
+
+        <!-- Day panel -->
+        <aside x-show="selectedDay" x-cloak class="w-72 bg-white border-l border-zinc-200 overflow-y-auto p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-semibold text-zinc-900" x-text="selectedDay + ' ' + monthNames[currentMonth]"></h3>
+            <button @click="selectedDay = null" class="btn-ghost btn-sm p-1">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div class="space-y-3">
+            <template x-for="ev in getEventsForDay(selectedDay, true)" :key="ev.id">
+              <div class="border border-zinc-200 rounded-lg p-3">
+                <div class="text-sm font-medium text-zinc-900" x-text="ev.title"></div>
+                <div class="text-xs text-zinc-500 mt-1" x-text="ev.time"></div>
+                <div class="text-xs text-zinc-400 mt-1" x-text="ev.description"></div>
+              </div>
+            </template>
+            <template x-if="getEventsForDay(selectedDay, true).length === 0">
+              <p class="text-sm text-zinc-400">Sin eventos este día.</p>
+            </template>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Modal Crear Evento -->
+    <div x-show="showEventModal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute inset-0 bg-black/40" @click="showEventModal = false"></div>
+      <div class="relative bg-white rounded-xl shadow-xl w-full max-w-md p-6" @click.stop>
+        <h2 class="text-lg font-semibold text-zinc-900 mb-4">Nuevo evento</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="label">Título</label>
+            <input x-model="newEvent.title" type="text" class="input w-full" placeholder="Nombre del evento" />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="label">Día</label>
+              <input x-model.number="newEvent.day" type="number" min="1" max="31" class="input w-full" />
+            </div>
+            <div>
+              <label class="label">Hora</label>
+              <input x-model="newEvent.time" type="text" class="input w-full" placeholder="10:00" />
+            </div>
+          </div>
+          <div>
+            <label class="label">Descripción</label>
+            <textarea x-model="newEvent.description" class="input w-full" rows="2"></textarea>
+          </div>
+          <div>
+            <label class="label">Color</label>
+            <select x-model="newEvent.color" class="input w-full">
+              <option value="bg-indigo-100 text-indigo-700">Indigo</option>
+              <option value="bg-emerald-100 text-emerald-700">Verde</option>
+              <option value="bg-amber-100 text-amber-700">Ámbar</option>
+              <option value="bg-rose-100 text-rose-700">Rosa</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex justify-end gap-3 mt-6">
+          <button @click="showEventModal = false" class="btn-secondary btn-sm">Cancelar</button>
+          <button @click="addEvent()" class="btn-primary btn-sm">Crear evento</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>[x-cloak] { display: none !important; }</style>
+  <script>
+  function calendarPage() {
+    return {
+      view: 'month',
+      currentMonth: 2, // March (0-indexed)
+      currentYear: 2026,
+      selectedDay: null,
+      showEventModal: false,
+      monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+      newEvent: { title: '', day: 1, time: '10:00', description: '', color: 'bg-indigo-100 text-indigo-700' },
+      events: [
+        { id: 1, title: 'Sprint Planning', day: 2, time: '09:00 - 10:30', description: 'Planificación del sprint 14', color: 'bg-indigo-100 text-indigo-700' },
+        { id: 2, title: 'Diseño UI Review', day: 5, time: '14:00 - 15:00', description: 'Revisión de mockups', color: 'bg-emerald-100 text-emerald-700' },
+        { id: 3, title: 'Daily Standup', day: 9, time: '09:30 - 09:45', description: 'Standup diario', color: 'bg-amber-100 text-amber-700' },
+        { id: 4, title: 'Retrospectiva', day: 13, time: '16:00 - 17:00', description: 'Retro sprint 13', color: 'bg-rose-100 text-rose-700' },
+        { id: 5, title: 'Demo cliente', day: 18, time: '11:00 - 12:00', description: 'Presentación de avances', color: 'bg-indigo-100 text-indigo-700' },
+        { id: 6, title: 'Tech talk', day: 22, time: '13:00 - 14:00', description: 'Alpine.js avanzado', color: 'bg-emerald-100 text-emerald-700' },
+        { id: 7, title: 'Code freeze', day: 27, time: '18:00', description: 'Congelamiento de código', color: 'bg-rose-100 text-rose-700' },
+        { id: 8, title: 'Deploy a producción', day: 31, time: '10:00 - 11:00', description: 'Release v2.4', color: 'bg-amber-100 text-amber-700' },
+      ],
+      get calendarCells() {
+        const firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
+        const offset = firstDay === 0 ? 6 : firstDay - 1;
+        const daysInMonth = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+        const daysInPrev = new Date(this.currentYear, this.currentMonth, 0).getDate();
+        const cells = [];
+        for (let i = offset - 1; i >= 0; i--) {
+          cells.push({ day: daysInPrev - i, inMonth: false, key: 'p' + i });
+        }
+        for (let d = 1; d <= daysInMonth; d++) {
+          cells.push({ day: d, inMonth: true, key: 'c' + d });
+        }
+        const remaining = 42 - cells.length;
+        for (let d = 1; d <= remaining; d++) {
+          cells.push({ day: d, inMonth: false, key: 'n' + d });
+        }
+        return cells;
+      },
+      get weekDays() {
+        const today = new Date();
+        const day = today.getDay();
+        const mondayOffset = day === 0 ? -6 : 1 - day;
+        const days = [];
+        for (let i = 0; i < 7; i++) {
+          const d = new Date(today);
+          d.setDate(today.getDate() + mondayOffset + i);
+          days.push(d.getDate());
+        }
+        return days;
+      },
+      isToday(day, inMonth) {
+        if (!inMonth) return false;
+        const today = new Date();
+        return day === today.getDate() && this.currentMonth === today.getMonth() && this.currentYear === today.getFullYear();
+      },
+      getEventsForDay(day, inMonth) {
+        if (!inMonth) return [];
+        return this.events.filter(e => e.day === day);
+      },
+      selectDay(day, inMonth) {
+        if (!inMonth) return;
+        this.selectedDay = this.selectedDay === day ? null : day;
+      },
+      prevMonth() {
+        if (this.currentMonth === 0) { this.currentMonth = 11; this.currentYear--; }
+        else this.currentMonth--;
+        this.selectedDay = null;
+      },
+      nextMonth() {
+        if (this.currentMonth === 11) { this.currentMonth = 0; this.currentYear++; }
+        else this.currentMonth++;
+        this.selectedDay = null;
+      },
+      addEvent() {
+        if (!this.newEvent.title.trim()) return;
+        this.events.push({ ...this.newEvent, id: Date.now() });
+        this.newEvent = { title: '', day: 1, time: '10:00', description: '', color: 'bg-indigo-100 text-indigo-700' };
+        this.showEventModal = false;
+      }
+    };
+  }
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
