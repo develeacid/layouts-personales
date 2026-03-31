@@ -91,7 +91,7 @@
 
       // Inyectar botones de descarga si es componente N1-N6
       if (typeof injectDownloadButtons === 'function') {
-        injectDownloadButtons(main, path, text);
+        injectDownloadButtons(main, path, text, parsed.scripts, parsed.styles);
       }
 
       // Actualizar estado

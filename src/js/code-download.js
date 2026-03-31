@@ -14,13 +14,17 @@ async function getCssContent() {
   return _cssCache || '';
 }
 
-function injectDownloadButtons(container, filePath, rawHtml) {
+function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, parsedStyles) {
   // Solo componentes N1-N6
   const isComponent = /\/src\/components\/n[1-6]-/.test(filePath);
   if (!isComponent) return;
 
   // Pre-cargar CSS en background
   getCssContent();
+
+  // Guardar scripts/styles parseados del HTML original (no están en el DOM del container)
+  const _parsedScripts = parsedScripts || [];
+  const _parsedStyles = parsedStyles || [];
 
   const fileName = filePath.split('/').pop().replace('.html', '');
 
@@ -58,7 +62,7 @@ function injectDownloadButtons(container, filePath, rawHtml) {
     `;
     btn.addEventListener('click', async () => {
       const css = await getCssContent();
-      const variantHtml = buildVariantFile(section, container, fileName, i + 1, css);
+      const variantHtml = buildVariantFile(section, fileName, i + 1, css, _parsedScripts, _parsedStyles);
       downloadFile(`${fileName}-variante-${i + 1}.html`, variantHtml);
     });
     section.appendChild(btn);
@@ -75,19 +79,7 @@ function makeStandalone(html, css) {
 }
 
 // ── Construir archivo standalone de una variante ─────────
-function buildVariantFile(section, container, fileName, variantNum, css) {
-  // Recoger scripts inline del contenedor
-  const scripts = [];
-  container.querySelectorAll('script').forEach(s => {
-    if (s.textContent.trim()) scripts.push(s.textContent);
-  });
-
-  // Recoger styles custom
-  const styles = [];
-  container.querySelectorAll('style').forEach(s => {
-    styles.push(s.textContent);
-  });
-
+function buildVariantFile(section, fileName, variantNum, css, scripts, styles) {
   // Clonar sección limpiando el botón de descarga
   const clone = section.cloneNode(true);
   const dlBtn = clone.querySelector('.absolute.top-0.right-0');
