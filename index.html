@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LayoutOS · Navegador de componentes</title>
   <link rel="stylesheet" href="/public/css/main.css" />
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>[x-cloak] { display: none !important; }</style>
 </head>
 <body class="h-full bg-page antialiased">
 
@@ -23,7 +23,7 @@
       </div>
 
       <!-- Nav -->
-      <nav class="flex-1 px-3 py-4 space-y-6 text-sm">
+      <nav id="spa-sidebar" class="flex-1 px-3 py-4 space-y-6 text-sm">
 
         <!-- Design Tokens -->
         <div>
@@ -326,9 +326,9 @@
       </header>
 
       <!-- Iframe viewer -->
-      <main class="flex-1 overflow-hidden bg-zinc-50" x-data="{ src: '' }">
+      <main id="spa-content" class="flex-1 overflow-y-auto bg-zinc-50">
         <!-- Welcome screen (shows when no component is loaded) -->
-        <div class="h-full flex items-center justify-center text-center px-6">
+        <div id="welcome-screen" class="h-full flex items-center justify-center text-center px-6">
           <div class="space-y-4">
             <div class="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto">
               <svg class="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -364,5 +364,8 @@
 
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="/src/js/code-download.js"></script>
+  <script src="/src/js/spa-router.js"></script>
 </body>
 </html>
