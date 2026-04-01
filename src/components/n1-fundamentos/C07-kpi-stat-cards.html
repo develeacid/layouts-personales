@@ -8,106 +8,106 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C07 · Nivel 1</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">KPI Stat Cards</h1>
-      <p class="text-sm text-zinc-600 mt-1">Metric cards: número, label, delta, icono.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C07 · Nivel 1</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">KPI Stat Cards</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Metric cards: numero, label, delta, icono.</p>
     </header>
 
-    <!-- Variante 1: Grid básico -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Grid básico</h2>
+    <!-- Variante 1: Grid basico -->
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Grid basico</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Card: Revenue -->
-        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-3">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 space-y-3">
           <div class="flex items-center justify-between">
-            <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">Ingresos</p>
-            <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Ingresos</p>
+            <div class="w-8 h-8 bg-blue-50 dark:bg-blue-950 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
           </div>
-          <p class="text-2xl font-bold tracking-tight text-zinc-900">$24,500</p>
+          <p class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">$24,500</p>
           <div class="flex items-center gap-1">
-            <span class="text-xs font-medium text-emerald-600">↑ 12.5%</span>
-            <span class="text-xs text-zinc-400">vs mes anterior</span>
+            <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400">↑ 12.5%</span>
+            <span class="text-xs text-zinc-400 dark:text-zinc-500">vs mes anterior</span>
           </div>
         </div>
 
         <!-- Card: Usuarios -->
-        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-3">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 space-y-3">
           <div class="flex items-center justify-between">
-            <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">Usuarios</p>
-            <div class="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Usuarios</p>
+            <div class="w-8 h-8 bg-emerald-50 dark:bg-emerald-950 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
           </div>
-          <p class="text-2xl font-bold tracking-tight text-zinc-900">3,842</p>
+          <p class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">3,842</p>
           <div class="flex items-center gap-1">
-            <span class="text-xs font-medium text-emerald-600">↑ 8.1%</span>
-            <span class="text-xs text-zinc-400">vs mes anterior</span>
+            <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400">↑ 8.1%</span>
+            <span class="text-xs text-zinc-400 dark:text-zinc-500">vs mes anterior</span>
           </div>
         </div>
 
         <!-- Card: Pedidos -->
-        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-3">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 space-y-3">
           <div class="flex items-center justify-between">
-            <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">Pedidos</p>
-            <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Pedidos</p>
+            <div class="w-8 h-8 bg-amber-50 dark:bg-amber-950 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-amber-600 dark:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
             </div>
           </div>
-          <p class="text-2xl font-bold tracking-tight text-zinc-900">1,247</p>
+          <p class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">1,247</p>
           <div class="flex items-center gap-1">
-            <span class="text-xs font-medium text-rose-600">↓ 3.2%</span>
-            <span class="text-xs text-zinc-400">vs mes anterior</span>
+            <span class="text-xs font-medium text-rose-600 dark:text-rose-400">↓ 3.2%</span>
+            <span class="text-xs text-zinc-400 dark:text-zinc-500">vs mes anterior</span>
           </div>
         </div>
 
-        <!-- Card: Conversión -->
-        <div class="bg-white border border-zinc-200 rounded-xl p-5 space-y-3">
+        <!-- Card: Conversion -->
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 space-y-3">
           <div class="flex items-center justify-between">
-            <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">Conversión</p>
-            <div class="w-8 h-8 bg-violet-50 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Conversion</p>
+            <div class="w-8 h-8 bg-violet-50 dark:bg-violet-950 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-violet-600 dark:text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
               </svg>
             </div>
           </div>
-          <p class="text-2xl font-bold tracking-tight text-zinc-900">3.24%</p>
+          <p class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">3.24%</p>
           <div class="flex items-center gap-1">
-            <span class="text-xs font-medium text-emerald-600">↑ 0.4%</span>
-            <span class="text-xs text-zinc-400">vs mes anterior</span>
+            <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400">↑ 0.4%</span>
+            <span class="text-xs text-zinc-400 dark:text-zinc-500">vs mes anterior</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Variante 2: Cards con borde de color -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Con borde de color</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Con borde de color</h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-white border border-zinc-200 border-l-4 border-l-blue-600 rounded-xl p-5">
-          <p class="text-xs font-medium text-zinc-400">Visitas hoy</p>
-          <p class="text-2xl font-bold tracking-tight text-zinc-900 mt-1">8,429</p>
-          <p class="text-xs text-emerald-600 font-medium mt-2">↑ 14% vs ayer</p>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 border-l-4 border-l-blue-600 dark:border-l-blue-400 rounded-xl p-5">
+          <p class="text-xs font-medium text-zinc-400 dark:text-zinc-500">Visitas hoy</p>
+          <p class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">8,429</p>
+          <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-2">↑ 14% vs ayer</p>
         </div>
-        <div class="bg-white border border-zinc-200 border-l-4 border-l-emerald-500 rounded-xl p-5">
-          <p class="text-xs font-medium text-zinc-400">Nuevos leads</p>
-          <p class="text-2xl font-bold tracking-tight text-zinc-900 mt-1">284</p>
-          <p class="text-xs text-emerald-600 font-medium mt-2">↑ 7% vs ayer</p>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 border-l-4 border-l-emerald-500 dark:border-l-emerald-400 rounded-xl p-5">
+          <p class="text-xs font-medium text-zinc-400 dark:text-zinc-500">Nuevos leads</p>
+          <p class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">284</p>
+          <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-2">↑ 7% vs ayer</p>
         </div>
-        <div class="bg-white border border-zinc-200 border-l-4 border-l-rose-500 rounded-xl p-5">
-          <p class="text-xs font-medium text-zinc-400">Churn rate</p>
-          <p class="text-2xl font-bold tracking-tight text-zinc-900 mt-1">2.4%</p>
-          <p class="text-xs text-rose-600 font-medium mt-2">↑ 0.3% vs mes pasado</p>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 border-l-4 border-l-rose-500 dark:border-l-rose-400 rounded-xl p-5">
+          <p class="text-xs font-medium text-zinc-400 dark:text-zinc-500">Churn rate</p>
+          <p class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">2.4%</p>
+          <p class="text-xs text-rose-600 dark:text-rose-400 font-medium mt-2">↑ 0.3% vs mes pasado</p>
         </div>
       </div>
     </section>

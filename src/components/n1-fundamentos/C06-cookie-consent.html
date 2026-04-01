@@ -8,22 +8,22 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C06 · Nivel 1</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Cookie Consent</h1>
-      <p class="text-sm text-zinc-600 mt-1">Barras de consentimiento. Posición fija, botones, z-index.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C06 · Nivel 1</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Cookie Consent</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Barras de consentimiento. Posicion fija, botones, z-index.</p>
     </header>
 
     <!-- Variante 1: Barra inferior -->
-    <section class="space-y-2">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Barra inferior</h2>
+    <section class="relative space-y-2">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Barra inferior</h2>
       <div class="relative">
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-lg px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p class="text-sm text-zinc-600">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="text-sm text-zinc-600 dark:text-zinc-400">
             Usamos cookies para mejorar tu experiencia. Al continuar, aceptas nuestra
-            <a href="#" class="text-blue-600 hover:text-blue-700 underline">política de cookies</a>.
+            <a href="#" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline transition-colors duration-150">politica de cookies</a>.
           </p>
           <div class="flex items-center gap-2 shrink-0">
             <button class="btn-secondary">Rechazar</button>
@@ -34,16 +34,16 @@
     </section>
 
     <!-- Variante 2: Card compacta esquina -->
-    <section class="space-y-2">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Card esquina</h2>
+    <section class="relative space-y-2">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Card esquina</h2>
       <div class="flex justify-end">
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-xl p-5 max-w-sm space-y-3">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl p-5 max-w-sm space-y-3">
           <div class="flex items-center gap-2">
             <span class="text-lg">🍪</span>
-            <h3 class="text-sm font-semibold text-zinc-900">Cookies</h3>
+            <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Cookies</h3>
           </div>
-          <p class="text-sm text-zinc-600">
-            Este sitio usa cookies para analíticas y personalización. Puedes ajustar tus preferencias.
+          <p class="text-sm text-zinc-600 dark:text-zinc-400">
+            Este sitio usa cookies para analiticas y personalizacion. Puedes ajustar tus preferencias.
           </p>
           <div class="flex items-center gap-2">
             <button class="btn-primary text-xs flex-1">Aceptar todo</button>
@@ -54,9 +54,9 @@
     </section>
 
     <!-- Variante 3: Fondo oscuro full-width -->
-    <section class="space-y-2">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Fondo oscuro</h2>
-      <div class="bg-zinc-950 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <section class="relative space-y-2">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Fondo oscuro</h2>
+      <div class="bg-zinc-950 dark:bg-zinc-800 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
           <span class="text-lg">🍪</span>
           <p class="text-sm text-zinc-300">
@@ -70,9 +70,9 @@
       </div>
     </section>
 
-    <!-- Nota: posición fija -->
-    <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 text-sm text-blue-700">
-      <strong>Nota:</strong> En producción estos componentes usan <code class="bg-blue-100 px-1 rounded">fixed bottom-0 inset-x-0 z-overlay</code> para fijarse al fondo del viewport. Aquí se muestran inline para preview.
+    <!-- Nota: posicion fija -->
+    <div class="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg px-4 py-3 text-sm text-blue-600 dark:text-blue-400">
+      <strong>Nota:</strong> En produccion estos componentes usan <code class="bg-blue-100 dark:bg-blue-900 px-1 rounded">fixed bottom-0 inset-x-0 z-overlay</code> para fijarse al fondo del viewport. Aqui se muestran inline para preview.
     </div>
 
   </div>
