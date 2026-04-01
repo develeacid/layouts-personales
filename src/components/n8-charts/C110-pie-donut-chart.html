@@ -20,7 +20,7 @@
     <!-- ================================================================== -->
     <!-- V1 · Pie básico                                                    -->
     <!-- ================================================================== -->
-    <section x-data="pieBasic()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+    <section x-data="pieBasic()" x-init="initChart()" class="space-y-6">
       <div>
         <h2 class="text-lg font-semibold text-zinc-900">V1 · Pie básico</h2>
         <p class="text-sm text-zinc-500 mt-1">Gráfica de pastel clásica con etiquetas de nombre y porcentaje.</p>
@@ -67,7 +67,7 @@
     <!-- ================================================================== -->
     <!-- V2 · Donut                                                         -->
     <!-- ================================================================== -->
-    <section x-data="pieDonut()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+    <section x-data="pieDonut()" x-init="initChart()" class="space-y-6">
       <div>
         <h2 class="text-lg font-semibold text-zinc-900">V2 · Donut</h2>
         <p class="text-sm text-zinc-500 mt-1">Variante con agujero central que muestra el total acumulado.</p>
@@ -114,7 +114,7 @@
     <!-- ================================================================== -->
     <!-- V3 · Con leyenda detallada                                         -->
     <!-- ================================================================== -->
-    <section x-data="pieLegend()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+    <section x-data="pieLegend()" x-init="initChart()" class="space-y-6">
       <div>
         <h2 class="text-lg font-semibold text-zinc-900">V3 · Con leyenda detallada</h2>
         <p class="text-sm text-zinc-500 mt-1">Pie desplazado a la izquierda con leyenda vertical a la derecha mostrando nombre, valor y porcentaje.</p>
@@ -161,7 +161,7 @@
     <!-- ================================================================== -->
     <!-- V4 · Nightingale (rose)                                            -->
     <!-- ================================================================== -->
-    <section x-data="pieRose()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+    <section x-data="pieRose()" x-init="initChart()" class="space-y-6">
       <div>
         <h2 class="text-lg font-semibold text-zinc-900">V4 · Nightingale (rose)</h2>
         <p class="text-sm text-zinc-500 mt-1">Variante donde el radio de cada sector codifica el valor, creando un efecto de rosa de los vientos.</p>

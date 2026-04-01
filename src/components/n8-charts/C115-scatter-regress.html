@@ -17,7 +17,7 @@
     </header>
 
     <!-- ===================== VARIANTE 1: Scatter simple ===================== -->
-    <section x-data="scatterSimple()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="scatterSimple()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">1 · Scatter simple</h2>
       <p class="text-sm text-zinc-600">Presupuesto de marketing vs registros de usuarios. Cada punto representa un mes de datos.</p>
 
@@ -59,7 +59,7 @@
     </section>
 
     <!-- ===================== VARIANTE 2: Con regresión lineal ===================== -->
-    <section x-data="scatterLinear()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="scatterLinear()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">2 · Con regresión lineal</h2>
       <p class="text-sm text-zinc-600">Mismos datos con una línea de regresión lineal (y = mx + b) superpuesta. Se muestra la ecuación y el coeficiente R².</p>
 
@@ -100,7 +100,7 @@
     </section>
 
     <!-- ===================== VARIANTE 3: Con regresión polinomial ===================== -->
-    <section x-data="scatterPoly()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="scatterPoly()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">3 · Con regresión polinomial</h2>
       <p class="text-sm text-zinc-600">Regresión polinomial de grado 3 que se ajusta mejor a datos con curvatura. Muestra la ecuación y R².</p>
 
@@ -141,7 +141,7 @@
     </section>
 
     <!-- ===================== VARIANTE 4: Con clusters por color ===================== -->
-    <section x-data="scatterClusters()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="scatterClusters()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">4 · Con clusters por color</h2>
       <p class="text-sm text-zinc-600">Puntos coloreados por segmento de rendimiento: bajo (&lt;100 registros), medio (100-160) y alto (&gt;160).</p>
 

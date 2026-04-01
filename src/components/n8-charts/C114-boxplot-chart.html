@@ -20,7 +20,7 @@
     <!-- ================================================================== -->
     <!-- V1 · Boxplot básico                                                -->
     <!-- ================================================================== -->
-    <section x-data="boxBasic()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+    <section x-data="boxBasic()" x-init="initChart()" class="space-y-6">
       <div>
         <h2 class="text-lg font-semibold text-zinc-900">V1 · Boxplot básico</h2>
         <p class="text-sm text-zinc-500 mt-1">Un solo grupo de datos mostrando mediana, Q1, Q3, whiskers y outliers. Ideal para inspeccionar la distribución de un endpoint.</p>
@@ -46,7 +46,7 @@ data: [
     <!-- ================================================================== -->
     <!-- V2 · Comparativo                                                   -->
     <!-- ================================================================== -->
-    <section x-data="boxCompare()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+    <section x-data="boxCompare()" x-init="initChart()" class="space-y-6">
       <div>
         <h2 class="text-lg font-semibold text-zinc-900">V2 · Comparativo</h2>
         <p class="text-sm text-zinc-500 mt-1">Cuatro endpoints lado a lado para comparar distribuciones de tiempos de respuesta.</p>
@@ -91,7 +91,7 @@ data: [
     <!-- ================================================================== -->
     <!-- V3 · Horizontal                                                    -->
     <!-- ================================================================== -->
-    <section x-data="boxHorizontal()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+    <section x-data="boxHorizontal()" x-init="initChart()" class="space-y-6">
       <div>
         <h2 class="text-lg font-semibold text-zinc-900">V3 · Horizontal</h2>
         <p class="text-sm text-zinc-500 mt-1">Ejes invertidos: categorías en Y, valores en X. Útil cuando los nombres de endpoints son largos.</p>
@@ -113,7 +113,7 @@ data: [
     <!-- ================================================================== -->
     <!-- V4 · Con scatter superpuesto                                       -->
     <!-- ================================================================== -->
-    <section x-data="boxScatter()" x-init="initChart()" x-on:beforeunmount.window="destroy()" class="space-y-6">
+    <section x-data="boxScatter()" x-init="initChart()" class="space-y-6">
       <div>
         <h2 class="text-lg font-semibold text-zinc-900">V4 · Con scatter superpuesto</h2>
         <p class="text-sm text-zinc-500 mt-1">Cajas + puntos individuales de cada observación con jitter horizontal para evitar solapamiento.</p>

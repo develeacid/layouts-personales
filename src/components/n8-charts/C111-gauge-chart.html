@@ -17,7 +17,7 @@
     </header>
 
     <!-- ===================== VARIANTE 1: Gauge simple ===================== -->
-    <section x-data="gaugeSimple()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="gaugeSimple()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">1 · Gauge simple</h2>
       <p class="text-sm text-zinc-600">Arco semicircular mostrando un valor porcentual de rendimiento del sistema.</p>
 
@@ -37,7 +37,7 @@
     </section>
 
     <!-- ===================== VARIANTE 2: Multi-anillo ===================== -->
-    <section x-data="gaugeMulti()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="gaugeMulti()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">2 · Multi-anillo</h2>
       <p class="text-sm text-zinc-600">Tres gauges concéntricos mostrando CPU, RAM y Disco simultáneamente.</p>
 
@@ -74,7 +74,7 @@
     </section>
 
     <!-- ===================== VARIANTE 3: Con rangos de color ===================== -->
-    <section x-data="gaugeRanges()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="gaugeRanges()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">3 · Con rangos de color</h2>
       <p class="text-sm text-zinc-600">Gauge con umbrales de color que indican el estado del rendimiento: bajo, medio y alto.</p>
 
@@ -104,7 +104,7 @@
     </section>
 
     <!-- ===================== VARIANTE 4: Dashboard ===================== -->
-    <section x-data="gaugeDashboard()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="gaugeDashboard()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">4 · Dashboard</h2>
       <p class="text-sm text-zinc-600">Cuatro gauges en grid mostrando KPIs clave del negocio con distintas escalas y unidades.</p>
 

@@ -17,7 +17,7 @@
     </header>
 
     <!-- ===================== VARIANTE 1: Básica ===================== -->
-    <section x-data="parallelBasic()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="parallelBasic()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">1 · Básica</h2>
       <p class="text-sm text-zinc-600">5 ejes con escalas independientes y 8 líneas representando especificaciones de automóviles.</p>
 
@@ -73,7 +73,7 @@ data: [
     </section>
 
     <!-- ===================== VARIANTE 2: Con brushing interactivo ===================== -->
-    <section x-data="parallelBrush()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="parallelBrush()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">2 · Con brushing interactivo</h2>
       <p class="text-sm text-zinc-600">Arrastra sobre cualquier eje para filtrar rangos. El brushing viene integrado en ECharts parallel.</p>
 
@@ -125,7 +125,7 @@ data: [ ...8 autos ]</pre>
     </section>
 
     <!-- ===================== VARIANTE 3: Con colores por categoría ===================== -->
-    <section x-data="parallelColors()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="parallelColors()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">3 · Con colores por categoría</h2>
       <p class="text-sm text-zinc-600">Cada tipo de vehículo tiene un color distinto para identificar patrones por segmento.</p>
 
@@ -179,7 +179,7 @@ data: [ ...8 autos ]</pre>
     </section>
 
     <!-- ===================== VARIANTE 4: Con highlight al hover ===================== -->
-    <section x-data="parallelHighlight()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="parallelHighlight()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">4 · Con highlight al hover</h2>
       <p class="text-sm text-zinc-600">Al pasar el cursor sobre una línea se resalta con mayor grosor y opacidad, mientras las demás se atenúan.</p>
 

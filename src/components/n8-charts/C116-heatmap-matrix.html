@@ -17,7 +17,7 @@
     </header>
 
     <!-- ===================== VARIANTE 1: Heatmap básico ===================== -->
-    <section x-data="heatBasic()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="heatBasic()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">1 · Heatmap básico</h2>
       <p class="text-sm text-zinc-600">Volumen de tickets de soporte por día de la semana y franja horaria.</p>
 
@@ -58,7 +58,7 @@ data: [[dayIndex, hourIndex, value], ...]  // 70 puntos</pre>
     </section>
 
     <!-- ===================== VARIANTE 2: Con etiquetas en celdas ===================== -->
-    <section x-data="heatLabels()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="heatLabels()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">2 · Con etiquetas en celdas</h2>
       <p class="text-sm text-zinc-600">Mismo heatmap con el valor numérico visible dentro de cada celda de la matriz.</p>
 
@@ -98,7 +98,7 @@ label: { show: true, formatter: (p) => p.value[2], fontSize: 10 }</pre>
     </section>
 
     <!-- ===================== VARIANTE 3: Estilo calendario (GitHub contributions) ===================== -->
-    <section x-data="heatCalendar()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="heatCalendar()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">3 · Estilo calendario (GitHub contributions)</h2>
       <p class="text-sm text-zinc-600">Un año completo de actividad representado como mapa de calor sobre un calendario de 52 semanas.</p>
 
@@ -112,7 +112,7 @@ data: [['2024-01-01', 3], ['2024-01-02', 7], ...]  // 364 entradas</pre>
     </section>
 
     <!-- ===================== VARIANTE 4: Matriz de correlación ===================== -->
-    <section x-data="heatCorrelation()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="heatCorrelation()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">4 · Matriz de correlación</h2>
       <p class="text-sm text-zinc-600">Correlación simétrica NxN entre variables de negocio, con escala divergente azul-blanco-rojo.</p>
 

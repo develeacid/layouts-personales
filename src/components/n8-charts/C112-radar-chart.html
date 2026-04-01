@@ -17,7 +17,7 @@
     </header>
 
     <!-- ===================== VARIANTE 1: Radar simple ===================== -->
-    <section x-data="radarSimple()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="radarSimple()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">1 · Radar simple</h2>
       <p class="text-sm text-zinc-600">Una sola entidad evaluada contra 5 indicadores de un framework frontend.</p>
 
@@ -53,7 +53,7 @@ data: [
     </section>
 
     <!-- ===================== VARIANTE 2: Múltiples entidades ===================== -->
-    <section x-data="radarMulti()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="radarMulti()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">2 · Múltiples entidades</h2>
       <p class="text-sm text-zinc-600">Dos frameworks superpuestos en el mismo radar para comparación directa.</p>
 
@@ -95,7 +95,7 @@ data: [
     </section>
 
     <!-- ===================== VARIANTE 3: Con relleno ===================== -->
-    <section x-data="radarFilled()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="radarFilled()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">3 · Con relleno</h2>
       <p class="text-sm text-zinc-600">Misma comparación dual con áreas rellenas semitransparentes para visualizar superposición.</p>
 
@@ -138,7 +138,7 @@ data: [
     </section>
 
     <!-- ===================== VARIANTE 4: Evaluación de candidato ===================== -->
-    <section x-data="radarEval()" x-init="init()" x-on:destroy.window="destroy()" class="space-y-4">
+    <section x-data="radarEval()" class="space-y-4">
       <h2 class="text-lg font-semibold text-zinc-900">4 · Evaluación de candidato</h2>
       <p class="text-sm text-zinc-600">Hiring scorecard con 6 competencias para comparar dos candidatos en un proceso de selección.</p>
 
