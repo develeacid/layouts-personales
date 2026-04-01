@@ -8,21 +8,21 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16" x-data="commandPalette()">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-16" x-data="commandPalette()">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C46 · Nivel 3</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Command Palette</h1>
-      <p class="text-sm text-zinc-600 mt-1">Overlay Cmd+K: búsqueda, resultados, acciones.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C46 · Nivel 3</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Command Palette</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Overlay Cmd+K: búsqueda, resultados, acciones.</p>
     </header>
 
     <div class="space-y-4">
       <button @click="open = true" class="btn-secondary text-xs flex items-center gap-3">
-        <svg class="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+        <svg class="w-4 h-4 text-zinc-400 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
         Buscar...
-        <span class="text-xs text-zinc-400 bg-zinc-100 px-1.5 py-0.5 rounded font-mono">Ctrl+K</span>
+        <span class="text-xs text-zinc-400 dark:text-zinc-500 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">Ctrl+K</span>
       </button>
-      <p class="text-xs text-zinc-400">Prueba presionar <kbd class="bg-zinc-100 px-1.5 py-0.5 rounded font-mono text-zinc-600">Ctrl+K</kbd> para abrir el command palette.</p>
+      <p class="text-xs text-zinc-400 dark:text-zinc-500">Prueba presionar <kbd class="bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono text-zinc-600 dark:text-zinc-400">Ctrl+K</kbd> para abrir el command palette.</p>
     </div>
 
     <!-- Command palette -->
@@ -39,25 +39,25 @@
         <div x-show="open"
           x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
           x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-          class="relative bg-white rounded-2xl shadow-xl max-w-lg w-full overflow-hidden">
+          class="relative bg-white dark:bg-zinc-900 rounded-xl shadow-xl max-w-lg w-full overflow-hidden">
           <!-- Search -->
-          <div class="flex items-center gap-3 px-4 border-b border-zinc-200">
-            <svg class="w-5 h-5 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+          <div class="flex items-center gap-3 px-4 border-b border-zinc-200 dark:border-zinc-800">
+            <svg class="w-5 h-5 text-zinc-400 dark:text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             <input
               x-ref="searchInput"
               x-model="query"
               @input="search()"
               x-init="$watch('open', value => { if (value) $nextTick(() => $refs.searchInput.focus()) })"
-              class="w-full py-3 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none"
+              class="w-full py-3 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none"
               type="text" placeholder="Buscar componentes, páginas, acciones..."
             />
-            <kbd class="text-xs text-zinc-400 bg-zinc-100 px-1.5 py-0.5 rounded font-mono shrink-0">ESC</kbd>
+            <kbd class="text-xs text-zinc-400 dark:text-zinc-500 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono shrink-0">ESC</kbd>
           </div>
           <!-- Results -->
           <div class="max-h-64 overflow-y-auto">
             <template x-if="filteredItems.length > 0">
               <div class="p-2">
-                <p class="text-xs font-medium text-zinc-400 px-2 py-1">Resultados</p>
+                <p class="text-xs font-medium text-zinc-400 dark:text-zinc-500 px-2 py-1">Resultados</p>
                 <template x-for="item in filteredItems" :key="item.name">
                   <a :href="item.href || '#'" @click="open = false"
                     class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-zinc-50 cursor-pointer transition-colors duration-150">
@@ -66,8 +66,8 @@
                       <span class="text-xs font-bold" :class="item.iconColor" x-text="item.icon"></span>
                     </div>
                     <div class="flex-1 min-w-0">
-                      <p class="text-sm font-medium text-zinc-900" x-text="item.name"></p>
-                      <p class="text-xs text-zinc-400" x-text="item.description"></p>
+                      <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="item.name"></p>
+                      <p class="text-xs text-zinc-400 dark:text-zinc-500" x-text="item.description"></p>
                     </div>
                     <span class="text-xs text-zinc-300" x-text="item.type"></span>
                   </a>
@@ -76,15 +76,15 @@
             </template>
             <template x-if="query && filteredItems.length === 0">
               <div class="p-8 text-center">
-                <p class="text-sm text-zinc-400">No se encontraron resultados para "<span x-text="query" class="font-medium text-zinc-600"></span>"</p>
+                <p class="text-sm text-zinc-400 dark:text-zinc-500">No se encontraron resultados para "<span x-text="query" class="font-medium text-zinc-600 dark:text-zinc-400"></span>"</p>
               </div>
             </template>
           </div>
           <!-- Footer -->
-          <div class="px-4 py-2 border-t border-zinc-200 flex items-center gap-4">
-            <span class="text-xs text-zinc-400">↑↓ Navegar</span>
-            <span class="text-xs text-zinc-400">↵ Abrir</span>
-            <span class="text-xs text-zinc-400">ESC Cerrar</span>
+          <div class="px-4 py-2 border-t border-zinc-200 dark:border-zinc-800 flex items-center gap-4">
+            <span class="text-xs text-zinc-400 dark:text-zinc-500">↑↓ Navegar</span>
+            <span class="text-xs text-zinc-400 dark:text-zinc-500">↵ Abrir</span>
+            <span class="text-xs text-zinc-400 dark:text-zinc-500">ESC Cerrar</span>
           </div>
         </div>
       </div>

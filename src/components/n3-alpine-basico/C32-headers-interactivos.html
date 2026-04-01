@@ -10,23 +10,23 @@
 
   <div class="space-y-16 py-16">
 
-    <div class="max-w-5xl mx-auto px-6">
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C32 · Nivel 3</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Headers Interactivos</h1>
-      <p class="text-sm text-zinc-600 mt-1">Menú hamburguesa mobile con x-show, dropdown de navegación.</p>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C32 · Nivel 3</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Headers Interactivos</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Menú hamburguesa mobile con x-show, dropdown de navegación.</p>
     </div>
 
     <!-- Variante 1: Mobile hamburger -->
-    <section class="space-y-3 max-w-5xl mx-auto px-6">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Con menú mobile</h2>
-      <nav class="bg-white border border-zinc-200 rounded-xl" x-data="{ mobileOpen: false }">
+    <section class="relative space-y-3 max-w-5xl mx-auto px-4 sm:px-6">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Con menú mobile</h2>
+      <nav class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl" x-data="{ mobileOpen: false }">
         <div class="px-6 h-14 flex items-center justify-between">
-          <span class="text-sm font-semibold text-zinc-900 tracking-tight">LayoutOS</span>
+          <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">LayoutOS</span>
           <div class="hidden md:flex items-center gap-6">
-            <a href="#" class="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-150">Producto</a>
-            <a href="#" class="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-150">Precios</a>
-            <a href="#" class="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-150">Docs</a>
-            <a href="#" class="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-150">Blog</a>
+            <a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 transition-colors duration-150">Producto</a>
+            <a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 transition-colors duration-150">Precios</a>
+            <a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 transition-colors duration-150">Docs</a>
+            <a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 transition-colors duration-150">Blog</a>
           </div>
           <div class="hidden md:flex items-center gap-2">
             <button class="btn-ghost text-xs">Login</button>
@@ -34,7 +34,7 @@
           </div>
           <!-- Hamburger -->
           <button
-            class="md:hidden w-8 h-8 flex items-center justify-center rounded-lg text-zinc-600 hover:bg-zinc-100 transition-colors duration-150 cursor-pointer"
+            class="md:hidden w-8 h-8 flex items-center justify-center rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 transition-colors duration-150 cursor-pointer"
             @click="mobileOpen = !mobileOpen"
           >
             <svg x-show="!mobileOpen" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
@@ -51,13 +51,13 @@
           x-transition:leave-start="opacity-100 translate-y-0"
           x-transition:leave-end="opacity-0 -translate-y-1"
           x-cloak
-          class="md:hidden border-t border-zinc-200 px-6 py-4 space-y-1"
+          class="md:hidden border-t border-zinc-200 dark:border-zinc-800 px-6 py-4 space-y-1"
         >
-          <a href="#" class="block text-sm text-zinc-600 hover:text-zinc-900 py-2 transition-colors duration-150">Producto</a>
-          <a href="#" class="block text-sm text-zinc-600 hover:text-zinc-900 py-2 transition-colors duration-150">Precios</a>
-          <a href="#" class="block text-sm text-zinc-600 hover:text-zinc-900 py-2 transition-colors duration-150">Docs</a>
-          <a href="#" class="block text-sm text-zinc-600 hover:text-zinc-900 py-2 transition-colors duration-150">Blog</a>
-          <div class="pt-3 border-t border-zinc-200 flex flex-col gap-2">
+          <a href="#" class="block text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 py-2 transition-colors duration-150">Producto</a>
+          <a href="#" class="block text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 py-2 transition-colors duration-150">Precios</a>
+          <a href="#" class="block text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 py-2 transition-colors duration-150">Docs</a>
+          <a href="#" class="block text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 py-2 transition-colors duration-150">Blog</a>
+          <div class="pt-3 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-2">
             <button class="btn-secondary w-full justify-center">Login</button>
             <button class="btn-primary w-full justify-center">Registrarse</button>
           </div>
@@ -66,18 +66,18 @@
     </section>
 
     <!-- Variante 2: Con dropdown -->
-    <section class="space-y-3 max-w-5xl mx-auto px-6">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Con dropdown de producto</h2>
-      <nav class="bg-white border border-zinc-200 rounded-xl px-6 h-14 flex items-center justify-between">
+    <section class="relative space-y-3 max-w-5xl mx-auto px-4 sm:px-6">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Con dropdown de producto</h2>
+      <nav class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-6 h-14 flex items-center justify-between">
         <div class="flex items-center gap-8">
-          <span class="text-sm font-semibold text-zinc-900 tracking-tight">LayoutOS</span>
+          <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">LayoutOS</span>
           <div class="hidden sm:flex items-center gap-6">
             <!-- Dropdown -->
             <div class="relative" x-data="{ open: false }">
               <button
                 @click="open = !open"
                 @click.outside="open = false"
-                class="flex items-center gap-1 text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-150 cursor-pointer"
+                class="flex items-center gap-1 text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 transition-colors duration-150 cursor-pointer"
               >
                 Producto
                 <svg class="w-4 h-4 transition-transform duration-150" :class="open && 'rotate-180'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
@@ -91,30 +91,30 @@
                 x-transition:leave-start="opacity-100 translate-y-0"
                 x-transition:leave-end="opacity-0 -translate-y-1"
                 x-cloak
-                class="absolute top-full left-0 mt-2 w-56 bg-white border border-zinc-200 rounded-xl shadow-lg p-2 z-dropdown"
+                class="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg p-2 z-dropdown"
               >
                 <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-zinc-50 transition-colors duration-150">
-                  <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+                  <div class="w-8 h-8 bg-blue-50 dark:bg-blue-950 rounded-lg flex items-center justify-center">
                     <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" /></svg>
                   </div>
                   <div>
-                    <p class="text-sm font-medium text-zinc-900">Componentes</p>
-                    <p class="text-xs text-zinc-400">107 componentes UI</p>
+                    <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Componentes</p>
+                    <p class="text-xs text-zinc-400 dark:text-zinc-500">107 componentes UI</p>
                   </div>
                 </a>
                 <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-zinc-50 transition-colors duration-150">
-                  <div class="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center">
+                  <div class="w-8 h-8 bg-emerald-50 dark:bg-emerald-950 rounded-lg flex items-center justify-center">
                     <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                   </div>
                   <div>
-                    <p class="text-sm font-medium text-zinc-900">Páginas</p>
-                    <p class="text-xs text-zinc-400">66 páginas completas</p>
+                    <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Páginas</p>
+                    <p class="text-xs text-zinc-400 dark:text-zinc-500">66 páginas completas</p>
                   </div>
                 </a>
               </div>
             </div>
-            <a href="#" class="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-150">Precios</a>
-            <a href="#" class="text-sm text-zinc-600 hover:text-zinc-900 transition-colors duration-150">Docs</a>
+            <a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 transition-colors duration-150">Precios</a>
+            <a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 transition-colors duration-150">Docs</a>
           </div>
         </div>
         <button class="btn-primary text-xs">Comenzar</button>

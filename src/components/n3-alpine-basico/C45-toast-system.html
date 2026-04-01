@@ -8,15 +8,15 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16" x-data="toastSystem()">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-16" x-data="toastSystem()">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C45 · Nivel 3</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Toast System</h1>
-      <p class="text-sm text-zinc-600 mt-1">Toasts apilables: tipos, auto-dismiss, queue.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C45 · Nivel 3</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Toast System</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Toasts apilables: tipos, auto-dismiss, queue.</p>
     </header>
 
-    <section class="flex flex-wrap gap-3">
+    <section class="relative flex flex-wrap gap-3">
       <button @click="addToast('success', 'Guardado correctamente')" class="btn-primary text-xs">Success</button>
       <button @click="addToast('error', 'No se pudo procesar el pago')" class="btn-danger text-xs">Error</button>
       <button @click="addToast('warning', 'Tu sesión expirará en 5 minutos')" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-amber-600 text-white hover:bg-amber-700 active:scale-95 transition-all duration-150 cursor-pointer">Warning</button>
@@ -35,7 +35,7 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-x-0"
             x-transition:leave-end="opacity-0 translate-x-8"
-            class="flex items-start gap-3 bg-white border border-zinc-200 rounded-xl shadow-lg px-4 py-3"
+            class="flex items-start gap-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg px-4 py-3"
           >
             <!-- Icon -->
             <div class="shrink-0 mt-0.5">
@@ -60,8 +60,8 @@
                 </div>
               </template>
             </div>
-            <p class="text-xs text-zinc-900 flex-1 pt-0.5" x-text="toast.message"></p>
-            <button @click="removeToast(toast.id)" class="shrink-0 w-5 h-5 flex items-center justify-center rounded text-zinc-400 hover:text-zinc-600 cursor-pointer">
+            <p class="text-xs text-zinc-900 dark:text-zinc-100 flex-1 pt-0.5" x-text="toast.message"></p>
+            <button @click="removeToast(toast.id)" class="shrink-0 w-5 h-5 flex items-center justify-center rounded text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 cursor-pointer">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
           </div>

@@ -8,18 +8,18 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-10">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C39 · Nivel 3</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Banners Dismissibles</h1>
-      <p class="text-sm text-zinc-600 mt-1">Banners con x-show y cierre con localStorage.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C39 · Nivel 3</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Banners Dismissibles</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Banners con x-show y cierre con localStorage.</p>
     </header>
 
     <!-- Banner info dismissible -->
     <div x-data="{ show: !localStorage.getItem('banner-info-closed') }">
       <div x-show="show" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-        class="flex items-center justify-between gap-4 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg px-4 py-3 text-sm">
+        class="flex items-center justify-between gap-4 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400 rounded-lg px-4 py-3 text-sm">
         <div class="flex items-center gap-3">
           <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" /></svg>
           <p>Nueva funcionalidad: ahora puedes exportar componentes como Figma tokens. <a href="#" class="font-medium underline">Ver más</a></p>
@@ -33,7 +33,7 @@
     <!-- Banner warning dismissible -->
     <div x-data="{ show: true }">
       <div x-show="show" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-        class="flex items-center justify-between gap-4 bg-amber-50 border border-amber-200 text-amber-700 rounded-lg px-4 py-3 text-sm">
+        class="flex items-center justify-between gap-4 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 rounded-lg px-4 py-3 text-sm">
         <div class="flex items-center gap-3">
           <svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86l-8.6 14.86A1 1 0 002.56 20h16.88a1 1 0 00.87-1.28l-8.6-14.86a1 1 0 00-1.42 0z" /></svg>
           <p>Mantenimiento programado el sábado de 2:00 a 4:00 AM. <a href="#" class="font-medium underline">Detalles</a></p>
@@ -47,7 +47,7 @@
     <!-- Top bar dismissible dark -->
     <div x-data="{ show: true }">
       <div x-show="show" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-        class="flex items-center justify-center gap-4 bg-zinc-900 text-white rounded-lg px-4 py-2.5 text-sm relative">
+        class="flex items-center justify-center gap-4 bg-zinc-900 dark:bg-zinc-800 text-white rounded-lg px-4 py-2.5 text-sm relative">
         <p>Oferta especial: <span class="font-semibold">30% de descuento</span> en todos los planes. Usa el código SPRING30.</p>
         <button @click="show = false" class="absolute right-3 w-6 h-6 flex items-center justify-center rounded text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors duration-150 cursor-pointer">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
