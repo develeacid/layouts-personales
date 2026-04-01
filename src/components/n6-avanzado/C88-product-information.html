@@ -7,17 +7,17 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C88 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Product Information</h1>
-      <p class="text-sm text-zinc-600 mt-1">Tabs de informacion del producto con descripcion, especificaciones y envio.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C88 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Product Information</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Tabs de informacion del producto con descripcion, especificaciones y envio.</p>
     </header>
 
-    <section x-data="{ tab: 'descripcion' }">
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm">
+    <section class="relative" x-data="{ tab: 'descripcion' }">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
         <!-- Tabs -->
-        <div class="border-b border-zinc-200">
+        <div class="border-b border-zinc-200 dark:border-zinc-800">
           <nav class="flex gap-6 px-6" aria-label="Tabs">
             <button @click="tab = 'descripcion'"
               class="py-4 text-sm font-medium border-b-2 transition-colors duration-150"
@@ -39,45 +39,45 @@
 
         <!-- Descripcion -->
         <div x-show="tab === 'descripcion'" class="p-6 space-y-4">
-          <p class="text-sm text-zinc-700 leading-relaxed">
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             Descubre la experiencia de audio definitiva con nuestros Auriculares Premium Wireless. Disenados para audiophiles y profesionales, estos auriculares combinan tecnologia de vanguardia con un diseno elegante y comodo para uso prolongado.
           </p>
-          <p class="text-sm text-zinc-700 leading-relaxed">
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             Con cancelacion activa de ruido de ultima generacion, puedes sumergirte completamente en tu musica sin distracciones. La bateria de larga duracion te acompana durante todo el dia, y la carga rapida te da horas de reproduccion en minutos.
           </p>
-          <h3 class="text-sm font-semibold text-zinc-900 pt-2">Caracteristicas principales</h3>
+          <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 pt-2">Caracteristicas principales</h3>
           <ul class="space-y-2">
-            <li class="flex items-start gap-2 text-sm text-zinc-700">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
               Cancelacion activa de ruido con 3 niveles ajustables
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-700">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
               Bluetooth 5.3 con conexion multipunto (2 dispositivos)
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-700">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
               Bateria de 40 horas con carga rapida (10 min = 3 horas)
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-700">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
               Drivers de 40mm con sonido Hi-Res certificado
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-700">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
               Almohadillas de espuma viscoelastica con proteina de cuero
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-700">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
@@ -89,42 +89,42 @@
         <!-- Especificaciones -->
         <div x-show="tab === 'especificaciones'" x-cloak class="p-6">
           <table class="w-full text-sm">
-            <tbody class="divide-y divide-zinc-100">
+            <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
               <tr>
-                <td class="py-3 pr-4 font-medium text-zinc-900 w-1/3">Material</td>
-                <td class="py-3 text-zinc-600">Aluminio anodizado + proteina de cuero</td>
+                <td class="py-3 pr-4 font-medium text-zinc-900 dark:text-zinc-100 w-1/3">Material</td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500">Aluminio anodizado + proteina de cuero</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium text-zinc-900">Dimensiones</td>
-                <td class="py-3 text-zinc-600">18.5 x 17.2 x 8.1 cm</td>
+                <td class="py-3 pr-4 font-medium text-zinc-900 dark:text-zinc-100">Dimensiones</td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500">18.5 x 17.2 x 8.1 cm</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium text-zinc-900">Peso</td>
-                <td class="py-3 text-zinc-600">254 g</td>
+                <td class="py-3 pr-4 font-medium text-zinc-900 dark:text-zinc-100">Peso</td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500">254 g</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium text-zinc-900">Conectividad</td>
-                <td class="py-3 text-zinc-600">Bluetooth 5.3, USB-C, Jack 3.5mm</td>
+                <td class="py-3 pr-4 font-medium text-zinc-900 dark:text-zinc-100">Conectividad</td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500">Bluetooth 5.3, USB-C, Jack 3.5mm</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium text-zinc-900">Bateria</td>
-                <td class="py-3 text-zinc-600">800 mAh (40 horas ANC on / 60 horas ANC off)</td>
+                <td class="py-3 pr-4 font-medium text-zinc-900 dark:text-zinc-100">Bateria</td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500">800 mAh (40 horas ANC on / 60 horas ANC off)</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium text-zinc-900">Drivers</td>
-                <td class="py-3 text-zinc-600">40mm dinamicos, neodimio</td>
+                <td class="py-3 pr-4 font-medium text-zinc-900 dark:text-zinc-100">Drivers</td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500">40mm dinamicos, neodimio</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium text-zinc-900">Respuesta frecuencia</td>
-                <td class="py-3 text-zinc-600">4 Hz – 40 kHz</td>
+                <td class="py-3 pr-4 font-medium text-zinc-900 dark:text-zinc-100">Respuesta frecuencia</td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500">4 Hz – 40 kHz</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium text-zinc-900">Impedancia</td>
-                <td class="py-3 text-zinc-600">32 ohms</td>
+                <td class="py-3 pr-4 font-medium text-zinc-900 dark:text-zinc-100">Impedancia</td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500">32 ohms</td>
               </tr>
               <tr>
-                <td class="py-3 pr-4 font-medium text-zinc-900">Certificaciones</td>
-                <td class="py-3 text-zinc-600">Hi-Res Audio, IPX4</td>
+                <td class="py-3 pr-4 font-medium text-zinc-900 dark:text-zinc-100">Certificaciones</td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500">Hi-Res Audio, IPX4</td>
               </tr>
             </tbody>
           </table>
@@ -134,52 +134,52 @@
         <div x-show="tab === 'envio'" x-cloak class="p-6 space-y-6">
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <!-- Envio -->
-            <div class="flex items-start gap-3 p-4 rounded-lg bg-zinc-50">
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800">
               <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
                 <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
                 </svg>
               </div>
               <div>
-                <p class="text-sm font-medium text-zinc-900">Envio estandar</p>
+                <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Envio estandar</p>
                 <p class="text-xs text-zinc-500 mt-0.5">5-7 dias habiles</p>
                 <p class="text-xs text-zinc-500">Gratis en compras +$100</p>
               </div>
             </div>
             <!-- Express -->
-            <div class="flex items-start gap-3 p-4 rounded-lg bg-zinc-50">
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800">
               <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center shrink-0">
                 <svg class="w-5 h-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div>
-                <p class="text-sm font-medium text-zinc-900">Envio express</p>
+                <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Envio express</p>
                 <p class="text-xs text-zinc-500 mt-0.5">2-3 dias habiles</p>
                 <p class="text-xs text-zinc-500">$9.99</p>
               </div>
             </div>
             <!-- Garantia -->
-            <div class="flex items-start gap-3 p-4 rounded-lg bg-zinc-50">
+            <div class="flex items-start gap-3 p-4 rounded-lg bg-zinc-50 dark:bg-zinc-800">
               <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center shrink-0">
                 <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                 </svg>
               </div>
               <div>
-                <p class="text-sm font-medium text-zinc-900">Garantia</p>
+                <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Garantia</p>
                 <p class="text-xs text-zinc-500 mt-0.5">2 anos de garantia</p>
                 <p class="text-xs text-zinc-500">Soporte tecnico incluido</p>
               </div>
             </div>
           </div>
 
-          <div class="border-t border-zinc-200 pt-4">
-            <h3 class="text-sm font-semibold text-zinc-900 mb-2">Politica de devoluciones</h3>
-            <p class="text-sm text-zinc-600 leading-relaxed">
+          <div class="border-t border-zinc-200 dark:border-zinc-800 pt-4">
+            <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Politica de devoluciones</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 leading-relaxed">
               Aceptamos devoluciones dentro de los 30 dias posteriores a la compra. El producto debe estar en su empaque original y sin signos de uso. Los costos de devolucion corren por cuenta del comprador, excepto en casos de productos defectuosos.
             </p>
-            <p class="text-sm text-zinc-600 leading-relaxed mt-2">
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 leading-relaxed mt-2">
               Para iniciar una devolucion, contacta a nuestro equipo de soporte con tu numero de pedido. El reembolso se procesara en 5-10 dias habiles despues de recibir el producto.
             </p>
           </div>

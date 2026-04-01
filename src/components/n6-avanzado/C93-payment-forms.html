@@ -7,19 +7,19 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C93 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Payment Forms</h1>
-      <p class="text-sm text-zinc-600 mt-1">Formularios de pago con validacion, formato automatico y multiples metodos.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C93 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Payment Forms</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Formularios de pago con validacion, formato automatico y multiples metodos.</p>
     </header>
 
     <!-- Variante 1: Pago con tarjeta -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Pago con tarjeta</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Pago con tarjeta</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 max-w-lg" x-data="paymentForm()">
-        <h3 class="text-base font-semibold text-zinc-900 mb-6">Informacion de pago</h3>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 max-w-lg" x-data="paymentForm()">
+        <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100 mb-6">Informacion de pago</h3>
 
         <form @submit.prevent="validate()" class="space-y-5">
           <!-- Numero de tarjeta -->
@@ -85,7 +85,7 @@
           <label class="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" x-model="card.save"
               class="w-4 h-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-500" />
-            <span class="text-sm text-zinc-700">Guardar tarjeta para futuras compras</span>
+            <span class="text-sm text-zinc-600 dark:text-zinc-400">Guardar tarjeta para futuras compras</span>
           </label>
 
           <button type="submit" class="btn-primary btn-lg w-full">Pagar ahora</button>
@@ -94,11 +94,11 @@
     </section>
 
     <!-- Variante 2: Selector de metodo de pago -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Selector de metodo de pago</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Selector de metodo de pago</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 max-w-lg" x-data="paymentForm()">
-        <h3 class="text-base font-semibold text-zinc-900 mb-6">Metodo de pago</h3>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 max-w-lg" x-data="paymentForm()">
+        <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100 mb-6">Metodo de pago</h3>
 
         <div class="space-y-3">
           <!-- Tarjeta de credito -->
@@ -109,10 +109,10 @@
               <input type="radio" name="payment" value="card" x-model="method"
                 class="w-4 h-4 text-blue-600 border-zinc-300 focus:ring-blue-500" />
               <div class="flex items-center gap-2 flex-1">
-                <svg class="w-5 h-5 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <svg class="w-5 h-5 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
                 </svg>
-                <span class="text-sm font-medium text-zinc-900">Tarjeta de credito</span>
+                <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Tarjeta de credito</span>
               </div>
               <div class="flex items-center gap-1">
                 <span class="text-xs font-bold px-1.5 py-0.5 rounded bg-blue-600 text-white">VISA</span>
@@ -169,10 +169,10 @@
               <input type="radio" name="payment" value="paypal" x-model="method"
                 class="w-4 h-4 text-blue-600 border-zinc-300 focus:ring-blue-500" />
               <div class="flex items-center gap-2 flex-1">
-                <svg class="w-5 h-5 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span class="text-sm font-medium text-zinc-900">PayPal</span>
+                <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100">PayPal</span>
               </div>
             </label>
 
@@ -182,7 +182,7 @@
               x-transition:enter-end="opacity-100 translate-y-0"
               class="mt-3 ml-7">
               <p class="text-sm text-zinc-500 mb-3">Seras redirigido a PayPal para completar el pago.</p>
-              <button type="button" class="w-full py-2.5 px-4 bg-amber-400 hover:bg-amber-500 text-zinc-900 text-sm font-semibold rounded-lg transition-colors duration-150">
+              <button type="button" class="w-full py-2.5 px-4 bg-amber-400 hover:bg-amber-500 text-zinc-900 dark:text-zinc-100 text-sm font-semibold rounded-lg transition-colors duration-150">
                 Conectar con PayPal
               </button>
             </div>
@@ -196,10 +196,10 @@
               <input type="radio" name="payment" value="transfer" x-model="method"
                 class="w-4 h-4 text-blue-600 border-zinc-300 focus:ring-blue-500" />
               <div class="flex items-center gap-2 flex-1">
-                <svg class="w-5 h-5 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <svg class="w-5 h-5 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
                 </svg>
-                <span class="text-sm font-medium text-zinc-900">Transferencia bancaria</span>
+                <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Transferencia bancaria</span>
               </div>
             </label>
 
@@ -207,25 +207,25 @@
               x-transition:enter="transition ease-out duration-200"
               x-transition:enter-start="opacity-0 -translate-y-2"
               x-transition:enter-end="opacity-100 translate-y-0"
-              class="mt-3 ml-7 bg-zinc-50 rounded-lg p-4 space-y-2">
-              <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 mb-2">Datos bancarios</p>
+              class="mt-3 ml-7 bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4 space-y-2">
+              <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500 mb-2">Datos bancarios</p>
               <div class="flex items-center justify-between text-sm">
                 <span class="text-zinc-500">Banco</span>
-                <span class="text-zinc-900 font-medium">Banco Nacional</span>
+                <span class="text-zinc-900 dark:text-zinc-100 font-medium">Banco Nacional</span>
               </div>
               <div class="flex items-center justify-between text-sm">
                 <span class="text-zinc-500">IBAN</span>
-                <span class="text-zinc-900 font-medium font-mono">ES12 3456 7890 1234 5678 9012</span>
+                <span class="text-zinc-900 dark:text-zinc-100 font-medium font-mono">ES12 3456 7890 1234 5678 9012</span>
               </div>
               <div class="flex items-center justify-between text-sm">
                 <span class="text-zinc-500">BIC/SWIFT</span>
-                <span class="text-zinc-900 font-medium font-mono">BNATESMM</span>
+                <span class="text-zinc-900 dark:text-zinc-100 font-medium font-mono">BNATESMM</span>
               </div>
               <div class="flex items-center justify-between text-sm">
                 <span class="text-zinc-500">Referencia</span>
-                <span class="text-zinc-900 font-medium font-mono">ORD-12345</span>
+                <span class="text-zinc-900 dark:text-zinc-100 font-medium font-mono">ORD-12345</span>
               </div>
-              <p class="text-xs text-zinc-500 mt-2 pt-2 border-t border-zinc-200">Realiza la transferencia con la referencia indicada. Tu pedido se procesara una vez confirmado el pago (1-2 dias habiles).</p>
+              <p class="text-xs text-zinc-500 mt-2 pt-2 border-t border-zinc-200 dark:border-zinc-800">Realiza la transferencia con la referencia indicada. Tu pedido se procesara una vez confirmado el pago (1-2 dias habiles).</p>
             </div>
           </div>
         </div>

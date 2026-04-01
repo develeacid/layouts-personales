@@ -7,21 +7,21 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C89 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Product Reviews</h1>
-      <p class="text-sm text-zinc-600 mt-1">Resenas de producto con resumen, filtros y formulario de escritura.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C89 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Product Reviews</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Resenas de producto con resumen, filtros y formulario de escritura.</p>
     </header>
 
-    <section x-data="productReviews()">
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-8">
+    <section class="relative" x-data="productReviews()">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 space-y-8">
 
         <!-- Resumen -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- Promedio -->
           <div class="text-center md:text-left">
-            <div class="text-5xl font-bold text-zinc-900">4.5</div>
+            <div class="text-5xl font-bold text-zinc-900 dark:text-zinc-100">4.5</div>
             <div class="flex items-center justify-center md:justify-start gap-0.5 mt-2">
               <template x-for="star in 5" :key="star">
                 <svg class="w-5 h-5" :class="star <= 4 ? 'text-amber-400 fill-amber-400' : 'text-amber-400 fill-amber-200'" viewBox="0 0 20 20" fill="currentColor">
@@ -36,8 +36,8 @@
           <div class="col-span-2 space-y-2">
             <template x-for="stars in [5, 4, 3, 2, 1]" :key="stars">
               <div class="flex items-center gap-3">
-                <span class="text-sm text-zinc-600 w-16 shrink-0" x-text="stars + ' estrellas'"></span>
-                <div class="flex-1 bg-zinc-100 rounded-full h-2 overflow-hidden">
+                <span class="text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 w-16 shrink-0" x-text="stars + ' estrellas'"></span>
+                <div class="flex-1 bg-zinc-100 dark:bg-zinc-800 rounded-full h-2 overflow-hidden">
                   <div class="bg-amber-400 h-full rounded-full transition-all duration-300"
                     :style="'width: ' + {5: '55%', 4: '28%', 3: '10%', 2: '5%', 1: '2%'}[stars]">
                   </div>
@@ -49,7 +49,7 @@
         </div>
 
         <!-- Filtros y boton escribir -->
-        <div class="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-200 pt-6">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-200 dark:border-zinc-800 pt-6">
           <div class="flex flex-wrap gap-2">
             <button @click="filter = 'all'"
               class="px-3 py-1.5 text-sm font-medium rounded-lg border transition-colors duration-150"
@@ -70,8 +70,8 @@
         <!-- Formulario de resena -->
         <div x-show="showForm" x-cloak x-transition:enter="transition ease-out duration-200"
           x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
-          class="border border-zinc-200 rounded-lg p-5 space-y-4 bg-zinc-50">
-          <h3 class="text-sm font-semibold text-zinc-900">Tu resena</h3>
+          class="border border-zinc-200 dark:border-zinc-800 rounded-lg p-5 space-y-4 bg-zinc-50 dark:bg-zinc-800">
+          <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Tu resena</h3>
           <div>
             <label class="label">Calificacion</label>
             <div class="flex items-center gap-1 mt-1">
@@ -103,15 +103,15 @@
         <!-- Lista de resenas -->
         <div class="space-y-6">
           <template x-for="review in filteredReviews" :key="review.id">
-            <div class="border-t border-zinc-200 pt-6">
+            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-6">
               <div class="flex items-start gap-4">
                 <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center shrink-0">
-                  <span class="text-sm font-medium text-zinc-600" x-text="review.name.charAt(0)"></span>
+                  <span class="text-sm font-medium text-zinc-600 dark:text-zinc-400 dark:text-zinc-500" x-text="review.name.charAt(0)"></span>
                 </div>
                 <div class="flex-1 min-w-0">
                   <div class="flex items-center justify-between">
                     <div>
-                      <p class="text-sm font-medium text-zinc-900" x-text="review.name"></p>
+                      <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="review.name"></p>
                       <div class="flex items-center gap-2 mt-0.5">
                         <div class="flex items-center gap-0.5">
                           <template x-for="star in 5" :key="star">
@@ -120,12 +120,12 @@
                             </svg>
                           </template>
                         </div>
-                        <span class="text-xs text-zinc-400" x-text="review.date"></span>
+                        <span class="text-xs text-zinc-400 dark:text-zinc-500" x-text="review.date"></span>
                       </div>
                     </div>
                   </div>
-                  <h4 class="text-sm font-medium text-zinc-900 mt-2" x-text="review.title"></h4>
-                  <p class="text-sm text-zinc-600 mt-1 leading-relaxed" x-text="review.text"></p>
+                  <h4 class="text-sm font-medium text-zinc-900 dark:text-zinc-100 mt-2" x-text="review.title"></h4>
+                  <p class="text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 mt-1 leading-relaxed" x-text="review.text"></p>
                   <button @click="toggleHelpful(review.id)"
                     class="mt-3 inline-flex items-center gap-1.5 text-xs font-medium transition-colors duration-150"
                     :class="review.helpfulByUser ? 'text-blue-600' : 'text-zinc-400 hover:text-zinc-600'">

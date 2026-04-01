@@ -7,19 +7,19 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C94 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Kanban Board</h1>
-      <p class="text-sm text-zinc-600 mt-1">Board kanban completo con drag & drop entre columnas.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C94 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Kanban Board</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Board kanban completo con drag & drop entre columnas.</p>
     </header>
 
-    <section x-data="kanbanBoard()">
+    <section class="relative" x-data="kanbanBoard()">
       <!-- Board -->
       <div class="flex overflow-x-auto gap-4 pb-4">
         <template x-for="(col, colIndex) in columns" :key="col.id">
           <div
-            class="w-72 shrink-0 rounded-xl border bg-zinc-50 transition-all duration-200"
+            class="w-72 shrink-0 rounded-xl border bg-zinc-50 dark:bg-zinc-800 transition-all duration-200"
             :class="dragOverColumn === colIndex ? 'ring-2 ring-blue-200 bg-blue-50 border-blue-200' : 'border-zinc-200'"
             @dragover.prevent="dragOverColumn = colIndex"
             @dragleave="dragOverColumn = null"
@@ -29,13 +29,13 @@
             <div class="p-4 pb-2">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <h3 class="text-sm font-semibold text-zinc-900" x-text="col.name"></h3>
+                  <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="col.name"></h3>
                   <span class="text-xs font-medium rounded-full px-2 py-0.5"
                     :class="col.badgeClass"
                     x-text="col.cards.length"></span>
                 </div>
                 <button @click="openAddModal(colIndex)"
-                  class="w-6 h-6 rounded-md flex items-center justify-center text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors">
+                  class="w-6 h-6 rounded-md flex items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-200 transition-colors">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                 </button>
               </div>
@@ -48,10 +48,10 @@
                   draggable="true"
                   @dragstart="startDrag(card, colIndex)"
                   @dragend="draggedCard = null; draggedFromColumn = null; dragOverColumn = null"
-                  class="bg-white border border-zinc-200 rounded-xl shadow-sm p-3 cursor-grab active:cursor-grabbing hover:shadow-md hover:-translate-y-px transition-all duration-150"
+                  class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-3 cursor-grab active:cursor-grabbing hover:shadow-md hover:-translate-y-px transition-all duration-150"
                 >
                   <div class="flex items-start justify-between gap-2">
-                    <h4 class="text-sm font-medium text-zinc-900 leading-snug" x-text="card.title"></h4>
+                    <h4 class="text-sm font-medium text-zinc-900 dark:text-zinc-100 leading-snug" x-text="card.title"></h4>
                     <span class="shrink-0 text-xs font-medium rounded-full px-2 py-0.5"
                       :class="{
                         'badge-rose': card.priority === 'Alta',
@@ -65,23 +65,23 @@
 
                   <div class="flex items-center justify-between mt-3 pt-2 border-t border-zinc-100">
                     <div class="flex items-center gap-2">
-                      <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" x-text="card.avatar"></div>
-                      <span class="text-xs text-zinc-400" x-text="card.date"></span>
+                      <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-400 dark:text-zinc-500" x-text="card.avatar"></div>
+                      <span class="text-xs text-zinc-400 dark:text-zinc-500" x-text="card.date"></span>
                     </div>
 
                     <!-- Move dropdown -->
                     <div class="relative" x-data="{ open: false }">
                       <button @click="open = !open"
-                        class="w-6 h-6 rounded-md flex items-center justify-center text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 transition-colors">
+                        class="w-6 h-6 rounded-md flex items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 transition-colors">
                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01"/></svg>
                       </button>
                       <div x-show="open" @click.outside="open = false" x-cloak
-                        class="absolute right-0 top-8 z-20 w-40 bg-white border border-zinc-200 rounded-lg shadow-lg py-1">
-                        <p class="text-xs font-medium text-zinc-400 px-3 py-1">Mover a</p>
+                        class="absolute right-0 top-8 z-20 w-40 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-lg py-1">
+                        <p class="text-xs font-medium text-zinc-400 dark:text-zinc-500 px-3 py-1">Mover a</p>
                         <template x-for="(targetCol, targetIndex) in columns" :key="targetCol.id">
                           <button x-show="targetIndex !== colIndex"
                             @click="moveCard(card.id, colIndex, targetIndex); open = false"
-                            class="w-full text-left text-sm text-zinc-700 hover:bg-zinc-50 px-3 py-1.5"
+                            class="w-full text-left text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-zinc-800 px-3 py-1.5"
                             x-text="targetCol.name"></button>
                         </template>
                       </div>
@@ -94,7 +94,7 @@
             <!-- Add button -->
             <div class="px-3 pb-3">
               <button @click="openAddModal(colIndex)"
-                class="w-full text-sm text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 rounded-lg py-2 transition-colors flex items-center justify-center gap-1">
+                class="w-full text-sm text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 rounded-lg py-2 transition-colors flex items-center justify-center gap-1">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
                 Agregar card
               </button>
@@ -109,9 +109,9 @@
           class="fixed inset-0 z-50 flex items-center justify-center p-4"
           @keydown.escape.window="showAddModal = false">
           <div class="absolute inset-0 bg-black/40" @click="showAddModal = false"></div>
-          <div class="relative bg-white rounded-xl shadow-xl border border-zinc-200 w-full max-w-md p-6 space-y-4"
+          <div class="relative bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-zinc-200 dark:border-zinc-800 w-full max-w-md p-6 space-y-4"
             @click.stop>
-            <h3 class="text-lg font-semibold text-zinc-900">Nueva card</h3>
+            <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Nueva card</h3>
 
             <div class="space-y-3">
               <div>

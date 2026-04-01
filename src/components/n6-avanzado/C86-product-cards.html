@@ -7,28 +7,28 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C86 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Product Cards</h1>
-      <p class="text-sm text-zinc-600 mt-1">Cards de producto e-commerce con favoritos, ratings y variantes de layout.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C86 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Product Cards</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Cards de producto e-commerce con favoritos, ratings y variantes de layout.</p>
     </header>
 
     <!-- Variante 1: Card vertical -->
-    <section class="space-y-4" x-data="productCards()">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Card vertical</h2>
+    <section class="relative space-y-4" x-data="productCards()">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Card vertical</h2>
 
       <div class="max-w-xs">
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200 overflow-hidden">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200 overflow-hidden">
           <div class="relative">
-            <div class="bg-zinc-100 aspect-square rounded-t-lg flex items-center justify-center">
+            <div class="bg-zinc-100 dark:bg-zinc-800 aspect-square rounded-t-lg flex items-center justify-center">
               <svg class="w-16 h-16 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
               </svg>
             </div>
             <span class="badge-blue absolute top-3 left-3">Nuevo</span>
             <button @click="toggleFavorite(products[0].id)"
-              class="absolute top-3 right-3 w-8 h-8 bg-white rounded-full shadow-sm flex items-center justify-center hover:scale-110 transition-all duration-150">
+              class="absolute top-3 right-3 w-8 h-8 bg-white dark:bg-zinc-900 rounded-full shadow-sm flex items-center justify-center hover:scale-110 transition-all duration-150">
               <svg class="w-5 h-5 transition-colors duration-150"
                 :class="products[0].favorite ? 'text-rose-500 fill-rose-500' : 'text-zinc-400'"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -37,7 +37,7 @@
             </button>
           </div>
           <div class="p-4 space-y-2">
-            <h3 class="text-sm font-medium text-zinc-900" x-text="products[0].name"></h3>
+            <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="products[0].name"></h3>
             <div class="flex items-center gap-1">
               <template x-for="star in 5" :key="star">
                 <svg class="w-4 h-4" :class="star <= Math.round(products[0].rating) ? 'text-amber-400 fill-amber-400' : 'text-zinc-200 fill-zinc-200'" viewBox="0 0 20 20" fill="currentColor">
@@ -46,7 +46,7 @@
               </template>
               <span class="text-xs text-zinc-500 ml-1" x-text="products[0].rating"></span>
             </div>
-            <p class="text-lg font-semibold text-zinc-900" x-text="'$' + products[0].price.toFixed(2)"></p>
+            <p class="text-lg font-semibold text-zinc-900 dark:text-zinc-100" x-text="'$' + products[0].price.toFixed(2)"></p>
             <button class="btn-primary w-full mt-2">Agregar al carrito</button>
           </div>
         </div>
@@ -54,11 +54,11 @@
     </section>
 
     <!-- Variante 2: Card horizontal -->
-    <section class="space-y-4" x-data="productCards()">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Card horizontal</h2>
+    <section class="relative space-y-4" x-data="productCards()">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Card horizontal</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200 overflow-hidden flex">
-        <div class="bg-zinc-100 w-48 shrink-0 flex items-center justify-center">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200 overflow-hidden flex">
+        <div class="bg-zinc-100 dark:bg-zinc-800 w-48 shrink-0 flex items-center justify-center">
           <svg class="w-12 h-12 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
           </svg>
@@ -66,7 +66,7 @@
         <div class="p-4 flex flex-col justify-between flex-1">
           <div class="space-y-1">
             <div class="flex items-center justify-between">
-              <h3 class="text-sm font-medium text-zinc-900" x-text="products[1].name"></h3>
+              <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="products[1].name"></h3>
               <span class="badge-amber">Oferta -20%</span>
             </div>
             <div class="flex items-center gap-1">
@@ -81,12 +81,12 @@
           </div>
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center gap-2">
-              <span class="text-lg font-semibold text-zinc-900" x-text="'$' + products[1].price.toFixed(2)"></span>
-              <span class="text-sm text-zinc-400 line-through" x-text="'$' + (products[1].price * 1.25).toFixed(2)"></span>
+              <span class="text-lg font-semibold text-zinc-900 dark:text-zinc-100" x-text="'$' + products[1].price.toFixed(2)"></span>
+              <span class="text-sm text-zinc-400 dark:text-zinc-500 line-through" x-text="'$' + (products[1].price * 1.25).toFixed(2)"></span>
             </div>
             <div class="flex items-center gap-2">
               <button @click="toggleFavorite(products[1].id)"
-                class="w-8 h-8 border border-zinc-200 rounded-lg flex items-center justify-center hover:bg-zinc-50 transition-colors duration-150">
+                class="w-8 h-8 border border-zinc-200 dark:border-zinc-800 rounded-lg flex items-center justify-center hover:bg-zinc-50 dark:bg-zinc-800 transition-colors duration-150">
                 <svg class="w-4 h-4 transition-colors duration-150"
                   :class="products[1].favorite ? 'text-rose-500 fill-rose-500' : 'text-zinc-400'"
                   fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -101,14 +101,14 @@
     </section>
 
     <!-- Variante 3: Grid de 4 cards -->
-    <section class="space-y-4" x-data="productCards()">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Grid de 4 cards</h2>
+    <section class="relative space-y-4" x-data="productCards()">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 3 — Grid de 4 cards</h2>
 
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <template x-for="product in products" :key="product.id">
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200 overflow-hidden">
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200 overflow-hidden">
             <div class="relative">
-              <div class="bg-zinc-100 aspect-square flex items-center justify-center">
+              <div class="bg-zinc-100 dark:bg-zinc-800 aspect-square flex items-center justify-center">
                 <svg class="w-12 h-12 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
                 </svg>
@@ -117,7 +117,7 @@
                 :class="product.badge === 'Nuevo' ? 'badge-blue' : 'badge-amber'"
                 class="absolute top-2 left-2"></span>
               <button @click="toggleFavorite(product.id)"
-                class="absolute top-2 right-2 w-7 h-7 bg-white rounded-full shadow-sm flex items-center justify-center hover:scale-110 transition-all duration-150">
+                class="absolute top-2 right-2 w-7 h-7 bg-white dark:bg-zinc-900 rounded-full shadow-sm flex items-center justify-center hover:scale-110 transition-all duration-150">
                 <svg class="w-4 h-4 transition-colors duration-150"
                   :class="product.favorite ? 'text-rose-500 fill-rose-500' : 'text-zinc-400'"
                   fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -126,7 +126,7 @@
               </button>
             </div>
             <div class="p-3 space-y-1.5">
-              <h3 class="text-sm font-medium text-zinc-900 truncate" x-text="product.name"></h3>
+              <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate" x-text="product.name"></h3>
               <div class="flex items-center gap-0.5">
                 <template x-for="star in 5" :key="star">
                   <svg class="w-3.5 h-3.5" :class="star <= Math.round(product.rating) ? 'text-amber-400 fill-amber-400' : 'text-zinc-200 fill-zinc-200'" viewBox="0 0 20 20" fill="currentColor">
@@ -136,8 +136,8 @@
                 <span class="text-xs text-zinc-500 ml-1" x-text="product.rating"></span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-base font-semibold text-zinc-900" x-text="'$' + product.price.toFixed(2)"></span>
-                <span x-show="product.oldPrice" class="text-xs text-zinc-400 line-through" x-text="product.oldPrice ? '$' + product.oldPrice.toFixed(2) : ''"></span>
+                <span class="text-base font-semibold text-zinc-900 dark:text-zinc-100" x-text="'$' + product.price.toFixed(2)"></span>
+                <span x-show="product.oldPrice" class="text-xs text-zinc-400 dark:text-zinc-500 line-through" x-text="product.oldPrice ? '$' + product.oldPrice.toFixed(2) : ''"></span>
               </div>
               <button class="btn-primary btn-sm w-full mt-1">Agregar al carrito</button>
             </div>

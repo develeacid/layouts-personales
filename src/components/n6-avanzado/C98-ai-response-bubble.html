@@ -7,36 +7,36 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C98 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">AI Response Bubble</h1>
-      <p class="text-sm text-zinc-600 mt-1">Variantes de output de respuesta de inteligencia artificial.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C98 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">AI Response Bubble</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Variantes de output de respuesta de inteligencia artificial.</p>
     </header>
 
     <!-- Variante 1: Respuesta estatica -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Variante 1 — Respuesta estatica</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Variante 1 — Respuesta estatica</h2>
       <div class="max-w-2xl" x-data="{ copied: false }">
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-5">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-5">
           <!-- Header -->
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
               <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
             </div>
             <div>
-              <p class="text-sm font-semibold text-zinc-900">Asistente AI</p>
-              <p class="text-xs text-zinc-400">Hace 2 minutos</p>
+              <p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Asistente AI</p>
+              <p class="text-xs text-zinc-400 dark:text-zinc-500">Hace 2 minutos</p>
             </div>
           </div>
 
           <!-- Content -->
-          <div class="prose-sm text-sm text-zinc-700 space-y-3">
+          <div class="prose-sm text-sm text-zinc-600 dark:text-zinc-400 space-y-3">
             <p>Para implementar un sistema de autenticacion robusto en tu aplicacion, te recomiendo seguir estos pasos:</p>
-            <ol class="list-decimal list-inside space-y-1.5 text-sm text-zinc-700">
-              <li><strong class="text-zinc-900">Configura el proveedor OAuth</strong> — Registra tu aplicacion en Google Cloud Console y obtiene las credenciales.</li>
-              <li><strong class="text-zinc-900">Instala las dependencias</strong> — Necesitaras <code class="text-sm bg-zinc-100 px-1.5 py-0.5 rounded font-mono">passport</code> y <code class="text-sm bg-zinc-100 px-1.5 py-0.5 rounded font-mono">passport-google-oauth20</code>.</li>
-              <li><strong class="text-zinc-900">Implementa el middleware</strong> — Configura las rutas de callback y el manejo de sesiones.</li>
+            <ol class="list-decimal list-inside space-y-1.5 text-sm text-zinc-600 dark:text-zinc-400">
+              <li><strong class="text-zinc-900 dark:text-zinc-100">Configura el proveedor OAuth</strong> — Registra tu aplicacion en Google Cloud Console y obtiene las credenciales.</li>
+              <li><strong class="text-zinc-900 dark:text-zinc-100">Instala las dependencias</strong> — Necesitaras <code class="text-sm bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">passport</code> y <code class="text-sm bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">passport-google-oauth20</code>.</li>
+              <li><strong class="text-zinc-900 dark:text-zinc-100">Implementa el middleware</strong> — Configura las rutas de callback y el manejo de sesiones.</li>
             </ol>
             <p>Aqui tienes un ejemplo basico:</p>
             <div class="bg-zinc-900 rounded-lg p-4 overflow-x-auto">
@@ -52,7 +52,7 @@ passport.use(new GoogleStrategy({
 }));</code></pre>
             </div>
             <p>Esto te dara una base solida. Luego puedes agregar:</p>
-            <ul class="list-disc list-inside space-y-1 text-sm text-zinc-700">
+            <ul class="list-disc list-inside space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
               <li>Refresh tokens para mantener la sesion</li>
               <li>Rate limiting para prevenir abusos</li>
               <li>Logging de intentos de autenticacion</li>
@@ -85,23 +85,23 @@ passport.use(new GoogleStrategy({
     </section>
 
     <!-- Variante 2: Streaming simulado -->
-    <section class="space-y-4" x-data="aiResponse()">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Variante 2 — Respuesta con streaming</h2>
+    <section class="relative space-y-4" x-data="aiResponse()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Variante 2 — Respuesta con streaming</h2>
       <div class="max-w-2xl space-y-3">
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-5">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-5">
           <!-- Header -->
           <div class="flex items-center gap-3 mb-4">
             <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
               <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
             </div>
             <div>
-              <p class="text-sm font-semibold text-zinc-900">Asistente AI</p>
-              <p class="text-xs text-zinc-400">Ahora</p>
+              <p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Asistente AI</p>
+              <p class="text-xs text-zinc-400 dark:text-zinc-500">Ahora</p>
             </div>
           </div>
 
           <!-- Streaming text -->
-          <div class="text-sm text-zinc-700 leading-relaxed whitespace-pre-wrap">
+          <div class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed whitespace-pre-wrap">
             <span x-text="currentText"></span><span x-show="isStreaming" class="cursor-blink inline-block w-0.5 h-4 bg-zinc-900 ml-0.5 align-text-bottom"></span>
           </div>
 
@@ -128,9 +128,9 @@ passport.use(new GoogleStrategy({
     </section>
 
     <!-- Variante 3: Conversacion completa -->
-    <section class="space-y-4" x-data="aiResponse()">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Variante 3 — Conversacion completa</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden max-w-2xl" style="height: 560px;">
+    <section class="relative space-y-4" x-data="aiResponse()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Variante 3 — Conversacion completa</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden max-w-2xl" style="height: 560px;">
         <div class="flex flex-col h-full">
           <!-- Messages area -->
           <div class="flex-1 overflow-y-auto p-4 space-y-4" x-ref="convoArea">
@@ -139,10 +139,10 @@ passport.use(new GoogleStrategy({
                 <!-- User message (right, blue) -->
                 <div x-show="msg.role === 'user'" class="flex justify-end">
                   <div class="max-w-sm">
-                    <div class="bg-blue-600 text-white rounded-2xl rounded-br-md px-4 py-3">
+                    <div class="bg-blue-600 text-white rounded-xl rounded-br-md px-4 py-3">
                       <p class="text-sm leading-relaxed" x-text="msg.text"></p>
                     </div>
-                    <p class="text-xs text-zinc-400 text-right mt-1" x-text="msg.time"></p>
+                    <p class="text-xs text-zinc-400 dark:text-zinc-500 text-right mt-1" x-text="msg.time"></p>
                   </div>
                 </div>
 
@@ -155,11 +155,11 @@ passport.use(new GoogleStrategy({
                       </div>
                       <span class="text-xs font-medium text-zinc-500">Asistente AI</span>
                     </div>
-                    <div class="bg-zinc-100 rounded-2xl rounded-bl-md px-4 py-3">
-                      <p class="text-sm text-zinc-700 leading-relaxed whitespace-pre-wrap" x-text="msg.text"></p>
+                    <div class="bg-zinc-100 dark:bg-zinc-800 rounded-xl rounded-bl-md px-4 py-3">
+                      <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed whitespace-pre-wrap" x-text="msg.text"></p>
                     </div>
                     <div class="flex items-center gap-1 mt-1">
-                      <span class="text-xs text-zinc-400" x-text="msg.time"></span>
+                      <span class="text-xs text-zinc-400 dark:text-zinc-500" x-text="msg.time"></span>
                       <button @click="copyResponse(msg.text)" class="btn-ghost btn-sm ml-1 opacity-0 group-hover:opacity-100">
                         <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                       </button>
@@ -171,7 +171,7 @@ passport.use(new GoogleStrategy({
           </div>
 
           <!-- Input -->
-          <div class="px-4 py-3 border-t border-zinc-200 shrink-0">
+          <div class="px-4 py-3 border-t border-zinc-200 dark:border-zinc-800 shrink-0">
             <div class="flex items-end gap-2">
               <textarea x-model="convoInput" @keydown.enter.prevent="sendConvoMessage()"
                 rows="1" class="input flex-1 resize-none" placeholder="Escribe un mensaje..."></textarea>

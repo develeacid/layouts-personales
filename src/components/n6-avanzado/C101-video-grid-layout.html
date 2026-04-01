@@ -7,17 +7,17 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C101 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Video Grid Layout</h1>
-      <p class="text-sm text-zinc-600 mt-1">Grid de tiles de video para videollamada con multiples layouts.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C101 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Video Grid Layout</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Grid de tiles de video para videollamada con multiples layouts.</p>
     </header>
 
-    <section class="space-y-6" x-data="videoGridLayout()">
+    <section class="relative space-y-6" x-data="videoGridLayout()">
       <!-- Selector de layout -->
       <div class="flex items-center gap-2 flex-wrap">
-        <span class="text-sm font-medium text-zinc-700">Layout:</span>
+        <span class="text-sm font-medium text-zinc-600 dark:text-zinc-400">Layout:</span>
         <template x-for="l in ['speaker', '2', '4', '6', '9', 'sharing']" :key="l">
           <button @click="setLayout(l)"
             :class="layout === l ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-700 border border-zinc-200 hover:bg-zinc-50'"
@@ -29,8 +29,8 @@
 
       <!-- Variante 1: Speaker view -->
       <div x-show="layout === 'speaker'" class="space-y-3">
-        <h2 class="text-sm font-medium text-zinc-900">Speaker View</h2>
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4 space-y-3">
+        <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Speaker View</h2>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-4 space-y-3">
           <!-- Main speaker -->
           <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden cursor-pointer"
             :class="{ 'ring-2 ring-emerald-400': participants[speakerIndex].speaking }">
@@ -88,8 +88,8 @@
 
       <!-- Variante 2: Grid de 2 participantes -->
       <div x-show="layout === '2'" class="space-y-3">
-        <h2 class="text-sm font-medium text-zinc-900">2 Participantes</h2>
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+        <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">2 Participantes</h2>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-4">
           <div class="grid grid-cols-2 gap-2">
             <template x-for="(p, i) in participants.slice(0, 2)" :key="i">
               <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden"
@@ -119,8 +119,8 @@
 
       <!-- Variante 3: Grid de 4 participantes (2x2) -->
       <div x-show="layout === '4'" class="space-y-3">
-        <h2 class="text-sm font-medium text-zinc-900">4 Participantes (2x2)</h2>
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+        <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">4 Participantes (2x2)</h2>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-4">
           <div class="grid grid-cols-2 gap-2">
             <template x-for="(p, i) in participants.slice(0, 4)" :key="i">
               <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden"
@@ -150,8 +150,8 @@
 
       <!-- Variante 4: Grid de 6 participantes (3x2) -->
       <div x-show="layout === '6'" class="space-y-3">
-        <h2 class="text-sm font-medium text-zinc-900">6 Participantes (3x2)</h2>
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+        <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">6 Participantes (3x2)</h2>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-4">
           <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
             <template x-for="(p, i) in participants.slice(0, 6)" :key="i">
               <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden"
@@ -181,8 +181,8 @@
 
       <!-- Variante 5: Grid de 9 participantes (3x3) -->
       <div x-show="layout === '9'" class="space-y-3">
-        <h2 class="text-sm font-medium text-zinc-900">9 Participantes (3x3)</h2>
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+        <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">9 Participantes (3x3)</h2>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-4">
           <div class="grid grid-cols-3 gap-2">
             <template x-for="(p, i) in participants" :key="i">
               <div class="relative aspect-video bg-zinc-800 rounded-lg overflow-hidden"
@@ -212,8 +212,8 @@
 
       <!-- Variante 6: Grid con pantalla compartida -->
       <div x-show="layout === 'sharing'" class="space-y-3">
-        <h2 class="text-sm font-medium text-zinc-900">Pantalla Compartida</h2>
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4">
+        <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Pantalla Compartida</h2>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-4">
           <div class="flex gap-3">
             <!-- Pantalla compartida grande -->
             <div class="flex-1 min-w-0">
@@ -221,7 +221,7 @@
                 <div class="absolute inset-0 flex items-center justify-center bg-zinc-900">
                   <div class="text-center">
                     <svg class="w-12 h-12 text-zinc-500 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" /></svg>
-                    <p class="text-sm text-zinc-400">Contenido compartido</p>
+                    <p class="text-sm text-zinc-400 dark:text-zinc-500">Contenido compartido</p>
                   </div>
                 </div>
                 <!-- Badge compartiendo -->

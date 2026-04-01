@@ -7,22 +7,22 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C90 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Promotional Sections</h1>
-      <p class="text-sm text-zinc-600 mt-1">Banners de oferta con countdown timer reactivo.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C90 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Promotional Sections</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Banners de oferta con countdown timer reactivo.</p>
     </header>
 
     <!-- Variante 1: Banner hero con countdown -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Banner hero con countdown</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Banner hero con countdown</h2>
 
       <div x-data="promotionalSection()" class="bg-zinc-900 text-white rounded-xl p-8 md:p-12 overflow-hidden relative">
         <div class="relative z-10 text-center space-y-6">
           <span class="inline-block text-xs font-semibold uppercase tracking-widest text-amber-400">Oferta por tiempo limitado</span>
           <h2 class="text-3xl md:text-5xl font-bold tracking-tight">Hasta 50% de descuento</h2>
-          <p class="text-zinc-400 text-sm md:text-base max-w-lg mx-auto">En toda nuestra coleccion de audio premium. No dejes pasar esta oportunidad unica.</p>
+          <p class="text-zinc-400 dark:text-zinc-500 text-sm md:text-base max-w-lg mx-auto">En toda nuestra coleccion de audio premium. No dejes pasar esta oportunidad unica.</p>
 
           <!-- Countdown -->
           <div class="flex items-center justify-center gap-4 md:gap-6">
@@ -60,8 +60,8 @@
     </section>
 
     <!-- Variante 2: Banner compacto horizontal -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Banner compacto horizontal</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Banner compacto horizontal</h2>
 
       <div x-data="promotionalSection()" class="bg-blue-600 text-white rounded-xl px-6 py-4 flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center gap-3">
@@ -74,7 +74,7 @@
           <div class="flex items-center gap-2 text-sm font-mono">
             <span x-text="String(hours).padStart(2, '0')"></span>:<span x-text="String(minutes).padStart(2, '0')"></span>:<span x-text="String(seconds).padStart(2, '0')"></span>
           </div>
-          <button class="bg-white text-blue-600 hover:bg-blue-50 px-4 py-1.5 text-sm font-semibold rounded-lg transition-colors duration-150">
+          <button class="bg-white dark:bg-zinc-900 text-blue-600 hover:bg-blue-50 dark:bg-blue-950 px-4 py-1.5 text-sm font-semibold rounded-lg transition-colors duration-150">
             Ver ofertas
           </button>
         </div>
@@ -91,7 +91,7 @@
           <div class="flex items-center gap-2 text-sm font-mono">
             <span x-text="String(hours).padStart(2, '0')"></span>:<span x-text="String(minutes).padStart(2, '0')"></span>:<span x-text="String(seconds).padStart(2, '0')"></span>
           </div>
-          <button class="bg-white text-amber-600 hover:bg-amber-50 px-4 py-1.5 text-sm font-semibold rounded-lg transition-colors duration-150">
+          <button class="bg-white dark:bg-zinc-900 text-amber-600 hover:bg-amber-50 dark:bg-amber-950 px-4 py-1.5 text-sm font-semibold rounded-lg transition-colors duration-150">
             Comprar
           </button>
         </div>
@@ -99,12 +99,12 @@
     </section>
 
     <!-- Variante 3: Card de oferta especial -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Card de oferta especial</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 3 — Card de oferta especial</h2>
 
-      <div x-data="promotionalSection()" class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden max-w-sm">
+      <div x-data="promotionalSection()" class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden max-w-sm">
         <div class="relative">
-          <div class="bg-zinc-100 aspect-square flex items-center justify-center">
+          <div class="bg-zinc-100 dark:bg-zinc-800 aspect-square flex items-center justify-center">
             <svg class="w-20 h-20 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
               <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
             </svg>
@@ -115,10 +115,10 @@
           </div>
         </div>
         <div class="p-5 space-y-3">
-          <h3 class="text-base font-semibold text-zinc-900">Auriculares Premium Pro</h3>
+          <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">Auriculares Premium Pro</h3>
           <div class="flex items-baseline gap-2">
-            <span class="text-xl font-bold text-zinc-900">$89.99</span>
-            <span class="text-sm text-zinc-400 line-through">$149.99</span>
+            <span class="text-xl font-bold text-zinc-900 dark:text-zinc-100">$89.99</span>
+            <span class="text-sm text-zinc-400 dark:text-zinc-500 line-through">$149.99</span>
           </div>
           <!-- Countdown compacto -->
           <div class="flex items-center gap-2 text-xs text-zinc-500">
@@ -126,7 +126,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <span>Termina en:</span>
-            <span class="font-mono font-medium text-zinc-900" x-text="String(days).padStart(2, '0') + 'd ' + String(hours).padStart(2, '0') + 'h ' + String(minutes).padStart(2, '0') + 'm ' + String(seconds).padStart(2, '0') + 's'"></span>
+            <span class="font-mono font-medium text-zinc-900 dark:text-zinc-100" x-text="String(days).padStart(2, '0') + 'd ' + String(hours).padStart(2, '0') + 'h ' + String(minutes).padStart(2, '0') + 'm ' + String(seconds).padStart(2, '0') + 's'"></span>
           </div>
           <button class="btn-primary w-full">Comprar ahora</button>
         </div>

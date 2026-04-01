@@ -7,21 +7,21 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-6xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C95 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Calendario Interactivo</h1>
-      <p class="text-sm text-zinc-600 mt-1">Calendario con vistas mes, semana y dia.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C95 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Calendario Interactivo</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Calendario con vistas mes, semana y dia.</p>
     </header>
 
-    <section x-data="interactiveCalendar()" class="space-y-6">
+    <section x-data="interactiveCalendar()" class="relative space-y-6">
       <!-- Header nav -->
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div class="flex items-center gap-3">
           <button @click="prevPeriod()" class="btn-ghost btn-sm">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
           </button>
-          <h2 class="text-lg font-semibold text-zinc-900 min-w-48 text-center" x-text="headerTitle"></h2>
+          <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 min-w-48 text-center" x-text="headerTitle"></h2>
           <button @click="nextPeriod()" class="btn-ghost btn-sm">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
           </button>
@@ -29,7 +29,7 @@
         </div>
 
         <!-- View selector pills -->
-        <div class="flex bg-zinc-100 rounded-lg p-1 gap-0.5">
+        <div class="flex bg-zinc-100 dark:bg-zinc-800 rounded-lg p-1 gap-0.5">
           <button @click="view = 'month'" class="text-sm font-medium px-3 py-1.5 rounded-md transition-colors"
             :class="view === 'month' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'">Mes</button>
           <button @click="view = 'week'" class="text-sm font-medium px-3 py-1.5 rounded-md transition-colors"
@@ -42,9 +42,9 @@
       <!-- Month View -->
       <div x-show="view === 'month'" class="flex gap-6">
         <div class="flex-1">
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden">
             <!-- Weekday headers -->
-            <div class="grid grid-cols-7 border-b border-zinc-200">
+            <div class="grid grid-cols-7 border-b border-zinc-200 dark:border-zinc-800">
               <template x-for="day in ['Lun','Mar','Mie','Jue','Vie','Sab','Dom']">
                 <div class="text-xs font-medium text-zinc-500 text-center py-2" x-text="day"></div>
               </template>
@@ -53,15 +53,15 @@
             <div class="grid grid-cols-7">
               <template x-for="(cell, i) in calendarDays" :key="i">
                 <div @click="cell.day ? selectDate(cell.fullDate) : null"
-                  class="min-h-24 border-b border-r border-zinc-100 p-1.5 cursor-pointer transition-colors hover:bg-zinc-50"
+                  class="min-h-24 border-b border-r border-zinc-100 p-1.5 cursor-pointer transition-colors hover:bg-zinc-50 dark:bg-zinc-800"
                   :class="{
-                    'bg-blue-50': cell.fullDate === selectedDate,
+                    'bg-blue-50 dark:bg-blue-950': cell.fullDate === selectedDate,
                     'bg-zinc-50/50': !cell.currentMonth
                   }">
                   <span class="text-xs font-medium inline-flex items-center justify-center w-6 h-6 rounded-full"
                     :class="{
                       'bg-blue-600 text-white': cell.isToday,
-                      'text-zinc-900': cell.currentMonth && !cell.isToday,
+                      'text-zinc-900 dark:text-zinc-100': cell.currentMonth && !cell.isToday,
                       'text-zinc-300': !cell.currentMonth
                     }"
                     x-text="cell.day"></span>
@@ -80,19 +80,19 @@
 
         <!-- Side panel: selected day events -->
         <div x-show="selectedDate" class="w-72 shrink-0 hidden lg:block">
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-4 space-y-3">
-            <h3 class="text-sm font-semibold text-zinc-900" x-text="formatSelectedDate()"></h3>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-4 space-y-3">
+            <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="formatSelectedDate()"></h3>
             <template x-for="ev in getEventsForDate(selectedDate)" :key="ev.id">
               <div class="flex items-start gap-3 py-2 border-t border-zinc-100">
                 <div class="w-2 h-2 rounded-full mt-1.5 shrink-0" :class="ev.dotClass"></div>
                 <div>
-                  <p class="text-sm font-medium text-zinc-900" x-text="ev.title"></p>
+                  <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="ev.title"></p>
                   <p class="text-xs text-zinc-500" x-text="ev.time"></p>
                   <span class="text-xs font-medium mt-1 inline-block" :class="ev.colorClass" x-text="ev.type"></span>
                 </div>
               </div>
             </template>
-            <p x-show="getEventsForDate(selectedDate).length === 0" class="text-sm text-zinc-400">Sin eventos</p>
+            <p x-show="getEventsForDate(selectedDate).length === 0" class="text-sm text-zinc-400 dark:text-zinc-500">Sin eventos</p>
             <button @click="openEventModal()" class="btn-primary btn-sm w-full mt-2">Agregar evento</button>
           </div>
         </div>
@@ -100,9 +100,9 @@
 
       <!-- Week View -->
       <div x-show="view === 'week'">
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden overflow-x-auto">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden overflow-x-auto">
           <!-- Week headers -->
-          <div class="grid grid-cols-8 border-b border-zinc-200">
+          <div class="grid grid-cols-8 border-b border-zinc-200 dark:border-zinc-800">
             <div class="p-2 border-r border-zinc-100"></div>
             <template x-for="wd in weekDays" :key="wd.date">
               <div class="p-2 text-center border-r border-zinc-100"
@@ -116,7 +116,7 @@
           <template x-for="hour in dayHours" :key="hour">
             <div class="grid grid-cols-8 border-b border-zinc-100 min-h-14">
               <div class="p-1 pr-2 text-right border-r border-zinc-100">
-                <span class="text-xs text-zinc-400" x-text="hour + ':00'"></span>
+                <span class="text-xs text-zinc-400 dark:text-zinc-500" x-text="hour + ':00'"></span>
               </div>
               <template x-for="wd in weekDays" :key="wd.date">
                 <div class="border-r border-zinc-100 p-0.5 relative"
@@ -136,15 +136,15 @@
 
       <!-- Day View -->
       <div x-show="view === 'day'">
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden max-w-2xl mx-auto">
-          <div class="p-4 border-b border-zinc-200 text-center">
-            <p class="text-sm font-semibold text-zinc-900" x-text="formatSelectedDate()"></p>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden max-w-2xl mx-auto">
+          <div class="p-4 border-b border-zinc-200 dark:border-zinc-800 text-center">
+            <p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="formatSelectedDate()"></p>
           </div>
           <template x-for="hour in dayHours" :key="hour">
             <div class="flex border-b border-zinc-100 min-h-16"
               @click="newEvent.startHour = hour; openEventModal()">
               <div class="w-20 shrink-0 p-2 text-right border-r border-zinc-100">
-                <span class="text-xs text-zinc-400" x-text="hour + ':00'"></span>
+                <span class="text-xs text-zinc-400 dark:text-zinc-500" x-text="hour + ':00'"></span>
               </div>
               <div class="flex-1 p-1 space-y-1">
                 <template x-for="ev in getEventsForDateAndHour(selectedDate, hour)" :key="ev.id">
@@ -165,8 +165,8 @@
           class="fixed inset-0 z-50 flex items-center justify-center p-4"
           @keydown.escape.window="showEventModal = false">
           <div class="absolute inset-0 bg-black/40" @click="showEventModal = false"></div>
-          <div class="relative bg-white rounded-xl shadow-xl border border-zinc-200 w-full max-w-md p-6 space-y-4" @click.stop>
-            <h3 class="text-lg font-semibold text-zinc-900">Nuevo evento</h3>
+          <div class="relative bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-zinc-200 dark:border-zinc-800 w-full max-w-md p-6 space-y-4" @click.stop>
+            <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Nuevo evento</h3>
             <div class="space-y-3">
               <div>
                 <label class="label">Titulo</label>

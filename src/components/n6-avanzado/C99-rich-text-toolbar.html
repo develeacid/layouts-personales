@@ -7,20 +7,20 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C99 · Nivel 6</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Rich Text Toolbar</h1>
-      <p class="text-sm text-zinc-600 mt-1">Barra de formato de texto enriquecido con editor visual y Markdown.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C99 · Nivel 6</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Rich Text Toolbar</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Barra de formato de texto enriquecido con editor visual y Markdown.</p>
     </header>
 
     <!-- Variante 1: Toolbar completa -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Toolbar completa</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Toolbar completa</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="richTextEditor()">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="richTextEditor()">
         <!-- Toolbar -->
-        <div class="flex items-center flex-wrap gap-1 border border-zinc-200 rounded-lg bg-zinc-50 p-1.5 mb-4">
+        <div class="flex items-center flex-wrap gap-1 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-zinc-50 dark:bg-zinc-800 p-1.5 mb-4">
           <!-- Formato texto -->
           <div class="flex items-center gap-0.5">
             <button type="button" @click="formatText('bold')" :class="{ 'bg-blue-100 text-blue-700': queryState('bold') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
@@ -46,15 +46,15 @@
 
           <!-- Headings -->
           <div class="flex items-center gap-0.5">
-            <button type="button" @click="formatBlock('h1')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 text-xs font-bold transition-colors">
+            <button type="button" @click="formatBlock('h1')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
               H1
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading 1</span>
             </button>
-            <button type="button" @click="formatBlock('h2')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 text-xs font-bold transition-colors">
+            <button type="button" @click="formatBlock('h2')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
               H2
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading 2</span>
             </button>
-            <button type="button" @click="formatBlock('h3')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 text-xs font-bold transition-colors">
+            <button type="button" @click="formatBlock('h3')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
               H3
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading 3</span>
             </button>
@@ -99,19 +99,19 @@
 
           <!-- Insertar -->
           <div class="flex items-center gap-0.5">
-            <button type="button" @click="insertLink()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="insertLink()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Link</span>
             </button>
-            <button type="button" @click="insertImage()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="insertImage()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V4.5a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v15a1.5 1.5 0 001.5 1.5z" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Imagen</span>
             </button>
-            <button type="button" @click="formatText('formatBlock', '<pre>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('formatBlock', '<pre>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25M6.75 17.25L1.5 12l5.25-5.25" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Codigo</span>
             </button>
-            <button type="button" @click="formatText('formatBlock', '<blockquote>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('formatBlock', '<blockquote>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Cita</span>
             </button>
@@ -123,7 +123,7 @@
           contenteditable="true"
           @mouseup="checkActiveStates()"
           @keyup="checkActiveStates()"
-          class="min-h-48 border border-zinc-200 rounded-lg p-4 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent prose prose-sm max-w-none"
+          class="min-h-48 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent prose prose-sm max-w-none"
         >
           <p>Selecciona texto y usa la barra de herramientas para darle formato. Prueba con <strong>negrita</strong>, <em>cursiva</em> y <u>subrayado</u>.</p>
         </div>
@@ -131,10 +131,10 @@
     </section>
 
     <!-- Variante 2: Toolbar compacta (bubble) -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Toolbar compacta (bubble)</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Toolbar compacta (bubble)</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="richTextEditor()">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="richTextEditor()">
         <div class="relative">
           <!-- Bubble toolbar -->
           <div x-show="showBubble" x-cloak
@@ -168,7 +168,7 @@
             @mouseup="handleBubbleSelection($event, $refs.editorBubble)"
             @keyup="showBubble = false"
             @blur="setTimeout(() => showBubble = false, 200)"
-            class="min-h-48 border border-zinc-200 rounded-lg p-4 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent prose prose-sm max-w-none"
+            class="min-h-48 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent prose prose-sm max-w-none"
           >
             <p>Selecciona cualquier texto de este editor para ver aparecer la barra de formato flotante. Prueba seleccionando esta frase para aplicar negrita, cursiva o insertar un enlace.</p>
             <p>Este editor usa una toolbar tipo "bubble" que aparece contextualmente sobre el texto seleccionado, similar a editores como Medium o Notion.</p>
@@ -178,41 +178,41 @@
     </section>
 
     <!-- Variante 3: Toolbar con preview Markdown -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Toolbar con preview Markdown</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 3 — Toolbar con preview Markdown</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="richTextEditor()">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="richTextEditor()">
         <!-- Mode toggle -->
         <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-1 border border-zinc-200 rounded-lg bg-zinc-50 p-1">
+          <div class="flex items-center gap-1 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-zinc-50 dark:bg-zinc-800 p-1">
             <!-- MD toolbar buttons -->
-            <button type="button" @click="insertMarkdown('heading')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 text-xs font-bold transition-colors">
+            <button type="button" @click="insertMarkdown('heading')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
               H
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading</span>
             </button>
-            <button type="button" @click="insertMarkdown('bold')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="insertMarkdown('bold')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Bold</span>
             </button>
-            <button type="button" @click="insertMarkdown('italic')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="insertMarkdown('italic')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 4h4m-2 0v16m-4 0h8" transform="skewX(-10)" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Italic</span>
             </button>
-            <button type="button" @click="insertMarkdown('link')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="insertMarkdown('link')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Link</span>
             </button>
-            <button type="button" @click="insertMarkdown('code')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="insertMarkdown('code')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25M6.75 17.25L1.5 12l5.25-5.25" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Codigo</span>
             </button>
-            <button type="button" @click="insertMarkdown('image')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="insertMarkdown('image')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V4.5a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v15a1.5 1.5 0 001.5 1.5z" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Imagen</span>
             </button>
           </div>
 
-          <div class="flex items-center border border-zinc-200 rounded-lg overflow-hidden">
+          <div class="flex items-center border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
             <button @click="mode = 'edit'" :class="mode === 'edit' ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-600 hover:bg-zinc-50'" class="px-3 py-1.5 text-xs font-medium transition-colors">Editar</button>
             <button @click="mode = 'preview'" :class="mode === 'preview' ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-600 hover:bg-zinc-50'" class="px-3 py-1.5 text-xs font-medium transition-colors">Preview</button>
           </div>
@@ -220,13 +220,13 @@
 
         <!-- Editor -->
         <div x-show="mode === 'edit'">
-          <textarea x-ref="mdEditor" x-model="content" class="w-full min-h-48 border border-zinc-200 rounded-lg p-4 text-sm text-zinc-800 font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y" placeholder="Escribe Markdown aqui...">
+          <textarea x-ref="mdEditor" x-model="content" class="w-full min-h-48 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 text-sm text-zinc-800 font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y" placeholder="Escribe Markdown aqui...">
           </textarea>
         </div>
 
         <!-- Preview -->
         <div x-show="mode === 'preview'" x-cloak>
-          <div class="min-h-48 border border-zinc-200 rounded-lg p-4 text-sm text-zinc-800 prose prose-sm max-w-none" x-html="renderedMarkdown"></div>
+          <div class="min-h-48 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 text-sm text-zinc-800 prose prose-sm max-w-none" x-html="renderedMarkdown"></div>
         </div>
       </div>
     </section>
