@@ -146,11 +146,17 @@
             </table>
           </div>
         </div>
+        <!-- Estado de vehículos -->
+        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Progreso del día</h3>
+          <div x-ref="chart" x-init="initChart()" class="w-full h-56"></div>
+        </div>
       </main>
     </div>
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function carServiceDashboard() {
       return {
@@ -168,6 +174,46 @@
           { time: '14:00', client: 'Ana Bermudez', service: 'Diagnostico general', confirmed: true },
           { time: '16:00', client: 'Diego Salazar', service: 'Cambio de bateria', confirmed: false }
         ],
+        _resizeHandler: null,
+        initChart() {
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          var completed = this.vehicles.filter(function(v) { return v.status === 'Listo'; }).length;
+          var total = this.vehicles.length;
+          var pct = Math.round((completed / total) * 100);
+          this.$refs.chart._ec.setOption({
+            series: [{
+              type: 'gauge',
+              center: ['50%', '60%'],
+              startAngle: 210,
+              endAngle: -30,
+              min: 0,
+              max: 100,
+              progress: { show: true, width: 18, roundCap: true, itemStyle: { color: '#10b981' } },
+              axisLine: { lineStyle: { width: 18, color: [[1, '#f4f4f5']] }, roundCap: true },
+              axisTick: { show: false },
+              splitLine: { show: false },
+              axisLabel: { show: false },
+              pointer: { show: false },
+              anchor: { show: false },
+              title: { show: false },
+              detail: {
+                valueAnimation: true,
+                fontSize: 22,
+                fontWeight: 'bold',
+                color: '#10b981',
+                offsetCenter: [0, 0],
+                formatter: function(v) { return v + '%\n{sub|' + completed + ' de ' + total + ' completados}'; },
+                rich: { sub: { fontSize: 11, color: '#71717a', lineHeight: 24 } }
+              },
+              data: [{ value: pct }]
+            }]
+          });
+        },
         vehicles: [
           { plate: 'ABC-123', model: 'Toyota Corolla 2023', service: 'Cambio de aceite y filtros', status: 'En reparacion', mechanic: 'Juan Perez' },
           { plate: 'DEF-456', model: 'Honda Civic 2022', service: 'Revision frenos', status: 'Diagnostico', mechanic: 'Miguel Torres' },
