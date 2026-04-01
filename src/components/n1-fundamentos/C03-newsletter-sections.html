@@ -8,37 +8,37 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C03 · Nivel 1</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Newsletter Sections</h1>
-      <p class="text-sm text-zinc-600 mt-1">Sección de suscripción. Input + botón, layout centrado.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C03 · Nivel 1</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Newsletter Sections</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Seccion de suscripcion. Input + boton, layout centrado.</p>
     </header>
 
     <!-- Variante 1: Centrada simple -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Centrada simple</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl p-10 text-center max-w-2xl mx-auto space-y-4">
-        <h3 class="text-xl font-semibold text-zinc-900">Suscríbete a nuestro newsletter</h3>
-        <p class="text-sm text-zinc-600">Recibe las últimas novedades y recursos directamente en tu inbox.</p>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Centrada simple</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-10 text-center max-w-2xl mx-auto space-y-4">
+        <h3 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100">Suscribete a nuestro newsletter</h3>
+        <p class="text-sm text-zinc-600 dark:text-zinc-400">Recibe las ultimas novedades y recursos directamente en tu inbox.</p>
         <form class="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
           <input class="input" type="email" placeholder="tu@email.com" />
           <button class="btn-primary shrink-0 w-full sm:w-auto">Suscribirme</button>
         </form>
-        <p class="text-xs text-zinc-400">Sin spam. Cancela cuando quieras.</p>
+        <p class="text-xs text-zinc-400 dark:text-zinc-500">Sin spam. Cancela cuando quieras.</p>
       </div>
     </section>
 
     <!-- Variante 2: Con fondo de color -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Con fondo accent</h2>
-      <div class="bg-blue-600 rounded-2xl p-10 text-center space-y-4">
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Con fondo accent</h2>
+      <div class="bg-blue-600 dark:bg-blue-700 rounded-xl p-10 text-center space-y-4">
         <h3 class="text-xl font-semibold text-white">No te pierdas nada</h3>
-        <p class="text-sm text-blue-100">Tips semanales sobre diseño de interfaces y desarrollo frontend.</p>
+        <p class="text-sm text-blue-100">Tips semanales sobre diseno de interfaces y desarrollo frontend.</p>
         <form class="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
-          <input class="w-full border border-blue-400 bg-blue-700 rounded-lg px-3 py-2 text-sm text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-150" type="email" placeholder="tu@email.com" />
-          <button class="shrink-0 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-white text-blue-600 hover:bg-blue-50 active:scale-95 transition-all duration-150 cursor-pointer">
+          <input class="input bg-blue-700 dark:bg-blue-800 border-blue-400 dark:border-blue-600 text-white placeholder-blue-300 focus:ring-2 focus:ring-white/20 focus:ring-offset-0 focus:border-white/40" type="email" placeholder="tu@email.com" />
+          <button class="shrink-0 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-white dark:bg-zinc-100 text-blue-600 hover:bg-blue-50 active:scale-95 transition-all duration-150 cursor-pointer">
             Suscribirme
           </button>
         </form>
@@ -46,17 +46,65 @@
     </section>
 
     <!-- Variante 3: Horizontal con texto a la izquierda -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Horizontal</h2>
-      <div class="bg-zinc-950 rounded-2xl px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Horizontal</h2>
+      <div class="bg-zinc-950 dark:bg-zinc-800 rounded-xl px-4 sm:px-8 py-6 sm:py-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <h3 class="text-lg font-semibold text-white">Mantente al día</h3>
+          <h3 class="text-lg font-semibold text-white">Mantente al dia</h3>
           <p class="text-sm text-zinc-400 mt-1">Novedades del producto cada dos semanas.</p>
         </div>
         <form class="flex items-center gap-3 w-full md:w-auto">
-          <input class="w-full md:w-64 border border-zinc-700 bg-zinc-800 rounded-lg px-3 py-2 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all duration-150" type="email" placeholder="tu@email.com" />
+          <input class="input w-full md:w-64 bg-zinc-800 dark:bg-zinc-700 border-zinc-700 dark:border-zinc-600 text-white placeholder-zinc-500 focus:ring-2 focus:ring-blue-200 focus:ring-offset-0 focus:border-blue-400" type="email" placeholder="tu@email.com" />
           <button class="btn-primary shrink-0">Unirme</button>
         </form>
+      </div>
+    </section>
+
+    <!-- Variante 4: Estilo footer integrada -->
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Estilo footer</h2>
+      <div class="border-t border-zinc-200 dark:border-zinc-800 px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div>
+          <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">Newsletter semanal</h3>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Recursos, tips y novedades directo a tu correo.</p>
+        </div>
+        <form class="flex items-center gap-3 w-full sm:w-auto">
+          <input class="input w-full sm:w-64" type="email" placeholder="tu@email.com" />
+          <button class="btn-primary shrink-0">Unirme</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Variante 5: Con testimonio -->
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Con testimonio</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-10 text-center max-w-2xl mx-auto space-y-6">
+        <div class="space-y-3">
+          <div class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 mx-auto flex items-center justify-center text-zinc-500 dark:text-zinc-400 text-sm font-semibold">MR</div>
+          <p class="text-sm italic text-zinc-600 dark:text-zinc-400 max-w-sm mx-auto">"El mejor newsletter de frontend que he leido. Cada edicion trae algo que puedo aplicar de inmediato."</p>
+          <p class="text-xs text-zinc-400 dark:text-zinc-500 font-medium">Maria Rodriguez — Desarrolladora Frontend</p>
+        </div>
+        <div class="border-t border-zinc-200 dark:border-zinc-800 pt-6 space-y-3">
+          <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Unete a +2,000 desarrolladores</h3>
+          <form class="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto">
+            <input class="input" type="email" placeholder="tu@email.com" />
+            <button class="btn-primary shrink-0 w-full sm:w-auto">Suscribirme</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Variante 6: Minimal inline -->
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Minimal inline</h2>
+      <div class="flex items-center justify-center gap-2 py-8">
+        <svg class="w-5 h-5 text-zinc-400 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+        </svg>
+        <p class="text-sm text-zinc-600 dark:text-zinc-400">Recibe novedades cada semana.</p>
+        <a href="#" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-150">
+          Suscribirse →
+        </a>
       </div>
     </section>
 
