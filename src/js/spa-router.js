@@ -113,13 +113,15 @@
         }
       });
 
-      // AHORA insertar HTML — las funciones ya están definidas
+      // Insertar HTML pausando MutationObserver de Alpine
       const container = document.createElement('div');
       container.className = 'h-full';
       container.innerHTML = parsed.html;
-      main.appendChild(container);
+      Alpine.mutateDom(() => {
+        main.appendChild(container);
+      });
 
-      // Inicializar Alpine en el nuevo contenido
+      // Inicializar Alpine manualmente (sin doble-init del MutationObserver)
       Alpine.initTree(container);
 
       // Inyectar botones de descarga si es componente N1-N6
