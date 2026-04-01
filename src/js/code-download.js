@@ -6,7 +6,7 @@ let _cssCache = null;
 async function getCssContent() {
   if (_cssCache) return _cssCache;
   try {
-    const res = await fetch('/public/css/main.css');
+    const res = await fetch('./public/css/main.css');
     if (res.ok) _cssCache = await res.text();
   } catch (e) {
     console.warn('No se pudo cargar CSS para descarga:', e);

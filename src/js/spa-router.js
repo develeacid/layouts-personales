@@ -38,7 +38,7 @@
       const src = s.getAttribute('src');
       if (src) {
         // Script externo — guardar CDN (excepto Alpine y scripts locales)
-        if (!src.includes('alpinejs') && !src.startsWith('/src/')) {
+        if (!src.includes('alpinejs') && !src.startsWith('./src/')) {
           cdns.push(src);
         }
       } else if (s.textContent.trim()) {
@@ -223,7 +223,7 @@
         activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
     } else {
-      loadRoute('/src/pages/welcome.html');
+      loadRoute('./src/pages/welcome.html');
     }
   }
 
