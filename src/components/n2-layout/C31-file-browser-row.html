@@ -8,92 +8,92 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C31 · Nivel 2</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">File Browser Row</h1>
-      <p class="text-sm text-zinc-600 mt-1">Fila de archivo: icono, nombre, meta, acciones.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C31 · Nivel 2</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">File Browser Row</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Fila de archivo: icono, nombre, meta, acciones.</p>
     </header>
 
     <!-- File browser -->
-    <section class="space-y-4">
+    <section class="relative space-y-4">
       <div class="flex items-center justify-between">
         <div>
-          <h2 class="text-base font-semibold text-zinc-900">Archivos del proyecto</h2>
-          <p class="text-xs text-zinc-400 mt-0.5">12 archivos · 248 MB</p>
+          <h2 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">Archivos del proyecto</h2>
+          <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">12 archivos · 248 MB</p>
         </div>
         <button class="btn-primary text-xs">Subir archivo</button>
       </div>
 
-      <div class="bg-white border border-zinc-200 rounded-xl divide-y divide-zinc-100">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl divide-y divide-zinc-100 dark:divide-zinc-800">
         <!-- Carpeta -->
-        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 transition-colors duration-150 cursor-pointer">
-          <div class="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center shrink-0">
+        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors duration-150 cursor-pointer">
+          <div class="w-9 h-9 bg-blue-50 dark:bg-blue-950 rounded-lg flex items-center justify-center shrink-0">
             <svg class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-zinc-900 truncate">src/components</p>
-            <p class="text-xs text-zinc-400">32 archivos</p>
+            <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">src/components</p>
+            <p class="text-xs text-zinc-400 dark:text-zinc-500">32 archivos</p>
           </div>
-          <span class="text-xs text-zinc-400 shrink-0">Hace 2h</span>
-          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150">
+          <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0">Hace 2h</span>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 hover:text-zinc-600 dark:text-zinc-400 transition-colors duration-150">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
           </button>
         </div>
         <!-- PDF -->
-        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 transition-colors duration-150 cursor-pointer">
-          <div class="w-9 h-9 bg-rose-50 rounded-lg flex items-center justify-center shrink-0">
+        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors duration-150 cursor-pointer">
+          <div class="w-9 h-9 bg-rose-50 dark:bg-rose-950 rounded-lg flex items-center justify-center shrink-0">
             <span class="text-xs font-bold text-rose-500">PDF</span>
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-zinc-900 truncate">branding-guidelines-v2.pdf</p>
-            <p class="text-xs text-zinc-400">4.2 MB</p>
+            <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">branding-guidelines-v2.pdf</p>
+            <p class="text-xs text-zinc-400 dark:text-zinc-500">4.2 MB</p>
           </div>
-          <span class="text-xs text-zinc-400 shrink-0">Mar 25</span>
-          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150">
+          <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0">Mar 25</span>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 hover:text-zinc-600 dark:text-zinc-400 transition-colors duration-150">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
           </button>
         </div>
         <!-- Imagen -->
-        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 transition-colors duration-150 cursor-pointer">
-          <div class="w-9 h-9 bg-violet-50 rounded-lg flex items-center justify-center shrink-0">
+        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors duration-150 cursor-pointer">
+          <div class="w-9 h-9 bg-violet-50 dark:bg-violet-950 rounded-lg flex items-center justify-center shrink-0">
             <span class="text-xs font-bold text-violet-500">PNG</span>
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-zinc-900 truncate">hero-screenshot-dashboard.png</p>
-            <p class="text-xs text-zinc-400">1.8 MB</p>
+            <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">hero-screenshot-dashboard.png</p>
+            <p class="text-xs text-zinc-400 dark:text-zinc-500">1.8 MB</p>
           </div>
-          <span class="text-xs text-zinc-400 shrink-0">Mar 24</span>
-          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150">
+          <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0">Mar 24</span>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 hover:text-zinc-600 dark:text-zinc-400 transition-colors duration-150">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
           </button>
         </div>
         <!-- JS -->
-        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 transition-colors duration-150 cursor-pointer">
-          <div class="w-9 h-9 bg-amber-50 rounded-lg flex items-center justify-center shrink-0">
+        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors duration-150 cursor-pointer">
+          <div class="w-9 h-9 bg-amber-50 dark:bg-amber-950 rounded-lg flex items-center justify-center shrink-0">
             <span class="text-xs font-bold text-amber-500">JS</span>
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-zinc-900 truncate">alpine-stores.js</p>
-            <p class="text-xs text-zinc-400">2.4 KB</p>
+            <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">alpine-stores.js</p>
+            <p class="text-xs text-zinc-400 dark:text-zinc-500">2.4 KB</p>
           </div>
-          <span class="text-xs text-zinc-400 shrink-0">Mar 22</span>
-          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150">
+          <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0">Mar 22</span>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 hover:text-zinc-600 dark:text-zinc-400 transition-colors duration-150">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
           </button>
         </div>
         <!-- CSS -->
-        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 transition-colors duration-150 cursor-pointer">
-          <div class="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center shrink-0">
+        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors duration-150 cursor-pointer">
+          <div class="w-9 h-9 bg-blue-50 dark:bg-blue-950 rounded-lg flex items-center justify-center shrink-0">
             <span class="text-xs font-bold text-blue-500">CSS</span>
           </div>
           <div class="flex-1 min-w-0">
-            <p class="text-sm font-medium text-zinc-900 truncate">main.css</p>
-            <p class="text-xs text-zinc-400">8.1 KB</p>
+            <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate">main.css</p>
+            <p class="text-xs text-zinc-400 dark:text-zinc-500">8.1 KB</p>
           </div>
-          <span class="text-xs text-zinc-400 shrink-0">Mar 22</span>
-          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150">
+          <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0">Mar 22</span>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 hover:text-zinc-600 dark:text-zinc-400 transition-colors duration-150">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>
           </button>
         </div>

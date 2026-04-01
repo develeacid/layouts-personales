@@ -8,40 +8,40 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-2xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C27 · Nivel 2</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Activity Feed</h1>
-      <p class="text-sm text-zinc-600 mt-1">Timeline vertical: acción, usuario, tiempo.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C27 · Nivel 2</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Activity Feed</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Timeline vertical: acción, usuario, tiempo.</p>
     </header>
 
     <!-- Timeline -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Actividad reciente</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Actividad reciente</h2>
       <div class="relative">
         <!-- Línea vertical -->
-        <div class="absolute left-5 top-0 bottom-0 w-px bg-zinc-200"></div>
+        <div class="absolute left-5 top-0 bottom-0 w-px bg-zinc-200 dark:bg-zinc-700"></div>
 
         <div class="space-y-6">
           <!-- Item 1 -->
           <div class="flex gap-4 relative">
-            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-xs font-semibold text-blue-700 shrink-0 z-10 border-2 border-white">JD</div>
-            <div class="flex-1 bg-white border border-zinc-200 rounded-xl p-4">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-xs font-semibold text-blue-600 dark:text-blue-400 shrink-0 z-10 border-2 border-white">JD</div>
+            <div class="flex-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4">
               <div class="flex items-center justify-between">
-                <p class="text-sm text-zinc-900"><span class="font-semibold">Juan Díaz</span> creó el proyecto <span class="font-semibold text-blue-600">LayoutOS v2</span></p>
-                <span class="text-xs text-zinc-400 shrink-0 ml-2">Hace 2h</span>
+                <p class="text-sm text-zinc-900 dark:text-zinc-100"><span class="font-semibold">Juan Díaz</span> creó el proyecto <span class="font-semibold text-blue-600">LayoutOS v2</span></p>
+                <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0 ml-2">Hace 2h</span>
               </div>
             </div>
           </div>
 
           <!-- Item 2 -->
           <div class="flex gap-4 relative">
-            <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-xs font-semibold text-emerald-700 shrink-0 z-10 border-2 border-white">AM</div>
-            <div class="flex-1 bg-white border border-zinc-200 rounded-xl p-4">
+            <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-xs font-semibold text-emerald-600 dark:text-emerald-400 shrink-0 z-10 border-2 border-white">AM</div>
+            <div class="flex-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4">
               <div class="flex items-center justify-between">
-                <p class="text-sm text-zinc-900"><span class="font-semibold">Ana Morales</span> completó la tarea <span class="font-semibold">Diseñar KPI cards</span></p>
-                <span class="text-xs text-zinc-400 shrink-0 ml-2">Hace 4h</span>
+                <p class="text-sm text-zinc-900 dark:text-zinc-100"><span class="font-semibold">Ana Morales</span> completó la tarea <span class="font-semibold">Diseñar KPI cards</span></p>
+                <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0 ml-2">Hace 4h</span>
               </div>
               <div class="mt-2 flex items-center gap-2">
                 <span class="badge-green">Completada</span>
@@ -51,41 +51,41 @@
 
           <!-- Item 3 -->
           <div class="flex gap-4 relative">
-            <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-xs font-semibold text-amber-700 shrink-0 z-10 border-2 border-white">CL</div>
-            <div class="flex-1 bg-white border border-zinc-200 rounded-xl p-4">
+            <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-xs font-semibold text-amber-600 dark:text-amber-400 shrink-0 z-10 border-2 border-white">CL</div>
+            <div class="flex-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4">
               <div class="flex items-center justify-between">
-                <p class="text-sm text-zinc-900"><span class="font-semibold">Carlos López</span> comentó en <span class="font-semibold text-blue-600">#C33 Side Navigation</span></p>
-                <span class="text-xs text-zinc-400 shrink-0 ml-2">Hace 6h</span>
+                <p class="text-sm text-zinc-900 dark:text-zinc-100"><span class="font-semibold">Carlos López</span> comentó en <span class="font-semibold text-blue-600">#C33 Side Navigation</span></p>
+                <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0 ml-2">Hace 6h</span>
               </div>
-              <div class="mt-2 bg-zinc-50 rounded-lg p-3">
-                <p class="text-xs text-zinc-600 italic">"Sugiero agregar una variante mobile con overlay para el sidebar colapsable."</p>
+              <div class="mt-2 bg-zinc-50 dark:bg-zinc-800 rounded-lg p-3">
+                <p class="text-xs text-zinc-600 dark:text-zinc-400 italic">"Sugiero agregar una variante mobile con overlay para el sidebar colapsable."</p>
               </div>
             </div>
           </div>
 
           <!-- Item 4 -->
           <div class="flex gap-4 relative">
-            <div class="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center text-xs font-semibold text-rose-700 shrink-0 z-10 border-2 border-white">PR</div>
-            <div class="flex-1 bg-white border border-zinc-200 rounded-xl p-4">
+            <div class="w-10 h-10 bg-rose-100 rounded-full flex items-center justify-center text-xs font-semibold text-rose-600 dark:text-rose-400 shrink-0 z-10 border-2 border-white">PR</div>
+            <div class="flex-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4">
               <div class="flex items-center justify-between">
-                <p class="text-sm text-zinc-900"><span class="font-semibold">Paula Ríos</span> eliminó la tarea <span class="text-zinc-400 line-through">Revisar colores</span></p>
-                <span class="text-xs text-zinc-400 shrink-0 ml-2">Ayer</span>
+                <p class="text-sm text-zinc-900 dark:text-zinc-100"><span class="font-semibold">Paula Ríos</span> eliminó la tarea <span class="text-zinc-400 dark:text-zinc-500 line-through">Revisar colores</span></p>
+                <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0 ml-2">Ayer</span>
               </div>
             </div>
           </div>
 
           <!-- Item 5 -->
           <div class="flex gap-4 relative">
-            <div class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center text-xs font-semibold text-violet-700 shrink-0 z-10 border-2 border-white">MK</div>
-            <div class="flex-1 bg-white border border-zinc-200 rounded-xl p-4">
+            <div class="w-10 h-10 bg-violet-100 rounded-full flex items-center justify-center text-xs font-semibold text-violet-600 dark:text-violet-400 shrink-0 z-10 border-2 border-white">MK</div>
+            <div class="flex-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4">
               <div class="flex items-center justify-between">
-                <p class="text-sm text-zinc-900"><span class="font-semibold">María Kim</span> subió 3 archivos a <span class="font-semibold text-blue-600">Assets</span></p>
-                <span class="text-xs text-zinc-400 shrink-0 ml-2">Ayer</span>
+                <p class="text-sm text-zinc-900 dark:text-zinc-100"><span class="font-semibold">María Kim</span> subió 3 archivos a <span class="font-semibold text-blue-600">Assets</span></p>
+                <span class="text-xs text-zinc-400 dark:text-zinc-500 shrink-0 ml-2">Ayer</span>
               </div>
               <div class="mt-2 flex items-center gap-2">
-                <span class="inline-flex items-center gap-1 text-xs text-zinc-500 bg-zinc-50 px-2 py-1 rounded">📎 hero-v2.png</span>
-                <span class="inline-flex items-center gap-1 text-xs text-zinc-500 bg-zinc-50 px-2 py-1 rounded">📎 icons.svg</span>
-                <span class="inline-flex items-center gap-1 text-xs text-zinc-500 bg-zinc-50 px-2 py-1 rounded">+1 más</span>
+                <span class="inline-flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-800 px-2 py-1 rounded">📎 hero-v2.png</span>
+                <span class="inline-flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-800 px-2 py-1 rounded">📎 icons.svg</span>
+                <span class="inline-flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-800 px-2 py-1 rounded">+1 más</span>
               </div>
             </div>
           </div>
