@@ -1,0 +1,316 @@
+// src/js/sidebar-data.js
+// Datos y lógica del sidebar para Alpine.js
+
+document.addEventListener('alpine:init', () => {
+  Alpine.data('sidebar', () => ({
+    sidebarOpen: true,
+    search: '',
+    currentPath: null,
+    openSections: JSON.parse(localStorage.getItem('sidebar-open') || '{}'),
+
+    sections: [
+      {
+        id: 'n1', title: 'N1 · Fundamentos', type: 'component',
+        icon: 'cube',
+        items: [
+          { href: '/src/components/n1-fundamentos/C01-banners.html', label: 'C01 · Banners' },
+          { href: '/src/components/n1-fundamentos/C02-customer-logos.html', label: 'C02 · Customer Logos' },
+          { href: '/src/components/n1-fundamentos/C03-newsletter-sections.html', label: 'C03 · Newsletter' },
+          { href: '/src/components/n1-fundamentos/C04-cta-sections.html', label: 'C04 · CTA Sections' },
+          { href: '/src/components/n1-fundamentos/C05-social-proof.html', label: 'C05 · Social Proof' },
+          { href: '/src/components/n1-fundamentos/C06-cookie-consent.html', label: 'C06 · Cookie Consent' },
+          { href: '/src/components/n1-fundamentos/C07-kpi-stat-cards.html', label: 'C07 · KPI Stat Cards' },
+          { href: '/src/components/n1-fundamentos/C08-status-indicators.html', label: 'C08 · Status Indicators' },
+          { href: '/src/components/n1-fundamentos/C09-avatares-grupos.html', label: 'C09 · Avatares & Grupos' },
+          { href: '/src/components/n1-fundamentos/C10-empty-states.html', label: 'C10 · Empty States' },
+          { href: '/src/components/n1-fundamentos/C11-breadcrumbs.html', label: 'C11 · Breadcrumbs' }
+        ]
+      },
+      {
+        id: 'n2', title: 'N2 · Layout', type: 'component',
+        icon: 'layout',
+        items: [
+          { href: '/src/components/n2-layout/C12-hero-sections.html', label: 'C12 · Hero Sections' },
+          { href: '/src/components/n2-layout/C13-feature-sections.html', label: 'C13 · Feature Sections' },
+          { href: '/src/components/n2-layout/C14-content-sections.html', label: 'C14 · Content Sections' },
+          { href: '/src/components/n2-layout/C15-headers.html', label: 'C15 · Headers' },
+          { href: '/src/components/n2-layout/C16-footer-sections.html', label: 'C16 · Footer Sections' },
+          { href: '/src/components/n2-layout/C17-team-sections.html', label: 'C17 · Team Sections' },
+          { href: '/src/components/n2-layout/C18-blog-sections.html', label: 'C18 · Blog Sections' },
+          { href: '/src/components/n2-layout/C19-testimonials.html', label: 'C19 · Testimonials' },
+          { href: '/src/components/n2-layout/C20-faq-sections.html', label: 'C20 · FAQ Sections' },
+          { href: '/src/components/n2-layout/C21-pricing-tables.html', label: 'C21 · Pricing Tables' },
+          { href: '/src/components/n2-layout/C22-project-portfolio.html', label: 'C22 · Project Portfolio' },
+          { href: '/src/components/n2-layout/C23-event-schedule.html', label: 'C23 · Event Schedule' },
+          { href: '/src/components/n2-layout/C24-storefront-hero.html', label: 'C24 · Storefront Hero' },
+          { href: '/src/components/n2-layout/C25-product-categories.html', label: 'C25 · Product Categories' },
+          { href: '/src/components/n2-layout/C26-related-articles.html', label: 'C26 · Related Articles' },
+          { href: '/src/components/n2-layout/C27-activity-feed.html', label: 'C27 · Activity Feed' },
+          { href: '/src/components/n2-layout/C28-server-status-panel.html', label: 'C28 · Server Status' },
+          { href: '/src/components/n2-layout/C29-integration-cards.html', label: 'C29 · Integration Cards' },
+          { href: '/src/components/n2-layout/C30-invoice-template.html', label: 'C30 · Invoice Template' },
+          { href: '/src/components/n2-layout/C31-file-browser-row.html', label: 'C31 · File Browser Row' }
+        ]
+      },
+      {
+        id: 'n3', title: 'N3 · Alpine básico', type: 'component',
+        icon: 'bolt',
+        items: [
+          { href: '/src/components/n3-alpine-basico/C32-headers-interactivos.html', label: 'C32 · Headers Interactivos' },
+          { href: '/src/components/n3-alpine-basico/C33-side-navigations.html', label: 'C33 · Side Navigations' },
+          { href: '/src/components/n3-alpine-basico/C34-dashboard-navbars.html', label: 'C34 · Dashboard Navbars' },
+          { href: '/src/components/n3-alpine-basico/C35-ecommerce-navbars.html', label: 'C35 · E-commerce Navbars' },
+          { href: '/src/components/n3-alpine-basico/C36-faq-accordion.html', label: 'C36 · FAQ Accordion' },
+          { href: '/src/components/n3-alpine-basico/C37-modales.html', label: 'C37 · Modales' },
+          { href: '/src/components/n3-alpine-basico/C38-discount-popups.html', label: 'C38 · Discount Popups' },
+          { href: '/src/components/n3-alpine-basico/C39-banners-dismissibles.html', label: 'C39 · Banners Dismissibles' },
+          { href: '/src/components/n3-alpine-basico/C40-dropdown-filters.html', label: 'C40 · Dropdown Filters' },
+          { href: '/src/components/n3-alpine-basico/C41-tabs.html', label: 'C41 · Tabs' },
+          { href: '/src/components/n3-alpine-basico/C42-notification-panel.html', label: 'C42 · Notification Panel' },
+          { href: '/src/components/n3-alpine-basico/C43-tooltip.html', label: 'C43 · Tooltip' },
+          { href: '/src/components/n3-alpine-basico/C44-toggle-switch.html', label: 'C44 · Toggle / Switch' },
+          { href: '/src/components/n3-alpine-basico/C45-toast-system.html', label: 'C45 · Toast System' },
+          { href: '/src/components/n3-alpine-basico/C46-command-palette.html', label: 'C46 · Command Palette' }
+        ]
+      },
+      {
+        id: 'n4', title: 'N4 · Estado reactivo', type: 'component',
+        icon: 'refresh',
+        items: [
+          { href: '/src/components/n4-estado-reactivo/C47-table-headers.html', label: 'C47 · Table Headers' },
+          { href: '/src/components/n4-estado-reactivo/C48-advanced-tables.html', label: 'C48 · Advanced Tables' },
+          { href: '/src/components/n4-estado-reactivo/C49-table-footers.html', label: 'C49 · Table Footers' },
+          { href: '/src/components/n4-estado-reactivo/C50-faceted-search-modals.html', label: 'C50 · Faceted Search Modals' },
+          { href: '/src/components/n4-estado-reactivo/C51-faceted-search-drawers.html', label: 'C51 · Faceted Search Drawers' },
+          { href: '/src/components/n4-estado-reactivo/C52-blog-templates.html', label: 'C52 · Blog Templates' },
+          { href: '/src/components/n4-estado-reactivo/C53-comments-sections.html', label: 'C53 · Comments Sections' },
+          { href: '/src/components/n4-estado-reactivo/C54-contact-forms.html', label: 'C54 · Contact Forms' },
+          { href: '/src/components/n4-estado-reactivo/C55-register-forms.html', label: 'C55 · Register Forms' },
+          { href: '/src/components/n4-estado-reactivo/C56-login-forms.html', label: 'C56 · Login Forms' },
+          { href: '/src/components/n4-estado-reactivo/C57-reset-password-forms.html', label: 'C57 · Reset Password Forms' },
+          { href: '/src/components/n4-estado-reactivo/C58-date-picker.html', label: 'C58 · Date Picker' },
+          { href: '/src/components/n4-estado-reactivo/C59-file-upload-zone.html', label: 'C59 · File Upload Zone' },
+          { href: '/src/components/n4-estado-reactivo/C60-multi-select-tags-input.html', label: 'C60 · Multi-select Tags' },
+          { href: '/src/components/n4-estado-reactivo/C61-range-slider.html', label: 'C61 · Range Slider' },
+          { href: '/src/components/n4-estado-reactivo/C62-code-block.html', label: 'C62 · Code Block' },
+          { href: '/src/components/n4-estado-reactivo/C63-otp-input.html', label: 'C63 · OTP Input' },
+          { href: '/src/components/n4-estado-reactivo/C64-api-key-card.html', label: 'C64 · API Key Card' },
+          { href: '/src/components/n4-estado-reactivo/C65-progress-steps.html', label: 'C65 · Progress Steps' }
+        ]
+      },
+      {
+        id: 'n5', title: 'N5 · CRUD', type: 'component',
+        icon: 'database',
+        items: [
+          { href: '/src/components/n5-crud/C66-create-forms.html', label: 'C66 · Create Forms' },
+          { href: '/src/components/n5-crud/C67-update-forms.html', label: 'C67 · Update Forms' },
+          { href: '/src/components/n5-crud/C68-read-sections.html', label: 'C68 · Read Sections' },
+          { href: '/src/components/n5-crud/C69-crud-layouts.html', label: 'C69 · CRUD Layouts' },
+          { href: '/src/components/n5-crud/C70-create-modals.html', label: 'C70 · Create Modals' },
+          { href: '/src/components/n5-crud/C71-update-modals.html', label: 'C71 · Update Modals' },
+          { href: '/src/components/n5-crud/C72-read-modals.html', label: 'C72 · Read Modals' },
+          { href: '/src/components/n5-crud/C73-delete-confirm.html', label: 'C73 · Delete Confirm' },
+          { href: '/src/components/n5-crud/C74-success-message.html', label: 'C74 · Success Message' },
+          { href: '/src/components/n5-crud/C75-read-drawers.html', label: 'C75 · Read Drawers' },
+          { href: '/src/components/n5-crud/C76-update-drawers.html', label: 'C76 · Update Drawers' },
+          { href: '/src/components/n5-crud/C77-create-drawers.html', label: 'C77 · Create Drawers' },
+          { href: '/src/components/n5-crud/C78-kanban-card.html', label: 'C78 · Kanban Card' },
+          { href: '/src/components/n5-crud/C79-kanban-column.html', label: 'C79 · Kanban Column' },
+          { href: '/src/components/n5-crud/C80-chat-bubble.html', label: 'C80 · Chat Bubble' },
+          { href: '/src/components/n5-crud/C81-chat-input.html', label: 'C81 · Chat Input' },
+          { href: '/src/components/n5-crud/C82-email-list-item.html', label: 'C82 · Email List Item' },
+          { href: '/src/components/n5-crud/C83-email-viewer.html', label: 'C83 · Email Viewer' },
+          { href: '/src/components/n5-crud/C84-calendar-grid.html', label: 'C84 · Calendar Grid' },
+          { href: '/src/components/n5-crud/C85-video-participant-tile.html', label: 'C85 · Video Participant' }
+        ]
+      },
+      {
+        id: 'n6', title: 'N6 · Avanzado', type: 'component',
+        icon: 'rocket',
+        items: [
+          { href: '/src/components/n6-avanzado/C86-product-cards.html', label: 'C86 · Product Cards' },
+          { href: '/src/components/n6-avanzado/C87-product-overview.html', label: 'C87 · Product Overview' },
+          { href: '/src/components/n6-avanzado/C88-product-information.html', label: 'C88 · Product Information' },
+          { href: '/src/components/n6-avanzado/C89-product-reviews.html', label: 'C89 · Product Reviews' },
+          { href: '/src/components/n6-avanzado/C90-promotional-sections.html', label: 'C90 · Promotional Sections' },
+          { href: '/src/components/n6-avanzado/C91-shopping-cart.html', label: 'C91 · Shopping Cart' },
+          { href: '/src/components/n6-avanzado/C92-order-summary.html', label: 'C92 · Order Summary' },
+          { href: '/src/components/n6-avanzado/C93-payment-forms.html', label: 'C93 · Payment Forms' },
+          { href: '/src/components/n6-avanzado/C94-kanban-board.html', label: 'C94 · Kanban Board' },
+          { href: '/src/components/n6-avanzado/C95-calendar-interactivo.html', label: 'C95 · Calendar Interactivo' },
+          { href: '/src/components/n6-avanzado/C96-chat-room.html', label: 'C96 · Chat Room' },
+          { href: '/src/components/n6-avanzado/C97-ai-prompt-input.html', label: 'C97 · AI Prompt Input' },
+          { href: '/src/components/n6-avanzado/C98-ai-response-bubble.html', label: 'C98 · AI Response Bubble' },
+          { href: '/src/components/n6-avanzado/C99-rich-text-toolbar.html', label: 'C99 · Rich Text Toolbar' },
+          { href: '/src/components/n6-avanzado/C100-call-controls-bar.html', label: 'C100 · Call Controls Bar' },
+          { href: '/src/components/n6-avanzado/C101-video-grid-layout.html', label: 'C101 · Video Grid Layout' }
+        ]
+      },
+      {
+        id: 'n7', title: 'N7 · Shells', type: 'component',
+        icon: 'terminal',
+        items: [
+          { href: '/src/components/n7-shells/C102-application-shells.html', label: 'C102 · Application Shells' },
+          { href: '/src/components/n7-shells/C103-dashboard-navbars.html', label: 'C103 · Dashboard Navbars' },
+          { href: '/src/components/n7-shells/C104-dashboard-footers.html', label: 'C104 · Dashboard Footers' },
+          { href: '/src/components/n7-shells/C105-mega-footers.html', label: 'C105 · Mega Footers' },
+          { href: '/src/components/n7-shells/C106-sidebar-anidado.html', label: 'C106 · Sidebar Anidado' },
+          { href: '/src/components/n7-shells/C107-page-header.html', label: 'C107 · Page Header' }
+        ]
+      },
+      {
+        id: 'n8', title: 'N8 · Charts', type: 'component',
+        icon: 'chart',
+        items: [
+          { href: '/src/components/n8-charts/C108-line-chart.html', label: 'C108 · Line Chart' },
+          { href: '/src/components/n8-charts/C109-bar-chart.html', label: 'C109 · Bar Chart' },
+          { href: '/src/components/n8-charts/C110-pie-donut-chart.html', label: 'C110 · Pie / Donut' },
+          { href: '/src/components/n8-charts/C111-gauge-chart.html', label: 'C111 · Gauge' },
+          { href: '/src/components/n8-charts/C112-radar-chart.html', label: 'C112 · Radar' },
+          { href: '/src/components/n8-charts/C113-candlestick-chart.html', label: 'C113 · Candlestick' },
+          { href: '/src/components/n8-charts/C114-boxplot-chart.html', label: 'C114 · Boxplot' },
+          { href: '/src/components/n8-charts/C115-scatter-regress.html', label: 'C115 · Scatter + Regresión' },
+          { href: '/src/components/n8-charts/C116-heatmap-matrix.html', label: 'C116 · Heatmap' },
+          { href: '/src/components/n8-charts/C117-parallel-coord.html', label: 'C117 · Parallel Coordinates' }
+        ]
+      },
+      {
+        id: 'pn2', title: 'N2 · Layout', type: 'page',
+        icon: 'document',
+        items: [
+          { href: '/src/pages/n2-layout/P01-404.html', label: 'P01 · 404' },
+          { href: '/src/pages/n2-layout/P02-500.html', label: 'P02 · 500' },
+          { href: '/src/pages/n2-layout/P03-maintenance.html', label: 'P03 · Maintenance' },
+          { href: '/src/pages/n2-layout/P04-server-status.html', label: 'P04 · Server Status' },
+          { href: '/src/pages/n2-layout/P05-sign-in.html', label: 'P05 · Sign In' },
+          { href: '/src/pages/n2-layout/P06-sign-up.html', label: 'P06 · Sign Up' },
+          { href: '/src/pages/n2-layout/P07-forgot-password.html', label: 'P07 · Forgot Password' }
+        ]
+      },
+      {
+        id: 'pn3', title: 'N3 · Alpine', type: 'page',
+        icon: 'document',
+        items: [
+          { href: '/src/pages/n3-alpine/P08-reset-password.html', label: 'P08 · Reset Password' },
+          { href: '/src/pages/n3-alpine/P09-two-factor-auth.html', label: 'P09 · Two Factor Auth' },
+          { href: '/src/pages/n3-alpine/P10-profile-lock.html', label: 'P10 · Profile Lock' },
+          { href: '/src/pages/n3-alpine/P11-notifications.html', label: 'P11 · Notifications' },
+          { href: '/src/pages/n3-alpine/P12-pricing.html', label: 'P12 · Pricing' }
+        ]
+      },
+      {
+        id: 'pn4', title: 'N4 · Reactivo', type: 'page',
+        icon: 'document',
+        items: [
+          { href: '/src/pages/n4-reactivo/P13-users-page.html', label: 'P13 · Users' },
+          { href: '/src/pages/n4-reactivo/P14-user-settings.html', label: 'P14 · User Settings' },
+          { href: '/src/pages/n4-reactivo/P15-user-profile.html', label: 'P15 · User Profile' },
+          { href: '/src/pages/n4-reactivo/P16-activity-feed.html', label: 'P16 · Activity Feed' },
+          { href: '/src/pages/n4-reactivo/P17-products-page.html', label: 'P17 · Products' },
+          { href: '/src/pages/n4-reactivo/P18-billing-page.html', label: 'P18 · Billing' },
+          { href: '/src/pages/n4-reactivo/P19-invoices-page.html', label: 'P19 · Invoices' },
+          { href: '/src/pages/n4-reactivo/P20-transactions-page.html', label: 'P20 · Transactions' },
+          { href: '/src/pages/n4-reactivo/P21-events-page.html', label: 'P21 · Events' },
+          { href: '/src/pages/n4-reactivo/P22-integrations-page.html', label: 'P22 · Integrations' },
+          { href: '/src/pages/n4-reactivo/P23-api-keys-page.html', label: 'P23 · API Keys' },
+          { href: '/src/pages/n4-reactivo/P24-support-tickets-page.html', label: 'P24 · Support Tickets' }
+        ]
+      },
+      {
+        id: 'pn5', title: 'N5 · CRUD', type: 'page',
+        icon: 'document',
+        items: [
+          { href: '/src/pages/n5-crud/P25-view-invoice.html', label: 'P25 · View Invoice' },
+          { href: '/src/pages/n5-crud/P26-create-invoice.html', label: 'P26 · Create Invoice' },
+          { href: '/src/pages/n5-crud/P27-view-transaction.html', label: 'P27 · View Transaction' },
+          { href: '/src/pages/n5-crud/P28-view-ticket.html', label: 'P28 · View Ticket' },
+          { href: '/src/pages/n5-crud/P29-mailing-inbox.html', label: 'P29 · Mailing Inbox' },
+          { href: '/src/pages/n5-crud/P30-view-email.html', label: 'P30 · View Email' },
+          { href: '/src/pages/n5-crud/P31-reply-email.html', label: 'P31 · Reply Email' },
+          { href: '/src/pages/n5-crud/P32-todo-page.html', label: 'P32 · To-Do' },
+          { href: '/src/pages/n5-crud/P33-projects-page.html', label: 'P33 · Projects' },
+          { href: '/src/pages/n5-crud/P34-my-projects.html', label: 'P34 · My Projects' },
+          { href: '/src/pages/n5-crud/P35-project-summary.html', label: 'P35 · Project Summary' },
+          { href: '/src/pages/n5-crud/P36-my-tasks.html', label: 'P36 · My Tasks' },
+          { href: '/src/pages/n5-crud/P37-project-files.html', label: 'P37 · Project Files' }
+        ]
+      },
+      {
+        id: 'pn6', title: 'N6 · Avanzado', type: 'page',
+        icon: 'document',
+        items: [
+          { href: '/src/pages/n6-avanzado/P38-kanban-board.html', label: 'P38 · Kanban Board' },
+          { href: '/src/pages/n6-avanzado/P39-calendar-page.html', label: 'P39 · Calendar' },
+          { href: '/src/pages/n6-avanzado/P40-chat-room-page.html', label: 'P40 · Chat Room' },
+          { href: '/src/pages/n6-avanzado/P41-datatables-page.html', label: 'P41 · Datatables' },
+          { href: '/src/pages/n6-avanzado/P42-ai-prompts.html', label: 'P42 · AI Prompts' },
+          { href: '/src/pages/n6-avanzado/P43-text-editor.html', label: 'P43 · Text Editor' },
+          { href: '/src/pages/n6-avanzado/P44-checkout.html', label: 'P44 · Checkout' },
+          { href: '/src/pages/n6-avanzado/P45-order-confirmation.html', label: 'P45 · Order Confirmation' },
+          { href: '/src/pages/n6-avanzado/P46-order-tracking.html', label: 'P46 · Order Tracking' },
+          { href: '/src/pages/n6-avanzado/P47-account-overview.html', label: 'P47 · Account Overview' },
+          { href: '/src/pages/n6-avanzado/P48-create-video-meeting.html', label: 'P48 · Create Meeting' },
+          { href: '/src/pages/n6-avanzado/P49-join-video-meeting.html', label: 'P49 · Join Meeting' }
+        ]
+      },
+      {
+        id: 'pn7', title: 'N7 · Dashboards', type: 'page',
+        icon: 'document',
+        items: [
+          { href: '/src/pages/n7-dashboards/P50-dashboard-base.html', label: 'P50 · Dashboard Base' },
+          { href: '/src/pages/n7-dashboards/P51-saas-dashboard.html', label: 'P51 · SaaS Dashboard' },
+          { href: '/src/pages/n7-dashboards/P52-ecommerce-dashboard.html', label: 'P52 · E-commerce Dash' },
+          { href: '/src/pages/n7-dashboards/P53-marketing-dashboard.html', label: 'P53 · Marketing Dash' },
+          { href: '/src/pages/n7-dashboards/P54-car-service-dashboard.html', label: 'P54 · Car Service Dash' },
+          { href: '/src/pages/n7-dashboards/P55-logistics-dashboard.html', label: 'P55 · Logistics Dash' },
+          { href: '/src/pages/n7-dashboards/P56-bank-dashboard.html', label: 'P56 · Bank Dashboard' },
+          { href: '/src/pages/n7-dashboards/P57-crypto-dashboard.html', label: 'P57 · Crypto Dashboard' },
+          { href: '/src/pages/n7-dashboards/P58-music-dashboard.html', label: 'P58 · Music Dashboard' },
+          { href: '/src/pages/n7-dashboards/P59-projects-dashboard.html', label: 'P59 · Projects Dash' },
+          { href: '/src/pages/n7-dashboards/P60-customer-service-dashboard.html', label: 'P60 · CS Dashboard' },
+          { href: '/src/pages/n7-dashboards/P61-video-call-page.html', label: 'P61 · Video Call' },
+          { href: '/src/pages/n7-dashboards/P62-rate-conversation.html', label: 'P62 · Rate Conversation' },
+          { href: '/src/pages/n7-dashboards/P63-outgoing-call.html', label: 'P63 · Outgoing Call' },
+          { href: '/src/pages/n7-dashboards/P64-incoming-call.html', label: 'P64 · Incoming Call' },
+          { href: '/src/pages/n7-dashboards/P65-in-call.html', label: 'P65 · In Call' },
+          { href: '/src/pages/n7-dashboards/P66-call-ended.html', label: 'P66 · Call Ended' }
+        ]
+      }
+    ],
+
+    get filteredSections() {
+      if (!this.search.trim()) return this.sections;
+      const q = this.search.toLowerCase();
+      return this.sections.map(s => ({
+        ...s,
+        items: s.items.filter(i => i.label.toLowerCase().includes(q))
+      })).filter(s => s.items.length > 0);
+    },
+
+    isSectionOpen(id) {
+      if (this.search.trim()) return true;
+      return this.openSections[id] !== false;
+    },
+
+    toggleSection(id) {
+      if (this.search.trim()) return;
+      this.openSections[id] = !this.isSectionOpen(id);
+      localStorage.setItem('sidebar-open', JSON.stringify(this.openSections));
+    },
+
+    sectionIcon(icon) {
+      const icons = {
+        cube: '<path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />',
+        layout: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />',
+        bolt: '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />',
+        refresh: '<path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182M21.015 4.356v4.992" />',
+        database: '<path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />',
+        rocket: '<path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />',
+        terminal: '<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />',
+        chart: '<path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />',
+        document: '<path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />'
+      };
+      return icons[icon] || icons.document;
+    }
+  }));
+});
