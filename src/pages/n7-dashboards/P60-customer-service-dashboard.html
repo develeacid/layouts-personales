@@ -152,11 +152,18 @@
             </template>
           </div>
         </div>
+
+        <!-- Tickets por prioridad -->
+        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Tickets por prioridad</h3>
+          <div x-ref="chart" x-init="initChart()" class="w-full h-64"></div>
+        </div>
       </main>
     </div>
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function customerServiceDashboard() {
       return {
@@ -178,7 +185,35 @@
           { from: 'Maria Fernandez', initials: 'MF', bg: 'bg-emerald-500', subject: 'Gracias por resolver mi caso', time: 'Hace 1h', unread: false },
           { from: 'Juan Vargas', initials: 'JV', bg: 'bg-amber-500', subject: 'Consulta sobre precios enterprise', time: 'Hace 2h', unread: false },
           { from: 'Soporte Cloud', initials: 'SC', bg: 'bg-cyan-500', subject: 'Alerta: Uso de almacenamiento al 90%', time: 'Hace 3h', unread: true }
-        ]
+        ],
+        _resizeHandler: null,
+        initChart() {
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          var prioCount = {};
+          this.priorityTickets.forEach(function(t) {
+            prioCount[t.priority] = (prioCount[t.priority] || 0) + 1;
+          });
+          var colorMap = { 'Critica': '#ef4444', 'Alta': '#f59e0b', 'Media': '#3b82f6', 'Baja': '#10b981' };
+          var data = Object.keys(prioCount).map(function(key) {
+            return { name: key, value: prioCount[key], itemStyle: { color: colorMap[key] || '#71717a' } };
+          });
+          this.$refs.chart._ec.setOption({
+            tooltip: { trigger: 'item', formatter: '{b}: {c} tickets ({d}%)' },
+            legend: { bottom: 0, textStyle: { fontSize: 11 } },
+            series: [{
+              type: 'pie',
+              radius: ['40%', '70%'],
+              center: ['50%', '45%'],
+              label: { show: false },
+              data: data
+            }]
+          });
+        },
       };
     }
   </script>
