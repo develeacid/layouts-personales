@@ -48,7 +48,7 @@
               x-model="query"
               @input="search()"
               x-init="$watch('open', value => { if (value) $nextTick(() => $refs.searchInput.focus()) })"
-              class="w-full py-3 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none"
+              class="w-full py-3 text-sm bg-transparent text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none"
               type="text" placeholder="Buscar componentes, páginas, acciones..."
             />
             <kbd class="text-xs text-zinc-400 dark:text-zinc-500 bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono shrink-0">ESC</kbd>

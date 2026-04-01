@@ -8,13 +8,15 @@
 </head>
 <body class="h-full bg-page antialiased">
 
+  <div x-data="blogArticle()">
+
   <!-- Progress bar -->
-  <div x-data x-ref="progressWrap" class="fixed top-0 left-0 right-0 z-50 h-1 bg-zinc-100 dark:bg-zinc-800">
+  <div class="fixed top-0 left-0 right-0 z-50 h-1 bg-zinc-100 dark:bg-zinc-800">
     <div class="h-full bg-blue-600 transition-all duration-150"
-         :style="'width:' + ($store.blog.scrollProgress) + '%'"></div>
+         :style="'width:' + scrollProgress + '%'"></div>
   </div>
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-16" x-data="blogArticle()">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
       <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C52 · Nivel 4</p>
@@ -192,13 +194,11 @@
 
   </div>
 
+  </div>
+
   <style>[x-cloak] { display: none !important; }</style>
 
   <script>
-    document.addEventListener('alpine:init', () => {
-      Alpine.store('blog', { scrollProgress: 0 });
-    });
-
     function blogArticle() {
       return {
         scrollProgress: 0,
@@ -219,7 +219,6 @@
         onScroll() {
           const docHeight = document.documentElement.scrollHeight - window.innerHeight;
           this.scrollProgress = docHeight > 0 ? Math.round((window.scrollY / docHeight) * 100) : 0;
-          Alpine.store('blog').scrollProgress = this.scrollProgress;
 
           let current = this.sections[0].id;
           for (const section of this.sections) {

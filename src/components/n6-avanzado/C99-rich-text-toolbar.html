@@ -220,13 +220,13 @@
 
         <!-- Editor -->
         <div x-show="mode === 'edit'">
-          <textarea x-ref="mdEditor" x-model="content" class="w-full min-h-48 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 text-sm text-zinc-800 font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y" placeholder="Escribe Markdown aqui...">
+          <textarea x-ref="mdEditor" x-model="content" class="w-full min-h-48 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 text-sm text-zinc-800 dark:text-zinc-100 bg-white dark:bg-zinc-900 font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y" placeholder="Escribe Markdown aqui...">
           </textarea>
         </div>
 
         <!-- Preview -->
         <div x-show="mode === 'preview'" x-cloak>
-          <div class="min-h-48 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 text-sm text-zinc-800 prose prose-sm max-w-none" x-html="renderedMarkdown"></div>
+          <div class="min-h-48 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 text-sm text-zinc-800 dark:text-zinc-100 prose prose-sm dark:prose-invert max-w-none" x-html="renderedMarkdown"></div>
         </div>
       </div>
     </section>

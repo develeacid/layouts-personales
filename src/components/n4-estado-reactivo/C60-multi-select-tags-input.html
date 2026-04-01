@@ -20,7 +20,7 @@
 
       <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="{ tags: [], input: '', maxTags: 10, addTag() { const val = this.input.trim(); if (val && this.tags.length < this.maxTags && !this.tags.includes(val)) { this.tags.push(val); } this.input = ''; }, removeTag(index) { this.tags.splice(index, 1); } }">
         <label class="block text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-2">Tecnologias</label>
-        <div class="flex flex-wrap gap-2 border border-zinc-300 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-blue-600 transition-colors min-h-10">
+        <div class="flex flex-wrap gap-2 border border-zinc-300 dark:border-zinc-700 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-blue-600 transition-colors min-h-10">
           <template x-for="(tag, index) in tags" :key="index">
             <span class="bg-blue-100 text-blue-600 dark:text-blue-400 text-xs font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
               <span x-text="tag"></span>
@@ -53,7 +53,7 @@
       <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="tagsInput()" @click.outside="showSuggestions = false">
         <label class="block text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-2">Stack tecnologico</label>
         <div class="relative">
-          <div class="flex flex-wrap gap-2 border border-zinc-300 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-blue-600 transition-colors min-h-10">
+          <div class="flex flex-wrap gap-2 border border-zinc-300 dark:border-zinc-700 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-blue-600 transition-colors min-h-10">
             <template x-for="(tag, index) in tags" :key="index">
               <span class="bg-blue-100 text-blue-600 dark:text-blue-400 text-xs font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
                 <span x-text="tag"></span>
@@ -123,7 +123,7 @@
         </div>
 
         <div class="relative">
-          <div class="flex flex-wrap gap-2 border border-zinc-300 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-blue-600 transition-colors min-h-10">
+          <div class="flex flex-wrap gap-2 border border-zinc-300 dark:border-zinc-700 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-blue-600 transition-colors min-h-10">
             <template x-for="(tag, index) in tags" :key="index">
               <span
                 class="text-xs font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1"

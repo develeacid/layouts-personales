@@ -32,7 +32,7 @@
               :value="selectedDate ? formatDate(selectedDate) : ''"
               placeholder="DD/MM/YYYY"
               @click="showCalendar = !showCalendar; selectingRange = false"
-              class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+              class="w-full border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
             <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 dark:text-zinc-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
@@ -111,7 +111,7 @@
                 :value="rangeStart ? formatDate(rangeStart) : ''"
                 placeholder="DD/MM/YYYY"
                 @click="showCalendar = true; selectingRange = 'start'"
-                class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                class="w-full border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
             </div>
             <div class="flex-1">
               <label class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Hasta</label>
@@ -121,7 +121,7 @@
                 :value="rangeEnd ? formatDate(rangeEnd) : ''"
                 placeholder="DD/MM/YYYY"
                 @click="showCalendar = true; selectingRange = 'end'"
-                class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                class="w-full border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
             </div>
           </div>
 

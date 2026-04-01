@@ -167,10 +167,10 @@
               <legend class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Rango de valor</legend>
               <div class="flex items-center gap-3">
                 <input type="number" x-model.number="priceMin" placeholder="Min"
-                  class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition-all duration-150" />
+                  class="w-full border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition-all duration-150" />
                 <span class="text-zinc-400 dark:text-zinc-500 text-sm shrink-0">–</span>
                 <input type="number" x-model.number="priceMax" placeholder="Max"
-                  class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition-all duration-150" />
+                  class="w-full border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition-all duration-150" />
               </div>
             </fieldset>
 
@@ -178,7 +178,7 @@
             <fieldset>
               <legend class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Fecha</legend>
               <select x-model="selectedDate"
-                class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition-all duration-150">
+                class="w-full border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-200 transition-all duration-150">
                 <template x-for="d in dateOptions" :key="d">
                   <option :value="d" x-text="d"></option>
                 </template>

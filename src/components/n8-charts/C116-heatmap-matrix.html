@@ -46,7 +46,7 @@ data: [[dayIndex, hourIndex, value], ...]  // 70 puntos</pre>
                   <input type="number" min="0" max="30"
                     :value="data.find(d => d[0] === di && d[1] === hi)?.[2]"
                     @input="updateCell(di, hi, +$event.target.value)"
-                    class="w-14 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" />
+                    class="w-14 px-2 py-1 text-sm border border-zinc-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:ring-2 focus:ring-green-500 focus:border-green-500" />
                 </td>
               </template>
             </tr>
@@ -86,7 +86,7 @@ label: { show: true, formatter: (p) => p.value[2], fontSize: 10 }</pre>
                   <input type="number" min="0" max="30"
                     :value="data.find(d => d[0] === di && d[1] === hi)?.[2]"
                     @input="updateCell(di, hi, +$event.target.value)"
-                    class="w-14 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500" />
+                    class="w-14 px-2 py-1 text-sm border border-zinc-300 dark:border-zinc-700 rounded-md bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:ring-2 focus:ring-green-500 focus:border-green-500" />
                 </td>
               </template>
             </tr>
