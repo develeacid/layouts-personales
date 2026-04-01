@@ -7,29 +7,29 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <!-- Header -->
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C116 · Nivel 8</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Heatmap</h1>
-      <p class="text-sm text-zinc-600 mt-1">Nivel 3 · Matriz — visualiza densidad o intensidad cruzando dos dimensiones con color como tercer valor.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C116 · Nivel 8</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Heatmap</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Nivel 3 · Matriz — visualiza densidad o intensidad cruzando dos dimensiones con color como tercer valor.</p>
     </header>
 
     <!-- ===================== VARIANTE 1: Heatmap básico ===================== -->
-    <section x-data="heatBasic()" class="space-y-4">
-      <h2 class="text-lg font-semibold text-zinc-900">1 · Heatmap básico</h2>
-      <p class="text-sm text-zinc-600">Volumen de tickets de soporte por día de la semana y franja horaria.</p>
+    <section x-data="heatBasic()" class="relative space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">1 · Heatmap básico</h2>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400">Volumen de tickets de soporte por día de la semana y franja horaria.</p>
 
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono">xLabels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">xLabels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
 yLabels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
 data: [[dayIndex, hourIndex, value], ...]  // 70 puntos</pre>
       </div>
 
-      <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
-        <thead class="bg-zinc-50">
+      <table class="w-full text-sm border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+        <thead class="bg-zinc-50 dark:bg-zinc-800">
           <tr>
             <th class="px-3 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Hora</th>
             <template x-for="day in xLabels" :key="day">
@@ -39,8 +39,8 @@ data: [[dayIndex, hourIndex, value], ...]  // 70 puntos</pre>
         </thead>
         <tbody>
           <template x-for="(hour, hi) in yLabels" :key="hi">
-            <tr class="border-t border-zinc-100">
-              <td class="px-3 py-2 font-medium text-zinc-700" x-text="hour"></td>
+            <tr class="border-t border-zinc-100 dark:border-zinc-800">
+              <td class="px-3 py-2 font-medium text-zinc-600 dark:text-zinc-400" x-text="hour"></td>
               <template x-for="(day, di) in xLabels" :key="di">
                 <td class="px-3 py-2">
                   <input type="number" min="0" max="30"
@@ -54,22 +54,22 @@ data: [[dayIndex, hourIndex, value], ...]  // 70 puntos</pre>
         </tbody>
       </table>
 
-      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+      <div x-ref="chart" class="w-full h-96 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg"></div>
     </section>
 
     <!-- ===================== VARIANTE 2: Con etiquetas en celdas ===================== -->
-    <section x-data="heatLabels()" class="space-y-4">
-      <h2 class="text-lg font-semibold text-zinc-900">2 · Con etiquetas en celdas</h2>
-      <p class="text-sm text-zinc-600">Mismo heatmap con el valor numérico visible dentro de cada celda de la matriz.</p>
+    <section x-data="heatLabels()" class="relative space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">2 · Con etiquetas en celdas</h2>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400">Mismo heatmap con el valor numérico visible dentro de cada celda de la matriz.</p>
 
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono">// Mismos datos que V1 con label visible
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">// Mismos datos que V1 con label visible
 label: { show: true, formatter: (p) => p.value[2], fontSize: 10 }</pre>
       </div>
 
-      <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
-        <thead class="bg-zinc-50">
+      <table class="w-full text-sm border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+        <thead class="bg-zinc-50 dark:bg-zinc-800">
           <tr>
             <th class="px-3 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Hora</th>
             <template x-for="day in xLabels" :key="day">
@@ -79,8 +79,8 @@ label: { show: true, formatter: (p) => p.value[2], fontSize: 10 }</pre>
         </thead>
         <tbody>
           <template x-for="(hour, hi) in yLabels" :key="hi">
-            <tr class="border-t border-zinc-100">
-              <td class="px-3 py-2 font-medium text-zinc-700" x-text="hour"></td>
+            <tr class="border-t border-zinc-100 dark:border-zinc-800">
+              <td class="px-3 py-2 font-medium text-zinc-600 dark:text-zinc-400" x-text="hour"></td>
               <template x-for="(day, di) in xLabels" :key="di">
                 <td class="px-3 py-2">
                   <input type="number" min="0" max="30"
@@ -94,35 +94,35 @@ label: { show: true, formatter: (p) => p.value[2], fontSize: 10 }</pre>
         </tbody>
       </table>
 
-      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+      <div x-ref="chart" class="w-full h-96 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg"></div>
     </section>
 
     <!-- ===================== VARIANTE 3: Estilo calendario (GitHub contributions) ===================== -->
-    <section x-data="heatCalendar()" class="space-y-4">
-      <h2 class="text-lg font-semibold text-zinc-900">3 · Estilo calendario (GitHub contributions)</h2>
-      <p class="text-sm text-zinc-600">Un año completo de actividad representado como mapa de calor sobre un calendario de 52 semanas.</p>
+    <section x-data="heatCalendar()" class="relative space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">3 · Estilo calendario (GitHub contributions)</h2>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400">Un año completo de actividad representado como mapa de calor sobre un calendario de 52 semanas.</p>
 
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono">calendar: { range: '2024', cellSize: [14, 14] }
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">calendar: { range: '2024', cellSize: [14, 14] }
 data: [['2024-01-01', 3], ['2024-01-02', 7], ...]  // 364 entradas</pre>
       </div>
 
-      <div x-ref="chart" class="w-full h-48 bg-white border border-zinc-200 rounded-lg"></div>
+      <div x-ref="chart" class="w-full h-48 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg"></div>
     </section>
 
     <!-- ===================== VARIANTE 4: Matriz de correlación ===================== -->
-    <section x-data="heatCorrelation()" class="space-y-4">
-      <h2 class="text-lg font-semibold text-zinc-900">4 · Matriz de correlación</h2>
-      <p class="text-sm text-zinc-600">Correlación simétrica NxN entre variables de negocio, con escala divergente azul-blanco-rojo.</p>
+    <section x-data="heatCorrelation()" class="relative space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">4 · Matriz de correlación</h2>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400">Correlación simétrica NxN entre variables de negocio, con escala divergente azul-blanco-rojo.</p>
 
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono">variables: ['Ventas', 'Marketing', 'Tráfico', 'Conversión', 'Ticket']
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">variables: ['Ventas', 'Marketing', 'Tráfico', 'Conversión', 'Ticket']
 data: [[0,0,1], [0,1,0.85], ...]  // Matriz simétrica 5×5</pre>
       </div>
 
-      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+      <div x-ref="chart" class="w-full h-96 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg"></div>
     </section>
 
   </div>

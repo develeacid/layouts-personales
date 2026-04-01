@@ -7,30 +7,30 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <!-- Header -->
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C112 · Nivel 8</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Radar</h1>
-      <p class="text-sm text-zinc-600 mt-1">Nivel 2 · Multiatributo — comparación de entidades evaluadas contra múltiples ejes simultáneamente.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C112 · Nivel 8</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Radar</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Nivel 2 · Multiatributo — comparación de entidades evaluadas contra múltiples ejes simultáneamente.</p>
     </header>
 
     <!-- ===================== VARIANTE 1: Radar simple ===================== -->
-    <section x-data="radarSimple()" class="space-y-4">
-      <h2 class="text-lg font-semibold text-zinc-900">1 · Radar simple</h2>
-      <p class="text-sm text-zinc-600">Una sola entidad evaluada contra 5 indicadores de un framework frontend.</p>
+    <section x-data="radarSimple()" class="relative space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">1 · Radar simple</h2>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400">Una sola entidad evaluada contra 5 indicadores de un framework frontend.</p>
 
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono">indicators: ['Velocidad', 'Comunidad', 'Docs', 'Seguridad', 'Ecosistema']
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">indicators: ['Velocidad', 'Comunidad', 'Docs', 'Seguridad', 'Ecosistema']
 data: [
   { name: 'React', values: [9, 9, 8, 7, 9] }
 ]</pre>
       </div>
 
-      <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
-        <thead class="bg-zinc-50">
+      <table class="w-full text-sm border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+        <thead class="bg-zinc-50 dark:bg-zinc-800">
           <tr>
             <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Indicador</th>
             <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">React</th>
@@ -38,7 +38,7 @@ data: [
         </thead>
         <tbody>
           <template x-for="(ind, i) in indicators" :key="i">
-            <tr class="border-t border-zinc-100">
+            <tr class="border-t border-zinc-100 dark:border-zinc-800">
               <td class="px-4 py-2" x-text="ind"></td>
               <td class="px-4 py-2">
                 <input type="number" min="0" max="10" x-model.number="data[0].values[i]"
@@ -49,25 +49,25 @@ data: [
         </tbody>
       </table>
 
-      <div x-ref="chart" class="w-full h-80 bg-white border border-zinc-200 rounded-lg"></div>
+      <div x-ref="chart" class="w-full h-80 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg"></div>
     </section>
 
     <!-- ===================== VARIANTE 2: Múltiples entidades ===================== -->
-    <section x-data="radarMulti()" class="space-y-4">
-      <h2 class="text-lg font-semibold text-zinc-900">2 · Múltiples entidades</h2>
-      <p class="text-sm text-zinc-600">Dos frameworks superpuestos en el mismo radar para comparación directa.</p>
+    <section x-data="radarMulti()" class="relative space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">2 · Múltiples entidades</h2>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400">Dos frameworks superpuestos en el mismo radar para comparación directa.</p>
 
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono">indicators: ['Velocidad', 'Comunidad', 'Docs', 'Seguridad', 'Ecosistema']
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">indicators: ['Velocidad', 'Comunidad', 'Docs', 'Seguridad', 'Ecosistema']
 data: [
   { name: 'React', values: [9, 9, 8, 7, 9] },
   { name: 'Vue',   values: [8, 7, 9, 8, 7] }
 ]</pre>
       </div>
 
-      <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
-        <thead class="bg-zinc-50">
+      <table class="w-full text-sm border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+        <thead class="bg-zinc-50 dark:bg-zinc-800">
           <tr>
             <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Indicador</th>
             <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">React</th>
@@ -76,7 +76,7 @@ data: [
         </thead>
         <tbody>
           <template x-for="(ind, i) in indicators" :key="i">
-            <tr class="border-t border-zinc-100">
+            <tr class="border-t border-zinc-100 dark:border-zinc-800">
               <td class="px-4 py-2" x-text="ind"></td>
               <td class="px-4 py-2">
                 <input type="number" min="0" max="10" x-model.number="data[0].values[i]"
@@ -91,17 +91,17 @@ data: [
         </tbody>
       </table>
 
-      <div x-ref="chart" class="w-full h-80 bg-white border border-zinc-200 rounded-lg"></div>
+      <div x-ref="chart" class="w-full h-80 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg"></div>
     </section>
 
     <!-- ===================== VARIANTE 3: Con relleno ===================== -->
-    <section x-data="radarFilled()" class="space-y-4">
-      <h2 class="text-lg font-semibold text-zinc-900">3 · Con relleno</h2>
-      <p class="text-sm text-zinc-600">Misma comparación dual con áreas rellenas semitransparentes para visualizar superposición.</p>
+    <section x-data="radarFilled()" class="relative space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">3 · Con relleno</h2>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400">Misma comparación dual con áreas rellenas semitransparentes para visualizar superposición.</p>
 
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono">indicators: ['Velocidad', 'Comunidad', 'Docs', 'Seguridad', 'Ecosistema']
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">indicators: ['Velocidad', 'Comunidad', 'Docs', 'Seguridad', 'Ecosistema']
 data: [
   { name: 'React', values: [9, 9, 8, 7, 9] },
   { name: 'Vue',   values: [8, 7, 9, 8, 7] }
@@ -109,8 +109,8 @@ data: [
 // Cada serie incluye areaStyle: { opacity: 0.3 }</pre>
       </div>
 
-      <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
-        <thead class="bg-zinc-50">
+      <table class="w-full text-sm border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+        <thead class="bg-zinc-50 dark:bg-zinc-800">
           <tr>
             <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Indicador</th>
             <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">React</th>
@@ -119,7 +119,7 @@ data: [
         </thead>
         <tbody>
           <template x-for="(ind, i) in indicators" :key="i">
-            <tr class="border-t border-zinc-100">
+            <tr class="border-t border-zinc-100 dark:border-zinc-800">
               <td class="px-4 py-2" x-text="ind"></td>
               <td class="px-4 py-2">
                 <input type="number" min="0" max="10" x-model.number="data[0].values[i]"
@@ -134,25 +134,25 @@ data: [
         </tbody>
       </table>
 
-      <div x-ref="chart" class="w-full h-80 bg-white border border-zinc-200 rounded-lg"></div>
+      <div x-ref="chart" class="w-full h-80 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg"></div>
     </section>
 
     <!-- ===================== VARIANTE 4: Evaluación de candidato ===================== -->
-    <section x-data="radarEval()" class="space-y-4">
-      <h2 class="text-lg font-semibold text-zinc-900">4 · Evaluación de candidato</h2>
-      <p class="text-sm text-zinc-600">Hiring scorecard con 6 competencias para comparar dos candidatos en un proceso de selección.</p>
+    <section x-data="radarEval()" class="relative space-y-4">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">4 · Evaluación de candidato</h2>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400">Hiring scorecard con 6 competencias para comparar dos candidatos en un proceso de selección.</p>
 
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono">indicators: ['Técnico', 'Comunicación', 'Liderazgo', 'Resolución', 'Teamwork', 'Adaptabilidad']
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono">indicators: ['Técnico', 'Comunicación', 'Liderazgo', 'Resolución', 'Teamwork', 'Adaptabilidad']
 data: [
   { name: 'Candidato A', values: [9, 7, 6, 8, 8, 7] },
   { name: 'Candidato B', values: [7, 9, 8, 6, 9, 8] }
 ]</pre>
       </div>
 
-      <table class="w-full text-sm border border-zinc-200 rounded-lg overflow-hidden">
-        <thead class="bg-zinc-50">
+      <table class="w-full text-sm border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+        <thead class="bg-zinc-50 dark:bg-zinc-800">
           <tr>
             <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Competencia</th>
             <th class="px-4 py-2 text-left text-xs font-medium text-zinc-500 uppercase">Candidato A</th>
@@ -161,8 +161,8 @@ data: [
         </thead>
         <tbody>
           <template x-for="(ind, i) in indicators" :key="i">
-            <tr class="border-t border-zinc-100">
-              <td class="px-4 py-2 font-medium text-zinc-700" x-text="ind"></td>
+            <tr class="border-t border-zinc-100 dark:border-zinc-800">
+              <td class="px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400" x-text="ind"></td>
               <td class="px-4 py-2">
                 <input type="number" min="0" max="10" x-model.number="data[0].values[i]"
                   class="w-20 px-2 py-1 text-sm border border-zinc-300 rounded-md focus:ring-2 focus:ring-violet-500 focus:border-violet-500" />
@@ -174,7 +174,7 @@ data: [
             </tr>
           </template>
         </tbody>
-        <tfoot class="bg-zinc-50 border-t border-zinc-200">
+        <tfoot class="bg-zinc-50 dark:bg-zinc-800 border-t border-zinc-200 dark:border-zinc-800">
           <tr>
             <td class="px-4 py-2 text-xs font-medium text-zinc-500 uppercase">Promedio</td>
             <td class="px-4 py-2 text-sm font-semibold text-violet-600" x-text="(data[0].values.reduce((a, b) => a + b, 0) / data[0].values.length).toFixed(1)"></td>
@@ -183,7 +183,7 @@ data: [
         </tfoot>
       </table>
 
-      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
+      <div x-ref="chart" class="w-full h-96 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg"></div>
     </section>
 
   </div>

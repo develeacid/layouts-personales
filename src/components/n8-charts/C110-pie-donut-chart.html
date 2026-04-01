@@ -6,30 +6,30 @@
   <title>C110 · Pie / Donut</title>
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
-<body class="h-full bg-white text-zinc-900 antialiased">
+<body class="h-full bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 antialiased">
 
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <!-- Header -->
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C110 · Nivel 8</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Pie / Donut</h1>
-      <p class="text-sm text-zinc-600 mt-1">Nivel 1 · Estructura plana — distribución proporcional de un total entre categorías.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C110 · Nivel 8</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Pie / Donut</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Nivel 1 · Estructura plana — distribución proporcional de un total entre categorías.</p>
     </header>
 
     <!-- ================================================================== -->
     <!-- V1 · Pie básico                                                    -->
     <!-- ================================================================== -->
-    <section x-data="pieBasic()" x-init="initChart()" class="space-y-6">
+    <section x-data="pieBasic()" x-init="initChart()" class="relative space-y-6">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-900">V1 · Pie básico</h2>
+        <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">V1 · Pie básico</h2>
         <p class="text-sm text-zinc-500 mt-1">Gráfica de pastel clásica con etiquetas de nombre y porcentaje.</p>
       </div>
 
       <!-- Estructura de datos -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 leading-relaxed">data: [
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">data: [
   { fuente: 'Orgánico', visitas: 4850 },
   { fuente: 'Directo', visitas: 2300 },
   { fuente: 'Referral', visitas: 1800 },
@@ -39,18 +39,18 @@
       </div>
 
       <!-- Tabla editable -->
-      <div class="overflow-hidden rounded-lg border border-zinc-200">
+      <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
         <table class="w-full text-sm">
-          <thead class="bg-zinc-50">
+          <thead class="bg-zinc-50 dark:bg-zinc-800">
             <tr>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Fuente</th>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Visitas</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Fuente</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Visitas</th>
             </tr>
           </thead>
           <tbody>
             <template x-for="(d, i) in data" :key="i">
-              <tr class="border-t border-zinc-100">
-                <td class="px-4 py-2 text-zinc-700" x-text="d.fuente"></td>
+              <tr class="border-t border-zinc-100 dark:border-zinc-800">
+                <td class="px-4 py-2 text-zinc-600 dark:text-zinc-400" x-text="d.fuente"></td>
                 <td class="px-4 py-2">
                   <input type="number" x-model.number="d.visitas" class="w-24 rounded border border-zinc-300 px-2 py-1 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </td>
@@ -67,16 +67,16 @@
     <!-- ================================================================== -->
     <!-- V2 · Donut                                                         -->
     <!-- ================================================================== -->
-    <section x-data="pieDonut()" x-init="initChart()" class="space-y-6">
+    <section x-data="pieDonut()" x-init="initChart()" class="relative space-y-6">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-900">V2 · Donut</h2>
+        <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">V2 · Donut</h2>
         <p class="text-sm text-zinc-500 mt-1">Variante con agujero central que muestra el total acumulado.</p>
       </div>
 
       <!-- Estructura de datos -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 leading-relaxed">data: [
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">data: [
   { fuente: 'Orgánico', visitas: 4850 },
   { fuente: 'Directo', visitas: 2300 },
   { fuente: 'Referral', visitas: 1800 },
@@ -86,18 +86,18 @@
       </div>
 
       <!-- Tabla editable -->
-      <div class="overflow-hidden rounded-lg border border-zinc-200">
+      <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
         <table class="w-full text-sm">
-          <thead class="bg-zinc-50">
+          <thead class="bg-zinc-50 dark:bg-zinc-800">
             <tr>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Fuente</th>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Visitas</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Fuente</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Visitas</th>
             </tr>
           </thead>
           <tbody>
             <template x-for="(d, i) in data" :key="i">
-              <tr class="border-t border-zinc-100">
-                <td class="px-4 py-2 text-zinc-700" x-text="d.fuente"></td>
+              <tr class="border-t border-zinc-100 dark:border-zinc-800">
+                <td class="px-4 py-2 text-zinc-600 dark:text-zinc-400" x-text="d.fuente"></td>
                 <td class="px-4 py-2">
                   <input type="number" x-model.number="d.visitas" class="w-24 rounded border border-zinc-300 px-2 py-1 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </td>
@@ -114,16 +114,16 @@
     <!-- ================================================================== -->
     <!-- V3 · Con leyenda detallada                                         -->
     <!-- ================================================================== -->
-    <section x-data="pieLegend()" x-init="initChart()" class="space-y-6">
+    <section x-data="pieLegend()" x-init="initChart()" class="relative space-y-6">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-900">V3 · Con leyenda detallada</h2>
+        <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">V3 · Con leyenda detallada</h2>
         <p class="text-sm text-zinc-500 mt-1">Pie desplazado a la izquierda con leyenda vertical a la derecha mostrando nombre, valor y porcentaje.</p>
       </div>
 
       <!-- Estructura de datos -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 leading-relaxed">data: [
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">data: [
   { fuente: 'Orgánico', visitas: 4850 },
   { fuente: 'Directo', visitas: 2300 },
   { fuente: 'Referral', visitas: 1800 },
@@ -133,18 +133,18 @@
       </div>
 
       <!-- Tabla editable -->
-      <div class="overflow-hidden rounded-lg border border-zinc-200">
+      <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
         <table class="w-full text-sm">
-          <thead class="bg-zinc-50">
+          <thead class="bg-zinc-50 dark:bg-zinc-800">
             <tr>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Fuente</th>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Visitas</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Fuente</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Visitas</th>
             </tr>
           </thead>
           <tbody>
             <template x-for="(d, i) in data" :key="i">
-              <tr class="border-t border-zinc-100">
-                <td class="px-4 py-2 text-zinc-700" x-text="d.fuente"></td>
+              <tr class="border-t border-zinc-100 dark:border-zinc-800">
+                <td class="px-4 py-2 text-zinc-600 dark:text-zinc-400" x-text="d.fuente"></td>
                 <td class="px-4 py-2">
                   <input type="number" x-model.number="d.visitas" class="w-24 rounded border border-zinc-300 px-2 py-1 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </td>
@@ -161,16 +161,16 @@
     <!-- ================================================================== -->
     <!-- V4 · Nightingale (rose)                                            -->
     <!-- ================================================================== -->
-    <section x-data="pieRose()" x-init="initChart()" class="space-y-6">
+    <section x-data="pieRose()" x-init="initChart()" class="relative space-y-6">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-900">V4 · Nightingale (rose)</h2>
+        <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">V4 · Nightingale (rose)</h2>
         <p class="text-sm text-zinc-500 mt-1">Variante donde el radio de cada sector codifica el valor, creando un efecto de rosa de los vientos.</p>
       </div>
 
       <!-- Estructura de datos -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 leading-relaxed">data: [
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">data: [
   { fuente: 'Orgánico', visitas: 4850 },
   { fuente: 'Directo', visitas: 2300 },
   { fuente: 'Referral', visitas: 1800 },
@@ -180,18 +180,18 @@
       </div>
 
       <!-- Tabla editable -->
-      <div class="overflow-hidden rounded-lg border border-zinc-200">
+      <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
         <table class="w-full text-sm">
-          <thead class="bg-zinc-50">
+          <thead class="bg-zinc-50 dark:bg-zinc-800">
             <tr>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Fuente</th>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Visitas</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Fuente</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Visitas</th>
             </tr>
           </thead>
           <tbody>
             <template x-for="(d, i) in data" :key="i">
-              <tr class="border-t border-zinc-100">
-                <td class="px-4 py-2 text-zinc-700" x-text="d.fuente"></td>
+              <tr class="border-t border-zinc-100 dark:border-zinc-800">
+                <td class="px-4 py-2 text-zinc-600 dark:text-zinc-400" x-text="d.fuente"></td>
                 <td class="px-4 py-2">
                   <input type="number" x-model.number="d.visitas" class="w-24 rounded border border-zinc-300 px-2 py-1 text-sm text-zinc-800 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 </td>

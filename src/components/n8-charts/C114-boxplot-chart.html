@@ -6,30 +6,30 @@
   <title>C114 · Boxplot</title>
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
-<body class="h-full bg-white text-zinc-900 antialiased">
+<body class="h-full bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 antialiased">
 
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <!-- Header -->
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C114 · Nivel 8</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Boxplot</h1>
-      <p class="text-sm text-zinc-600 mt-1">Nivel 3 · Distribución — visualiza medianas, cuartiles y valores atípicos (outliers) de conjuntos de observaciones.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C114 · Nivel 8</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Boxplot</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Nivel 3 · Distribución — visualiza medianas, cuartiles y valores atípicos (outliers) de conjuntos de observaciones.</p>
     </header>
 
     <!-- ================================================================== -->
     <!-- V1 · Boxplot básico                                                -->
     <!-- ================================================================== -->
-    <section x-data="boxBasic()" x-init="initChart()" class="space-y-6">
+    <section x-data="boxBasic()" x-init="initChart()" class="relative space-y-6">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-900">V1 · Boxplot básico</h2>
+        <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">V1 · Boxplot básico</h2>
         <p class="text-sm text-zinc-500 mt-1">Un solo grupo de datos mostrando mediana, Q1, Q3, whiskers y outliers. Ideal para inspeccionar la distribución de un endpoint.</p>
       </div>
 
       <!-- Estructura de datos -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono leading-relaxed">// Array de arrays: cada sub-array es un grupo de observaciones
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono leading-relaxed">// Array de arrays: cada sub-array es un grupo de observaciones
 data: [
   [120, 132, 101, 134, 90, 230, 145, 160, 110, 98,
    155, 180, 125, 140, 115, 170, 88, 142, 165, 195]
@@ -46,16 +46,16 @@ data: [
     <!-- ================================================================== -->
     <!-- V2 · Comparativo                                                   -->
     <!-- ================================================================== -->
-    <section x-data="boxCompare()" x-init="initChart()" class="space-y-6">
+    <section x-data="boxCompare()" x-init="initChart()" class="relative space-y-6">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-900">V2 · Comparativo</h2>
+        <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">V2 · Comparativo</h2>
         <p class="text-sm text-zinc-500 mt-1">Cuatro endpoints lado a lado para comparar distribuciones de tiempos de respuesta.</p>
       </div>
 
       <!-- Estructura de datos -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono leading-relaxed">groups: ['GET /users', 'POST /orders', 'GET /products', 'PUT /settings'],
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono leading-relaxed">groups: ['GET /users', 'POST /orders', 'GET /products', 'PUT /settings'],
 data: [
   [120, 132, 101, 134, 90, 230, ...],   // GET /users — 20 obs
   [220, 282, 201, 234, 290, 430, ...],   // POST /orders — 20 obs
@@ -65,19 +65,19 @@ data: [
       </div>
 
       <!-- Tabla de observaciones crudas -->
-      <div class="overflow-hidden rounded-lg border border-zinc-200">
+      <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
         <table class="w-full text-sm">
-          <thead class="bg-zinc-50">
+          <thead class="bg-zinc-50 dark:bg-zinc-800">
             <tr>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Endpoint</th>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Observaciones (ms)</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Endpoint</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Observaciones (ms)</th>
             </tr>
           </thead>
           <tbody>
             <template x-for="(group, i) in groups" :key="i">
-              <tr class="border-t border-zinc-100">
-                <td class="px-4 py-2 text-zinc-700 font-mono text-xs whitespace-nowrap" x-text="group"></td>
-                <td class="px-4 py-2 text-zinc-600 text-xs font-mono" x-text="data[i].join(', ')"></td>
+              <tr class="border-t border-zinc-100 dark:border-zinc-800">
+                <td class="px-4 py-2 text-zinc-600 dark:text-zinc-400 font-mono text-xs whitespace-nowrap" x-text="group"></td>
+                <td class="px-4 py-2 text-zinc-600 dark:text-zinc-400 text-xs font-mono" x-text="data[i].join(', ')"></td>
               </tr>
             </template>
           </tbody>
@@ -91,16 +91,16 @@ data: [
     <!-- ================================================================== -->
     <!-- V3 · Horizontal                                                    -->
     <!-- ================================================================== -->
-    <section x-data="boxHorizontal()" x-init="initChart()" class="space-y-6">
+    <section x-data="boxHorizontal()" x-init="initChart()" class="relative space-y-6">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-900">V3 · Horizontal</h2>
+        <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">V3 · Horizontal</h2>
         <p class="text-sm text-zinc-500 mt-1">Ejes invertidos: categorías en Y, valores en X. Útil cuando los nombres de endpoints son largos.</p>
       </div>
 
       <!-- Estructura de datos -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono leading-relaxed">// Mismos datos que V2, pero con ejes invertidos
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono leading-relaxed">// Mismos datos que V2, pero con ejes invertidos
 // yAxis: { type: 'category' }  →  labels en el eje vertical
 // xAxis: { type: 'value' }     →  tiempos en el eje horizontal
 // grid: { left: 120 }          →  espacio para labels largos</pre>
@@ -113,16 +113,16 @@ data: [
     <!-- ================================================================== -->
     <!-- V4 · Con scatter superpuesto                                       -->
     <!-- ================================================================== -->
-    <section x-data="boxScatter()" x-init="initChart()" class="space-y-6">
+    <section x-data="boxScatter()" x-init="initChart()" class="relative space-y-6">
       <div>
-        <h2 class="text-lg font-semibold text-zinc-900">V4 · Con scatter superpuesto</h2>
+        <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">V4 · Con scatter superpuesto</h2>
         <p class="text-sm text-zinc-500 mt-1">Cajas + puntos individuales de cada observación con jitter horizontal para evitar solapamiento.</p>
       </div>
 
       <!-- Estructura de datos -->
-      <div class="bg-zinc-50 border border-zinc-200 rounded-lg p-4">
+      <div class="bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4">
         <p class="text-xs font-medium text-zinc-500 uppercase tracking-wide mb-2">Estructura de datos</p>
-        <pre class="text-xs text-zinc-700 font-mono leading-relaxed">// Combina boxplot + scatter con jitter
+        <pre class="text-xs text-zinc-600 dark:text-zinc-400 font-mono leading-relaxed">// Combina boxplot + scatter con jitter
 // Boxplot: dataset transform calcula cuartiles automáticamente
 // Scatter: cada observación se dibuja con un desplazamiento
 //          aleatorio en X para no solaparse
@@ -131,19 +131,19 @@ data: [
       </div>
 
       <!-- Tabla de observaciones crudas -->
-      <div class="overflow-hidden rounded-lg border border-zinc-200">
+      <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
         <table class="w-full text-sm">
-          <thead class="bg-zinc-50">
+          <thead class="bg-zinc-50 dark:bg-zinc-800">
             <tr>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Endpoint</th>
-              <th class="text-left px-4 py-2 font-medium text-zinc-600">Observaciones (ms)</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Endpoint</th>
+              <th class="text-left px-4 py-2 font-medium text-zinc-600 dark:text-zinc-400">Observaciones (ms)</th>
             </tr>
           </thead>
           <tbody>
             <template x-for="(group, i) in groups" :key="i">
-              <tr class="border-t border-zinc-100">
-                <td class="px-4 py-2 text-zinc-700 font-mono text-xs whitespace-nowrap" x-text="group"></td>
-                <td class="px-4 py-2 text-zinc-600 text-xs font-mono" x-text="data[i].join(', ')"></td>
+              <tr class="border-t border-zinc-100 dark:border-zinc-800">
+                <td class="px-4 py-2 text-zinc-600 dark:text-zinc-400 font-mono text-xs whitespace-nowrap" x-text="group"></td>
+                <td class="px-4 py-2 text-zinc-600 dark:text-zinc-400 text-xs font-mono" x-text="data[i].join(', ')"></td>
               </tr>
             </template>
           </tbody>
