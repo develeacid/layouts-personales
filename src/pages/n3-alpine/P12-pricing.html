@@ -13,20 +13,20 @@
   <div x-data="pricingPage()">
 
     <!-- Navbar -->
-    <nav class="bg-white border-b border-zinc-200">
-      <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+    <nav class="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
         <div class="flex items-center gap-8">
           <div class="flex items-center gap-2">
             <div class="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
               <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
             </div>
-            <span class="text-sm font-semibold text-zinc-900">LayoutOS</span>
+            <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">LayoutOS</span>
           </div>
           <div class="hidden sm:flex items-center gap-6">
-            <a href="#" class="text-sm text-zinc-600 hover:text-zinc-900 transition-colors">Producto</a>
+            <a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Producto</a>
             <a href="#" class="text-sm font-medium text-blue-600">Pricing</a>
-            <a href="#" class="text-sm text-zinc-600 hover:text-zinc-900 transition-colors">Docs</a>
-            <a href="#" class="text-sm text-zinc-600 hover:text-zinc-900 transition-colors">Blog</a>
+            <a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Docs</a>
+            <a href="#" class="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Blog</a>
           </div>
         </div>
         <button class="btn-secondary text-xs">Iniciar sesion</button>
@@ -34,46 +34,46 @@
     </nav>
 
     <!-- Hero -->
-    <section class="text-center pt-16 pb-10 px-6">
-      <h1 class="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">Planes simples y transparentes</h1>
-      <p class="text-base text-zinc-500 mt-3 max-w-xl mx-auto">Elige el plan que mejor se adapte a tu equipo. Cambia o cancela en cualquier momento.</p>
+    <section class="text-center pt-16 pb-10 px-4 sm:px-6">
+      <h1 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-4xl">Planes simples y transparentes</h1>
+      <p class="text-base text-zinc-500 dark:text-zinc-400 mt-3 max-w-xl mx-auto">Elige el plan que mejor se adapte a tu equipo. Cambia o cancela en cualquier momento.</p>
 
       <!-- Monthly / Annual toggle -->
       <div class="flex items-center justify-center gap-3 mt-8">
-        <span class="text-sm" :class="!annual ? 'text-zinc-900 font-medium' : 'text-zinc-400'">Mensual</span>
-        <button @click="annual = !annual" :class="annual ? 'bg-blue-600' : 'bg-zinc-300'" class="relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer">
+        <span class="text-sm" :class="!annual ? 'text-zinc-900 dark:text-zinc-100 font-medium' : 'text-zinc-400 dark:text-zinc-500'">Mensual</span>
+        <button @click="annual = !annual" :class="annual ? 'bg-blue-600' : 'bg-zinc-300 dark:bg-zinc-600'" class="relative w-11 h-6 rounded-full transition-colors duration-200 cursor-pointer">
           <span :class="annual ? 'translate-x-5' : 'translate-x-0.5'" class="absolute top-0.5 left-0 w-5 h-5 bg-white rounded-full shadow-sm transition-transform duration-200"></span>
         </button>
-        <span class="text-sm" :class="annual ? 'text-zinc-900 font-medium' : 'text-zinc-400'">Anual</span>
+        <span class="text-sm" :class="annual ? 'text-zinc-900 dark:text-zinc-100 font-medium' : 'text-zinc-400 dark:text-zinc-500'">Anual</span>
         <span x-show="annual" x-transition class="badge-green text-xs">Ahorra 20%</span>
       </div>
     </section>
 
     <!-- Pricing grid -->
-    <section class="max-w-6xl mx-auto px-6 pb-16">
+    <section class="max-w-6xl mx-auto px-4 sm:px-6 pb-16">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
         <!-- Starter -->
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 flex flex-col">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 flex flex-col">
           <div class="mb-6">
-            <h3 class="text-base font-semibold text-zinc-900">Starter</h3>
-            <p class="text-xs text-zinc-500 mt-1">Para proyectos personales y pruebas</p>
+            <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">Starter</h3>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Para proyectos personales y pruebas</p>
             <div class="mt-4 flex items-baseline gap-1">
-              <span class="text-3xl font-bold text-zinc-900" x-text="annual ? '$86' : '$9'"></span>
-              <span class="text-sm text-zinc-500" x-text="annual ? '/ano' : '/mes'"></span>
+              <span class="text-3xl font-bold text-zinc-900 dark:text-zinc-100" x-text="annual ? '$86' : '$9'"></span>
+              <span class="text-sm text-zinc-500 dark:text-zinc-400" x-text="annual ? '/ano' : '/mes'"></span>
             </div>
             <p x-show="annual" class="text-xs text-emerald-600 mt-1">$7.17/mes facturado anualmente</p>
           </div>
           <ul class="space-y-3 mb-8 flex-1">
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               5 proyectos
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               10 GB de almacenamiento
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               Soporte por email
             </li>
@@ -82,37 +82,37 @@
         </div>
 
         <!-- Pro (highlighted) -->
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 flex flex-col ring-2 ring-blue-200 relative">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 flex flex-col ring-2 ring-blue-200 dark:ring-blue-800 relative">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2">
             <span class="badge-blue text-xs">Popular</span>
           </div>
           <div class="mb-6">
-            <h3 class="text-base font-semibold text-zinc-900">Pro</h3>
-            <p class="text-xs text-zinc-500 mt-1">Para equipos en crecimiento</p>
+            <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">Pro</h3>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Para equipos en crecimiento</p>
             <div class="mt-4 flex items-baseline gap-1">
-              <span class="text-3xl font-bold text-zinc-900" x-text="annual ? '$278' : '$29'"></span>
-              <span class="text-sm text-zinc-500" x-text="annual ? '/ano' : '/mes'"></span>
+              <span class="text-3xl font-bold text-zinc-900 dark:text-zinc-100" x-text="annual ? '$278' : '$29'"></span>
+              <span class="text-sm text-zinc-500 dark:text-zinc-400" x-text="annual ? '/ano' : '/mes'"></span>
             </div>
             <p x-show="annual" class="text-xs text-emerald-600 mt-1">$23.17/mes facturado anualmente</p>
           </div>
           <ul class="space-y-3 mb-8 flex-1">
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               Todo de Starter
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               50 proyectos
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               100 GB de almacenamiento
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               Soporte prioritario
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               Acceso API completo
             </li>
@@ -121,34 +121,34 @@
         </div>
 
         <!-- Enterprise -->
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 flex flex-col">
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 flex flex-col">
           <div class="mb-6">
-            <h3 class="text-base font-semibold text-zinc-900">Enterprise</h3>
-            <p class="text-xs text-zinc-500 mt-1">Para organizaciones grandes</p>
+            <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">Enterprise</h3>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Para organizaciones grandes</p>
             <div class="mt-4 flex items-baseline gap-1">
-              <span class="text-3xl font-bold text-zinc-900" x-text="annual ? '$950' : '$99'"></span>
-              <span class="text-sm text-zinc-500" x-text="annual ? '/ano' : '/mes'"></span>
+              <span class="text-3xl font-bold text-zinc-900 dark:text-zinc-100" x-text="annual ? '$950' : '$99'"></span>
+              <span class="text-sm text-zinc-500 dark:text-zinc-400" x-text="annual ? '/ano' : '/mes'"></span>
             </div>
             <p x-show="annual" class="text-xs text-emerald-600 mt-1">$79.17/mes facturado anualmente</p>
           </div>
           <ul class="space-y-3 mb-8 flex-1">
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               Todo de Pro
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               Proyectos ilimitados
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               SSO / SAML
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               SLA 99.9% uptime
             </li>
-            <li class="flex items-start gap-2 text-sm text-zinc-600">
+            <li class="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <svg class="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
               Soporte dedicado
             </li>
@@ -159,25 +159,25 @@
     </section>
 
     <!-- FAQ -->
-    <section class="max-w-3xl mx-auto px-6 pb-20">
-      <h2 class="text-xl font-semibold text-zinc-900 text-center mb-8">Preguntas frecuentes</h2>
+    <section class="max-w-3xl mx-auto px-4 sm:px-6 pb-20">
+      <h2 class="text-xl font-semibold text-zinc-900 dark:text-zinc-100 text-center mb-8">Preguntas frecuentes</h2>
       <div class="space-y-3">
         <template x-for="(faq, index) in faqs" :key="index">
-          <div class="bg-white border border-zinc-200 rounded-xl">
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl">
             <button
               @click="faqOpen[index] = !faqOpen[index]"
               class="w-full flex items-center justify-between px-5 py-4 text-left cursor-pointer"
             >
-              <span class="text-sm font-medium text-zinc-900" x-text="faq.question"></span>
+              <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="faq.question"></span>
               <svg
-                class="w-4 h-4 text-zinc-400 shrink-0 transition-transform duration-200"
+                class="w-4 h-4 text-zinc-400 dark:text-zinc-500 shrink-0 transition-transform duration-200"
                 :class="faqOpen[index] ? 'rotate-180' : ''"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
               ><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
             </button>
             <div x-show="faqOpen[index]" x-cloak x-collapse>
               <div class="px-5 pb-4">
-                <p class="text-sm text-zinc-500" x-text="faq.answer"></p>
+                <p class="text-sm text-zinc-500 dark:text-zinc-400" x-text="faq.answer"></p>
               </div>
             </div>
           </div>
@@ -186,18 +186,18 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-zinc-200 bg-white">
-      <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-2">
           <div class="w-6 h-6 bg-blue-600 rounded-md flex items-center justify-center">
             <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
           </div>
-          <span class="text-xs text-zinc-500">&copy; 2026 LayoutOS. Todos los derechos reservados.</span>
+          <span class="text-xs text-zinc-500 dark:text-zinc-400">&copy; 2026 LayoutOS. Todos los derechos reservados.</span>
         </div>
         <div class="flex gap-6">
-          <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Privacidad</a>
-          <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Terminos</a>
-          <a href="#" class="text-xs text-zinc-400 hover:text-zinc-600 transition-colors">Contacto</a>
+          <a href="#" class="text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">Privacidad</a>
+          <a href="#" class="text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">Terminos</a>
+          <a href="#" class="text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">Contacto</a>
         </div>
       </div>
     </footer>
@@ -214,14 +214,14 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-x-0"
             x-transition:leave-end="opacity-0 translate-x-8"
-            class="flex items-start gap-3 bg-white border border-zinc-200 rounded-xl shadow-lg px-4 py-3"
+            class="flex items-start gap-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg px-4 py-3"
           >
             <div class="shrink-0 mt-0.5">
-              <div class="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
+              <div class="w-5 h-5 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center">
                 <svg class="w-3 h-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01" /></svg>
               </div>
             </div>
-            <p class="text-xs text-zinc-900 flex-1 pt-0.5" x-text="toast.message"></p>
+            <p class="text-xs text-zinc-900 dark:text-zinc-100 flex-1 pt-0.5" x-text="toast.message"></p>
           </div>
         </template>
       </div>

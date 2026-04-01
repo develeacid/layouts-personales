@@ -8,24 +8,24 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="min-h-full flex items-center justify-center px-6 py-12" x-data="signInPage()">
+  <div class="min-h-full flex items-center justify-center px-4 sm:px-6 py-12" x-data="signInPage()">
     <div class="w-full max-w-md">
 
       <!-- Logo -->
       <div class="text-center mb-8">
-        <span class="text-lg font-semibold text-zinc-900 tracking-tight">LayoutOS</span>
-        <p class="text-sm text-zinc-500 mt-1">Bienvenido de vuelta</p>
+        <span class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 tracking-tight">LayoutOS</span>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Bienvenido de vuelta</p>
       </div>
 
       <!-- Card -->
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-        <h1 class="text-lg font-semibold text-zinc-900">Iniciar sesión</h1>
-        <p class="text-sm text-zinc-500 mt-1">Ingresa tus credenciales para acceder</p>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+        <h1 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Iniciar sesión</h1>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Ingresa tus credenciales para acceder</p>
 
         <!-- Error general -->
-        <div class="bg-rose-50 border border-rose-200 rounded-lg p-3 mt-4 flex items-center gap-2" x-show="generalError" x-cloak>
+        <div class="bg-rose-50 dark:bg-rose-950 border border-rose-200 dark:border-rose-800 rounded-lg p-3 mt-4 flex items-center gap-2" x-show="generalError" x-cloak>
           <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
-          <p class="text-xs text-rose-600">Credenciales incorrectas. Verifica tu email y contraseña.</p>
+          <p class="text-xs text-rose-600 dark:text-rose-400">Credenciales incorrectas. Verifica tu email y contraseña.</p>
         </div>
 
         <!-- Form -->
@@ -81,7 +81,7 @@
           <div class="flex items-center justify-between">
             <label class="flex items-center gap-2 cursor-pointer">
               <input type="checkbox" class="w-4 h-4 rounded border-zinc-300 text-accent accent-accent" x-model="remember" />
-              <span class="text-sm text-zinc-600">Recordarme</span>
+              <span class="text-sm text-zinc-600 dark:text-zinc-400">Recordarme</span>
             </label>
             <a href="/forgot-password" class="text-sm text-accent hover:text-accent-hover transition-colors duration-150">¿Olvidaste tu contraseña?</a>
           </div>
@@ -109,7 +109,7 @@
       </div>
 
       <!-- Link registro -->
-      <p class="text-center text-sm text-zinc-500 mt-6">
+      <p class="text-center text-sm text-zinc-500 dark:text-zinc-400 mt-6">
         ¿No tienes cuenta?
         <a href="/sign-up" class="text-accent hover:text-accent-hover font-medium transition-colors duration-150">Regístrate</a>
       </p>
