@@ -10,8 +10,8 @@
   <div class="min-h-full flex flex-col" x-data="checkoutPage()">
 
     <!-- Navbar e-commerce -->
-    <nav class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
-      <span class="text-sm font-bold text-zinc-900">LayoutOS Store</span>
+    <nav class="h-14 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-4 sm:px-6 shrink-0">
+      <span class="text-sm font-bold text-zinc-900 dark:text-zinc-100">LayoutOS Store</span>
       <div class="flex items-center gap-6">
         <!-- Steps -->
         <div class="hidden sm:flex items-center gap-2">
@@ -19,28 +19,28 @@
             <div class="flex items-center gap-2">
               <div class="flex items-center gap-1.5">
                 <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold"
-                  :class="i < step ? 'bg-emerald-500 text-white' : i === step ? 'bg-indigo-600 text-white' : 'bg-zinc-200 text-zinc-500'"
+                  :class="i < step ? 'bg-emerald-500 text-white' : i === step ? 'bg-indigo-600 text-white' : 'bg-zinc-200 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400'"
                   x-text="i < step ? '&#10003;' : (i + 1)"></span>
-                <span class="text-sm" :class="i === step ? 'font-semibold text-zinc-900' : 'text-zinc-400'" x-text="s"></span>
+                <span class="text-sm" :class="i === step ? 'font-semibold text-zinc-900 dark:text-zinc-100' : 'text-zinc-400 dark:text-zinc-500'" x-text="s"></span>
               </div>
               <svg x-show="i < steps.length - 1" class="w-4 h-4 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
             </div>
           </template>
         </div>
       </div>
-      <span class="text-sm text-zinc-500">Checkout</span>
+      <span class="text-sm text-zinc-500 dark:text-zinc-400">Checkout</span>
     </nav>
 
     <!-- Content -->
-    <main class="flex-1 max-w-6xl mx-auto w-full px-6 py-8">
+    <main class="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-8">
       <div class="flex flex-col lg:flex-row gap-8">
 
         <!-- Left: form -->
         <div class="flex-1">
           <!-- Step 1: Shipping -->
           <div x-show="step === 0">
-            <h2 class="text-lg font-semibold text-zinc-900 mb-6">Dirección de envío</h2>
-            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-4">
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-6">Dirección de envío</h2>
+            <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 space-y-4">
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <label class="label">Nombre</label>
@@ -81,8 +81,8 @@
 
           <!-- Step 2: Payment -->
           <div x-show="step === 1" x-cloak>
-            <h2 class="text-lg font-semibold text-zinc-900 mb-6">Método de pago</h2>
-            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-4">
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-6">Método de pago</h2>
+            <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 space-y-4">
               <div>
                 <label class="label">Número de tarjeta</label>
                 <input x-model="payment.card" type="text" class="input w-full" placeholder="4242 4242 4242 4242" maxlength="19"
@@ -111,20 +111,20 @@
 
           <!-- Step 3: Review -->
           <div x-show="step === 2" x-cloak>
-            <h2 class="text-lg font-semibold text-zinc-900 mb-6">Revisar y confirmar</h2>
+            <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-6">Revisar y confirmar</h2>
             <div class="space-y-4">
-              <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-                <h3 class="text-sm font-semibold text-zinc-900 mb-3">Dirección de envío</h3>
-                <p class="text-sm text-zinc-600" x-text="shipping.firstName + ' ' + shipping.lastName"></p>
-                <p class="text-sm text-zinc-600" x-text="shipping.address"></p>
-                <p class="text-sm text-zinc-600" x-text="shipping.city + ', ' + shipping.province + ' ' + shipping.zip"></p>
-                <button @click="step = 0" class="text-sm text-indigo-600 hover:text-indigo-700 mt-2">Editar</button>
+              <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+                <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Dirección de envío</h3>
+                <p class="text-sm text-zinc-600 dark:text-zinc-400" x-text="shipping.firstName + ' ' + shipping.lastName"></p>
+                <p class="text-sm text-zinc-600 dark:text-zinc-400" x-text="shipping.address"></p>
+                <p class="text-sm text-zinc-600 dark:text-zinc-400" x-text="shipping.city + ', ' + shipping.province + ' ' + shipping.zip"></p>
+                <button @click="step = 0" class="text-sm text-indigo-600 hover:text-indigo-600 dark:text-indigo-400 mt-2">Editar</button>
               </div>
-              <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-                <h3 class="text-sm font-semibold text-zinc-900 mb-3">Método de pago</h3>
-                <p class="text-sm text-zinc-600" x-text="'Tarjeta terminada en ' + payment.card.slice(-4)"></p>
-                <p class="text-sm text-zinc-600" x-text="'Expira: ' + payment.expiry"></p>
-                <button @click="step = 1" class="text-sm text-indigo-600 hover:text-indigo-700 mt-2">Editar</button>
+              <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+                <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Método de pago</h3>
+                <p class="text-sm text-zinc-600 dark:text-zinc-400" x-text="'Tarjeta terminada en ' + payment.card.slice(-4)"></p>
+                <p class="text-sm text-zinc-600 dark:text-zinc-400" x-text="'Expira: ' + payment.expiry"></p>
+                <button @click="step = 1" class="text-sm text-indigo-600 hover:text-indigo-600 dark:text-indigo-400 mt-2">Editar</button>
               </div>
               <div class="flex justify-between pt-2">
                 <button @click="step = 1" class="btn-secondary">Volver</button>
@@ -136,32 +136,32 @@
 
         <!-- Right: order summary -->
         <div class="lg:w-80 shrink-0">
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 lg:sticky lg:top-8">
-            <h3 class="text-sm font-semibold text-zinc-900 mb-4">Resumen del pedido</h3>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 lg:sticky lg:top-8">
+            <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Resumen del pedido</h3>
             <div class="space-y-3 mb-4">
               <template x-for="item in cart" :key="item.id">
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 bg-zinc-100 rounded-lg flex items-center justify-center text-xs text-zinc-400">IMG</div>
+                  <div class="w-12 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-lg flex items-center justify-center text-xs text-zinc-400 dark:text-zinc-500">IMG</div>
                   <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-zinc-900 truncate" x-text="item.name"></p>
-                    <p class="text-xs text-zinc-500" x-text="'Cant: ' + item.qty"></p>
+                    <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100 truncate" x-text="item.name"></p>
+                    <p class="text-xs text-zinc-500 dark:text-zinc-400" x-text="'Cant: ' + item.qty"></p>
                   </div>
-                  <span class="text-sm font-medium text-zinc-900" x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
+                  <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
                 </div>
               </template>
             </div>
-            <div class="border-t border-zinc-200 pt-4 space-y-2">
+            <div class="border-t border-zinc-200 dark:border-zinc-800 pt-4 space-y-2">
               <div class="flex justify-between text-sm">
-                <span class="text-zinc-500">Subtotal</span>
-                <span class="text-zinc-900" x-text="'$' + subtotal.toFixed(2)"></span>
+                <span class="text-zinc-500 dark:text-zinc-400">Subtotal</span>
+                <span class="text-zinc-900 dark:text-zinc-100" x-text="'$' + subtotal.toFixed(2)"></span>
               </div>
               <div class="flex justify-between text-sm">
-                <span class="text-zinc-500">Envío</span>
-                <span class="text-zinc-900">$4.99</span>
+                <span class="text-zinc-500 dark:text-zinc-400">Envío</span>
+                <span class="text-zinc-900 dark:text-zinc-100">$4.99</span>
               </div>
-              <div class="flex justify-between text-sm font-semibold border-t border-zinc-200 pt-2 mt-2">
-                <span class="text-zinc-900">Total</span>
-                <span class="text-zinc-900" x-text="'$' + (subtotal + 4.99).toFixed(2)"></span>
+              <div class="flex justify-between text-sm font-semibold border-t border-zinc-200 dark:border-zinc-800 pt-2 mt-2">
+                <span class="text-zinc-900 dark:text-zinc-100">Total</span>
+                <span class="text-zinc-900 dark:text-zinc-100" x-text="'$' + (subtotal + 4.99).toFixed(2)"></span>
               </div>
             </div>
           </div>
