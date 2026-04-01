@@ -67,9 +67,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
           <div class="lg:col-span-2 bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
             <h2 class="text-sm font-semibold text-zinc-900 mb-4">Grafico de ventas</h2>
-            <div class="h-48 bg-zinc-50 border border-dashed border-zinc-300 rounded-lg flex items-center justify-center text-sm text-zinc-400">
-              Grafico de ventas
-            </div>
+            <div x-ref="chart" x-init="initChart()" class="h-48"></div>
           </div>
           <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
             <h2 class="text-sm font-semibold text-zinc-900 mb-4">Timeline de actividad</h2>
@@ -127,6 +125,7 @@
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function dashboardBase() {
       return {
@@ -143,6 +142,47 @@
           { text: 'Actualizacion de inventario', time: 'Hace 2h' },
           { text: 'Campana email enviada', time: 'Hace 3h' }
         ],
+        monthlySales: [
+          { mes: 'Ene', ventas: 32400 },
+          { mes: 'Feb', ventas: 28900 },
+          { mes: 'Mar', ventas: 35100 },
+          { mes: 'Abr', ventas: 42300 },
+          { mes: 'May', ventas: 38700 },
+          { mes: 'Jun', ventas: 45200 },
+          { mes: 'Jul', ventas: 41800 },
+          { mes: 'Ago', ventas: 48290 },
+          { mes: 'Sep', ventas: 44100 },
+          { mes: 'Oct', ventas: 51300 },
+          { mes: 'Nov', ventas: 55800 },
+          { mes: 'Dic', ventas: 62400 }
+        ],
+        _resizeHandler: null,
+        initChart() {
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          this.$refs.chart._ec.setOption({
+            tooltip: { trigger: 'axis' },
+            grid: { left: 50, right: 15, top: 10, bottom: 25 },
+            xAxis: { type: 'category', data: this.monthlySales.map(d => d.mes), boundaryGap: false },
+            yAxis: { type: 'value', axisLabel: { formatter: function(v) { return '$' + (v/1000) + 'k'; } } },
+            series: [{
+              data: this.monthlySales.map(d => d.ventas),
+              type: 'line',
+              smooth: true,
+              itemStyle: { color: '#3b82f6' },
+              areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                  { offset: 0, color: 'rgba(59,130,246,0.25)' },
+                  { offset: 1, color: 'rgba(59,130,246,0.02)' }
+                ])
+              }
+            }]
+          });
+        },
         activityTable: [
           { user: 'Ana Garcia', action: 'Creo nuevo proyecto', date: '31 Mar 2026', status: 'Completado' },
           { user: 'Carlos Lopez', action: 'Actualizo perfil', date: '31 Mar 2026', status: 'Completado' },
