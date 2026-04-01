@@ -17,6 +17,15 @@ document.addEventListener('alpine:init', () => {
       });
     },
 
+    get componentCount() {
+      return this.sections.filter(s => s.type === 'component')
+        .reduce((a, s) => a + s.items.length, 0);
+    },
+    get pageCount() {
+      return this.sections.filter(s => s.type === 'page')
+        .reduce((a, s) => a + s.items.length, 0);
+    },
+
     toggleTheme() {
       this.darkMode = !this.darkMode;
     },

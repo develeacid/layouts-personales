@@ -131,7 +131,7 @@
 
       <!-- Sidebar footer -->
       <div class="px-4 py-3" :class="darkMode ? 'border-t border-zinc-800/60' : 'border-t border-zinc-200'">
-        <p class="text-[11px]" :class="darkMode ? 'text-zinc-600' : 'text-zinc-400'">107 componentes · 66 paginas</p>
+        <p class="text-[11px]" :class="darkMode ? 'text-zinc-600' : 'text-zinc-400'" x-text="componentCount + ' componentes · ' + pageCount + ' páginas'"></p>
         <p class="text-[10px] mt-0.5" :class="darkMode ? 'text-zinc-700' : 'text-zinc-400'">Tailwind CSS + Alpine.js</p>
       </div>
     </aside>
