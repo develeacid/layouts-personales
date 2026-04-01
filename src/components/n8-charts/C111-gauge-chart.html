@@ -290,25 +290,25 @@
         },
         render() {
           var colors = ['#3b82f6', '#f59e0b', '#10b981'];
-          var bgs = ['#eff6ff', '#fffbeb', '#ecfdf5'];
           var self = this;
-          function ring(idx, radius, width) {
+          function ring(idx, radius) {
             return {
               type: 'gauge',
-              center: ['50%', '55%'],
-              startAngle: 210,
-              endAngle: -30,
+              center: ['50%', '50%'],
+              startAngle: 90,
+              endAngle: -270,
               min: 0,
               max: 100,
               radius: radius,
+              clockwise: true,
               progress: {
                 show: true,
-                width: width,
+                width: 16,
                 roundCap: true,
                 itemStyle: { color: colors[idx] }
               },
               axisLine: {
-                lineStyle: { width: width, color: [[1, '#e4e4e7']] },
+                lineStyle: { width: 16, color: [[1, '#f4f4f5']] },
                 roundCap: true
               },
               axisTick: { show: false },
@@ -319,25 +319,36 @@
               title: { show: false },
               detail: {
                 valueAnimation: true,
-                fontSize: 13,
+                width: 50,
+                lineHeight: 18,
+                borderRadius: 8,
+                offsetCenter: [0, (idx - 1) * 28 + '%'],
+                fontSize: 14,
                 fontWeight: 'bold',
+                formatter: function (v) { return '{name|' + self.data[idx].name + '}\n{value|' + v + '%}'; },
                 color: colors[idx],
-                offsetCenter: [0, (idx - 1) * 30 + '%'],
-                formatter: function (v) { return self.data[idx].name + '  ' + v + '%'; },
-                borderColor: colors[idx],
-                borderWidth: 1,
-                borderRadius: 4,
-                padding: [4, 10],
-                backgroundColor: bgs[idx]
+                rich: {
+                  name: {
+                    fontSize: 11,
+                    color: '#71717a',
+                    lineHeight: 18
+                  },
+                  value: {
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: colors[idx],
+                    lineHeight: 22
+                  }
+                }
               },
               data: [{ value: self.data[idx].value, name: self.data[idx].name }]
             };
           }
           this.ec().setOption({
             series: [
-              ring(0, '90%', 18),
-              ring(1, '66%', 18),
-              ring(2, '42%', 18)
+              ring(0, '90%'),
+              ring(1, '70%'),
+              ring(2, '50%')
             ],
             legend: {
               show: true,
