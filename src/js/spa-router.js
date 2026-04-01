@@ -83,11 +83,24 @@
       cleanupAlpine();
 
       // Skeleton de carga
+      const isDark = document.documentElement.classList.contains('dark');
+      const skBg = isDark ? 'bg-zinc-800' : 'bg-zinc-300';
+      const skBgLight = isDark ? 'bg-zinc-800/60' : 'bg-zinc-200';
       main.innerHTML = `
-        <div class="px-6 py-12 max-w-5xl mx-auto space-y-6 animate-pulse">
-          <div class="h-8 w-64 bg-zinc-200 rounded-lg"></div>
-          <div class="h-4 w-96 bg-zinc-100 rounded"></div>
-          <div class="h-64 bg-zinc-100 rounded-xl"></div>
+        <div class="px-4 sm:px-6 py-12 max-w-5xl mx-auto space-y-8 animate-pulse">
+          <div class="space-y-3">
+            <div class="h-3 w-24 ${skBgLight} rounded"></div>
+            <div class="h-7 w-56 ${skBg} rounded-lg"></div>
+            <div class="h-4 w-80 ${skBgLight} rounded"></div>
+          </div>
+          <div class="space-y-4">
+            <div class="h-3 w-20 ${skBgLight} rounded"></div>
+            <div class="h-24 ${skBgLight} rounded-xl"></div>
+          </div>
+          <div class="space-y-4">
+            <div class="h-3 w-20 ${skBgLight} rounded"></div>
+            <div class="h-24 ${skBgLight} rounded-xl"></div>
+          </div>
         </div>`;
 
       let text;
