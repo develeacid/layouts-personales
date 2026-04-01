@@ -63,11 +63,13 @@
   }
   .btn-secondary {
     @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 cursor-pointer select-none
-           bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-50 active:scale-95;
+           bg-white border border-zinc-300 text-zinc-700 hover:bg-zinc-50 active:scale-95
+           dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-700;
   }
   .btn-ghost {
     @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 cursor-pointer select-none
-           text-accent hover:bg-accent-subtle active:scale-95;
+           text-accent hover:bg-accent-subtle active:scale-95
+           dark:text-blue-400 dark:hover:bg-blue-950;
   }
   .btn-danger {
     @apply inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-150 cursor-pointer select-none
@@ -81,7 +83,9 @@
     @apply w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-primary
            placeholder-muted bg-white
            focus:outline-none focus:border-accent-border focus:ring-2 focus:ring-accent-light
-           transition-all duration-150;
+           transition-all duration-150
+           dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-100 dark:placeholder-zinc-500
+           dark:focus:border-blue-500 dark:focus:ring-blue-500/20;
   }
   .input-error {
     @apply border-rose-400 focus:border-rose-400 focus:ring-rose-200;
@@ -89,11 +93,13 @@
 
   /* Cards */
   .card {
-    @apply bg-white border border-zinc-200 rounded-xl shadow-sm p-6;
+    @apply bg-white border border-zinc-200 rounded-xl shadow-sm p-6
+           dark:bg-zinc-900 dark:border-zinc-800;
   }
   .card-hover {
     @apply bg-white border border-zinc-200 rounded-xl shadow-sm p-6
-           hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer;
+           hover:shadow-md hover:-translate-y-px transition-all duration-200 cursor-pointer
+           dark:bg-zinc-900 dark:border-zinc-800;
   }
 
   /* Badges */
@@ -102,39 +108,44 @@
   }
   .badge-blue {
     @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
-           bg-accent-light text-accent-hover;
+           bg-accent-light text-accent-hover
+           dark:bg-blue-950 dark:text-blue-400;
   }
   .badge-green {
     @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
-           bg-emerald-50 text-emerald-600;
+           bg-emerald-50 text-emerald-600
+           dark:bg-emerald-950 dark:text-emerald-400;
   }
   .badge-amber {
     @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
-           bg-amber-50 text-amber-600;
+           bg-amber-50 text-amber-600
+           dark:bg-amber-950 dark:text-amber-400;
   }
   .badge-rose {
     @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
-           bg-rose-50 text-rose-600;
+           bg-rose-50 text-rose-600
+           dark:bg-rose-950 dark:text-rose-400;
   }
   .badge-zinc {
     @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-medium rounded-full
-           bg-zinc-100 text-zinc-600;
+           bg-zinc-100 text-zinc-600
+           dark:bg-zinc-800 dark:text-zinc-400;
   }
 
   /* Labels de formulario */
-  .label     { @apply block text-xs font-medium text-zinc-600 mb-1.5; }
-  .hint      { @apply text-xs text-muted mt-1; }
-  .error-msg { @apply text-xs text-rose-600 mt-1; }
+  .label     { @apply block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5; }
+  .hint      { @apply text-xs text-muted dark:text-zinc-500 mt-1; }
+  .error-msg { @apply text-xs text-rose-600 dark:text-rose-400 mt-1; }
 
   /* Dividers */
-  .divider { @apply border-t border-zinc-200; }
+  .divider { @apply border-t border-zinc-200 dark:border-zinc-800; }
   .divider-label {
-    @apply relative flex items-center gap-3 text-xs text-muted;
+    @apply relative flex items-center gap-3 text-xs text-muted dark:text-zinc-500;
   }
   .divider-label::before,
   .divider-label::after {
     content: '';
-    @apply flex-1 border-t border-zinc-200;
+    @apply flex-1 border-t border-zinc-200 dark:border-zinc-800;
   }
 
   /* ── Dark mode overrides (temporal hasta agregar dark: classes) ── */
