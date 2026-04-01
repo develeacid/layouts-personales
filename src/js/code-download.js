@@ -26,11 +26,12 @@ function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, pars
   const _parsedCdns = parsedCdns || [];
   const fileName = filePath.split('/').pop().replace('.html', '');
 
-  // ── Barra de herramientas al final del contenido ──────
-  const toolbar = document.createElement('div');
-  toolbar.className = 'border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-4 sm:px-6 py-3';
+  // ── Barra fija entre main y footer ─────────────────────
+  const toolbar = document.getElementById('download-toolbar');
+  if (!toolbar) return;
+  toolbar.className = 'shrink-0 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 sm:px-6 py-2';
   toolbar.innerHTML = `
-    <div class="max-w-5xl mx-auto flex items-center justify-between gap-3">
+    <div class="flex items-center justify-between gap-3">
       <div class="flex items-center gap-2 min-w-0">
         <svg class="w-4 h-4 text-zinc-400 dark:text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
@@ -77,8 +78,7 @@ function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, pars
   });
   actions.appendChild(dlBtn);
 
-  // Insertar al final del contenido scrollable
-  container.appendChild(toolbar);
+  // La toolbar ya existe en el DOM (index.html), solo la mostramos
 
   // ── Botones por variante (solo componentes con sections) ──
   if (isComponent) {

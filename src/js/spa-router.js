@@ -114,8 +114,10 @@
       }
       const parsed = parseBody(text);
 
-      // Limpiar skeleton de carga
+      // Limpiar skeleton y ocultar toolbar
       main.innerHTML = '';
+      const dlToolbar = document.getElementById('download-toolbar');
+      if (dlToolbar) { dlToolbar.className = 'shrink-0 hidden'; dlToolbar.innerHTML = ''; }
 
       // Inyectar estilos custom
       if (parsed.styles.length) {
