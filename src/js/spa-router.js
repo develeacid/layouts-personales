@@ -37,8 +37,8 @@
     doc.querySelectorAll('script').forEach(s => {
       const src = s.getAttribute('src');
       if (src) {
-        // Script externo — guardar CDN (excepto Alpine)
-        if (!src.includes('alpinejs')) {
+        // Script externo — guardar CDN (excepto Alpine y scripts locales)
+        if (!src.includes('alpinejs') && !src.startsWith('/src/')) {
           cdns.push(src);
         }
       } else if (s.textContent.trim()) {
@@ -131,6 +131,7 @@
 
       // Actualizar estado
       currentPath = path;
+      window.dispatchEvent(new CustomEvent('route-changed', { detail: { path } }));
       updateActiveLink(path);
       main.scrollTop = 0;
 
@@ -153,14 +154,10 @@
   }
 
   // ── Active state del sidebar ─────────────────────────────
+  // Active state is now managed by Alpine's :class binding.
+  // This function is kept as a no-op for compatibility.
   function updateActiveLink(path) {
-    navLinks.forEach(link => {
-      const isActive = link.getAttribute('href') === path;
-      link.classList.toggle('bg-blue-50', isActive);
-      link.classList.toggle('text-blue-600', isActive);
-      link.classList.toggle('font-medium', isActive);
-      link.classList.toggle('text-zinc-600', !isActive);
-    });
+    // No-op: Alpine handles active styling via currentPath
   }
 
   // ── Interceptar clicks del sidebar ───────────────────────
@@ -175,7 +172,7 @@
   // ── Hash routing ─────────────────────────────────────────
   function onHashChange() {
     const hash = window.location.hash.slice(1); // quitar #
-    if (hash) {
+    if (hash && hash !== '/index.html' && hash !== 'index.html') {
       loadRoute(hash);
       // Scroll sidebar al link activo
       const activeLink = document.querySelector(`#spa-sidebar a[href="${hash}"]`);
