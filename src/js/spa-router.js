@@ -117,9 +117,6 @@
       // Limpiar skeleton de carga
       main.innerHTML = '';
 
-      // Ocultar welcome, mostrar contenido
-      if (welcomeScreen) welcomeScreen.style.display = 'none';
-
       // Inyectar estilos custom
       if (parsed.styles.length) {
         const styleEl = document.createElement('style');
@@ -180,11 +177,13 @@
       }
 
     } catch (err) {
+      console.error('SPA Router error:', err);
       main.innerHTML = `
         <div class="h-full flex items-center justify-center text-center px-6">
           <div class="space-y-3">
             <p class="text-sm text-rose-600 font-medium">Error al cargar</p>
             <p class="text-xs text-zinc-400">${path}</p>
+            <p class="text-xs text-zinc-400">${err.message || err}</p>
             <a href="${path}" target="_blank" class="btn-secondary text-xs inline-block">Abrir en nueva pestaña</a>
           </div>
         </div>`;
