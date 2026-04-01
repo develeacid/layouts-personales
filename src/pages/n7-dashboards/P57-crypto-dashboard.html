@@ -110,10 +110,9 @@
           </div>
 
           <!-- Trading tab -->
-          <div x-show="activeTab === 'Trading'" class="p-6">
-            <div class="h-48 bg-zinc-50 border border-dashed border-zinc-300 rounded-lg flex items-center justify-center text-sm text-zinc-400">
-              Panel de trading
-            </div>
+          <div x-show="activeTab === 'Trading'" class="p-6"
+            x-init="$watch('activeTab', val => { if (val === 'Trading') { $nextTick(() => initChart()); } })">
+            <div x-ref="chart" class="h-48"></div>
           </div>
 
           <!-- History tab -->
@@ -146,6 +145,7 @@
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function cryptoDashboard() {
       return {
@@ -157,6 +157,43 @@
           { coin: 'Solana', symbol: 'S', bg: 'bg-violet-500', amount: '18.500', price: '$124.50', value: '$2,303', change: '-1.2%' },
           { coin: 'Cardano', symbol: 'A', bg: 'bg-blue-500', amount: '2,400', price: '$0.56', value: '$1,341', change: '+6.7%' }
         ],
+        tradingData: [
+          { date: '01 Mar', open: 42100, close: 42800, low: 41800, high: 43200 },
+          { date: '02 Mar', open: 42800, close: 42200, low: 41900, high: 43100 },
+          { date: '03 Mar', open: 42200, close: 43100, low: 42000, high: 43500 },
+          { date: '04 Mar', open: 43100, close: 43800, low: 42900, high: 44200 },
+          { date: '05 Mar', open: 43800, close: 43200, low: 42800, high: 44100 },
+          { date: '06 Mar', open: 43200, close: 43500, low: 42700, high: 43900 },
+          { date: '07 Mar', open: 43500, close: 42900, low: 42500, high: 43800 },
+          { date: '08 Mar', open: 42900, close: 43600, low: 42600, high: 44000 },
+          { date: '09 Mar', open: 43600, close: 44100, low: 43400, high: 44500 },
+          { date: '10 Mar', open: 44100, close: 43400, low: 43100, high: 44600 },
+          { date: '11 Mar', open: 43400, close: 43900, low: 43200, high: 44300 },
+          { date: '12 Mar', open: 43900, close: 43200, low: 42800, high: 44100 }
+        ],
+        _resizeHandler: null,
+        _chartInited: false,
+        initChart() {
+          if (this._chartInited) return;
+          this._chartInited = true;
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => { if (this.$refs.chart._ec) this.$refs.chart._ec.resize(); };
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          this.$refs.chart._ec.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'cross' } },
+            grid: { left: 60, right: 15, top: 10, bottom: 25 },
+            xAxis: { type: 'category', data: this.tradingData.map(function(d) { return d.date; }) },
+            yAxis: { type: 'value', scale: true },
+            series: [{
+              type: 'candlestick',
+              data: this.tradingData.map(function(d) { return [d.open, d.close, d.low, d.high]; }),
+              itemStyle: { color: '#10b981', color0: '#ef4444', borderColor: '#10b981', borderColor0: '#ef4444' }
+            }]
+          });
+        },
         priceAlerts: [
           { coin: 'Bitcoin', condition: 'Mayor a', target: '$45,000', triggered: false },
           { coin: 'Ethereum', condition: 'Mayor a', target: '$2,500', triggered: false },
