@@ -9,7 +9,7 @@
 <body class="h-full bg-page antialiased">
   <div class="flex h-full" x-data="integrationsPage()">
     <!-- Sidebar -->
-    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+    <aside class="w-64 bg-zinc-950 dark:bg-zinc-800 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
       <div class="px-5 py-4 border-b border-zinc-800">
         <span class="text-sm font-semibold text-white">LayoutOS</span>
       </div>
@@ -29,19 +29,19 @@
 
     <!-- Main -->
     <div class="flex-1 flex flex-col overflow-hidden">
-      <header class="h-14 bg-white border-b border-zinc-200 flex items-center px-6 shrink-0">
-        <h1 class="text-sm font-semibold text-zinc-900">Integraciones</h1>
+      <header class="h-14 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center px-4 sm:px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Integraciones</h1>
       </header>
 
       <main class="flex-1 overflow-y-auto p-6 space-y-8">
         <!-- Toast -->
-        <div x-show="toast" x-transition x-cloak class="fixed top-4 right-4 z-50 card border-green-200 bg-green-50 text-green-800 text-sm">
+        <div x-show="toast" x-transition x-cloak class="fixed top-4 right-4 z-50 card border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950 text-green-800 text-sm">
           <span x-text="toastMessage"></span>
         </div>
 
         <!-- Connected -->
         <div>
-          <h2 class="text-sm font-semibold text-zinc-900 mb-4">Conectadas (<span x-text="connectedIntegrations.length"></span>)</h2>
+          <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Conectadas (<span x-text="connectedIntegrations.length"></span>)</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             <template x-for="int in connectedIntegrations" :key="int.name">
               <div class="card">
@@ -49,15 +49,15 @@
                   <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white text-sm font-bold" :class="int.iconBg" x-text="int.icon"></div>
                   <div class="flex-1">
                     <div class="flex items-center justify-between mb-1">
-                      <h3 class="text-sm font-semibold text-zinc-900" x-text="int.name"></h3>
+                      <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="int.name"></h3>
                       <span class="badge-green">Conectado</span>
                     </div>
-                    <p class="text-sm text-zinc-500 mb-3" x-text="int.description"></p>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 mb-3" x-text="int.description"></p>
                     <button
                       class="relative w-11 h-6 rounded-full bg-blue-600 transition-colors cursor-pointer"
                       @click="toggleIntegration(int)"
                     >
-                      <span class="absolute top-0.5 left-0 w-5 h-5 bg-white rounded-full shadow-sm transition-transform translate-x-5"></span>
+                      <span class="absolute top-0.5 left-0 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full shadow-sm transition-transform translate-x-5"></span>
                     </button>
                   </div>
                 </div>
@@ -68,7 +68,7 @@
 
         <!-- Available -->
         <div>
-          <h2 class="text-sm font-semibold text-zinc-900 mb-4">Disponibles (<span x-text="availableIntegrations.length"></span>)</h2>
+          <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Disponibles (<span x-text="availableIntegrations.length"></span>)</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             <template x-for="int in availableIntegrations" :key="int.name">
               <div class="card">
@@ -76,10 +76,10 @@
                   <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white text-sm font-bold" :class="int.iconBg" x-text="int.icon"></div>
                   <div class="flex-1">
                     <div class="flex items-center justify-between mb-1">
-                      <h3 class="text-sm font-semibold text-zinc-900" x-text="int.name"></h3>
+                      <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="int.name"></h3>
                       <span class="badge-zinc">Disponible</span>
                     </div>
-                    <p class="text-sm text-zinc-500 mb-3" x-text="int.description"></p>
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 mb-3" x-text="int.description"></p>
                     <button
                       class="btn-primary btn-sm"
                       @click="toggleIntegration(int)"
