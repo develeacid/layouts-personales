@@ -1,5 +1,5 @@
 // src/js/code-download.js
-// Inyecta botones de descarga en componentes N1-N6
+// Inyecta botones de descarga en componentes N1-N8
 
 // ── Cache del CSS para archivos standalone ───────────────
 let _cssCache = null;
@@ -59,7 +59,7 @@ function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, pars
       <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
       </svg>
-      <span class="text-xs">Copiar variante</span>
+      <span class="text-xs">Descargar variante</span>
     `;
     btn.addEventListener('click', async () => {
       const css = await getCssContent();
