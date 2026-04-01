@@ -31,10 +31,18 @@
   // ── Parsear HTML remoto ──────────────────────────────────
   function parseBody(html) {
     const doc = new DOMParser().parseFromString(html, 'text/html');
-    // Extraer scripts inline (no el CDN de Alpine)
+    // Extraer scripts inline y CDNs externos
     const scripts = [];
+    const cdns = [];
     doc.querySelectorAll('script').forEach(s => {
-      if (!s.src && s.textContent.trim()) {
+      const src = s.getAttribute('src');
+      if (src) {
+        // Script externo — guardar CDN (excepto Alpine)
+        if (!src.includes('alpinejs')) {
+          cdns.push(src);
+        }
+      } else if (s.textContent.trim()) {
+        // Script inline
         scripts.push(s.textContent);
       }
     });
@@ -43,13 +51,6 @@
     doc.querySelectorAll('style').forEach(s => {
       if (!s.textContent.includes('x-cloak')) {
         styles.push(s.textContent);
-      }
-    });
-    // Extraer CDNs externos (excepto Alpine)
-    const cdns = [];
-    doc.querySelectorAll('script[src]').forEach(s => {
-      if (!s.src.includes('alpinejs')) {
-        cdns.push(s.getAttribute('src'));
       }
     });
     // Extraer contenido del body (sin scripts, sin styles)
