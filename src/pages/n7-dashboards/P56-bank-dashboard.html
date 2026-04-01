@@ -120,11 +120,17 @@
             </div>
           </div>
         </div>
+        <!-- Ingresos vs Gastos -->
+        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Ingresos vs Gastos (6 meses)</h3>
+          <div x-ref="chart" x-init="initChart()" class="w-full h-64"></div>
+        </div>
       </main>
     </div>
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function bankDashboard() {
       return {
@@ -140,6 +146,48 @@
           { id: 9, description: 'Amazon compra', icon: 'A', iconBg: 'bg-cyan-100 text-cyan-600', amount: -234.00, date: '24 Mar 2026' },
           { id: 10, description: 'Gimnasio SmartFit', icon: 'G', iconBg: 'bg-indigo-100 text-indigo-600', amount: -42.00, date: '23 Mar 2026' }
         ],
+        monthlyFinance: [
+          { mes: 'Oct', ingresos: 7200, gastos: 5100 },
+          { mes: 'Nov', ingresos: 7800, gastos: 5400 },
+          { mes: 'Dic', ingresos: 9200, gastos: 6800 },
+          { mes: 'Ene', ingresos: 7500, gastos: 5200 },
+          { mes: 'Feb', ingresos: 8100, gastos: 5500 },
+          { mes: 'Mar', ingresos: 8234, gastos: 5678 }
+        ],
+        _resizeHandler: null,
+        initChart() {
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          this.$refs.chart._ec.setOption({
+            tooltip: { trigger: 'axis' },
+            legend: { bottom: 0, textStyle: { fontSize: 11 } },
+            grid: { left: 55, right: 15, top: 10, bottom: 35 },
+            xAxis: { type: 'category', data: this.monthlyFinance.map(function(d) { return d.mes; }) },
+            yAxis: { type: 'value', axisLabel: { formatter: function(v) { return '$' + (v/1000) + 'k'; } } },
+            series: [
+              {
+                name: 'Ingresos',
+                data: this.monthlyFinance.map(function(d) { return d.ingresos; }),
+                type: 'line',
+                smooth: true,
+                itemStyle: { color: '#10b981' },
+                areaStyle: { color: 'rgba(16,185,129,0.1)' }
+              },
+              {
+                name: 'Gastos',
+                data: this.monthlyFinance.map(function(d) { return d.gastos; }),
+                type: 'line',
+                smooth: true,
+                itemStyle: { color: '#ef4444' },
+                areaStyle: { color: 'rgba(239,68,68,0.1)' }
+              }
+            ]
+          });
+        },
         accounts: [
           { name: 'Cuenta Corriente', type: 'Principal', balance: 28450, badgeClass: 'bg-blue-100 text-blue-700' },
           { name: 'Cuenta Ahorro', type: 'Ahorro', balance: 12228, badgeClass: 'bg-emerald-100 text-emerald-700' },
