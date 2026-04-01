@@ -3,7 +3,6 @@
 
 (function () {
   const main = document.getElementById('spa-content');
-  const welcomeScreen = document.getElementById('welcome-screen');
   const navLinks = document.querySelectorAll('#spa-sidebar a[href]');
   let currentPath = null;
   const loadedCdns = new Set();
@@ -87,8 +86,6 @@
       // Limpiar Alpine
       cleanupAlpine();
 
-      // Ocultar welcome, mostrar contenido
-      if (welcomeScreen) welcomeScreen.style.display = 'none';
       main.innerHTML = '';
 
       // Inyectar estilos custom
@@ -171,13 +168,13 @@
       if (activeLink) {
         activeLink.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       }
+    } else {
+      loadRoute('/src/pages/welcome.html');
     }
   }
 
   window.addEventListener('hashchange', onHashChange);
 
-  // Cargar ruta inicial si hay hash
-  if (window.location.hash) {
-    onHashChange();
-  }
+  // Cargar ruta inicial
+  onHashChange();
 })();

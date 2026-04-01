@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LayoutOS · Bienvenida</title>
+  <link rel="stylesheet" href="/public/css/main.css" />
+</head>
+<body class="h-full bg-page antialiased">
+
+  <div class="px-6 py-12 max-w-4xl mx-auto space-y-16" x-data="{ activeLevel: null }">
+
+          <!-- Hero -->
+          <div class="text-center space-y-4">
+            <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg">
+              <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+              </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-zinc-900 tracking-tight">LayoutOS</h1>
+            <p class="text-base text-zinc-500 max-w-xl mx-auto leading-relaxed">Sistema de componentes educativo. Aprende frontend construyendo <strong class="text-zinc-700">173 componentes reales</strong> con Tailwind CSS y Alpine.js, organizados en 8 niveles de complejidad progresiva.</p>
+          </div>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="bg-white border border-zinc-200 rounded-xl p-4 text-center">
+              <p class="text-2xl font-bold text-blue-600">117</p>
+              <p class="text-xs text-zinc-500 mt-1">Componentes</p>
+            </div>
+            <div class="bg-white border border-zinc-200 rounded-xl p-4 text-center">
+              <p class="text-2xl font-bold text-blue-600">66</p>
+              <p class="text-xs text-zinc-500 mt-1">Paginas</p>
+            </div>
+            <div class="bg-white border border-zinc-200 rounded-xl p-4 text-center">
+              <p class="text-2xl font-bold text-blue-600">8</p>
+              <p class="text-xs text-zinc-500 mt-1">Niveles</p>
+            </div>
+            <div class="bg-white border border-zinc-200 rounded-xl p-4 text-center">
+              <p class="text-2xl font-bold text-emerald-600">100%</p>
+              <p class="text-xs text-zinc-500 mt-1">Completo</p>
+            </div>
+          </div>
+
+          <!-- Stack tecnologico -->
+          <div class="space-y-6">
+            <div class="text-center">
+              <h2 class="text-lg font-semibold text-zinc-900">Stack tecnologico</h2>
+              <p class="text-sm text-zinc-500 mt-1">Herramientas elegidas por su simplicidad, potencia y cero dependencias de build</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="bg-white border border-zinc-200 rounded-xl p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                <div class="w-10 h-10 bg-sky-100 rounded-xl flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                  </svg>
+                </div>
+                <h3 class="text-sm font-semibold text-zinc-900">Tailwind CSS</h3>
+                <p class="text-xs text-zinc-500 mt-1.5 leading-relaxed">Framework utility-first que permite construir cualquier diseño directamente en el HTML. Sin CSS custom, sin naming conventions, maximo control visual.</p>
+              </div>
+              <div class="bg-white border border-zinc-200 rounded-xl p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                  </svg>
+                </div>
+                <h3 class="text-sm font-semibold text-zinc-900">Alpine.js</h3>
+                <p class="text-xs text-zinc-500 mt-1.5 leading-relaxed">Framework reactivo minimal que agrega interactividad directamente en el markup. Ideal para componentes que necesitan estado sin la complejidad de React o Vue.</p>
+              </div>
+              <div class="bg-white border border-zinc-200 rounded-xl p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center mb-3">
+                  <svg class="w-5 h-5 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                  </svg>
+                </div>
+                <h3 class="text-sm font-semibold text-zinc-900">HTML5 Semantico</h3>
+                <p class="text-xs text-zinc-500 mt-1.5 leading-relaxed">Cada componente es un archivo HTML standalone. Sin bundlers, sin transpilers, sin build steps. Abre cualquier archivo en el navegador y funciona.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Roadmap de niveles -->
+          <div class="space-y-6">
+            <div class="text-center">
+              <h2 class="text-lg font-semibold text-zinc-900">Roadmap de aprendizaje</h2>
+              <p class="text-sm text-zinc-500 mt-1">Progresion de complejidad: desde HTML+CSS puro hasta aplicaciones completas</p>
+            </div>
+
+            <!-- Roadmap visual -->
+            <div class="relative">
+              <!-- Linea conectora -->
+              <div class="absolute top-6 left-6 right-6 h-0.5 bg-zinc-200 hidden sm:block"></div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <!-- N1 -->
+                <div class="relative group cursor-pointer" @mouseenter="activeLevel = 'n1'" @mouseleave="activeLevel = null" @click="window.location.hash = '/src/components/n1-fundamentos/C01-banners.html'">
+                  <div class="bg-white border border-zinc-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all duration-200 text-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 font-bold text-sm flex items-center justify-center mx-auto mb-2">N1</div>
+                    <p class="text-xs font-semibold text-zinc-900">Fundamentos</p>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">11 componentes</p>
+                  </div>
+                  <div x-show="activeLevel === 'n1'" x-transition class="absolute z-10 top-full mt-2 left-1/2 -translate-x-1/2 w-56 bg-zinc-900 text-white text-xs rounded-lg p-3 shadow-xl">
+                    <p class="font-medium mb-1">HTML + CSS puro</p>
+                    <p class="text-zinc-400 leading-relaxed">Banners, logos, newsletters, CTAs, badges y estados. La base visual sin JavaScript.</p>
+                  </div>
+                </div>
+                <!-- N2 -->
+                <div class="relative group cursor-pointer" @mouseenter="activeLevel = 'n2'" @mouseleave="activeLevel = null" @click="window.location.hash = '/src/components/n2-layout/C12-hero-sections.html'">
+                  <div class="bg-white border border-zinc-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all duration-200 text-center">
+                    <div class="w-10 h-10 rounded-full bg-sky-100 text-sky-600 font-bold text-sm flex items-center justify-center mx-auto mb-2">N2</div>
+                    <p class="text-xs font-semibold text-zinc-900">Layout</p>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">20 componentes</p>
+                  </div>
+                  <div x-show="activeLevel === 'n2'" x-transition class="absolute z-10 top-full mt-2 left-1/2 -translate-x-1/2 w-56 bg-zinc-900 text-white text-xs rounded-lg p-3 shadow-xl">
+                    <p class="font-medium mb-1">Composicion de secciones</p>
+                    <p class="text-zinc-400 leading-relaxed">Heroes, features, testimonials, pricing, FAQs. Secciones completas que forman paginas.</p>
+                  </div>
+                </div>
+                <!-- N3 -->
+                <div class="relative group cursor-pointer" @mouseenter="activeLevel = 'n3'" @mouseleave="activeLevel = null" @click="window.location.hash = '/src/components/n3-alpine-basico/C32-headers-interactivos.html'">
+                  <div class="bg-white border border-zinc-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all duration-200 text-center">
+                    <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 font-bold text-sm flex items-center justify-center mx-auto mb-2">N3</div>
+                    <p class="text-xs font-semibold text-zinc-900">Alpine basico</p>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">15 componentes</p>
+                  </div>
+                  <div x-show="activeLevel === 'n3'" x-transition class="absolute z-10 top-full mt-2 left-1/2 -translate-x-1/2 w-56 bg-zinc-900 text-white text-xs rounded-lg p-3 shadow-xl">
+                    <p class="font-medium mb-1">Introduccion a Alpine.js</p>
+                    <p class="text-zinc-400 leading-relaxed">Navbars, modales, accordions, tabs, tooltips, toasts. Interactividad basica con x-show, x-on, x-data.</p>
+                  </div>
+                </div>
+                <!-- N4 -->
+                <div class="relative group cursor-pointer" @mouseenter="activeLevel = 'n4'" @mouseleave="activeLevel = null" @click="window.location.hash = '/src/components/n4-estado-reactivo/C47-table-headers.html'">
+                  <div class="bg-white border border-zinc-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all duration-200 text-center">
+                    <div class="w-10 h-10 rounded-full bg-violet-100 text-violet-600 font-bold text-sm flex items-center justify-center mx-auto mb-2">N4</div>
+                    <p class="text-xs font-semibold text-zinc-900">Estado reactivo</p>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">19 componentes</p>
+                  </div>
+                  <div x-show="activeLevel === 'n4'" x-transition class="absolute z-10 top-full mt-2 left-1/2 -translate-x-1/2 w-56 bg-zinc-900 text-white text-xs rounded-lg p-3 shadow-xl">
+                    <p class="font-medium mb-1">Estado complejo y formularios</p>
+                    <p class="text-zinc-400 leading-relaxed">Tablas avanzadas, filtros, forms con validacion, date pickers, file uploads. Estado reactivo real.</p>
+                  </div>
+                </div>
+                <!-- N5 -->
+                <div class="relative group cursor-pointer" @mouseenter="activeLevel = 'n5'" @mouseleave="activeLevel = null" @click="window.location.hash = '/src/components/n5-crud/C66-create-forms.html'">
+                  <div class="bg-white border border-zinc-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all duration-200 text-center">
+                    <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 font-bold text-sm flex items-center justify-center mx-auto mb-2">N5</div>
+                    <p class="text-xs font-semibold text-zinc-900">CRUD</p>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">20 componentes</p>
+                  </div>
+                  <div x-show="activeLevel === 'n5'" x-transition class="absolute z-10 top-full mt-2 left-1/2 -translate-x-1/2 w-56 bg-zinc-900 text-white text-xs rounded-lg p-3 shadow-xl">
+                    <p class="font-medium mb-1">Operaciones CRUD completas</p>
+                    <p class="text-zinc-400 leading-relaxed">Create, Read, Update, Delete con modales, drawers, confirmaciones. Kanban, chat, email, calendario.</p>
+                  </div>
+                </div>
+                <!-- N6 -->
+                <div class="relative group cursor-pointer" @mouseenter="activeLevel = 'n6'" @mouseleave="activeLevel = null" @click="window.location.hash = '/src/components/n6-avanzado/C86-product-cards.html'">
+                  <div class="bg-white border border-zinc-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all duration-200 text-center">
+                    <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 font-bold text-sm flex items-center justify-center mx-auto mb-2">N6</div>
+                    <p class="text-xs font-semibold text-zinc-900">Avanzado</p>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">16 componentes</p>
+                  </div>
+                  <div x-show="activeLevel === 'n6'" x-transition class="absolute z-10 top-full mt-2 left-1/2 -translate-x-1/2 w-56 bg-zinc-900 text-white text-xs rounded-lg p-3 shadow-xl">
+                    <p class="font-medium mb-1">Aplicaciones complejas</p>
+                    <p class="text-zinc-400 leading-relaxed">E-commerce completo, AI prompts, rich text editor, video calls. Componentes de produccion.</p>
+                  </div>
+                </div>
+                <!-- N7 -->
+                <div class="relative group cursor-pointer" @mouseenter="activeLevel = 'n7'" @mouseleave="activeLevel = null" @click="window.location.hash = '/src/components/n7-shells/C102-application-shells.html'">
+                  <div class="bg-white border border-zinc-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all duration-200 text-center">
+                    <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 font-bold text-sm flex items-center justify-center mx-auto mb-2">N7</div>
+                    <p class="text-xs font-semibold text-zinc-900">Shells</p>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">6 componentes</p>
+                  </div>
+                  <div x-show="activeLevel === 'n7'" x-transition class="absolute z-10 top-full mt-2 left-1/2 -translate-x-1/2 w-56 bg-zinc-900 text-white text-xs rounded-lg p-3 shadow-xl">
+                    <p class="font-medium mb-1">Layouts de aplicacion</p>
+                    <p class="text-zinc-400 leading-relaxed">Application shells, navbars de dashboard, footers, sidebars anidados. La estructura que envuelve todo.</p>
+                  </div>
+                </div>
+                <!-- N8 -->
+                <div class="relative group cursor-pointer" @mouseenter="activeLevel = 'n8'" @mouseleave="activeLevel = null" @click="window.location.hash = '/src/components/n8-charts/C108-line-chart.html'">
+                  <div class="bg-white border border-zinc-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-md transition-all duration-200 text-center">
+                    <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 font-bold text-sm flex items-center justify-center mx-auto mb-2">N8</div>
+                    <p class="text-xs font-semibold text-zinc-900">Charts</p>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">10 componentes</p>
+                  </div>
+                  <div x-show="activeLevel === 'n8'" x-transition class="absolute z-10 top-full mt-2 left-1/2 -translate-x-1/2 w-56 bg-zinc-900 text-white text-xs rounded-lg p-3 shadow-xl">
+                    <p class="font-medium mb-1">Visualizacion de datos</p>
+                    <p class="text-zinc-400 leading-relaxed">Line, bar, pie, gauge, radar, candlestick, heatmap. Graficos interactivos con ApexCharts.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filosofia de niveles -->
+          <div class="space-y-4">
+            <h2 class="text-lg font-semibold text-zinc-900 text-center">Filosofia de la progresion</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-white border border-zinc-200 rounded-xl p-5">
+                <div class="flex items-center gap-3 mb-2">
+                  <div class="flex gap-1">
+                    <span class="w-6 h-6 rounded-md bg-blue-100 text-blue-600 text-[10px] font-bold flex items-center justify-center">N1</span>
+                    <span class="w-6 h-6 rounded-md bg-sky-100 text-sky-600 text-[10px] font-bold flex items-center justify-center">N2</span>
+                  </div>
+                  <h3 class="text-sm font-semibold text-zinc-900">Fundamentos visuales</h3>
+                </div>
+                <p class="text-xs text-zinc-500 leading-relaxed">HTML y CSS puro. Dominar la composicion visual, spacing, tipografia y color antes de agregar interactividad. 31 componentes que no requieren JavaScript.</p>
+              </div>
+              <div class="bg-white border border-zinc-200 rounded-xl p-5">
+                <div class="flex items-center gap-3 mb-2">
+                  <div class="flex gap-1">
+                    <span class="w-6 h-6 rounded-md bg-indigo-100 text-indigo-600 text-[10px] font-bold flex items-center justify-center">N3</span>
+                    <span class="w-6 h-6 rounded-md bg-violet-100 text-violet-600 text-[10px] font-bold flex items-center justify-center">N4</span>
+                  </div>
+                  <h3 class="text-sm font-semibold text-zinc-900">Interactividad y estado</h3>
+                </div>
+                <p class="text-xs text-zinc-500 leading-relaxed">Alpine.js entra en escena. Desde toggles simples hasta formularios con validacion, tablas con filtros y componentes con estado complejo. 34 componentes.</p>
+              </div>
+              <div class="bg-white border border-zinc-200 rounded-xl p-5">
+                <div class="flex items-center gap-3 mb-2">
+                  <div class="flex gap-1">
+                    <span class="w-6 h-6 rounded-md bg-emerald-100 text-emerald-600 text-[10px] font-bold flex items-center justify-center">N5</span>
+                    <span class="w-6 h-6 rounded-md bg-amber-100 text-amber-600 text-[10px] font-bold flex items-center justify-center">N6</span>
+                  </div>
+                  <h3 class="text-sm font-semibold text-zinc-900">Aplicaciones reales</h3>
+                </div>
+                <p class="text-xs text-zinc-500 leading-relaxed">Patrones CRUD completos, e-commerce, chat, kanban, AI interfaces. Componentes listos para produccion que resuelven problemas reales. 36 componentes.</p>
+              </div>
+              <div class="bg-white border border-zinc-200 rounded-xl p-5">
+                <div class="flex items-center gap-3 mb-2">
+                  <div class="flex gap-1">
+                    <span class="w-6 h-6 rounded-md bg-rose-100 text-rose-600 text-[10px] font-bold flex items-center justify-center">N7</span>
+                    <span class="w-6 h-6 rounded-md bg-teal-100 text-teal-600 text-[10px] font-bold flex items-center justify-center">N8</span>
+                  </div>
+                  <h3 class="text-sm font-semibold text-zinc-900">Infraestructura y datos</h3>
+                </div>
+                <p class="text-xs text-zinc-500 leading-relaxed">Shells que estructuran aplicaciones completas y graficos interactivos para dashboards de datos. La capa final que une todo. 16 componentes.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <div class="text-center pb-4">
+            <p class="text-sm text-zinc-500 mb-4">Selecciona un componente del sidebar para comenzar</p>
+            <div class="flex items-center justify-center gap-2 text-xs text-zinc-400">
+              <kbd class="bg-zinc-100 border border-zinc-200 rounded px-1.5 py-0.5 font-mono">/</kbd>
+              <span>para buscar componentes</span>
+            </div>
+          </div>
+
+  </div>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
