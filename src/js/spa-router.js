@@ -160,9 +160,9 @@
         container.prepend(banner);
       }
 
-      // Inyectar botones de descarga si es componente N1-N6
+      // Inyectar botones de descarga
       if (typeof injectDownloadButtons === 'function') {
-        injectDownloadButtons(main, path, text, parsed.scripts, parsed.styles, parsed.cdns);
+        injectDownloadButtons(container, path, text, parsed.scripts, parsed.styles, parsed.cdns);
       }
 
       // Actualizar estado

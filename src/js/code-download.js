@@ -16,7 +16,7 @@ async function getCssContent() {
 
 function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, parsedStyles, parsedCdns) {
   const isComponent = /\/src\/components\/n[1-8]-/.test(filePath);
-  const isPage = /\/src\/pages\//.test(filePath);
+  const isPage = /\/src\/pages\/n[2-7]-/.test(filePath);
   if (!isComponent && !isPage) return;
 
   // Pre-cargar CSS en background
@@ -28,11 +28,19 @@ function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, pars
   const fileName = filePath.split('/').pop().replace('.html', '');
   const isDark = document.documentElement.classList.contains('dark');
 
-  // ── Barra flotante inferior ───────────────────────────
+  // ── Barra flotante fija inferior ────────────────────────
+  // Se posiciona fija al fondo del main content (no del viewport)
+  const mainEl = document.getElementById('spa-content');
   const toolbar = document.createElement('div');
-  toolbar.className = 'sticky bottom-0 z-30 mt-8';
+  toolbar.className = 'fixed z-30 pointer-events-none';
+  toolbar.style.cssText = 'bottom: 48px; left: 0; right: 0;'; // 48px = footer height
+  // Ajustar left al ancho del sidebar si existe
+  const aside = document.querySelector('aside');
+  if (aside && aside.offsetWidth > 0) {
+    toolbar.style.left = aside.offsetWidth + 'px';
+  }
   toolbar.innerHTML = `
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 pb-4">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 pb-3 pointer-events-auto">
       <div class="flex items-center justify-between gap-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg px-4 py-2.5">
         <div class="flex items-center gap-2 min-w-0">
           <svg class="w-4 h-4 text-zinc-400 dark:text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -81,8 +89,14 @@ function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, pars
   });
   actions.appendChild(dlBtn);
 
-  // Insertar la barra al final del container
-  container.appendChild(toolbar);
+  // Insertar la barra como fixed en el body (fuera del scroll container)
+  document.body.appendChild(toolbar);
+
+  // Limpiar toolbar al cambiar de ruta
+  window.addEventListener('route-changed', function cleanup() {
+    toolbar.remove();
+    window.removeEventListener('route-changed', cleanup);
+  });
 
   // ── Botones por variante (solo componentes con sections) ──
   if (isComponent) {
