@@ -118,14 +118,42 @@
             </table>
           </div>
         </div>
+        <!-- Top productos por ventas -->
+        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Top productos por ventas</h3>
+          <div x-ref="chart" x-init="initChart()" class="w-full h-64"></div>
+        </div>
       </main>
     </div>
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function ecommerceDashboard() {
       return {
+        _resizeHandler: null,
+        initChart() {
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          var prods = this.topProducts.slice().reverse();
+          this.$refs.chart._ec.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: 140, right: 30, top: 10, bottom: 20 },
+            yAxis: { type: 'category', data: prods.map(function(p) { return p.name.length > 18 ? p.name.substring(0,18) + '...' : p.name; }) },
+            xAxis: { type: 'value' },
+            series: [{
+              data: prods.map(function(p) { return p.sales; }),
+              type: 'bar',
+              itemStyle: { color: '#10b981', borderRadius: [0, 4, 4, 0] },
+              label: { show: true, position: 'right', fontSize: 11, color: '#374151' }
+            }]
+          });
+        },
         kpis: [
           { label: 'Ventas hoy', value: '$3,456', delta: '+18% vs ayer', positive: true },
           { label: 'Pedidos', value: '28', delta: '+5 vs ayer', positive: true },
