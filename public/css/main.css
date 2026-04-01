@@ -4927,6 +4927,24 @@
       }
     }
   }
+  .dark\:hover\:text-zinc-200 {
+    &:where(.dark, .dark *) {
+      &:hover {
+        @media (hover: hover) {
+          color: var(--color-zinc-200);
+        }
+      }
+    }
+  }
+  .dark\:hover\:text-zinc-300 {
+    &:where(.dark, .dark *) {
+      &:hover {
+        @media (hover: hover) {
+          color: var(--color-zinc-300);
+        }
+      }
+    }
+  }
 }
 @layer base {
   *, *::before, *::after {
