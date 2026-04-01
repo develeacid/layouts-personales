@@ -114,6 +114,12 @@
       }
       const parsed = parseBody(text);
 
+      // Limpiar skeleton de carga
+      main.innerHTML = '';
+
+      // Ocultar welcome, mostrar contenido
+      if (welcomeScreen) welcomeScreen.style.display = 'none';
+
       // Inyectar estilos custom
       if (parsed.styles.length) {
         const styleEl = document.createElement('style');
