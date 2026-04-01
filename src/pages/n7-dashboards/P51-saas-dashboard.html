@@ -9,25 +9,25 @@
 <body class="h-full bg-page antialiased">
   <div class="flex h-full" x-data="saasDashboard()">
     <!-- Sidebar -->
-    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+    <aside class="w-64 bg-zinc-950 dark:bg-zinc-800 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
       <div class="px-5 py-4 border-b border-zinc-800">
         <span class="text-sm font-semibold text-white">LayoutOS</span>
-        <span class="ml-2 text-xs text-zinc-500">SaaS</span>
+        <span class="ml-2 text-xs text-zinc-500 dark:text-zinc-400">SaaS</span>
       </div>
       <nav class="flex-1 px-3 py-4 space-y-1">
         <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-zinc-800 rounded-lg">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           Overview
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 dark:text-zinc-500 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           Subscribers
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 dark:text-zinc-500 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           Revenue
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 dark:text-zinc-500 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
           Alerts
         </a>
@@ -36,10 +36,10 @@
 
     <!-- Main -->
     <div class="flex-1 flex flex-col overflow-hidden">
-      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
-        <h1 class="text-sm font-semibold text-zinc-900">SaaS Overview</h1>
+      <header class="h-14 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-4 sm:px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">SaaS Overview</h1>
         <div class="flex items-center gap-3">
-          <select class="text-xs border border-zinc-200 rounded-lg px-3 py-1.5 text-zinc-600 bg-white">
+          <select class="text-xs border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-1.5 text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-900">
             <option>Ultimos 30 dias</option>
             <option>Ultimos 7 dias</option>
             <option>Este mes</option>
@@ -51,12 +51,12 @@
         <!-- KPIs -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <template x-for="kpi in kpis" :key="kpi.label">
-            <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+            <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
               <div class="flex items-center justify-between mb-2">
-                <p class="text-xs text-zinc-500 uppercase tracking-wide" x-text="kpi.label"></p>
+                <p class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wide" x-text="kpi.label"></p>
                 <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs" :class="kpi.iconBg" x-text="kpi.icon"></span>
               </div>
-              <p class="text-2xl font-bold text-zinc-900" x-text="kpi.value"></p>
+              <p class="text-2xl font-bold text-zinc-900 dark:text-zinc-100" x-text="kpi.value"></p>
               <p class="text-xs mt-2" :class="kpi.positive ? 'text-emerald-600' : 'text-rose-600'" x-text="kpi.delta"></p>
             </div>
           </template>
@@ -64,16 +64,16 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <!-- Plan distribution -->
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <h2 class="text-sm font-semibold text-zinc-900 mb-5">Distribucion de planes</h2>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-5">Distribucion de planes</h2>
             <div class="space-y-4">
               <template x-for="plan in plans" :key="plan.name">
                 <div>
                   <div class="flex items-center justify-between mb-1.5">
-                    <span class="text-sm text-zinc-700" x-text="plan.name"></span>
-                    <span class="text-sm font-medium text-zinc-900" x-text="plan.pct + '%'"></span>
+                    <span class="text-sm text-zinc-700 dark:text-zinc-300" x-text="plan.name"></span>
+                    <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="plan.pct + '%'"></span>
                   </div>
-                  <div class="h-2.5 bg-zinc-100 rounded-full overflow-hidden">
+                  <div class="h-2.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                     <div class="h-full rounded-full transition-all" :class="plan.color" :style="'width:' + plan.pct + '%'"></div>
                   </div>
                 </div>
@@ -82,23 +82,23 @@
           </div>
 
           <!-- Recent activity + alerts -->
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Actividad reciente</h2>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Actividad reciente</h2>
             <div class="space-y-3 mb-6">
               <template x-for="a in recentActivity" :key="a.text">
                 <div class="flex items-start gap-3">
-                  <div class="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mt-0.5" x-text="a.icon"></div>
+                  <div class="w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 flex items-center justify-center text-xs font-bold mt-0.5" x-text="a.icon"></div>
                   <div>
-                    <p class="text-sm text-zinc-700" x-text="a.text"></p>
-                    <p class="text-xs text-zinc-400" x-text="a.time"></p>
+                    <p class="text-sm text-zinc-700 dark:text-zinc-300" x-text="a.text"></p>
+                    <p class="text-xs text-zinc-400 dark:text-zinc-500" x-text="a.time"></p>
                   </div>
                 </div>
               </template>
             </div>
-            <h3 class="text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-3">Alertas</h3>
+            <h3 class="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wide mb-3">Alertas</h3>
             <div class="space-y-2">
               <template x-for="alert in alerts" :key="alert.text">
-                <div class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs" :class="alert.type === 'warning' ? 'bg-amber-50 text-amber-700' : 'bg-rose-50 text-rose-700'">
+                <div class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs" :class="alert.type === 'warning' ? 'bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400' : 'bg-rose-50 dark:bg-rose-950 text-rose-600 dark:text-rose-400'">
                   <span x-text="alert.type === 'warning' ? '!' : '!!'"></span>
                   <span x-text="alert.text"></span>
                 </div>
@@ -108,36 +108,36 @@
         </div>
 
         <!-- Recent signups -->
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm">
-          <div class="px-6 py-4 border-b border-zinc-100">
-            <h2 class="text-sm font-semibold text-zinc-900">Ultimos signups</h2>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
+          <div class="px-4 sm:px-6 py-4 border-b border-zinc-100 dark:border-zinc-800">
+            <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Ultimos signups</h2>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-sm">
               <thead>
-                <tr class="border-b border-zinc-100 text-left">
-                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Usuario</th>
-                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Email</th>
-                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Plan</th>
-                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Fecha</th>
+                <tr class="border-b border-zinc-100 dark:border-zinc-800 text-left">
+                  <th class="px-4 sm:px-6 py-3 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Usuario</th>
+                  <th class="px-4 sm:px-6 py-3 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Email</th>
+                  <th class="px-4 sm:px-6 py-3 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Plan</th>
+                  <th class="px-4 sm:px-6 py-3 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Fecha</th>
                 </tr>
               </thead>
               <tbody>
                 <template x-for="user in signups" :key="user.email">
-                  <tr class="border-b border-zinc-50 hover:bg-zinc-50 transition">
-                    <td class="px-6 py-3">
+                  <tr class="border-b border-zinc-50 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition">
+                    <td class="px-4 sm:px-6 py-3">
                       <div class="flex items-center gap-3">
                         <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium text-white" :class="user.avatarBg" x-text="user.initials"></div>
-                        <span class="text-zinc-800 font-medium" x-text="user.name"></span>
+                        <span class="text-zinc-800 dark:text-zinc-200 font-medium" x-text="user.name"></span>
                       </div>
                     </td>
-                    <td class="px-6 py-3 text-zinc-500" x-text="user.email"></td>
-                    <td class="px-6 py-3">
+                    <td class="px-4 sm:px-6 py-3 text-zinc-500 dark:text-zinc-400" x-text="user.email"></td>
+                    <td class="px-4 sm:px-6 py-3">
                       <span class="badge-sm px-2 py-0.5 rounded-full text-xs font-medium"
-                        :class="user.plan === 'Enterprise' ? 'bg-violet-100 text-violet-700' : user.plan === 'Pro' ? 'bg-blue-100 text-blue-700' : 'bg-zinc-100 text-zinc-600'"
+                        :class="user.plan === 'Enterprise' ? 'bg-violet-100 dark:bg-violet-900 text-violet-600 dark:text-violet-400' : user.plan === 'Pro' ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400'"
                         x-text="user.plan"></span>
                     </td>
-                    <td class="px-6 py-3 text-zinc-500 text-xs" x-text="user.date"></td>
+                    <td class="px-4 sm:px-6 py-3 text-zinc-500 dark:text-zinc-400 text-xs" x-text="user.date"></td>
                   </tr>
                 </template>
               </tbody>
@@ -145,8 +145,8 @@
           </div>
         </div>
         <!-- Distribución de planes -->
-        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
-          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Distribución de planes</h3>
+        <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Distribución de planes</h3>
           <div x-ref="chart" x-init="initChart()" class="w-full h-64"></div>
         </div>
       </main>
@@ -159,10 +159,10 @@
     function saasDashboard() {
       return {
         kpis: [
-          { label: 'MRR', value: '$12.4k', delta: '+14.2% vs mes anterior', positive: true, icon: '$', iconBg: 'bg-emerald-100 text-emerald-600' },
-          { label: 'Churn', value: '2.1%', delta: '-0.3% vs mes anterior', positive: true, icon: '%', iconBg: 'bg-rose-100 text-rose-600' },
-          { label: 'Active Users', value: '1,234', delta: '+89 esta semana', positive: true, icon: 'U', iconBg: 'bg-blue-100 text-blue-600' },
-          { label: 'NPS', value: '72', delta: '+5 puntos', positive: true, icon: 'N', iconBg: 'bg-violet-100 text-violet-600' }
+          { label: 'MRR', value: '$12.4k', delta: '+14.2% vs mes anterior', positive: true, icon: '$', iconBg: 'bg-emerald-100 dark:bg-emerald-900 text-emerald-600' },
+          { label: 'Churn', value: '2.1%', delta: '-0.3% vs mes anterior', positive: true, icon: '%', iconBg: 'bg-rose-100 dark:bg-rose-900 text-rose-600' },
+          { label: 'Active Users', value: '1,234', delta: '+89 esta semana', positive: true, icon: 'U', iconBg: 'bg-blue-100 dark:bg-blue-900 text-blue-600' },
+          { label: 'NPS', value: '72', delta: '+5 puntos', positive: true, icon: 'N', iconBg: 'bg-violet-100 dark:bg-violet-900 text-violet-600' }
         ],
         plans: [
           { name: 'Free', pct: 60, color: 'bg-zinc-400' },

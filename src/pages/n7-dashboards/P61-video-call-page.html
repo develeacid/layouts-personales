@@ -9,7 +9,7 @@
 <body class="h-full bg-zinc-900 antialiased">
   <div class="h-full flex flex-col" x-data="videoCallPage()">
     <!-- Top bar -->
-    <div class="h-12 flex items-center justify-between px-6 bg-zinc-900/80 border-b border-zinc-800">
+    <div class="h-12 flex items-center justify-between px-4 sm:px-6 bg-zinc-900/80 border-b border-zinc-800">
       <div class="flex items-center gap-3">
         <span class="text-sm font-medium text-white">Reunion de equipo</span>
         <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-rose-500/20 text-rose-400 flex items-center gap-1">
@@ -18,8 +18,8 @@
         </span>
       </div>
       <div class="flex items-center gap-3">
-        <span class="text-sm font-mono text-zinc-400" x-text="timer"></span>
-        <span class="text-xs text-zinc-500">6 participantes</span>
+        <span class="text-sm font-mono text-zinc-400 dark:text-zinc-500" x-text="timer"></span>
+        <span class="text-xs text-zinc-500 dark:text-zinc-400">6 participantes</span>
       </div>
     </div>
 
@@ -62,14 +62,14 @@
       <div x-show="chatOpen" x-transition class="w-80 bg-zinc-850 border-l border-zinc-800 flex flex-col" style="background-color: rgb(30 30 30);">
         <div class="px-4 py-3 border-b border-zinc-800 flex items-center justify-between">
           <h3 class="text-sm font-semibold text-white">Chat</h3>
-          <button @click="chatOpen = false" class="text-zinc-400 hover:text-white">
+          <button @click="chatOpen = false" class="text-zinc-400 dark:text-zinc-500 hover:text-white">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
         <div class="flex-1 overflow-y-auto p-4 space-y-3">
           <template x-for="msg in chatMessages" :key="msg.text">
             <div>
-              <p class="text-xs font-medium text-zinc-400" x-text="msg.from"></p>
+              <p class="text-xs font-medium text-zinc-400 dark:text-zinc-500" x-text="msg.from"></p>
               <p class="text-sm text-zinc-200 mt-0.5" x-text="msg.text"></p>
             </div>
           </template>

@@ -14,22 +14,22 @@
         <template x-for="(step, i) in steps" :key="step">
           <div class="flex items-center gap-2">
             <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2"
-              :class="i < currentStep ? 'bg-emerald-500 border-emerald-500 text-white' : i === currentStep ? 'bg-indigo-500 border-indigo-500 text-white' : 'bg-white border-zinc-300 text-zinc-400'"
+              :class="i < currentStep ? 'bg-emerald-500 border-emerald-500 text-white' : i === currentStep ? 'bg-indigo-500 border-indigo-500 text-white' : 'bg-white dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700 text-zinc-400 dark:text-zinc-500'"
               x-text="i < currentStep ? '&#10003;' : i + 1"></div>
-            <div class="w-12 h-0.5" :class="i < currentStep ? 'bg-emerald-500' : 'bg-zinc-200'" x-show="i < steps.length - 1"></div>
+            <div class="w-12 h-0.5" :class="i < currentStep ? 'bg-emerald-500' : 'bg-zinc-200 dark:bg-zinc-700'" x-show="i < steps.length - 1"></div>
           </div>
         </template>
       </div>
 
       <!-- Card -->
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-8 text-center">
-        <div class="w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center mx-auto mb-4">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-8 text-center">
+        <div class="w-14 h-14 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center mx-auto mb-4">
           <svg class="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           </svg>
         </div>
-        <h2 class="text-xl font-bold text-zinc-900 mb-2">Como fue tu experiencia?</h2>
-        <p class="text-sm text-zinc-500 mb-6">Tu opinion nos ayuda a mejorar</p>
+        <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">Como fue tu experiencia?</h2>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">Tu opinion nos ayuda a mejorar</p>
 
         <!-- Stars -->
         <div class="flex items-center justify-center gap-2 mb-6">
@@ -44,7 +44,7 @@
             </button>
           </template>
         </div>
-        <p class="text-sm text-zinc-500 mb-4" x-show="rating > 0">
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4" x-show="rating > 0">
           <span x-show="rating === 1">Muy mala</span>
           <span x-show="rating === 2">Mala</span>
           <span x-show="rating === 3">Regular</span>
@@ -57,12 +57,12 @@
           x-model="comment"
           rows="4"
           placeholder="Cuentanos mas sobre tu experiencia (opcional)..."
-          class="w-full border border-zinc-200 rounded-lg px-4 py-3 text-sm text-zinc-700 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none mb-6"></textarea>
+          class="w-full border border-zinc-200 dark:border-zinc-800 rounded-lg px-4 py-3 text-sm text-zinc-700 dark:text-zinc-300 placeholder-zinc-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-100 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none mb-6"></textarea>
 
         <!-- Submit -->
         <button
           class="w-full py-3 rounded-lg text-sm font-semibold transition"
-          :class="rating > 0 ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-zinc-100 text-zinc-400 cursor-not-allowed'"
+          :class="rating > 0 ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 cursor-not-allowed'"
           :disabled="rating === 0"
           @click="submitted = true">
           <span x-show="!submitted">Enviar feedback</span>
@@ -70,8 +70,8 @@
         </button>
       </div>
 
-      <p class="text-center text-xs text-zinc-400 mt-6">
-        <a href="#" class="hover:text-zinc-600 underline">Saltar</a>
+      <p class="text-center text-xs text-zinc-400 dark:text-zinc-500 mt-6">
+        <a href="#" class="hover:text-zinc-600 dark:text-zinc-400 underline">Saltar</a>
       </p>
     </div>
   </div>

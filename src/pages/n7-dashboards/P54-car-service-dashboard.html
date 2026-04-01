@@ -9,7 +9,7 @@
 <body class="h-full bg-page antialiased">
   <div class="flex h-full" x-data="carServiceDashboard()">
     <!-- Sidebar -->
-    <aside class="w-64 bg-zinc-950 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
+    <aside class="w-64 bg-zinc-950 dark:bg-zinc-800 text-zinc-300 h-full overflow-y-auto shrink-0 hidden lg:flex flex-col">
       <div class="px-5 py-4 border-b border-zinc-800">
         <span class="text-sm font-semibold text-white">LayoutOS</span>
         <span class="ml-2 text-xs text-orange-400">Taller</span>
@@ -19,15 +19,15 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           Panel
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 dark:text-zinc-500 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Citas
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 dark:text-zinc-500 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           Historial
         </a>
-        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 text-sm text-zinc-400 dark:text-zinc-500 hover:text-white hover:bg-zinc-800/50 rounded-lg transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
           Clientes
         </a>
@@ -36,8 +36,8 @@
 
     <!-- Main -->
     <div class="flex-1 flex flex-col overflow-hidden">
-      <header class="h-14 bg-white border-b border-zinc-200 flex items-center justify-between px-6 shrink-0">
-        <h1 class="text-sm font-semibold text-zinc-900">Taller Automotriz</h1>
+      <header class="h-14 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-4 sm:px-6 shrink-0">
+        <h1 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Taller Automotriz</h1>
         <div class="flex items-center gap-3">
           <button class="btn-sm btn-primary">Nueva cita</button>
         </div>
@@ -46,60 +46,60 @@
       <main class="flex-1 overflow-y-auto p-6">
         <!-- KPIs -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <p class="text-xs text-zinc-500 uppercase tracking-wide">Vehiculos hoy</p>
-            <p class="text-2xl font-bold text-zinc-900 mt-1">12</p>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">Vehiculos hoy</p>
+            <p class="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mt-1">12</p>
           </div>
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <p class="text-xs text-zinc-500 uppercase tracking-wide">En servicio</p>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">En servicio</p>
             <p class="text-2xl font-bold text-blue-600 mt-1">5</p>
           </div>
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <p class="text-xs text-zinc-500 uppercase tracking-wide">Completados</p>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">Completados</p>
             <p class="text-2xl font-bold text-emerald-600 mt-1">7</p>
           </div>
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <p class="text-xs text-zinc-500 uppercase tracking-wide">Pendientes cita</p>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">Pendientes cita</p>
             <p class="text-2xl font-bold text-amber-600 mt-1">3</p>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <!-- Stepper -->
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <h2 class="text-sm font-semibold text-zinc-900 mb-1">Estado del vehiculo</h2>
-            <p class="text-xs text-zinc-500 mb-5">Toyota Corolla 2023 - ABC-123</p>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-1">Estado del vehiculo</h2>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-5">Toyota Corolla 2023 - ABC-123</p>
             <div class="flex items-center gap-2">
               <template x-for="(step, i) in vehicleSteps" :key="step.label">
                 <div class="flex items-center gap-2" :class="i < vehicleSteps.length - 1 ? 'flex-1' : ''">
                   <div class="flex flex-col items-center">
                     <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 transition"
-                      :class="i <= currentStep ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white border-zinc-300 text-zinc-400'"
+                      :class="i <= currentStep ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700 text-zinc-400 dark:text-zinc-500'"
                       x-text="i + 1"></div>
-                    <span class="text-xs mt-1.5 text-center" :class="i <= currentStep ? 'text-emerald-700 font-medium' : 'text-zinc-400'" x-text="step.label"></span>
+                    <span class="text-xs mt-1.5 text-center" :class="i <= currentStep ? 'text-emerald-600 dark:text-emerald-400 font-medium' : 'text-zinc-400'" x-text="step.label"></span>
                   </div>
-                  <div class="flex-1 h-0.5 mt-[-1rem]" :class="i < currentStep ? 'bg-emerald-500' : 'bg-zinc-200'" x-show="i < vehicleSteps.length - 1"></div>
+                  <div class="flex-1 h-0.5 mt-[-1rem]" :class="i < currentStep ? 'bg-emerald-500' : 'bg-zinc-200 dark:bg-zinc-700'" x-show="i < vehicleSteps.length - 1"></div>
                 </div>
               </template>
             </div>
           </div>
 
           <!-- Mini calendar -->
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <h2 class="text-sm font-semibold text-zinc-900 mb-4">Citas del dia</h2>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Citas del dia</h2>
             <div class="space-y-3">
               <template x-for="appt in appointments" :key="appt.time">
-                <div class="flex items-center gap-3 p-3 rounded-lg border border-zinc-100">
+                <div class="flex items-center gap-3 p-3 rounded-lg border border-zinc-100 dark:border-zinc-800">
                   <div class="text-center min-w-fit">
-                    <p class="text-sm font-bold text-zinc-900" x-text="appt.time"></p>
+                    <p class="text-sm font-bold text-zinc-900 dark:text-zinc-100" x-text="appt.time"></p>
                   </div>
-                  <div class="w-px h-8 bg-zinc-200"></div>
+                  <div class="w-px h-8 bg-zinc-200 dark:bg-zinc-700"></div>
                   <div class="flex-1">
-                    <p class="text-sm text-zinc-800 font-medium" x-text="appt.client"></p>
-                    <p class="text-xs text-zinc-500" x-text="appt.service"></p>
+                    <p class="text-sm text-zinc-800 dark:text-zinc-200 font-medium" x-text="appt.client"></p>
+                    <p class="text-xs text-zinc-500 dark:text-zinc-400" x-text="appt.service"></p>
                   </div>
                   <span class="px-2 py-0.5 rounded-full text-xs font-medium"
-                    :class="appt.confirmed ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'"
+                    :class="appt.confirmed ? 'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400' : 'bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400'"
                     x-text="appt.confirmed ? 'Confirmada' : 'Pendiente'"></span>
                 </div>
               </template>
@@ -108,38 +108,38 @@
         </div>
 
         <!-- Vehicles in service -->
-        <div class="bg-white border border-zinc-200 rounded-xl shadow-sm">
-          <div class="px-6 py-4 border-b border-zinc-100">
-            <h2 class="text-sm font-semibold text-zinc-900">Vehiculos en servicio</h2>
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
+          <div class="px-4 sm:px-6 py-4 border-b border-zinc-100 dark:border-zinc-800">
+            <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Vehiculos en servicio</h2>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-sm">
               <thead>
-                <tr class="border-b border-zinc-100 text-left">
-                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Placa</th>
-                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Modelo</th>
-                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Servicio</th>
-                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Estado</th>
-                  <th class="px-6 py-3 text-xs font-medium text-zinc-500 uppercase">Mecanico</th>
+                <tr class="border-b border-zinc-100 dark:border-zinc-800 text-left">
+                  <th class="px-4 sm:px-6 py-3 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Placa</th>
+                  <th class="px-4 sm:px-6 py-3 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Modelo</th>
+                  <th class="px-4 sm:px-6 py-3 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Servicio</th>
+                  <th class="px-4 sm:px-6 py-3 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Estado</th>
+                  <th class="px-4 sm:px-6 py-3 text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase">Mecanico</th>
                 </tr>
               </thead>
               <tbody>
                 <template x-for="v in vehicles" :key="v.plate">
-                  <tr class="border-b border-zinc-50 hover:bg-zinc-50 transition">
-                    <td class="px-6 py-3 font-mono text-xs font-bold text-zinc-800" x-text="v.plate"></td>
-                    <td class="px-6 py-3 text-zinc-700" x-text="v.model"></td>
-                    <td class="px-6 py-3 text-zinc-600" x-text="v.service"></td>
-                    <td class="px-6 py-3">
+                  <tr class="border-b border-zinc-50 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition">
+                    <td class="px-4 sm:px-6 py-3 font-mono text-xs font-bold text-zinc-800 dark:text-zinc-200" x-text="v.plate"></td>
+                    <td class="px-4 sm:px-6 py-3 text-zinc-700 dark:text-zinc-300" x-text="v.model"></td>
+                    <td class="px-4 sm:px-6 py-3 text-zinc-600 dark:text-zinc-400" x-text="v.service"></td>
+                    <td class="px-4 sm:px-6 py-3">
                       <span class="px-2 py-0.5 rounded-full text-xs font-medium"
                         :class="{
-                          'bg-blue-50 text-blue-700': v.status === 'Diagnostico',
-                          'bg-amber-50 text-amber-700': v.status === 'En reparacion',
-                          'bg-emerald-50 text-emerald-700': v.status === 'Listo',
-                          'bg-zinc-100 text-zinc-600': v.status === 'Esperando piezas'
+                          'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400': v.status === 'Diagnostico',
+                          'bg-amber-50 dark:bg-amber-950 text-amber-600 dark:text-amber-400': v.status === 'En reparacion',
+                          'bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400': v.status === 'Listo',
+                          'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400': v.status === 'Esperando piezas'
                         }"
                         x-text="v.status"></span>
                     </td>
-                    <td class="px-6 py-3 text-zinc-600" x-text="v.mechanic"></td>
+                    <td class="px-4 sm:px-6 py-3 text-zinc-600 dark:text-zinc-400" x-text="v.mechanic"></td>
                   </tr>
                 </template>
               </tbody>
@@ -147,8 +147,8 @@
           </div>
         </div>
         <!-- Estado de vehículos -->
-        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
-          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Progreso del día</h3>
+        <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Progreso del día</h3>
           <div x-ref="chart" x-init="initChart()" class="w-full h-56"></div>
         </div>
       </main>
