@@ -6,6 +6,27 @@
   const welcomeScreen = document.getElementById('welcome-screen');
   const navLinks = document.querySelectorAll('#spa-sidebar a[href]');
   let currentPath = null;
+  const loadedCdns = new Set();
+
+  // ── Cargar CDNs externos dinámicamente ───────────────────
+  function loadCdns(cdns) {
+    if (!cdns || !cdns.length) return Promise.resolve();
+    const promises = cdns.map(url => {
+      if (loadedCdns.has(url)) return Promise.resolve();
+      loadedCdns.add(url);
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = url;
+        script.onload = resolve;
+        script.onerror = () => {
+          loadedCdns.delete(url);
+          reject(new Error(`Failed to load: ${url}`));
+        };
+        document.head.appendChild(script);
+      });
+    });
+    return Promise.all(promises);
+  }
 
   // ── Parsear HTML remoto ──────────────────────────────────
   function parseBody(html) {
@@ -81,6 +102,9 @@
       container.className = 'h-full';
       container.innerHTML = parsed.html;
       main.appendChild(container);
+
+      // Cargar CDNs externos antes de ejecutar scripts inline
+      await loadCdns(parsed.cdns);
 
       // Ejecutar scripts (funciones nombradas de Alpine)
       parsed.scripts.forEach(code => {
