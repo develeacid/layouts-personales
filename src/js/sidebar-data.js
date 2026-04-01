@@ -7,6 +7,19 @@ document.addEventListener('alpine:init', () => {
     search: '',
     currentPath: null,
     openSections: JSON.parse(localStorage.getItem('sidebar-open') || '{}'),
+    darkMode: localStorage.getItem('theme') === 'dark',
+
+    init() {
+      if (this.darkMode) document.documentElement.classList.add('dark');
+      this.$watch('darkMode', (val) => {
+        document.documentElement.classList.toggle('dark', val);
+        localStorage.setItem('theme', val ? 'dark' : 'light');
+      });
+    },
+
+    toggleTheme() {
+      this.darkMode = !this.darkMode;
+    },
 
     sections: [
       {
