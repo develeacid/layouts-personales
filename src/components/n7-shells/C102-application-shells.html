@@ -22,7 +22,7 @@
         sidebarCollapsed ? 'w-16' : 'w-64',
         sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       ]"
-      class="fixed inset-y-0 left-0 z-40 lg:static bg-zinc-950 text-zinc-300 flex flex-col transition-all duration-300">
+      class="fixed inset-y-0 left-0 z-40 lg:static bg-zinc-950 dark:bg-zinc-800 text-zinc-300 flex flex-col transition-all duration-300">
 
       <!-- Logo -->
       <div class="h-14 flex items-center px-4 border-b border-zinc-800">
@@ -67,7 +67,7 @@
     <div class="flex-1 flex flex-col min-w-0">
 
       <!-- Top header -->
-      <header class="h-14 bg-white border-b border-zinc-200 flex items-center gap-4 px-4 shrink-0">
+      <header class="h-14 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center gap-4 px-4 shrink-0">
         <!-- Hamburger mobile -->
         <button @click="sidebarOpen = true" class="lg:hidden text-zinc-500 hover:text-zinc-700">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -76,15 +76,15 @@
         </button>
 
         <!-- Collapse toggle desktop -->
-        <button @click="sidebarCollapsed = !sidebarCollapsed" class="hidden lg:block text-zinc-400 hover:text-zinc-600">
+        <button @click="sidebarCollapsed = !sidebarCollapsed" class="hidden lg:block text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/>
           </svg>
         </button>
 
         <!-- Breadcrumb -->
-        <nav class="hidden sm:flex items-center gap-1.5 text-sm text-zinc-400">
-          <span class="text-zinc-600 font-medium">Dashboard</span>
+        <nav class="hidden sm:flex items-center gap-1.5 text-sm text-zinc-400 dark:text-zinc-500">
+          <span class="text-zinc-600 dark:text-zinc-400 font-medium">Dashboard</span>
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
           <span>Overview</span>
         </nav>
@@ -94,55 +94,55 @@
         <!-- Search -->
         <div class="hidden md:flex items-center">
           <div class="relative">
-            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
             <input type="text" placeholder="Buscar..." class="input pl-9 w-56 text-sm h-8" />
           </div>
         </div>
 
         <!-- Notifications -->
         <div class="relative" @click.outside="notifDropdown = false">
-          <button @click="notifDropdown = !notifDropdown" class="relative text-zinc-400 hover:text-zinc-600 p-1">
+          <button @click="notifDropdown = !notifDropdown" class="relative text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 p-1">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/>
             </svg>
             <span class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">3</span>
           </button>
           <div x-show="notifDropdown" x-transition x-cloak
-            class="absolute right-0 top-full mt-2 w-72 bg-white border border-zinc-200 rounded-xl shadow-lg py-2 z-50">
-            <p class="px-4 py-2 text-xs font-semibold text-zinc-900">Notificaciones</p>
-            <div class="px-4 py-2.5 hover:bg-zinc-50 cursor-pointer">
+            class="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg py-2 z-50">
+            <p class="px-4 py-2 text-xs font-semibold text-zinc-900 dark:text-zinc-100">Notificaciones</p>
+            <div class="px-4 py-2.5 hover:bg-zinc-50 dark:bg-zinc-800 cursor-pointer">
               <p class="text-sm text-zinc-700">Nuevo comentario en <span class="font-medium">Proyecto Alpha</span></p>
-              <p class="text-xs text-zinc-400 mt-0.5">Hace 5 min</p>
+              <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Hace 5 min</p>
             </div>
-            <div class="px-4 py-2.5 hover:bg-zinc-50 cursor-pointer">
+            <div class="px-4 py-2.5 hover:bg-zinc-50 dark:bg-zinc-800 cursor-pointer">
               <p class="text-sm text-zinc-700">Tarea completada: <span class="font-medium">Diseño UI</span></p>
-              <p class="text-xs text-zinc-400 mt-0.5">Hace 1 hora</p>
+              <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Hace 1 hora</p>
             </div>
-            <div class="px-4 py-2.5 hover:bg-zinc-50 cursor-pointer">
+            <div class="px-4 py-2.5 hover:bg-zinc-50 dark:bg-zinc-800 cursor-pointer">
               <p class="text-sm text-zinc-700"><span class="font-medium">Carlos</span> te mencionó</p>
-              <p class="text-xs text-zinc-400 mt-0.5">Hace 3 horas</p>
+              <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Hace 3 horas</p>
             </div>
             <div class="border-t border-zinc-100 mt-1 pt-1">
-              <a href="#" class="block px-4 py-2 text-xs text-blue-600 hover:text-blue-700 font-medium">Ver todas las notificaciones</a>
+              <a href="#" class="block px-4 py-2 text-xs text-blue-600 hover:text-blue-600 dark:text-blue-400 font-medium">Ver todas las notificaciones</a>
             </div>
           </div>
         </div>
 
         <!-- User avatar -->
         <div class="relative" @click.outside="userDropdown = false">
-          <button @click="userDropdown = !userDropdown" class="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600">
+          <button @click="userDropdown = !userDropdown" class="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-400">
             AG
           </button>
           <div x-show="userDropdown" x-transition x-cloak
-            class="absolute right-0 top-full mt-2 w-56 bg-white border border-zinc-200 rounded-xl shadow-lg py-2 z-50">
+            class="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg py-2 z-50">
             <div class="px-4 py-2 border-b border-zinc-100">
-              <p class="text-sm font-medium text-zinc-900">Ana García</p>
+              <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Ana García</p>
               <p class="text-xs text-zinc-500">ana.garcia@layout.os</p>
             </div>
-            <a href="#" class="block px-4 py-2 text-sm text-zinc-600 hover:bg-zinc-50">Perfil</a>
-            <a href="#" class="block px-4 py-2 text-sm text-zinc-600 hover:bg-zinc-50">Configuración</a>
+            <a href="#" class="block px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-zinc-800">Perfil</a>
+            <a href="#" class="block px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-zinc-800">Configuración</a>
             <div class="border-t border-zinc-100 my-1"></div>
-            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-zinc-50">Cerrar sesión</a>
+            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-zinc-50 dark:bg-zinc-800">Cerrar sesión</a>
           </div>
         </div>
       </header>
@@ -151,32 +151,32 @@
       <main class="flex-1 overflow-y-auto p-6">
         <!-- Header de nivel dentro del shell -->
         <header class="mb-8">
-          <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C102 · Nivel 7</p>
-          <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Application Shells</h1>
-          <p class="text-sm text-zinc-600 mt-1">Shell de aplicación completo con sidebar colapsable y navegación.</p>
+          <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C102 · Nivel 7</p>
+          <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Application Shells</h1>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Shell de aplicación completo con sidebar colapsable y navegación.</p>
         </header>
 
         <p class="text-sm text-zinc-500 mb-6">Contenido principal de la aplicación.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <h3 class="text-sm font-semibold text-zinc-900">Resumen del proyecto</h3>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Resumen del proyecto</h3>
             <p class="text-sm text-zinc-500 mt-2">3 proyectos activos, 12 tareas pendientes y 2 entregas esta semana.</p>
             <div class="mt-4 flex gap-2">
               <span class="badge-blue">Activos: 3</span>
               <span class="badge-amber">Pendientes: 12</span>
             </div>
           </div>
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
-            <h3 class="text-sm font-semibold text-zinc-900">Actividad reciente</h3>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
+            <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Actividad reciente</h3>
             <p class="text-sm text-zinc-500 mt-2">Última actualización hace 15 minutos por Carlos en "Rediseño Homepage".</p>
             <div class="mt-4 flex gap-2">
               <span class="badge-green">Completado</span>
               <span class="badge-zinc">v2.1.0</span>
             </div>
           </div>
-          <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 md:col-span-2">
-            <h3 class="text-sm font-semibold text-zinc-900">Tareas del equipo</h3>
+          <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 md:col-span-2">
+            <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Tareas del equipo</h3>
             <p class="text-sm text-zinc-500 mt-2">Vista general de las tareas asignadas al equipo de desarrollo.</p>
             <div class="mt-4 flex gap-2 flex-wrap">
               <button class="btn-primary btn-sm">Nueva tarea</button>
@@ -190,15 +190,15 @@
   </div>
 
   <!-- Variante 2 — Descripción de variante clara -->
-  <section class="max-w-4xl mx-auto p-8 border-t border-zinc-200 mt-0">
-    <h2 class="text-sm font-medium text-zinc-900 mb-2">Variante 2 — Shell con sidebar claro</h2>
-    <p class="text-sm text-zinc-600 leading-relaxed">
-      La variante clara utiliza <code class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-mono">bg-white border-r border-zinc-200 text-zinc-700</code> en el sidebar
-      en lugar de <code class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-mono">bg-zinc-950 text-zinc-300</code>.
-      Los items activos cambian a <code class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-mono">bg-blue-50 text-blue-700 font-medium</code>
-      y el hover a <code class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-mono">bg-zinc-100</code>.
-      El footer del sidebar y los separadores usan <code class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-mono">border-zinc-200</code> en vez de <code class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-mono">border-zinc-800</code>.
-      El avatar del usuario en el sidebar cambia a <code class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-mono">bg-zinc-200 text-zinc-600</code> y el nombre a <code class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-mono">text-zinc-900</code>.
+  <section class="relative max-w-4xl mx-auto p-8 border-t border-zinc-200 dark:border-zinc-800 mt-0">
+    <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">Variante 2 — Shell con sidebar claro</h2>
+    <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+      La variante clara utiliza <code class="text-xs bg-zinc-100 px-1.5 py-0.5 rounded font-mono">bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 text-zinc-700</code> en el sidebar
+      en lugar de <code class="text-xs bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">bg-zinc-950 dark:bg-zinc-800 text-zinc-300</code>.
+      Los items activos cambian a <code class="text-xs bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-medium</code>
+      y el hover a <code class="text-xs bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">bg-zinc-100 dark:bg-zinc-800</code>.
+      El footer del sidebar y los separadores usan <code class="text-xs bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">border-zinc-200 dark:border-zinc-800</code> en vez de <code class="text-xs bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">border-zinc-800</code>.
+      El avatar del usuario en el sidebar cambia a <code class="text-xs bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">bg-zinc-200 text-zinc-600</code> y el nombre a <code class="text-xs bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded font-mono">text-zinc-900 dark:text-zinc-100</code>.
     </p>
   </section>
 
