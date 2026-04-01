@@ -158,18 +158,19 @@
   <script>
     function chartBase() {
       return {
-        chart: null,
         _resizeHandler: null,
         initChart() {
-          this.chart = echarts.init(this.$refs.chart);
+          // Almacenar instancia en el DOM element para evitar Alpine Proxy
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
           this.render();
           this.$watch('data', () => this.render(), { deep: true });
-          this._resizeHandler = () => this.chart.resize();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
           window.addEventListener('resize', this._resizeHandler);
         },
+        ec() { return this.$refs.chart._ec; },
         destroy() {
           window.removeEventListener('resize', this._resizeHandler);
-          this.chart.dispose();
+          if (this.$refs.chart._ec) this.$refs.chart._ec.dispose();
         }
       };
     }
@@ -195,7 +196,7 @@
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: { trigger: 'axis' },
             grid: { left: 50, right: 20, top: 20, bottom: 30 },
             xAxis: {
@@ -240,7 +241,7 @@
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: { trigger: 'axis' },
             grid: { left: 50, right: 20, top: 20, bottom: 30 },
             xAxis: {
@@ -292,7 +293,7 @@
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: { trigger: 'axis' },
             legend: { data: ['Online', 'Tienda'], top: 0 },
             grid: { left: 50, right: 20, top: 40, bottom: 30 },
@@ -337,7 +338,7 @@
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: { trigger: 'axis' },
             grid: { left: 50, right: 20, top: 20, bottom: 80 },
             xAxis: {
