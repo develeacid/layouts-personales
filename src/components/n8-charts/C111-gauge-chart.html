@@ -70,7 +70,7 @@
         </tbody>
       </table>
 
-      <div x-ref="chart" class="w-full h-80 bg-white border border-zinc-200 rounded-lg"></div>
+      <div x-ref="chart" class="w-full h-96 bg-white border border-zinc-200 rounded-lg"></div>
     </section>
 
     <!-- ===================== VARIANTE 3: Con rangos de color ===================== -->
@@ -290,161 +290,54 @@
         },
         render() {
           var colors = ['#3b82f6', '#f59e0b', '#10b981'];
+          var bgs = ['#eff6ff', '#fffbeb', '#ecfdf5'];
+          var self = this;
+          function ring(idx, radius, width) {
+            return {
+              type: 'gauge',
+              center: ['50%', '55%'],
+              startAngle: 210,
+              endAngle: -30,
+              min: 0,
+              max: 100,
+              radius: radius,
+              progress: {
+                show: true,
+                width: width,
+                roundCap: true,
+                itemStyle: { color: colors[idx] }
+              },
+              axisLine: {
+                lineStyle: { width: width, color: [[1, '#e4e4e7']] },
+                roundCap: true
+              },
+              axisTick: { show: false },
+              splitLine: { show: false },
+              axisLabel: { show: false },
+              pointer: { show: false },
+              anchor: { show: false },
+              title: { show: false },
+              detail: {
+                valueAnimation: true,
+                fontSize: 13,
+                fontWeight: 'bold',
+                color: colors[idx],
+                offsetCenter: [0, (idx - 1) * 30 + '%'],
+                formatter: function (v) { return self.data[idx].name + '  ' + v + '%'; },
+                borderColor: colors[idx],
+                borderWidth: 1,
+                borderRadius: 4,
+                padding: [4, 10],
+                backgroundColor: bgs[idx]
+              },
+              data: [{ value: self.data[idx].value, name: self.data[idx].name }]
+            };
+          }
           this.ec().setOption({
             series: [
-              {
-                type: 'gauge',
-                center: ['50%', '60%'],
-                startAngle: 210,
-                endAngle: -30,
-                min: 0,
-                max: 100,
-                radius: '90%',
-                progress: {
-                  show: true,
-                  width: 14,
-                  itemStyle: { color: colors[0] }
-                },
-                axisLine: {
-                  lineStyle: {
-                    width: 14,
-                    color: [[1, '#e4e4e7']]
-                  }
-                },
-                axisTick: { show: false },
-                splitLine: { show: false },
-                axisLabel: {
-                  distance: 10,
-                  color: '#a1a1aa',
-                  fontSize: 10,
-                  formatter: function (value) {
-                    if (value === 0 || value === 50 || value === 100) return value;
-                    return '';
-                  }
-                },
-                pointer: {
-                  length: '50%',
-                  width: 4,
-                  itemStyle: { color: colors[0] }
-                },
-                anchor: {
-                  show: false
-                },
-                title: { show: false },
-                detail: {
-                  valueAnimation: true,
-                  fontSize: 11,
-                  fontWeight: 'bold',
-                  color: colors[0],
-                  offsetCenter: [0, '85%'],
-                  formatter: function (v) { return 'CPU\n' + v + '%'; },
-                  lineHeight: 16,
-                  borderColor: colors[0],
-                  borderWidth: 1,
-                  borderRadius: 4,
-                  padding: [4, 8],
-                  backgroundColor: '#eff6ff'
-                },
-                data: [{ value: this.data[0].value, name: this.data[0].name }]
-              },
-              {
-                type: 'gauge',
-                center: ['50%', '60%'],
-                startAngle: 210,
-                endAngle: -30,
-                min: 0,
-                max: 100,
-                radius: '68%',
-                progress: {
-                  show: true,
-                  width: 14,
-                  itemStyle: { color: colors[1] }
-                },
-                axisLine: {
-                  lineStyle: {
-                    width: 14,
-                    color: [[1, '#e4e4e7']]
-                  }
-                },
-                axisTick: { show: false },
-                splitLine: { show: false },
-                axisLabel: { show: false },
-                pointer: {
-                  length: '45%',
-                  width: 4,
-                  itemStyle: { color: colors[1] }
-                },
-                anchor: {
-                  show: false
-                },
-                title: {
-                  show: false
-                },
-                detail: {
-                  valueAnimation: true,
-                  fontSize: 11,
-                  fontWeight: 'bold',
-                  color: colors[1],
-                  offsetCenter: ['55%', '50%'],
-                  formatter: function (v) { return 'RAM\n' + v + '%'; },
-                  lineHeight: 16,
-                  borderColor: colors[1],
-                  borderWidth: 1,
-                  borderRadius: 4,
-                  padding: [4, 8],
-                  backgroundColor: '#fffbeb'
-                },
-                data: [{ value: this.data[1].value, name: this.data[1].name }]
-              },
-              {
-                type: 'gauge',
-                center: ['50%', '60%'],
-                startAngle: 210,
-                endAngle: -30,
-                min: 0,
-                max: 100,
-                radius: '46%',
-                progress: {
-                  show: true,
-                  width: 14,
-                  itemStyle: { color: colors[2] }
-                },
-                axisLine: {
-                  lineStyle: {
-                    width: 14,
-                    color: [[1, '#e4e4e7']]
-                  }
-                },
-                axisTick: { show: false },
-                splitLine: { show: false },
-                axisLabel: { show: false },
-                pointer: {
-                  length: '40%',
-                  width: 4,
-                  itemStyle: { color: colors[2] }
-                },
-                anchor: {
-                  show: false
-                },
-                title: {
-                  show: false
-                },
-                detail: {
-                  valueAnimation: true,
-                  fontSize: 11,
-                  fontWeight: 'bold',
-                  color: colors[2],
-                  offsetCenter: ['-55%', '50%'],
-                  formatter: function (v) { return 'Disco\n' + v + '%'; },
-                  lineHeight: 16,
-                  borderColor: colors[2],
-                  borderWidth: 1,
-                  borderRadius: 4,
-                  padding: [4, 8],
-                  backgroundColor: '#ecfdf5'
-                },
-                data: [{ value: this.data[2].value, name: this.data[2].name }]
-              }
+              ring(0, '90%', 18),
+              ring(1, '66%', 18),
+              ring(2, '42%', 18)
             ],
             legend: {
               show: true,
