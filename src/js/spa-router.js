@@ -132,7 +132,6 @@
       // Actualizar estado
       currentPath = path;
       window.dispatchEvent(new CustomEvent('route-changed', { detail: { path } }));
-      updateActiveLink(path);
       main.scrollTop = 0;
 
       // Actualizar título
@@ -151,13 +150,6 @@
           </div>
         </div>`;
     }
-  }
-
-  // ── Active state del sidebar ─────────────────────────────
-  // Active state is now managed by Alpine's :class binding.
-  // This function is kept as a no-op for compatibility.
-  function updateActiveLink(path) {
-    // No-op: Alpine handles active styling via currentPath
   }
 
   // ── Interceptar clicks del sidebar ───────────────────────
