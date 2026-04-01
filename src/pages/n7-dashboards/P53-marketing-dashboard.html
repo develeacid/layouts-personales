@@ -132,14 +132,43 @@
             </template>
           </div>
         </div>
+        <!-- Distribución de tráfico -->
+        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Distribución de tráfico</h3>
+          <div x-ref="chart" x-init="initChart()" class="w-full h-64"></div>
+        </div>
       </main>
     </div>
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function marketingDashboard() {
       return {
+        _resizeHandler: null,
+        initChart() {
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          var colors = ['#10b981', '#3b82f6', '#ec4899', '#8b5cf6', '#f59e0b'];
+          this.$refs.chart._ec.setOption({
+            tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
+            legend: { bottom: 0, textStyle: { fontSize: 11 } },
+            series: [{
+              type: 'pie',
+              radius: '65%',
+              center: ['50%', '45%'],
+              data: this.trafficSources.map(function(s, i) {
+                return { name: s.name, value: s.pct, itemStyle: { color: colors[i] } };
+              }),
+              label: { formatter: '{b}\n{d}%', fontSize: 11 }
+            }]
+          });
+        },
         kpis: [
           { label: 'Visitantes', value: '45.2k', delta: '+22% vs mes anterior', positive: true },
           { label: 'Leads', value: '892', delta: '+134 esta semana', positive: true },
