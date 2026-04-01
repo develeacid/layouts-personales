@@ -131,18 +131,19 @@ data: [[0,0,1], [0,1,0.85], ...]  // Matriz simétrica 5×5</pre>
   <script>
     function chartBase() {
       return {
-        chart: null,
         _resizeHandler: null,
         initChart() {
-          this.chart = echarts.init(this.$refs.chart);
+          // Almacenar instancia en el DOM element para evitar Alpine Proxy
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
           this.render();
           this.$watch('data', () => this.render(), { deep: true });
-          this._resizeHandler = () => this.chart.resize();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
           window.addEventListener('resize', this._resizeHandler);
         },
+        ec() { return this.$refs.chart._ec; },
         destroy() {
           window.removeEventListener('resize', this._resizeHandler);
-          this.chart.dispose();
+          if (this.$refs.chart._ec) this.$refs.chart._ec.dispose();
         }
       };
     }
@@ -173,7 +174,7 @@ data: [[0,0,1], [0,1,0.85], ...]  // Matriz simétrica 5×5</pre>
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               position: 'top',
               formatter: (p) => {
@@ -236,7 +237,7 @@ data: [[0,0,1], [0,1,0.85], ...]  // Matriz simétrica 5×5</pre>
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               position: 'top',
               formatter: (p) => {
@@ -317,7 +318,7 @@ data: [[0,0,1], [0,1,0.85], ...]  // Matriz simétrica 5×5</pre>
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               position: 'top',
               formatter: (p) => p.value[0] + ': <b>' + p.value[1] + ' contribuciones</b>'
@@ -369,7 +370,7 @@ data: [[0,0,1], [0,1,0.85], ...]  // Matriz simétrica 5×5</pre>
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               position: 'top',
               formatter: (p) => {

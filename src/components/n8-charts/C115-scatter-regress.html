@@ -190,18 +190,19 @@
   <script>
     function chartBase() {
       return {
-        chart: null,
         _resizeHandler: null,
         initChart() {
-          this.chart = echarts.init(this.$refs.chart);
+          // Almacenar instancia en el DOM element para evitar Alpine Proxy
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
           this.render();
           this.$watch('data', () => this.render(), { deep: true });
-          this._resizeHandler = () => this.chart.resize();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
           window.addEventListener('resize', this._resizeHandler);
         },
+        ec() { return this.$refs.chart._ec; },
         destroy() {
           window.removeEventListener('resize', this._resizeHandler);
-          this.chart.dispose();
+          if (this.$refs.chart._ec) this.$refs.chart._ec.dispose();
         }
       };
     }
@@ -219,7 +220,7 @@
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'item',
               formatter: function (params) {
@@ -267,7 +268,7 @@
         },
         render() {
           var reg = ecStat.regression('linear', this.data);
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'item',
               formatter: function (params) {
@@ -337,7 +338,7 @@
         },
         render() {
           var reg = ecStat.regression('polynomial', this.data, 3);
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'item',
               formatter: function (params) {
@@ -411,7 +412,7 @@
           var medio = this.data.filter(function (d) { return d[1] >= 100 && d[1] <= 160; });
           var alto = this.data.filter(function (d) { return d[1] > 160; });
 
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'item',
               formatter: function (params) {

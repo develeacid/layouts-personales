@@ -159,18 +159,19 @@
   <script>
     function chartBase() {
       return {
-        chart: null,
         _resizeHandler: null,
         initChart() {
-          this.chart = echarts.init(this.$refs.chart);
+          // Almacenar instancia en el DOM element para evitar Alpine Proxy
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
           this.render();
           this.$watch('data', () => this.render(), { deep: true });
-          this._resizeHandler = () => this.chart.resize();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
           window.addEventListener('resize', this._resizeHandler);
         },
+        ec() { return this.$refs.chart._ec; },
         destroy() {
           window.removeEventListener('resize', this._resizeHandler);
-          this.chart.dispose();
+          if (this.$refs.chart._ec) this.$refs.chart._ec.dispose();
         }
       };
     }
@@ -183,7 +184,7 @@
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             series: [
               {
                 type: 'gauge',
@@ -289,7 +290,7 @@
         },
         render() {
           var colors = ['#3b82f6', '#f59e0b', '#10b981'];
-          this.chart.setOption({
+          this.ec().setOption({
             series: [
               {
                 type: 'gauge',
@@ -466,7 +467,7 @@
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             series: [
               {
                 type: 'gauge',
@@ -559,7 +560,6 @@
 
     function gaugeDashboard() {
       return {
-        charts: [],
         _resizeHandler: null,
         data: [
           { name: 'Conversión', value: 3.6, max: 10, unit: '%' },
@@ -567,29 +567,33 @@
           { name: 'Uptime', value: 99.9, max: 100, unit: '%' },
           { name: 'Latencia', value: 45, max: 200, unit: 'ms' }
         ],
+        _refs() {
+          return [this.$refs.chart1, this.$refs.chart2, this.$refs.chart3, this.$refs.chart4];
+        },
         init() {
-          var refs = [this.$refs.chart1, this.$refs.chart2, this.$refs.chart3, this.$refs.chart4];
+          var refs = this._refs();
           var colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b'];
-          this.charts = refs.map(function (ref) {
-            return echarts.init(ref);
+          // Almacenar instancias en el DOM element para evitar Alpine Proxy
+          refs.forEach(function (ref) {
+            ref._ec = echarts.init(ref);
           });
           this.renderAll(colors);
           this.$watch('data', () => this.renderAll(colors), { deep: true });
           this._resizeHandler = () => {
-            this.charts.forEach(function (c) { c.resize(); });
+            refs.forEach(function (ref) { ref._ec.resize(); });
           };
           window.addEventListener('resize', this._resizeHandler);
         },
         destroy() {
           window.removeEventListener('resize', this._resizeHandler);
-          this.charts.forEach(function (c) { c.dispose(); });
+          this._refs().forEach(function (ref) { if (ref._ec) ref._ec.dispose(); });
         },
         renderAll(colors) {
-          var self = this;
+          var refs = this._refs();
           this.data.forEach(function (item, i) {
             var color = colors[i];
             var pct = item.value / item.max;
-            self.charts[i].setOption({
+            refs[i]._ec.setOption({
               series: [
                 {
                   type: 'gauge',

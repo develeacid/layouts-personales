@@ -167,18 +167,19 @@ data: [
     /* ------------------------------------------------------------------ */
     function chartBase() {
       return {
-        chart: null,
         _resizeHandler: null,
         initChart() {
-          this.chart = echarts.init(this.$refs.chart);
+          // Almacenar instancia en el DOM element para evitar Alpine Proxy
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
           this.render();
           this.$watch('data', () => this.render(), { deep: true });
-          this._resizeHandler = () => this.chart.resize();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
           window.addEventListener('resize', this._resizeHandler);
         },
+        ec() { return this.$refs.chart._ec; },
         destroy() {
           window.removeEventListener('resize', this._resizeHandler);
-          this.chart.dispose();
+          if (this.$refs.chart._ec) this.$refs.chart._ec.dispose();
         }
       };
     }
@@ -193,7 +194,7 @@ data: [
           [120, 132, 101, 134, 90, 230, 145, 160, 110, 98, 155, 180, 125, 140, 115, 170, 88, 142, 165, 195]
         ],
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'item',
               formatter(params) {
@@ -289,7 +290,7 @@ data: [
         ],
         render() {
           var groups = this.groups;
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'item',
               formatter(params) {
@@ -388,7 +389,7 @@ data: [
         ],
         render() {
           var groups = this.groups;
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'item',
               formatter(params) {
@@ -497,7 +498,7 @@ data: [
             });
           });
 
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'item',
               formatter(params) {

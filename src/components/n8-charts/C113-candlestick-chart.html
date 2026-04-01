@@ -205,18 +205,19 @@
   <script>
     function chartBase() {
       return {
-        chart: null,
         _resizeHandler: null,
         initChart() {
-          this.chart = echarts.init(this.$refs.chart);
+          // Almacenar instancia en el DOM element para evitar Alpine Proxy
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
           this.render();
           this.$watch('data', () => this.render(), { deep: true });
-          this._resizeHandler = () => this.chart.resize();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
           window.addEventListener('resize', this._resizeHandler);
         },
+        ec() { return this.$refs.chart._ec; },
         destroy() {
           window.removeEventListener('resize', this._resizeHandler);
-          this.chart.dispose();
+          if (this.$refs.chart._ec) this.$refs.chart._ec.dispose();
         }
       };
     }
@@ -250,7 +251,7 @@
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'axis',
               axisPointer: { type: 'cross' },
@@ -323,7 +324,7 @@
           const volumeColors = this.data.map(d =>
             d.close >= d.open ? '#10b981' : '#ef4444'
           );
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'axis',
               axisPointer: { type: 'cross' }
@@ -427,7 +428,7 @@
             const sum = this.data.slice(i - 4, i + 1).reduce((acc, d) => acc + d.close, 0);
             return Math.round((sum / 5) * 100) / 100;
           });
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'axis',
               axisPointer: { type: 'cross' }
@@ -499,7 +500,7 @@
           this.initChart();
         },
         render() {
-          this.chart.setOption({
+          this.ec().setOption({
             tooltip: {
               trigger: 'axis',
               axisPointer: { type: 'cross' }

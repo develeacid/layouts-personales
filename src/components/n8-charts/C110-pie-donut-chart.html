@@ -218,18 +218,19 @@
     /* ------------------------------------------------------------------ */
     function chartBase() {
       return {
-        chart: null,
         _resizeHandler: null,
         initChart() {
-          this.chart = echarts.init(this.$refs.chart);
+          // Almacenar instancia en el DOM element para evitar Alpine Proxy
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
           this.render();
           this.$watch('data', () => this.render(), { deep: true });
-          this._resizeHandler = () => this.chart.resize();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
           window.addEventListener('resize', this._resizeHandler);
         },
+        ec() { return this.$refs.chart._ec; },
         destroy() {
           window.removeEventListener('resize', this._resizeHandler);
-          this.chart.dispose();
+          if (this.$refs.chart._ec) this.$refs.chart._ec.dispose();
         }
       };
     }
@@ -249,7 +250,7 @@
         ],
         render() {
           const total = this.data.reduce((s, d) => s + d.visitas, 0);
-          this.chart.setOption({
+          this.ec().setOption({
             color: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
             tooltip: {
               trigger: 'item',
@@ -298,7 +299,7 @@
         ],
         render() {
           const total = this.data.reduce((s, d) => s + d.visitas, 0);
-          this.chart.setOption({
+          this.ec().setOption({
             color: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
             tooltip: {
               trigger: 'item',
@@ -363,7 +364,7 @@
         render() {
           const total = this.data.reduce((s, d) => s + d.visitas, 0);
           const dataMap = Object.fromEntries(this.data.map(d => [d.fuente, d.visitas]));
-          this.chart.setOption({
+          this.ec().setOption({
             color: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
             tooltip: {
               trigger: 'item',
@@ -424,7 +425,7 @@
         ],
         render() {
           const total = this.data.reduce((s, d) => s + d.visitas, 0);
-          this.chart.setOption({
+          this.ec().setOption({
             color: ['#6366f1', '#06b6d4', '#f43f5e', '#f97316', '#a855f7'],
             tooltip: {
               trigger: 'item',
