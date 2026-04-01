@@ -116,7 +116,7 @@ function injectDownloadButtons(container, filePath, rawHtml, parsedScripts, pars
 // ── Hacer HTML standalone ───────────────────────────────
 function makeStandalone(html, css) {
   return html.replace(
-    /<link\s+rel="stylesheet"\s+href="\/public\/css\/main\.css"\s*\/?>/,
+    /<link\s+rel="stylesheet"\s+href="[^"]*public\/css\/main\.css"\s*\/?>/,
     `<style>${css}</style>`
   );
 }
