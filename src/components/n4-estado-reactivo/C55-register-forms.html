@@ -7,16 +7,16 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C55 · Nivel 4</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Register Forms</h1>
-      <p class="text-sm text-zinc-600 mt-1">Formularios de registro con validacion reactiva y fortaleza de password.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C55 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Register Forms</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Formularios de registro con validacion reactiva y fortaleza de password.</p>
     </header>
 
     <!-- Variante 1: Registro completo -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Registro completo</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Registro completo</h2>
 
       <div class="card" x-data="registerForm()">
         <!-- Exito -->
@@ -25,12 +25,12 @@
           x-transition:enter-start="opacity-0 scale-95"
           x-transition:enter-end="opacity-100 scale-100"
           class="text-center py-8">
-          <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-950 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 class="text-lg font-semibold text-zinc-900">Cuenta creada</h3>
+          <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Cuenta creada</h3>
           <p class="text-sm text-zinc-500 mt-1">Revisa tu correo para confirmar tu cuenta.</p>
         </div>
 
@@ -73,24 +73,24 @@
                   :class="passwordStrength >= 3 ? 'bg-emerald-400' : 'bg-zinc-200'"></div>
               </div>
               <p class="text-xs"
-                :class="passwordStrength === 1 ? 'text-rose-600' : passwordStrength === 2 ? 'text-amber-600' : passwordStrength === 3 ? 'text-emerald-600' : 'text-zinc-400'"
+                :class="passwordStrength === 1 ? 'text-rose-600' : passwordStrength === 2 ? 'text-amber-600' : passwordStrength === 3 ? 'text-emerald-600' : 'text-zinc-400 dark:text-zinc-500'"
                 x-text="passwordStrength === 1 ? 'Debil' : passwordStrength === 2 ? 'Media' : passwordStrength === 3 ? 'Fuerte' : ''"></p>
 
               <!-- Checklist -->
               <ul class="space-y-1">
-                <li class="flex items-center gap-2 text-xs" :class="checks.minLength ? 'text-emerald-600' : 'text-zinc-400'">
+                <li class="flex items-center gap-2 text-xs" :class="checks.minLength ? 'text-emerald-600' : 'text-zinc-400 dark:text-zinc-500'">
                   <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                   Minimo 8 caracteres
                 </li>
-                <li class="flex items-center gap-2 text-xs" :class="checks.hasUppercase ? 'text-emerald-600' : 'text-zinc-400'">
+                <li class="flex items-center gap-2 text-xs" :class="checks.hasUppercase ? 'text-emerald-600' : 'text-zinc-400 dark:text-zinc-500'">
                   <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                   Una letra mayuscula
                 </li>
-                <li class="flex items-center gap-2 text-xs" :class="checks.hasNumber ? 'text-emerald-600' : 'text-zinc-400'">
+                <li class="flex items-center gap-2 text-xs" :class="checks.hasNumber ? 'text-emerald-600' : 'text-zinc-400 dark:text-zinc-500'">
                   <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -113,7 +113,7 @@
           <label class="flex items-start gap-3 cursor-pointer">
             <input type="checkbox" x-model="acceptTerms"
               class="mt-0.5 w-4 h-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-200" />
-            <span class="text-sm text-zinc-600">Acepto los <a href="#" class="text-blue-600 hover:underline">terminos y condiciones</a> y la <a href="#" class="text-blue-600 hover:underline">politica de privacidad</a></span>
+            <span class="text-sm text-zinc-600 dark:text-zinc-400">Acepto los <a href="#" class="text-blue-600 hover:underline">terminos y condiciones</a> y la <a href="#" class="text-blue-600 hover:underline">politica de privacidad</a></span>
           </label>
 
           <!-- Submit -->
@@ -131,8 +131,8 @@
     </section>
 
     <!-- Variante 2: Registro simplificado -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Registro simplificado</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Registro simplificado</h2>
 
       <div class="card" x-data="{ email: '', password: '', loading: false }">
         <!-- Botones sociales -->

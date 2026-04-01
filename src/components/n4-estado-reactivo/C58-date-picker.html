@@ -7,24 +7,24 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C58 · Nivel 4</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Date Picker</h1>
-      <p class="text-sm text-zinc-600 mt-1">Selector de fecha con calendario dropdown y seleccion de rango.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C58 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Date Picker</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Selector de fecha con calendario dropdown y seleccion de rango.</p>
     </header>
 
     <!-- Variante 1: Date picker dropdown -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Date picker dropdown</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Date picker dropdown</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6"
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6"
         x-data="datePicker()"
         @click.outside="showCalendar = false"
         @keydown.escape.window="showCalendar = false">
 
         <div class="relative">
-          <label class="block text-xs font-medium text-zinc-600 mb-1.5">Fecha</label>
+          <label class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Fecha</label>
           <div class="relative">
             <input
               type="text"
@@ -32,8 +32,8 @@
               :value="selectedDate ? formatDate(selectedDate) : ''"
               placeholder="DD/MM/YYYY"
               @click="showCalendar = !showCalendar; selectingRange = false"
-              class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
-            <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+            <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 dark:text-zinc-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>
@@ -46,17 +46,17 @@
             x-transition:leave="transition ease-in duration-100"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 translate-y-1"
-            class="absolute z-10 mt-2 bg-white border border-zinc-200 rounded-xl shadow-lg p-4 w-72">
+            class="absolute z-10 mt-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg p-4 w-72">
 
             <!-- Header mes -->
             <div class="flex items-center justify-between mb-3">
-              <button @click="prevMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-600 transition-colors">
+              <button @click="prevMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 transition-colors">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
-              <span class="text-sm font-semibold text-zinc-900" x-text="monthNames[currentMonth] + ' ' + currentYear"></span>
-              <button @click="nextMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-600 transition-colors">
+              <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="monthNames[currentMonth] + ' ' + currentYear"></span>
+              <button @click="nextMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 transition-colors">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
@@ -66,7 +66,7 @@
             <!-- Dias de la semana -->
             <div class="grid grid-cols-7 mb-1">
               <template x-for="d in ['L','M','X','J','V','S','D']" :key="d">
-                <div class="text-center text-xs font-medium text-zinc-400 py-1" x-text="d"></div>
+                <div class="text-center text-xs font-medium text-zinc-400 dark:text-zinc-500 py-1" x-text="d"></div>
               </template>
             </div>
 
@@ -77,8 +77,8 @@
                   @click="if (cell.day) { selectDate(cell); showCalendar = false; }"
                   :class="{
                     'text-zinc-300 cursor-default': !cell.isCurrentMonth && cell.day,
-                    'text-zinc-900 hover:bg-zinc-100': cell.isCurrentMonth && !cell.isSelected && !cell.isToday,
-                    'ring-2 ring-blue-200 text-blue-700 font-semibold': cell.isToday && !cell.isSelected,
+                    'text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800': cell.isCurrentMonth && !cell.isSelected && !cell.isToday,
+                    'ring-2 ring-blue-200 text-blue-600 dark:text-blue-400 font-semibold': cell.isToday && !cell.isSelected,
                     'bg-blue-600 text-white rounded-full hover:bg-blue-700': cell.isSelected,
                     'invisible': !cell.day
                   }"
@@ -93,10 +93,10 @@
     </section>
 
     <!-- Variante 2: Date range picker -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Date range picker</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Date range picker</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6"
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6"
         x-data="datePicker()"
         @click.outside="showCalendar = false"
         @keydown.escape.window="showCalendar = false">
@@ -104,24 +104,24 @@
         <div class="relative">
           <div class="flex gap-4">
             <div class="flex-1">
-              <label class="block text-xs font-medium text-zinc-600 mb-1.5">Desde</label>
+              <label class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Desde</label>
               <input
                 type="text"
                 readonly
                 :value="rangeStart ? formatDate(rangeStart) : ''"
                 placeholder="DD/MM/YYYY"
                 @click="showCalendar = true; selectingRange = 'start'"
-                class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
             </div>
             <div class="flex-1">
-              <label class="block text-xs font-medium text-zinc-600 mb-1.5">Hasta</label>
+              <label class="block text-xs font-medium text-zinc-600 dark:text-zinc-400 mb-1.5">Hasta</label>
               <input
                 type="text"
                 readonly
                 :value="rangeEnd ? formatDate(rangeEnd) : ''"
                 placeholder="DD/MM/YYYY"
                 @click="showCalendar = true; selectingRange = 'end'"
-                class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
             </div>
           </div>
 
@@ -133,7 +133,7 @@
             x-transition:leave="transition ease-in duration-100"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 translate-y-1"
-            class="absolute z-10 mt-2 bg-white border border-zinc-200 rounded-xl shadow-lg p-4 w-72">
+            class="absolute z-10 mt-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg p-4 w-72">
 
             <div class="mb-2">
               <span class="text-xs font-medium text-blue-600"
@@ -142,13 +142,13 @@
 
             <!-- Header mes -->
             <div class="flex items-center justify-between mb-3">
-              <button @click="prevMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-600 transition-colors">
+              <button @click="prevMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 transition-colors">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
-              <span class="text-sm font-semibold text-zinc-900" x-text="monthNames[currentMonth] + ' ' + currentYear"></span>
-              <button @click="nextMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 text-zinc-600 transition-colors">
+              <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="monthNames[currentMonth] + ' ' + currentYear"></span>
+              <button @click="nextMonth()" type="button" class="p-1.5 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-600 dark:text-zinc-400 transition-colors">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
@@ -158,7 +158,7 @@
             <!-- Dias de la semana -->
             <div class="grid grid-cols-7 mb-1">
               <template x-for="d in ['L','M','X','J','V','S','D']" :key="d">
-                <div class="text-center text-xs font-medium text-zinc-400 py-1" x-text="d"></div>
+                <div class="text-center text-xs font-medium text-zinc-400 dark:text-zinc-500 py-1" x-text="d"></div>
               </template>
             </div>
 
@@ -169,10 +169,10 @@
                   @click="if (cell.day) selectRangeDate(cell)"
                   :class="{
                     'text-zinc-300 cursor-default': !cell.isCurrentMonth && cell.day,
-                    'text-zinc-900 hover:bg-zinc-100': cell.isCurrentMonth && !cell.isSelected && !cell.isInRange && !cell.isToday,
-                    'ring-2 ring-blue-200 text-blue-700 font-semibold': cell.isToday && !cell.isSelected && !cell.isInRange,
+                    'text-zinc-900 dark:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800': cell.isCurrentMonth && !cell.isSelected && !cell.isInRange && !cell.isToday,
+                    'ring-2 ring-blue-200 text-blue-600 dark:text-blue-400 font-semibold': cell.isToday && !cell.isSelected && !cell.isInRange,
                     'bg-blue-600 text-white rounded-full hover:bg-blue-700': cell.isSelected,
-                    'bg-blue-50 text-blue-700': cell.isInRange && !cell.isSelected,
+                    'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400': cell.isInRange && !cell.isSelected,
                     'invisible': !cell.day
                   }"
                   class="w-9 h-9 text-sm rounded-lg flex items-center justify-center transition-colors"

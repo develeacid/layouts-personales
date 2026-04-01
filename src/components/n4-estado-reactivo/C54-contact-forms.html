@@ -7,16 +7,16 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C54 · Nivel 4</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Contact Forms</h1>
-      <p class="text-sm text-zinc-600 mt-1">Formulario de contacto con validacion y feedback visual.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C54 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Contact Forms</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Formulario de contacto con validacion y feedback visual.</p>
     </header>
 
     <!-- Variante 1: Formulario estandar -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Formulario estandar</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Formulario estandar</h2>
 
       <div class="card" x-data="contactForm()">
         <!-- Mensaje de exito -->
@@ -25,12 +25,12 @@
           x-transition:enter-start="opacity-0 scale-95"
           x-transition:enter-end="opacity-100 scale-100"
           class="text-center py-8">
-          <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-950 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 class="text-lg font-semibold text-zinc-900">Mensaje enviado</h3>
+          <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Mensaje enviado</h3>
           <p class="text-sm text-zinc-500 mt-1">Gracias por contactarnos. Te responderemos pronto.</p>
           <button @click="reset()" class="btn-ghost btn-sm mt-4">Enviar otro mensaje</button>
         </div>
@@ -93,8 +93,8 @@
     </section>
 
     <!-- Variante 2: Formulario con columnas -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Formulario con columnas</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Formulario con columnas</h2>
 
       <div class="card" x-data="contactFormColumns()">
         <!-- Mensaje de exito -->
@@ -103,12 +103,12 @@
           x-transition:enter-start="opacity-0 scale-95"
           x-transition:enter-end="opacity-100 scale-100"
           class="text-center py-8">
-          <div class="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div class="w-12 h-12 bg-emerald-50 dark:bg-emerald-950 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 class="text-lg font-semibold text-zinc-900">Mensaje enviado</h3>
+          <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Mensaje enviado</h3>
           <p class="text-sm text-zinc-500 mt-1">Nos pondremos en contacto contigo pronto.</p>
           <button @click="reset()" class="btn-ghost btn-sm mt-4">Enviar otro mensaje</button>
         </div>

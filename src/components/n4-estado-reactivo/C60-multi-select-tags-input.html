@@ -7,22 +7,22 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C60 · Nivel 4</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Multi Select Tags Input</h1>
-      <p class="text-sm text-zinc-600 mt-1">Input de tags con autocompletado, categorias y limite configurable.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C60 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Multi Select Tags Input</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Input de tags con autocompletado, categorias y limite configurable.</p>
     </header>
 
     <!-- Variante 1: Tags input basico -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Tags input basico</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Tags input basico</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="{ tags: [], input: '', maxTags: 10, addTag() { const val = this.input.trim(); if (val && this.tags.length < this.maxTags && !this.tags.includes(val)) { this.tags.push(val); } this.input = ''; }, removeTag(index) { this.tags.splice(index, 1); } }">
-        <label class="block text-sm font-medium text-zinc-700 mb-2">Tecnologias</label>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="{ tags: [], input: '', maxTags: 10, addTag() { const val = this.input.trim(); if (val && this.tags.length < this.maxTags && !this.tags.includes(val)) { this.tags.push(val); } this.input = ''; }, removeTag(index) { this.tags.splice(index, 1); } }">
+        <label class="block text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-2">Tecnologias</label>
         <div class="flex flex-wrap gap-2 border border-zinc-300 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-blue-600 transition-colors min-h-10">
           <template x-for="(tag, index) in tags" :key="index">
-            <span class="bg-blue-100 text-blue-700 text-xs font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+            <span class="bg-blue-100 text-blue-600 dark:text-blue-400 text-xs font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
               <span x-text="tag"></span>
               <button type="button" @click="removeTag(index)" class="hover:text-blue-900">
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -39,23 +39,23 @@
             @keydown.backspace="if (!input && tags.length) removeTag(tags.length - 1)"
             :disabled="tags.length >= maxTags"
             :placeholder="tags.length >= maxTags ? 'Limite alcanzado' : 'Escribe y presiona Enter...'"
-            class="flex-1 min-w-24 border-0 p-0 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-0 bg-transparent disabled:cursor-not-allowed"
+            class="flex-1 min-w-24 border-0 p-0 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-0 bg-transparent disabled:cursor-not-allowed"
           />
         </div>
-        <p class="text-xs text-zinc-400 mt-2"><span x-text="tags.length"></span> / <span x-text="maxTags"></span> tags</p>
+        <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-2"><span x-text="tags.length"></span> / <span x-text="maxTags"></span> tags</p>
       </div>
     </section>
 
     <!-- Variante 2: Con sugerencias autocomplete -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Con sugerencias autocomplete</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Con sugerencias autocomplete</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="tagsInput()" @click.outside="showSuggestions = false">
-        <label class="block text-sm font-medium text-zinc-700 mb-2">Stack tecnologico</label>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="tagsInput()" @click.outside="showSuggestions = false">
+        <label class="block text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-2">Stack tecnologico</label>
         <div class="relative">
           <div class="flex flex-wrap gap-2 border border-zinc-300 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-600 focus-within:border-blue-600 transition-colors min-h-10">
             <template x-for="(tag, index) in tags" :key="index">
-              <span class="bg-blue-100 text-blue-700 text-xs font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
+              <span class="bg-blue-100 text-blue-600 dark:text-blue-400 text-xs font-medium px-2.5 py-0.5 rounded-full inline-flex items-center gap-1">
                 <span x-text="tag"></span>
                 <button type="button" @click="removeTag(index)" class="hover:text-blue-900">
                   <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -73,7 +73,7 @@
               @keydown.escape="showSuggestions = false"
               :disabled="tags.length >= 10"
               :placeholder="tags.length >= 10 ? 'Limite alcanzado' : 'Escribe 2+ caracteres...'"
-              class="flex-1 min-w-24 border-0 p-0 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-0 bg-transparent disabled:cursor-not-allowed"
+              class="flex-1 min-w-24 border-0 p-0 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-0 bg-transparent disabled:cursor-not-allowed"
             />
           </div>
 
@@ -87,37 +87,37 @@
             x-transition:leave="transition ease-in duration-100"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-1"
-            class="absolute z-10 mt-1 w-full bg-white border border-zinc-200 rounded-lg shadow-lg max-h-48 overflow-y-auto"
+            class="absolute z-10 mt-1 w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-lg max-h-48 overflow-y-auto"
           >
             <template x-for="s in filteredSuggestions" :key="s.name">
               <button
                 type="button"
                 @click="selectSuggestion(s)"
-                class="w-full text-left px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors"
+                class="w-full text-left px-3 py-2 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
                 x-text="s.name"
               ></button>
             </template>
           </div>
         </div>
-        <p class="text-xs text-zinc-400 mt-2"><span x-text="tags.length"></span> / 10 tags</p>
+        <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-2"><span x-text="tags.length"></span> / 10 tags</p>
       </div>
     </section>
 
     <!-- Variante 3: Tags con colores por categoria -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Tags con colores por categoria</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 3 — Tags con colores por categoria</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="tagsInput()" @click.outside="showSuggestions = false">
-        <label class="block text-sm font-medium text-zinc-700 mb-2">Habilidades</label>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="tagsInput()" @click.outside="showSuggestions = false">
+        <label class="block text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-2">Habilidades</label>
 
         <div class="flex flex-wrap gap-1.5 mb-3">
-          <span class="text-xs text-zinc-400 flex items-center gap-1">
+          <span class="text-xs text-zinc-400 dark:text-zinc-500 flex items-center gap-1">
             <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Frontend
           </span>
-          <span class="text-xs text-zinc-400 flex items-center gap-1">
+          <span class="text-xs text-zinc-400 dark:text-zinc-500 flex items-center gap-1">
             <span class="w-2 h-2 rounded-full bg-blue-400"></span> Backend
           </span>
-          <span class="text-xs text-zinc-400 flex items-center gap-1">
+          <span class="text-xs text-zinc-400 dark:text-zinc-500 flex items-center gap-1">
             <span class="w-2 h-2 rounded-full bg-amber-400"></span> DevOps
           </span>
         </div>
@@ -146,7 +146,7 @@
               @keydown.escape="showSuggestions = false"
               :disabled="tags.length >= 10"
               :placeholder="tags.length >= 10 ? 'Limite alcanzado' : 'Escribe 2+ caracteres...'"
-              class="flex-1 min-w-24 border-0 p-0 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-0 bg-transparent disabled:cursor-not-allowed"
+              class="flex-1 min-w-24 border-0 p-0 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-0 bg-transparent disabled:cursor-not-allowed"
             />
           </div>
 
@@ -160,21 +160,21 @@
             x-transition:leave="transition ease-in duration-100"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-1"
-            class="absolute z-10 mt-1 w-full bg-white border border-zinc-200 rounded-lg shadow-lg max-h-48 overflow-y-auto"
+            class="absolute z-10 mt-1 w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-lg max-h-48 overflow-y-auto"
           >
             <template x-for="s in filteredSuggestions" :key="s.name">
               <button
                 type="button"
                 @click="selectSuggestion(s)"
-                class="w-full text-left px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors flex items-center justify-between"
+                class="w-full text-left px-3 py-2 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors flex items-center justify-between"
               >
                 <span x-text="s.name"></span>
                 <span
                   class="text-xs font-medium px-2 py-0.5 rounded-full"
                   :class="{
-                    'bg-emerald-50 text-emerald-600': s.category === 'frontend',
-                    'bg-blue-100 text-blue-700': s.category === 'backend',
-                    'bg-amber-50 text-amber-600': s.category === 'devops'
+                    'bg-emerald-50 dark:bg-emerald-950 text-emerald-600': s.category === 'frontend',
+                    'bg-blue-100 text-blue-600 dark:text-blue-400': s.category === 'backend',
+                    'bg-amber-50 dark:bg-amber-950 text-amber-600': s.category === 'devops'
                   }"
                   x-text="s.category"
                 ></span>
@@ -182,7 +182,7 @@
             </template>
           </div>
         </div>
-        <p class="text-xs text-zinc-400 mt-2"><span x-text="tags.length"></span> / 10 tags</p>
+        <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-2"><span x-text="tags.length"></span> / 10 tags</p>
       </div>
     </section>
   </div>
@@ -233,11 +233,11 @@
         },
         getCategoryClasses(tagName) {
           const s = this.allSuggestions.find(x => x.name === tagName);
-          if (!s) return 'bg-blue-100 text-blue-700';
+          if (!s) return 'bg-blue-100 text-blue-600 dark:text-blue-400';
           return {
-            'bg-emerald-50 text-emerald-600': s.category === 'frontend',
-            'bg-blue-100 text-blue-700': s.category === 'backend',
-            'bg-amber-50 text-amber-600': s.category === 'devops',
+            'bg-emerald-50 dark:bg-emerald-950 text-emerald-600': s.category === 'frontend',
+            'bg-blue-100 text-blue-600 dark:text-blue-400': s.category === 'backend',
+            'bg-amber-50 dark:bg-amber-950 text-amber-600': s.category === 'devops',
           };
         },
       };

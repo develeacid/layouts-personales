@@ -7,20 +7,20 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C61 · Nivel 4</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Range Slider</h1>
-      <p class="text-sm text-zinc-600 mt-1">Sliders de rango con variantes simple, dual, discreto y sincronizado.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C61 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Range Slider</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Sliders de rango con variantes simple, dual, discreto y sincronizado.</p>
     </header>
 
     <!-- Variante 1: Slider simple -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Slider simple</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Slider simple</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="{ value: 5000 }">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="{ value: 5000 }">
         <div class="flex items-center justify-between mb-4">
-          <label class="text-sm font-medium text-zinc-700">Presupuesto</label>
+          <label class="text-sm font-medium text-zinc-600 dark:text-zinc-400">Presupuesto</label>
           <span class="text-lg font-semibold text-blue-600" x-text="'$' + Number(value).toLocaleString('en-US')"></span>
         </div>
         <input
@@ -31,7 +31,7 @@
           x-model="value"
           class="w-full custom-range"
         />
-        <div class="flex justify-between text-xs text-zinc-400 mt-2">
+        <div class="flex justify-between text-xs text-zinc-400 dark:text-zinc-500 mt-2">
           <span>$0</span>
           <span>$10,000</span>
         </div>
@@ -39,13 +39,13 @@
     </section>
 
     <!-- Variante 2: Dual range (min/max) -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Dual range (min/max)</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Dual range (min/max)</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="rangeSlider()">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="rangeSlider()">
         <div class="flex items-center justify-between mb-4">
-          <label class="text-sm font-medium text-zinc-700">Rango de precio</label>
-          <span class="text-sm font-semibold text-zinc-900">
+          <label class="text-sm font-medium text-zinc-600 dark:text-zinc-400">Rango de precio</label>
+          <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
             Min: <span class="text-blue-600" x-text="'$' + Number(min).toLocaleString('en-US')"></span>
             —
             Max: <span class="text-blue-600" x-text="'$' + Number(max).toLocaleString('en-US')"></span>
@@ -82,7 +82,7 @@
           />
         </div>
 
-        <div class="flex justify-between text-xs text-zinc-400 mt-2">
+        <div class="flex justify-between text-xs text-zinc-400 dark:text-zinc-500 mt-2">
           <span>$0</span>
           <span>$10,000</span>
         </div>
@@ -90,12 +90,12 @@
     </section>
 
     <!-- Variante 3: Slider con steps discretos -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Slider con steps discretos</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 3 — Slider con steps discretos</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="{ steps: ['1GB', '2GB', '4GB', '8GB', '16GB', '32GB'], index: 2 }">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="{ steps: ['1GB', '2GB', '4GB', '8GB', '16GB', '32GB'], index: 2 }">
         <div class="flex items-center justify-between mb-4">
-          <label class="text-sm font-medium text-zinc-700">Almacenamiento</label>
+          <label class="text-sm font-medium text-zinc-600 dark:text-zinc-400">Almacenamiento</label>
           <span class="text-lg font-semibold text-blue-600" x-text="steps[index]"></span>
         </div>
 
@@ -113,7 +113,7 @@
             <template x-for="(step, i) in steps" :key="i">
               <div
                 class="w-2.5 h-2.5 rounded-full border-2 transition-colors"
-                :class="i <= index ? 'bg-blue-600 border-blue-600' : 'bg-white border-zinc-300'"
+                :class="i <= index ? 'bg-blue-600 border-blue-600' : 'bg-white dark:bg-zinc-900 border-zinc-300'"
               ></div>
             </template>
           </div>
@@ -124,7 +124,7 @@
           <template x-for="(step, i) in steps" :key="i">
             <span
               class="text-xs transition-colors text-center"
-              :class="i == index ? 'text-blue-600 font-semibold' : 'text-zinc-400'"
+              :class="i == index ? 'text-blue-600 font-semibold' : 'text-zinc-400 dark:text-zinc-500'"
               x-text="step"
             ></span>
           </template>
@@ -133,11 +133,11 @@
     </section>
 
     <!-- Variante 4: Slider + input numerico sincronizado -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 4 — Slider + input numerico sincronizado</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 4 — Slider + input numerico sincronizado</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6" x-data="{ value: 5000, clamp() { if (this.value < 0) this.value = 0; if (this.value > 10000) this.value = 10000; } }">
-        <label class="text-sm font-medium text-zinc-700 mb-4 block">Presupuesto</label>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6" x-data="{ value: 5000, clamp() { if (this.value < 0) this.value = 0; if (this.value > 10000) this.value = 10000; } }">
+        <label class="text-sm font-medium text-zinc-600 dark:text-zinc-400 mb-4 block">Presupuesto</label>
 
         <div class="flex items-center gap-6">
           <div class="flex-1">
@@ -149,14 +149,14 @@
               x-model="value"
               class="w-full custom-range"
             />
-            <div class="flex justify-between text-xs text-zinc-400 mt-1">
+            <div class="flex justify-between text-xs text-zinc-400 dark:text-zinc-500 mt-1">
               <span>$0</span>
               <span>$10,000</span>
             </div>
           </div>
           <div class="shrink-0">
             <div class="relative">
-              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-zinc-400">$</span>
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-zinc-400 dark:text-zinc-500">$</span>
               <input
                 type="number"
                 min="0"
@@ -164,7 +164,7 @@
                 step="100"
                 x-model.number="value"
                 @change="clamp()"
-                class="w-28 border border-zinc-300 rounded-lg pl-7 pr-3 py-2 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
+                class="w-28 border border-zinc-300 rounded-lg pl-7 pr-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
               />
             </div>
           </div>

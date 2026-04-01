@@ -8,41 +8,41 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C49 · Nivel 4</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Table Footers</h1>
-      <p class="text-sm text-zinc-600 mt-1">Paginación y contadores para tablas de datos.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C49 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Table Footers</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Paginación y contadores para tablas de datos.</p>
     </header>
 
     <!-- Variante 1: Paginación simple -->
-    <section class="space-y-4" x-data="tablePagination({ total: 45, perPageInit: 10 })">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Paginación simple</h2>
+    <section class="relative space-y-4" x-data="tablePagination({ total: 45, perPageInit: 10 })">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Paginación simple</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden">
         <table class="w-full text-sm text-left">
-          <thead class="bg-zinc-50 border-b border-zinc-200">
+          <thead class="bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-800">
             <tr>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Nombre</th>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Email</th>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Estado</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100">
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             <template x-for="i in perPage" :key="i">
-              <tr class="hover:bg-zinc-50 transition-colors duration-150">
-                <td class="px-4 py-3 font-medium text-zinc-900" x-text="'Usuario ' + (startItem + i - 1)"></td>
-                <td class="px-4 py-3 text-zinc-600" x-text="'user' + (startItem + i - 1) + '@correo.com'"></td>
+              <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150">
+                <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100" x-text="'Usuario ' + (startItem + i - 1)"></td>
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400" x-text="'user' + (startItem + i - 1) + '@correo.com'"></td>
                 <td class="px-4 py-3"><span class="badge-green">Activo</span></td>
               </tr>
             </template>
           </tbody>
         </table>
 
-        <div class="flex items-center justify-between px-4 py-3 border-t border-zinc-200 bg-zinc-50">
-          <p class="text-sm text-zinc-600">
-            Mostrando <span class="font-medium text-zinc-900" x-text="startItem"></span>–<span class="font-medium text-zinc-900" x-text="endItem"></span> de <span class="font-medium text-zinc-900" x-text="totalItems"></span>
+        <div class="flex items-center justify-between px-4 py-3 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800">
+          <p class="text-sm text-zinc-600 dark:text-zinc-400">
+            Mostrando <span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="startItem"></span>–<span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="endItem"></span> de <span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="totalItems"></span>
           </p>
           <div class="flex items-center gap-2">
             <button class="btn-secondary text-sm" :disabled="currentPage === 1"
@@ -57,12 +57,12 @@
     </section>
 
     <!-- Variante 2: Paginación con números -->
-    <section class="space-y-4" x-data="tablePagination({ total: 87, perPageInit: 10 })">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Paginación con números</h2>
+    <section class="relative space-y-4" x-data="tablePagination({ total: 87, perPageInit: 10 })">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Paginación con números</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden">
         <table class="w-full text-sm text-left">
-          <thead class="bg-zinc-50 border-b border-zinc-200">
+          <thead class="bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-800">
             <tr>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Producto</th>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Categoría</th>
@@ -70,21 +70,21 @@
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Stock</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100">
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             <template x-for="i in perPage" :key="i">
-              <tr class="hover:bg-zinc-50 transition-colors duration-150">
-                <td class="px-4 py-3 font-medium text-zinc-900" x-text="'Producto ' + (startItem + i - 1)"></td>
-                <td class="px-4 py-3 text-zinc-600">Electrónica</td>
-                <td class="px-4 py-3 text-zinc-600" x-text="'$' + ((startItem + i - 1) * 12.5).toFixed(2)"></td>
+              <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150">
+                <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100" x-text="'Producto ' + (startItem + i - 1)"></td>
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Electrónica</td>
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400" x-text="'$' + ((startItem + i - 1) * 12.5).toFixed(2)"></td>
                 <td class="px-4 py-3"><span class="badge-green">En stock</span></td>
               </tr>
             </template>
           </tbody>
         </table>
 
-        <div class="flex items-center justify-between px-4 py-3 border-t border-zinc-200 bg-zinc-50">
-          <p class="text-sm text-zinc-600">
-            Mostrando <span class="font-medium text-zinc-900" x-text="startItem"></span>–<span class="font-medium text-zinc-900" x-text="endItem"></span> de <span class="font-medium text-zinc-900" x-text="totalItems"></span>
+        <div class="flex items-center justify-between px-4 py-3 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800">
+          <p class="text-sm text-zinc-600 dark:text-zinc-400">
+            Mostrando <span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="startItem"></span>–<span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="endItem"></span> de <span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="totalItems"></span>
           </p>
           <nav class="flex items-center gap-1">
             <button class="btn-ghost text-sm px-2 py-1" :disabled="currentPage === 1"
@@ -101,8 +101,8 @@
                       :class="page === currentPage
                         ? 'bg-blue-600 text-white'
                         : page === '...'
-                          ? 'text-zinc-400 cursor-default'
-                          : 'text-zinc-600 hover:bg-zinc-100'"></button>
+                          ? 'text-zinc-400 dark:text-zinc-500 cursor-default'
+                          : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'"></button>
             </template>
             <button class="btn-ghost text-sm px-2 py-1" :disabled="currentPage === totalPages"
                     :class="currentPage === totalPages && 'opacity-50 cursor-not-allowed'"
@@ -117,12 +117,12 @@
     </section>
 
     <!-- Variante 3: Con selector items por página -->
-    <section class="space-y-4" x-data="tablePagination({ total: 120, perPageInit: 10 })">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Selector de items por página</h2>
+    <section class="relative space-y-4" x-data="tablePagination({ total: 120, perPageInit: 10 })">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Selector de items por página</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden">
         <table class="w-full text-sm text-left">
-          <thead class="bg-zinc-50 border-b border-zinc-200">
+          <thead class="bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-800">
             <tr>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">ID</th>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Nombre</th>
@@ -130,31 +130,31 @@
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Estado</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100">
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             <template x-for="i in perPage" :key="i">
-              <tr class="hover:bg-zinc-50 transition-colors duration-150"
+              <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150"
                   x-show="startItem + i - 1 <= totalItems">
-                <td class="px-4 py-3 font-medium text-zinc-400" x-text="'#' + String(startItem + i - 1).padStart(4, '0')"></td>
-                <td class="px-4 py-3 font-medium text-zinc-900" x-text="'Miembro ' + (startItem + i - 1)"></td>
-                <td class="px-4 py-3 text-zinc-600">Editor</td>
+                <td class="px-4 py-3 font-medium text-zinc-400 dark:text-zinc-500" x-text="'#' + String(startItem + i - 1).padStart(4, '0')"></td>
+                <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100" x-text="'Miembro ' + (startItem + i - 1)"></td>
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Editor</td>
                 <td class="px-4 py-3"><span class="badge-blue">Activo</span></td>
               </tr>
             </template>
           </tbody>
         </table>
 
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 py-3 border-t border-zinc-200 bg-zinc-50">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 py-3 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800">
           <div class="flex items-center gap-3">
-            <label class="text-sm text-zinc-600">Mostrar</label>
+            <label class="text-sm text-zinc-600 dark:text-zinc-400">Mostrar</label>
             <select x-model.number="perPage" @change="currentPage = 1" class="input text-sm py-1 px-2 w-20">
               <option value="10">10</option>
               <option value="25">25</option>
               <option value="50">50</option>
             </select>
-            <span class="text-sm text-zinc-600">por página</span>
+            <span class="text-sm text-zinc-600 dark:text-zinc-400">por página</span>
           </div>
-          <p class="text-sm text-zinc-600">
-            Mostrando <span class="font-medium text-zinc-900" x-text="startItem"></span>–<span class="font-medium text-zinc-900" x-text="endItem"></span> de <span class="font-medium text-zinc-900" x-text="totalItems"></span>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400">
+            Mostrando <span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="startItem"></span>–<span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="endItem"></span> de <span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="totalItems"></span>
           </p>
           <nav class="flex items-center gap-1">
             <button class="btn-ghost text-sm px-2 py-1" :disabled="currentPage === 1"
@@ -171,8 +171,8 @@
                       :class="page === currentPage
                         ? 'bg-blue-600 text-white'
                         : page === '...'
-                          ? 'text-zinc-400 cursor-default'
-                          : 'text-zinc-600 hover:bg-zinc-100'"></button>
+                          ? 'text-zinc-400 dark:text-zinc-500 cursor-default'
+                          : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'"></button>
             </template>
             <button class="btn-ghost text-sm px-2 py-1" :disabled="currentPage === totalPages"
                     :class="currentPage === totalPages && 'opacity-50 cursor-not-allowed'"
@@ -187,7 +187,7 @@
     </section>
 
     <!-- Variante 4: Footer con resumen de datos -->
-    <section class="space-y-4" x-data="{
+    <section class="relative space-y-4" x-data="{
       transactions: [
         { id: 'TXN-001', desc: 'Suscripción Pro', date: '28 Mar 2026', amount: 49.00, type: 'ingreso' },
         { id: 'TXN-002', desc: 'Dominio anual', date: '25 Mar 2026', amount: -15.99, type: 'gasto' },
@@ -202,11 +202,11 @@
       get totalGastos() { return this.transactions.filter(t => t.amount < 0).reduce((s, t) => s + t.amount, 0) },
       get balance() { return this.totalIngresos + this.totalGastos }
     }">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Footer con resumen</h2>
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Footer con resumen</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden">
         <table class="w-full text-sm text-left">
-          <thead class="bg-zinc-50 border-b border-zinc-200">
+          <thead class="bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-800">
             <tr>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">ID</th>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Descripción</th>
@@ -214,29 +214,29 @@
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 text-right">Monto</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100">
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             <template x-for="tx in transactions" :key="tx.id">
-              <tr class="hover:bg-zinc-50 transition-colors duration-150">
-                <td class="px-4 py-3 font-mono text-xs text-zinc-400" x-text="tx.id"></td>
-                <td class="px-4 py-3 font-medium text-zinc-900" x-text="tx.desc"></td>
-                <td class="px-4 py-3 text-zinc-600" x-text="tx.date"></td>
+              <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150">
+                <td class="px-4 py-3 font-mono text-xs text-zinc-400 dark:text-zinc-500" x-text="tx.id"></td>
+                <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100" x-text="tx.desc"></td>
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400" x-text="tx.date"></td>
                 <td class="px-4 py-3 text-right font-medium"
                     :class="tx.amount >= 0 ? 'text-emerald-600' : 'text-rose-600'"
                     x-text="(tx.amount >= 0 ? '+' : '') + '$' + Math.abs(tx.amount).toFixed(2)"></td>
               </tr>
             </template>
           </tbody>
-          <tfoot class="border-t-2 border-zinc-300 bg-zinc-50">
+          <tfoot class="border-t-2 border-zinc-300 bg-zinc-50 dark:bg-zinc-800">
             <tr>
-              <td colspan="3" class="px-4 py-3 text-sm font-medium text-zinc-600">Total ingresos</td>
+              <td colspan="3" class="px-4 py-3 text-sm font-medium text-zinc-600 dark:text-zinc-400">Total ingresos</td>
               <td class="px-4 py-3 text-right text-sm font-semibold text-emerald-600" x-text="'+$' + totalIngresos.toFixed(2)"></td>
             </tr>
-            <tr class="border-t border-zinc-200">
-              <td colspan="3" class="px-4 py-3 text-sm font-medium text-zinc-600">Total gastos</td>
+            <tr class="border-t border-zinc-200 dark:border-zinc-800">
+              <td colspan="3" class="px-4 py-3 text-sm font-medium text-zinc-600 dark:text-zinc-400">Total gastos</td>
               <td class="px-4 py-3 text-right text-sm font-semibold text-rose-600" x-text="'-$' + Math.abs(totalGastos).toFixed(2)"></td>
             </tr>
             <tr class="border-t border-zinc-300">
-              <td colspan="3" class="px-4 py-3 text-sm font-bold text-zinc-900">Balance neto</td>
+              <td colspan="3" class="px-4 py-3 text-sm font-bold text-zinc-900 dark:text-zinc-100">Balance neto</td>
               <td class="px-4 py-3 text-right text-sm font-bold"
                   :class="balance >= 0 ? 'text-emerald-600' : 'text-rose-600'"
                   x-text="(balance >= 0 ? '+' : '-') + '$' + Math.abs(balance).toFixed(2)"></td>

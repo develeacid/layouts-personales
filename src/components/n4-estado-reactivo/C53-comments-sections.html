@@ -8,41 +8,41 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16" x-data="commentsSection()">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-16" x-data="commentsSection()">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C53 · Nivel 4</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Comments Sections</h1>
-      <p class="text-sm text-zinc-600 mt-1">Comentarios con replies anidados y likes reactivos.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C53 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Comments Sections</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Comentarios con replies anidados y likes reactivos.</p>
     </header>
 
     <!-- Variante 1: Lista de comentarios con replies -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Comentarios con replies</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Comentarios con replies</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 space-y-6">
         <template x-for="comment in comments" :key="comment.id">
           <div class="space-y-4">
             <!-- Comentario principal -->
             <div class="flex gap-3">
-              <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0"
+              <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-400 shrink-0"
                    x-text="comment.initials"></div>
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2">
-                  <span class="text-sm font-semibold text-zinc-900" x-text="comment.author"></span>
-                  <span class="text-xs text-zinc-400" x-text="comment.date"></span>
+                  <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="comment.author"></span>
+                  <span class="text-xs text-zinc-400 dark:text-zinc-500" x-text="comment.date"></span>
                 </div>
-                <p class="text-sm text-zinc-600 mt-1" x-text="comment.text"></p>
+                <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1" x-text="comment.text"></p>
                 <div class="flex items-center gap-4 mt-2">
                   <button class="inline-flex items-center gap-1 text-xs transition-colors duration-150"
-                          :class="comment.liked ? 'text-rose-500' : 'text-zinc-400 hover:text-rose-500'"
+                          :class="comment.liked ? 'text-rose-500' : 'text-zinc-400 dark:text-zinc-500 hover:text-rose-500'"
                           @click="toggleLike(comment.id)">
                     <svg class="w-4 h-4" :fill="comment.liked ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                     <span x-text="comment.likes"></span>
                   </button>
-                  <button class="inline-flex items-center gap-1 text-xs text-zinc-400 hover:text-blue-600 transition-colors duration-150"
+                  <button class="inline-flex items-center gap-1 text-xs text-zinc-400 dark:text-zinc-500 hover:text-blue-600 transition-colors duration-150"
                           @click="toggleReply(comment.id)">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
@@ -73,17 +73,17 @@
             <!-- Replies anidados -->
             <template x-for="reply in comment.replies" :key="reply.id">
               <div class="flex gap-3 ml-12">
-                <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0"
+                <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-400 shrink-0"
                      x-text="reply.initials"></div>
                 <div class="flex-1 min-w-0">
                   <div class="flex items-center gap-2">
-                    <span class="text-sm font-semibold text-zinc-900" x-text="reply.author"></span>
-                    <span class="text-xs text-zinc-400" x-text="reply.date"></span>
+                    <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="reply.author"></span>
+                    <span class="text-xs text-zinc-400 dark:text-zinc-500" x-text="reply.date"></span>
                   </div>
-                  <p class="text-sm text-zinc-600 mt-1" x-text="reply.text"></p>
+                  <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1" x-text="reply.text"></p>
                   <div class="flex items-center gap-4 mt-2">
                     <button class="inline-flex items-center gap-1 text-xs transition-colors duration-150"
-                            :class="reply.liked ? 'text-rose-500' : 'text-zinc-400 hover:text-rose-500'"
+                            :class="reply.liked ? 'text-rose-500' : 'text-zinc-400 dark:text-zinc-500 hover:text-rose-500'"
                             @click="reply.liked = !reply.liked; reply.likes += reply.liked ? 1 : -1">
                       <svg class="w-4 h-4" :fill="reply.liked ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -103,10 +103,10 @@
     </section>
 
     <!-- Variante 2: Formulario nuevo comentario -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Nuevo comentario</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Nuevo comentario</h2>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
         <div class="flex gap-3">
           <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-xs font-medium text-blue-600 shrink-0">Tú</div>
           <div class="flex-1">
@@ -115,7 +115,7 @@
                       class="input w-full text-sm resize-none"></textarea>
             <div class="flex items-center justify-between mt-3">
               <span class="text-xs"
-                    :class="newComment.length >= 450 ? 'text-amber-500' : 'text-zinc-400'"
+                    :class="newComment.length >= 450 ? 'text-amber-500' : 'text-zinc-400 dark:text-zinc-500'"
                     x-text="newComment.length + '/500'"></span>
               <button class="btn-primary text-sm" :disabled="!newComment.trim()"
                       :class="!newComment.trim() && 'opacity-50 cursor-not-allowed'"

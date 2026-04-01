@@ -8,23 +8,23 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C47 · Nivel 4</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Table Headers</h1>
-      <p class="text-sm text-zinc-600 mt-1">Encabezados de tabla con sort interactivo, sticky columns y selección masiva.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C47 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Table Headers</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Encabezados de tabla con sort interactivo, sticky columns y selección masiva.</p>
     </header>
 
     <!-- Variante 1: Header con sort -->
-    <section class="space-y-4" x-data="tableHeaders()">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Sort interactivo</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+    <section class="relative space-y-4" x-data="tableHeaders()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Sort interactivo</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden">
         <table class="w-full text-sm text-left">
-          <thead class="bg-zinc-50 border-b border-zinc-200">
+          <thead class="bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-800">
             <tr>
               <template x-for="col in columns" :key="col.key">
-                <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 cursor-pointer select-none hover:text-zinc-900 transition-colors duration-150"
+                <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 cursor-pointer select-none hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors duration-150"
                     @click="toggleSort(col.key)">
                   <span class="inline-flex items-center gap-1">
                     <span x-text="col.label"></span>
@@ -45,12 +45,12 @@
               </template>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100">
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             <template x-for="row in sortedRows" :key="row.email">
-              <tr class="hover:bg-zinc-50 transition-colors duration-150">
-                <td class="px-4 py-3 font-medium text-zinc-900" x-text="row.name"></td>
-                <td class="px-4 py-3 text-zinc-600" x-text="row.email"></td>
-                <td class="px-4 py-3 text-zinc-600" x-text="row.role"></td>
+              <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150">
+                <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100" x-text="row.name"></td>
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400" x-text="row.email"></td>
+                <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400" x-text="row.role"></td>
                 <td class="px-4 py-3">
                   <span :class="row.status === 'Activo' ? 'badge-green' : row.status === 'Pendiente' ? 'badge-amber' : 'badge-rose'"
                         x-text="row.status"></span>
@@ -64,13 +64,13 @@
     </section>
 
     <!-- Variante 2: Header sticky con scroll horizontal -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Columnas sticky + scroll horizontal</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-x-auto">
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Columnas sticky + scroll horizontal</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-x-auto">
         <table class="w-225 lg:w-full text-sm text-left">
-          <thead class="bg-zinc-50 border-b border-zinc-200 sticky top-0 z-10">
+          <thead class="bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-800 sticky top-0 z-10">
             <tr>
-              <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 sticky left-0 bg-zinc-50 z-20 min-w-40">Nombre</th>
+              <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 sticky left-0 bg-zinc-50 dark:bg-zinc-800 z-20 min-w-40">Nombre</th>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 min-w-50">Email</th>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 min-w-30">Rol</th>
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 min-w-25">Estado</th>
@@ -79,51 +79,51 @@
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500 min-w-25">Ciudad</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100">
-            <tr class="hover:bg-zinc-50 transition-colors duration-150">
-              <td class="px-4 py-3 font-medium text-zinc-900 sticky left-0 bg-white z-10">Ana Torres</td>
-              <td class="px-4 py-3 text-zinc-600">ana@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Admin</td>
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150">
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100 sticky left-0 bg-white dark:bg-zinc-900 z-10">Ana Torres</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">ana@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Admin</td>
               <td class="px-4 py-3"><span class="badge-green">Activo</span></td>
               <td class="px-4 py-3 text-zinc-500">2024-01-15</td>
-              <td class="px-4 py-3 text-zinc-600">Ingeniería</td>
-              <td class="px-4 py-3 text-zinc-600">Madrid</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Ingeniería</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Madrid</td>
             </tr>
-            <tr class="hover:bg-zinc-50 transition-colors duration-150">
-              <td class="px-4 py-3 font-medium text-zinc-900 sticky left-0 bg-white z-10">Carlos Ruiz</td>
-              <td class="px-4 py-3 text-zinc-600">carlos@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Editor</td>
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150">
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100 sticky left-0 bg-white dark:bg-zinc-900 z-10">Carlos Ruiz</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">carlos@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Editor</td>
               <td class="px-4 py-3"><span class="badge-amber">Pendiente</span></td>
               <td class="px-4 py-3 text-zinc-500">2024-02-20</td>
-              <td class="px-4 py-3 text-zinc-600">Marketing</td>
-              <td class="px-4 py-3 text-zinc-600">Barcelona</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Marketing</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Barcelona</td>
             </tr>
-            <tr class="hover:bg-zinc-50 transition-colors duration-150">
-              <td class="px-4 py-3 font-medium text-zinc-900 sticky left-0 bg-white z-10">Laura Gómez</td>
-              <td class="px-4 py-3 text-zinc-600">laura@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Viewer</td>
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150">
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100 sticky left-0 bg-white dark:bg-zinc-900 z-10">Laura Gómez</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">laura@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Viewer</td>
               <td class="px-4 py-3"><span class="badge-green">Activo</span></td>
               <td class="px-4 py-3 text-zinc-500">2024-03-10</td>
-              <td class="px-4 py-3 text-zinc-600">Diseño</td>
-              <td class="px-4 py-3 text-zinc-600">Valencia</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Diseño</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Valencia</td>
             </tr>
-            <tr class="hover:bg-zinc-50 transition-colors duration-150">
-              <td class="px-4 py-3 font-medium text-zinc-900 sticky left-0 bg-white z-10">Miguel Fernández</td>
-              <td class="px-4 py-3 text-zinc-600">miguel@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Admin</td>
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150">
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100 sticky left-0 bg-white dark:bg-zinc-900 z-10">Miguel Fernández</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">miguel@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Admin</td>
               <td class="px-4 py-3"><span class="badge-rose">Inactivo</span></td>
               <td class="px-4 py-3 text-zinc-500">2023-11-05</td>
-              <td class="px-4 py-3 text-zinc-600">Ventas</td>
-              <td class="px-4 py-3 text-zinc-600">Sevilla</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Ventas</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Sevilla</td>
             </tr>
-            <tr class="hover:bg-zinc-50 transition-colors duration-150">
-              <td class="px-4 py-3 font-medium text-zinc-900 sticky left-0 bg-white z-10">Elena Martín</td>
-              <td class="px-4 py-3 text-zinc-600">elena@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Editor</td>
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150">
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100 sticky left-0 bg-white dark:bg-zinc-900 z-10">Elena Martín</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">elena@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Editor</td>
               <td class="px-4 py-3"><span class="badge-green">Activo</span></td>
               <td class="px-4 py-3 text-zinc-500">2024-04-22</td>
-              <td class="px-4 py-3 text-zinc-600">Producto</td>
-              <td class="px-4 py-3 text-zinc-600">Bilbao</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Producto</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Bilbao</td>
             </tr>
           </tbody>
         </table>
@@ -131,18 +131,18 @@
     </section>
 
     <!-- Variante 3: Header con checkbox de selección masiva -->
-    <section class="space-y-4" x-data="{ selectAll: false, selected: [] }">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Selección masiva con checkbox</h2>
+    <section class="relative space-y-4" x-data="{ selectAll: false, selected: [] }">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Selección masiva con checkbox</h2>
 
       <div x-show="selected.length > 0" x-cloak
-           class="flex items-center gap-3 text-sm text-zinc-600 bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
-        <span class="font-medium text-blue-700" x-text="selected.length + ' seleccionado' + (selected.length > 1 ? 's' : '')"></span>
+           class="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-400 bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 rounded-lg px-4 py-2">
+        <span class="font-medium text-blue-600 dark:text-blue-400" x-text="selected.length + ' seleccionado' + (selected.length > 1 ? 's' : '')"></span>
         <button @click="selected = []; selectAll = false" class="btn-ghost text-xs">Deseleccionar</button>
       </div>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm overflow-hidden">
         <table class="w-full text-sm text-left">
-          <thead class="bg-zinc-50 border-b border-zinc-200">
+          <thead class="bg-zinc-50 dark:bg-zinc-800 border-b border-zinc-200 dark:border-zinc-800">
             <tr>
               <th class="px-4 py-3 w-10">
                 <input type="checkbox" x-model="selectAll"
@@ -156,44 +156,44 @@
               <th class="px-4 py-3 text-xs font-medium uppercase tracking-wide text-zinc-500">Fecha</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100">
-            <tr class="hover:bg-zinc-50 transition-colors duration-150" :class="selected.includes('ana') && 'bg-blue-50/50'">
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150" :class="selected.includes('ana') && 'bg-blue-50/50'">
               <td class="px-4 py-3"><input type="checkbox" value="ana" x-model="selected" class="rounded border-zinc-300 text-blue-600 focus:ring-2 focus:ring-blue-200" /></td>
-              <td class="px-4 py-3 font-medium text-zinc-900">Ana Torres</td>
-              <td class="px-4 py-3 text-zinc-600">ana@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Admin</td>
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100">Ana Torres</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">ana@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Admin</td>
               <td class="px-4 py-3"><span class="badge-green">Activo</span></td>
               <td class="px-4 py-3 text-zinc-500">2024-01-15</td>
             </tr>
-            <tr class="hover:bg-zinc-50 transition-colors duration-150" :class="selected.includes('carlos') && 'bg-blue-50/50'">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150" :class="selected.includes('carlos') && 'bg-blue-50/50'">
               <td class="px-4 py-3"><input type="checkbox" value="carlos" x-model="selected" class="rounded border-zinc-300 text-blue-600 focus:ring-2 focus:ring-blue-200" /></td>
-              <td class="px-4 py-3 font-medium text-zinc-900">Carlos Ruiz</td>
-              <td class="px-4 py-3 text-zinc-600">carlos@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Editor</td>
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100">Carlos Ruiz</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">carlos@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Editor</td>
               <td class="px-4 py-3"><span class="badge-amber">Pendiente</span></td>
               <td class="px-4 py-3 text-zinc-500">2024-02-20</td>
             </tr>
-            <tr class="hover:bg-zinc-50 transition-colors duration-150" :class="selected.includes('laura') && 'bg-blue-50/50'">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150" :class="selected.includes('laura') && 'bg-blue-50/50'">
               <td class="px-4 py-3"><input type="checkbox" value="laura" x-model="selected" class="rounded border-zinc-300 text-blue-600 focus:ring-2 focus:ring-blue-200" /></td>
-              <td class="px-4 py-3 font-medium text-zinc-900">Laura Gómez</td>
-              <td class="px-4 py-3 text-zinc-600">laura@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Viewer</td>
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100">Laura Gómez</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">laura@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Viewer</td>
               <td class="px-4 py-3"><span class="badge-green">Activo</span></td>
               <td class="px-4 py-3 text-zinc-500">2024-03-10</td>
             </tr>
-            <tr class="hover:bg-zinc-50 transition-colors duration-150" :class="selected.includes('miguel') && 'bg-blue-50/50'">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150" :class="selected.includes('miguel') && 'bg-blue-50/50'">
               <td class="px-4 py-3"><input type="checkbox" value="miguel" x-model="selected" class="rounded border-zinc-300 text-blue-600 focus:ring-2 focus:ring-blue-200" /></td>
-              <td class="px-4 py-3 font-medium text-zinc-900">Miguel Fernández</td>
-              <td class="px-4 py-3 text-zinc-600">miguel@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Admin</td>
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100">Miguel Fernández</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">miguel@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Admin</td>
               <td class="px-4 py-3"><span class="badge-rose">Inactivo</span></td>
               <td class="px-4 py-3 text-zinc-500">2023-11-05</td>
             </tr>
-            <tr class="hover:bg-zinc-50 transition-colors duration-150" :class="selected.includes('elena') && 'bg-blue-50/50'">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors duration-150" :class="selected.includes('elena') && 'bg-blue-50/50'">
               <td class="px-4 py-3"><input type="checkbox" value="elena" x-model="selected" class="rounded border-zinc-300 text-blue-600 focus:ring-2 focus:ring-blue-200" /></td>
-              <td class="px-4 py-3 font-medium text-zinc-900">Elena Martín</td>
-              <td class="px-4 py-3 text-zinc-600">elena@example.com</td>
-              <td class="px-4 py-3 text-zinc-600">Editor</td>
+              <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100">Elena Martín</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">elena@example.com</td>
+              <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">Editor</td>
               <td class="px-4 py-3"><span class="badge-green">Activo</span></td>
               <td class="px-4 py-3 text-zinc-500">2024-04-22</td>
             </tr>

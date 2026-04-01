@@ -7,17 +7,17 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-3xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C65 · Nivel 4</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Stepper</h1>
-      <p class="text-sm text-zinc-600 mt-1">Progress steps horizontal, vertical y compacto con navegación entre pasos.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C65 · Nivel 4</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Stepper</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1">Progress steps horizontal, vertical y compacto con navegación entre pasos.</p>
     </header>
 
     <!-- Variante 1: Stepper horizontal -->
-    <section class="space-y-4" x-data="progressSteps()">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Stepper horizontal</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-8">
+    <section class="relative space-y-4" x-data="progressSteps()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Stepper horizontal</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 space-y-8">
 
         <!-- Steps indicator -->
         <div class="flex items-center">
@@ -42,7 +42,7 @@
                 </div>
                 <span
                   class="text-xs mt-2 font-medium text-center hidden sm:block"
-                  :class="index <= currentStep ? 'text-zinc-900' : 'text-zinc-400'"
+                  :class="index <= currentStep ? 'text-zinc-900 dark:text-zinc-100' : 'text-zinc-400 dark:text-zinc-500'"
                   x-text="step.name"
                 ></span>
               </div>
@@ -61,7 +61,7 @@
         <div class="min-h-32">
           <template x-if="currentStep === 0">
             <div class="space-y-4">
-              <h3 class="text-sm font-semibold text-zinc-900">Datos personales</h3>
+              <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Datos personales</h3>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label class="label">Nombre</label>
@@ -80,7 +80,7 @@
           </template>
           <template x-if="currentStep === 1">
             <div class="space-y-4">
-              <h3 class="text-sm font-semibold text-zinc-900">Direccion</h3>
+              <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Direccion</h3>
               <div>
                 <label class="label">Calle</label>
                 <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="Calle Mayor 10" />
@@ -99,7 +99,7 @@
           </template>
           <template x-if="currentStep === 2">
             <div class="space-y-4">
-              <h3 class="text-sm font-semibold text-zinc-900">Pago</h3>
+              <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Pago</h3>
               <div>
                 <label class="label">Numero de tarjeta</label>
                 <input type="text" class="w-full border border-zinc-300 rounded-lg px-3 py-2 text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-200 outline-none" placeholder="4242 4242 4242 4242" />
@@ -121,7 +121,7 @@
               <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto">
                 <svg class="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               </div>
-              <h3 class="text-sm font-semibold text-zinc-900">Pedido confirmado</h3>
+              <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Pedido confirmado</h3>
               <p class="text-sm text-zinc-500">Tu pedido ha sido procesado correctamente.</p>
             </div>
           </template>
@@ -144,9 +144,9 @@
     </section>
 
     <!-- Variante 2: Stepper vertical -->
-    <section class="space-y-4" x-data="progressSteps()">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Stepper vertical</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+    <section class="relative space-y-4" x-data="progressSteps()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Stepper vertical</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
         <div class="space-y-0">
           <template x-for="(step, index) in steps" :key="index">
             <div class="flex gap-4">
@@ -178,12 +178,12 @@
               <div class="pb-8" :class="index === steps.length - 1 ? 'pb-0' : ''">
                 <h3
                   class="text-sm font-semibold mt-2"
-                  :class="index <= currentStep ? 'text-zinc-900' : 'text-zinc-400'"
+                  :class="index <= currentStep ? 'text-zinc-900 dark:text-zinc-100' : 'text-zinc-400 dark:text-zinc-500'"
                   x-text="step.name"
                 ></h3>
                 <p
                   class="text-xs mt-1"
-                  :class="index <= currentStep ? 'text-zinc-500' : 'text-zinc-400'"
+                  :class="index <= currentStep ? 'text-zinc-500' : 'text-zinc-400 dark:text-zinc-500'"
                   x-text="step.description"
                 ></p>
                 <template x-if="index === currentStep">
@@ -200,9 +200,9 @@
     </section>
 
     <!-- Variante 3: Stepper compacto (dots) -->
-    <section class="space-y-4" x-data="progressSteps()">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Stepper compacto (dots)</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 space-y-6">
+    <section class="relative space-y-4" x-data="progressSteps()">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Stepper compacto (dots)</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 space-y-6">
 
         <!-- Dots -->
         <div class="flex items-center justify-center gap-3">
@@ -220,18 +220,18 @@
         </div>
 
         <!-- Current step label -->
-        <p class="text-center text-sm font-medium text-zinc-900" x-text="steps[currentStep].name"></p>
+        <p class="text-center text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="steps[currentStep].name"></p>
         <p class="text-center text-xs text-zinc-500" x-text="steps[currentStep].description"></p>
 
         <!-- Progress bar -->
         <div class="space-y-2">
-          <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+          <div class="h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
             <div
               class="h-full bg-blue-600 rounded-full transition-all duration-300"
               :style="'width: ' + progress + '%'"
             ></div>
           </div>
-          <p class="text-xs text-zinc-400 text-center">Paso <span x-text="currentStep + 1"></span> de <span x-text="steps.length"></span></p>
+          <p class="text-xs text-zinc-400 dark:text-zinc-500 text-center">Paso <span x-text="currentStep + 1"></span> de <span x-text="steps.length"></span></p>
         </div>
 
         <!-- Navigation -->
