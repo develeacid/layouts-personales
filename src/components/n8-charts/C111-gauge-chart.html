@@ -330,20 +330,20 @@
                 anchor: {
                   show: false
                 },
-                title: {
-                  show: true,
-                  offsetCenter: [0, '80%'],
-                  fontSize: 12,
-                  color: colors[0],
-                  fontWeight: 'bold'
-                },
+                title: { show: false },
                 detail: {
                   valueAnimation: true,
-                  fontSize: 14,
+                  fontSize: 11,
                   fontWeight: 'bold',
                   color: colors[0],
-                  offsetCenter: [0, '60%'],
-                  formatter: '{value}%'
+                  offsetCenter: [0, '85%'],
+                  formatter: function (v) { return 'CPU\n' + v + '%'; },
+                  lineHeight: 16,
+                  borderColor: colors[0],
+                  borderWidth: 1,
+                  borderRadius: 4,
+                  padding: [4, 8],
+                  backgroundColor: '#eff6ff'
                 },
                 data: [{ value: this.data[0].value, name: this.data[0].name }]
               },
@@ -382,11 +382,12 @@
                 },
                 detail: {
                   valueAnimation: true,
-                  fontSize: 12,
+                  fontSize: 11,
                   fontWeight: 'bold',
                   color: colors[1],
-                  offsetCenter: ['35%', '-20%'],
-                  formatter: '{value}%',
+                  offsetCenter: ['55%', '50%'],
+                  formatter: function (v) { return 'RAM\n' + v + '%'; },
+                  lineHeight: 16,
                   borderColor: colors[1],
                   borderWidth: 1,
                   borderRadius: 4,
@@ -430,11 +431,12 @@
                 },
                 detail: {
                   valueAnimation: true,
-                  fontSize: 12,
+                  fontSize: 11,
                   fontWeight: 'bold',
                   color: colors[2],
-                  offsetCenter: ['-35%', '-20%'],
-                  formatter: '{value}%',
+                  offsetCenter: ['-55%', '50%'],
+                  formatter: function (v) { return 'Disco\n' + v + '%'; },
+                  lineHeight: 16,
                   borderColor: colors[2],
                   borderWidth: 1,
                   borderRadius: 4,
