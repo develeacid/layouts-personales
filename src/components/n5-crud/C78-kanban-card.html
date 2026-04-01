@@ -7,34 +7,34 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C78 · Nivel 5</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Card arrastrable de kanban</h1>
-      <p class="text-sm text-zinc-600 mt-1">Cards compactas para tableros kanban con variantes de contenido.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C78 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Card arrastrable de kanban</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-500 mt-1">Cards compactas para tableros kanban con variantes de contenido.</p>
     </header>
 
     <!-- Variante 1: Card básica -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Card básica</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Card básica</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-xl shadow-sm p-4 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
           <div class="flex items-start justify-between gap-2">
-            <h3 class="text-sm font-medium text-zinc-900">Diseñar mockups de landing</h3>
+            <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Diseñar mockups de landing</h3>
             <span class="badge-rose shrink-0">Alta</span>
           </div>
           <div class="flex items-center gap-2 mt-2">
             <span class="badge-blue">En progreso</span>
           </div>
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100">
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-800">
             <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600">AM</div>
-              <span class="text-xs text-zinc-400">15 abr</span>
+              <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500">AM</div>
+              <span class="text-xs text-zinc-400 dark:text-zinc-500">15 abr</span>
             </div>
-            <div class="flex items-center gap-1 text-zinc-400">
+            <div class="flex items-center gap-1 text-zinc-400 dark:text-zinc-500">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
               <span class="text-xs">3</span>
             </div>
@@ -43,20 +43,20 @@
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-xl shadow-sm p-4 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
           <div class="flex items-start justify-between gap-2">
-            <h3 class="text-sm font-medium text-zinc-900">Configurar CI/CD pipeline</h3>
+            <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Configurar CI/CD pipeline</h3>
             <span class="badge-amber shrink-0">Media</span>
           </div>
           <div class="flex items-center gap-2 mt-2">
             <span class="badge-zinc">Por hacer</span>
           </div>
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100">
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-800">
             <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600">JL</div>
-              <span class="text-xs text-zinc-400">20 abr</span>
+              <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500">JL</div>
+              <span class="text-xs text-zinc-400 dark:text-zinc-500">20 abr</span>
             </div>
-            <div class="flex items-center gap-1 text-zinc-400">
+            <div class="flex items-center gap-1 text-zinc-400 dark:text-zinc-500">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
               <span class="text-xs">7</span>
             </div>
@@ -65,20 +65,20 @@
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-xl shadow-sm p-4 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
           <div class="flex items-start justify-between gap-2">
-            <h3 class="text-sm font-medium text-zinc-900">Actualizar documentación</h3>
+            <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Actualizar documentación</h3>
             <span class="badge-green shrink-0">Baja</span>
           </div>
           <div class="flex items-center gap-2 mt-2">
             <span class="badge-green">Completado</span>
           </div>
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100">
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-800">
             <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600">CR</div>
-              <span class="text-xs text-zinc-400">10 abr</span>
+              <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500">CR</div>
+              <span class="text-xs text-zinc-400 dark:text-zinc-500">10 abr</span>
             </div>
-            <div class="flex items-center gap-1 text-zinc-400">
+            <div class="flex items-center gap-1 text-zinc-400 dark:text-zinc-500">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
               <span class="text-xs">1</span>
             </div>
@@ -89,34 +89,34 @@
     </section>
 
     <!-- Variante 2: Card con tags y checklist -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Card con tags y checklist</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Card con tags y checklist</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-xl shadow-sm p-4 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
           <div class="flex flex-wrap gap-1.5 mb-3">
             <span class="badge-blue">Frontend</span>
             <span class="badge-amber">Diseño</span>
             <span class="badge-green">UX</span>
           </div>
-          <h3 class="text-sm font-medium text-zinc-900">Rediseñar formulario de registro</h3>
+          <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Rediseñar formulario de registro</h3>
           <div class="flex items-center gap-2 mt-1">
             <span class="badge-rose">Alta</span>
           </div>
           <div class="mt-3 space-y-2">
             <div class="flex items-center gap-2">
-              <div class="flex-1 h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+              <div class="flex-1 h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                 <div class="h-full bg-blue-500 rounded-full" style="width: 60%"></div>
               </div>
-              <span class="text-xs text-zinc-400">3/5</span>
+              <span class="text-xs text-zinc-400 dark:text-zinc-500">3/5</span>
             </div>
             <p class="text-xs text-zinc-500">3 de 5 subtareas</p>
           </div>
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100">
-            <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600">LP</div>
-            <div class="flex items-center gap-1 text-zinc-400">
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-800">
+            <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500">LP</div>
+            <div class="flex items-center gap-1 text-zinc-400 dark:text-zinc-500">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
               <span class="text-xs">2</span>
             </div>
@@ -125,27 +125,27 @@
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-xl shadow-sm p-4 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
           <div class="flex flex-wrap gap-1.5 mb-3">
             <span class="badge-rose">Backend</span>
             <span class="badge-zinc">API</span>
           </div>
-          <h3 class="text-sm font-medium text-zinc-900">Implementar endpoint de pagos</h3>
+          <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Implementar endpoint de pagos</h3>
           <div class="flex items-center gap-2 mt-1">
             <span class="badge-amber">Media</span>
           </div>
           <div class="mt-3 space-y-2">
             <div class="flex items-center gap-2">
-              <div class="flex-1 h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+              <div class="flex-1 h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
                 <div class="h-full bg-blue-500 rounded-full" style="width: 25%"></div>
               </div>
-              <span class="text-xs text-zinc-400">1/4</span>
+              <span class="text-xs text-zinc-400 dark:text-zinc-500">1/4</span>
             </div>
             <p class="text-xs text-zinc-500">1 de 4 subtareas</p>
           </div>
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100">
-            <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600">MR</div>
-            <div class="flex items-center gap-1 text-zinc-400">
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-800">
+            <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500">MR</div>
+            <div class="flex items-center gap-1 text-zinc-400 dark:text-zinc-500">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
               <span class="text-xs">5</span>
             </div>
@@ -156,27 +156,27 @@
     </section>
 
     <!-- Variante 3: Card con imagen cover -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Card con imagen cover</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Card con imagen cover</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-xl shadow-sm overflow-hidden cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
-          <div class="bg-zinc-100 h-32 flex items-center justify-center">
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
+          <div class="bg-zinc-100 dark:bg-zinc-800 h-32 flex items-center justify-center">
             <svg class="w-8 h-8 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
           </div>
           <div class="p-4">
             <div class="flex items-start justify-between gap-2">
-              <h3 class="text-sm font-medium text-zinc-900">Crear banner promocional</h3>
+              <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Crear banner promocional</h3>
               <span class="badge-amber shrink-0">Media</span>
             </div>
-            <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100">
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-800">
               <div class="flex items-center gap-2">
-                <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600">SR</div>
-                <span class="text-xs text-zinc-400">22 abr</span>
+                <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500">SR</div>
+                <span class="text-xs text-zinc-400 dark:text-zinc-500">22 abr</span>
               </div>
-              <div class="flex items-center gap-1 text-zinc-400">
+              <div class="flex items-center gap-1 text-zinc-400 dark:text-zinc-500">
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                 <span class="text-xs">4</span>
               </div>
@@ -186,21 +186,21 @@
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-xl shadow-sm overflow-hidden cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
-          <div class="bg-zinc-100 h-32 flex items-center justify-center">
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
+          <div class="bg-zinc-100 dark:bg-zinc-800 h-32 flex items-center justify-center">
             <svg class="w-8 h-8 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
           </div>
           <div class="p-4">
             <div class="flex items-start justify-between gap-2">
-              <h3 class="text-sm font-medium text-zinc-900">Fotografía de producto</h3>
+              <h3 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Fotografía de producto</h3>
               <span class="badge-rose shrink-0">Alta</span>
             </div>
-            <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100">
+            <div class="flex items-center justify-between mt-3 pt-3 border-t border-zinc-100 dark:border-zinc-800">
               <div class="flex items-center gap-2">
-                <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600">DV</div>
-                <span class="text-xs text-zinc-400">18 abr</span>
+                <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500">DV</div>
+                <span class="text-xs text-zinc-400 dark:text-zinc-500">18 abr</span>
               </div>
-              <div class="flex items-center gap-1 text-zinc-400">
+              <div class="flex items-center gap-1 text-zinc-400 dark:text-zinc-500">
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                 <span class="text-xs">2</span>
               </div>
@@ -212,43 +212,43 @@
     </section>
 
     <!-- Variante 4: Card compacta -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Card compacta (solo título + asignado)</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Card compacta (solo título + asignado)</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-lg shadow-sm px-3 py-2.5 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px flex items-center justify-between gap-3"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
-          <span class="text-sm text-zinc-900 truncate">Corregir bug en login</span>
-          <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0">AM</div>
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
+          <span class="text-sm text-zinc-900 dark:text-zinc-100 truncate">Corregir bug en login</span>
+          <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500 shrink-0">AM</div>
         </div>
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-lg shadow-sm px-3 py-2.5 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px flex items-center justify-between gap-3"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
-          <span class="text-sm text-zinc-900 truncate">Añadir tests unitarios</span>
-          <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0">JL</div>
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
+          <span class="text-sm text-zinc-900 dark:text-zinc-100 truncate">Añadir tests unitarios</span>
+          <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500 shrink-0">JL</div>
         </div>
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-lg shadow-sm px-3 py-2.5 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px flex items-center justify-between gap-3"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
-          <span class="text-sm text-zinc-900 truncate">Revisar pull request #42</span>
-          <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0">CR</div>
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
+          <span class="text-sm text-zinc-900 dark:text-zinc-100 truncate">Revisar pull request #42</span>
+          <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500 shrink-0">CR</div>
         </div>
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-lg shadow-sm px-3 py-2.5 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px flex items-center justify-between gap-3"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
-          <span class="text-sm text-zinc-900 truncate">Optimizar queries SQL</span>
-          <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0">MR</div>
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
+          <span class="text-sm text-zinc-900 dark:text-zinc-100 truncate">Optimizar queries SQL</span>
+          <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500 shrink-0">MR</div>
         </div>
 
         <div x-data="{ hover: false }" @mouseenter="hover = true" @mouseleave="hover = false"
           class="bg-white border rounded-lg shadow-sm px-3 py-2.5 cursor-grab transition-all duration-200 hover:shadow-md hover:-translate-y-px flex items-center justify-between gap-3"
-          :class="hover ? 'border-blue-300' : 'border-zinc-200'">
-          <span class="text-sm text-zinc-900 truncate">Actualizar dependencias</span>
-          <div class="w-6 h-6 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600 shrink-0">LP</div>
+          :class="hover ? 'border-blue-300' : 'border-zinc-200 dark:border-zinc-800'">
+          <span class="text-sm text-zinc-900 dark:text-zinc-100 truncate">Actualizar dependencias</span>
+          <div class="w-6 h-6 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500 shrink-0">LP</div>
         </div>
 
       </div>

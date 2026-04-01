@@ -7,24 +7,24 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C81 · Nivel 5</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Input de chat</h1>
-      <p class="text-sm text-zinc-600 mt-1">Campo de entrada para mensajes con auto-resize, acciones y reply.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C81 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Input de chat</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-500 mt-1">Campo de entrada para mensajes con auto-resize, acciones y reply.</p>
     </header>
 
     <!-- Variante 1: Input básico -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Input básico</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Input básico</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
         <div x-data="{ msg: '' }" class="flex items-end gap-2">
           <textarea
             x-model="msg"
             @input="$el.style.height = 'auto'; $el.style.height = Math.min($el.scrollHeight, 112) + 'px'"
             rows="1"
             placeholder="Escribe un mensaje..."
-            class="flex-1 resize-none rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-150"
+            class="flex-1 resize-none rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800 px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-150"
           ></textarea>
           <button
             :disabled="!msg.trim()"
@@ -38,20 +38,20 @@
     </section>
 
     <!-- Variante 2: Input con acciones -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Input con acciones</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Input con acciones</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
         <div x-data="{ msg: '', focused: false }" class="space-y-2">
           <div
-            class="flex items-end gap-2 rounded-xl border bg-zinc-50 px-3 py-2 transition-all duration-150"
-            :class="focused ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-zinc-200'"
+            class="flex items-end gap-2 rounded-xl border bg-zinc-50 dark:bg-zinc-800 px-3 py-2 transition-all duration-150"
+            :class="focused ? 'border-blue-500 ring-2 ring-blue-500/20' : 'border-zinc-200 dark:border-zinc-800'"
           >
             <!-- Acciones izquierda -->
             <div class="flex items-center gap-1 shrink-0 pb-0.5">
-              <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors duration-150 cursor-pointer">
+              <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-500 hover:bg-zinc-200 dark:bg-zinc-700 transition-colors duration-150 cursor-pointer">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </button>
-              <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors duration-150 cursor-pointer">
+              <button class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-500 hover:bg-zinc-200 dark:bg-zinc-700 transition-colors duration-150 cursor-pointer">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
               </button>
             </div>
@@ -63,13 +63,13 @@
               @input="$el.style.height = 'auto'; $el.style.height = Math.min($el.scrollHeight, 112) + 'px'"
               rows="1"
               placeholder="Escribe un mensaje..."
-              class="flex-1 resize-none bg-transparent py-1.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none"
+              class="flex-1 resize-none bg-transparent py-1.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:text-zinc-500 focus:outline-none"
             ></textarea>
             <!-- Enviar -->
             <button
               :disabled="!msg.trim()"
               class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150 cursor-pointer mb-0.5"
-              :class="msg.trim() ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-200 text-zinc-400 cursor-not-allowed'"
+              :class="msg.trim() ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-zinc-200 dark:bg-zinc-700 text-zinc-400 dark:text-zinc-500 cursor-not-allowed'"
             >
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"/></svg>
             </button>
@@ -79,18 +79,18 @@
     </section>
 
     <!-- Variante 3: Input con reply quote -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Input con reply quote</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Input con reply quote</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
         <div x-data="chatInput()" class="space-y-0">
           <!-- Reply bar -->
           <div x-show="replying" x-cloak
-            class="flex items-center justify-between bg-zinc-50 border border-zinc-200 border-b-0 rounded-t-xl px-4 py-2.5">
+            class="flex items-center justify-between bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 border-b-0 rounded-t-xl px-4 py-2.5">
             <div class="flex-1 min-w-0">
               <p class="text-xs font-medium text-blue-600">Respondiendo a <span x-text="replyTo.author"></span></p>
               <p class="text-xs text-zinc-500 truncate mt-0.5" x-text="replyTo.text"></p>
             </div>
-            <button @click="cancelReply()" class="shrink-0 ml-3 w-6 h-6 flex items-center justify-center rounded-md text-zinc-400 hover:text-zinc-600 hover:bg-zinc-200 transition-colors duration-150 cursor-pointer">
+            <button @click="cancelReply()" class="shrink-0 ml-3 w-6 h-6 flex items-center justify-center rounded-md text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-500 hover:bg-zinc-200 dark:bg-zinc-700 transition-colors duration-150 cursor-pointer">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
             </button>
           </div>
@@ -101,7 +101,7 @@
               @input="autoResize($event)"
               rows="1"
               placeholder="Escribe un mensaje..."
-              class="flex-1 resize-none rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-150"
+              class="flex-1 resize-none rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800 px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-150"
               :class="replying ? 'rounded-t-none border-t-0' : ''"
             ></textarea>
             <button
@@ -122,9 +122,9 @@
     </section>
 
     <!-- Variante 4: Input con typing indicator -->
-    <section class="space-y-4">
-      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400">Input con typing indicator</h2>
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6">
+    <section class="relative space-y-4">
+      <h2 class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">Input con typing indicator</h2>
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6">
         <div x-data="{ msg: '', typing: true }" class="space-y-2">
           <!-- Typing indicator -->
           <div x-show="typing" class="flex items-center gap-2 px-1">
@@ -133,7 +133,7 @@
               <span class="typing-dot w-1.5 h-1.5 bg-zinc-400 rounded-full inline-block"></span>
               <span class="typing-dot w-1.5 h-1.5 bg-zinc-400 rounded-full inline-block"></span>
             </div>
-            <span class="text-xs text-zinc-400">Ana está escribiendo...</span>
+            <span class="text-xs text-zinc-400 dark:text-zinc-500">Ana está escribiendo...</span>
           </div>
           <!-- Input -->
           <div class="flex items-end gap-2">
@@ -142,7 +142,7 @@
               @input="$el.style.height = 'auto'; $el.style.height = Math.min($el.scrollHeight, 112) + 'px'"
               rows="1"
               placeholder="Escribe un mensaje..."
-              class="flex-1 resize-none rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-150"
+              class="flex-1 resize-none rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800 px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 dark:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow duration-150"
             ></textarea>
             <button
               :disabled="!msg.trim()"

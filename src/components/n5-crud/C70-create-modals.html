@@ -8,17 +8,17 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C70 · Nivel 5</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Modal de creación</h1>
-      <p class="text-sm text-zinc-600 mt-1">Modales para crear elementos: formulario simple y multi-step.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C70 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Modal de creación</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-500 mt-1">Modales para crear elementos: formulario simple y multi-step.</p>
     </header>
 
     <!-- Variante 1: Modal crear tarea -->
-    <section class="space-y-4" x-data="createModal()">
-      <h2 class="text-sm font-semibold text-zinc-900">Variante 1 — Crear tarea</h2>
+    <section class="relative space-y-4" x-data="createModal()">
+      <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Variante 1 — Crear tarea</h2>
       <div>
         <button @click="open = true" class="btn-primary">Nueva tarea</button>
       </div>
@@ -29,15 +29,15 @@
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="fixed inset-0 bg-zinc-950/50" @click="open = false"></div>
+            class="fixed inset-0 bg-zinc-950/50 dark:bg-zinc-800/50" @click="open = false"></div>
           <!-- Panel -->
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-            class="relative bg-white rounded-2xl shadow-xl max-w-lg w-full mx-4 p-6 space-y-5">
+            class="relative bg-white dark:bg-zinc-900 rounded-xl shadow-xl max-w-lg w-full mx-4 p-6 space-y-5">
             <div class="flex items-center justify-between">
-              <h3 class="text-base font-semibold text-zinc-900">Crear tarea</h3>
-              <button @click="open = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150 cursor-pointer">
+              <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">Crear tarea</h3>
+              <button @click="open = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 hover:text-zinc-600 dark:text-zinc-500 transition-colors duration-150 cursor-pointer">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
@@ -70,7 +70,7 @@
                 <label class="label">Prioridad</label>
                 <div class="flex gap-4 mt-1">
                   <template x-for="p in ['Baja', 'Media', 'Alta', 'Urgente']" :key="p">
-                    <label class="flex items-center gap-1.5 text-sm text-zinc-700 cursor-pointer">
+                    <label class="flex items-center gap-1.5 text-sm text-zinc-600 dark:text-zinc-400 cursor-pointer">
                       <input type="radio" x-model="fields.priority" :value="p" class="accent-zinc-900" />
                       <span x-text="p"></span>
                     </label>
@@ -99,8 +99,8 @@
     </section>
 
     <!-- Variante 2: Modal multi-step -->
-    <section class="space-y-4" x-data="createModalMultiStep()">
-      <h2 class="text-sm font-semibold text-zinc-900">Variante 2 — Crear con pasos (multi-step)</h2>
+    <section class="relative space-y-4" x-data="createModalMultiStep()">
+      <h2 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Variante 2 — Crear con pasos (multi-step)</h2>
       <div>
         <button @click="open = true; step = 1" class="btn-primary">Nuevo usuario</button>
       </div>
@@ -110,14 +110,14 @@
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="fixed inset-0 bg-zinc-950/50" @click="open = false"></div>
+            class="fixed inset-0 bg-zinc-950/50 dark:bg-zinc-800/50" @click="open = false"></div>
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-            class="relative bg-white rounded-2xl shadow-xl max-w-lg w-full mx-4 p-6 space-y-5">
+            class="relative bg-white dark:bg-zinc-900 rounded-xl shadow-xl max-w-lg w-full mx-4 p-6 space-y-5">
             <div class="flex items-center justify-between">
-              <h3 class="text-base font-semibold text-zinc-900">Crear usuario</h3>
-              <button @click="open = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150 cursor-pointer">
+              <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100">Crear usuario</h3>
+              <button @click="open = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 hover:text-zinc-600 dark:text-zinc-500 transition-colors duration-150 cursor-pointer">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
@@ -127,7 +127,7 @@
               <template x-for="s in [1, 2, 3]" :key="s">
                 <div class="flex items-center gap-2">
                   <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-colors duration-200"
-                    :class="s <= step ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-400'"
+                    :class="s <= step ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-400 dark:text-zinc-500'"
                     x-text="s"></div>
                   <div x-show="s < 3" class="w-8 h-0.5" :class="s < step ? 'bg-zinc-900' : 'bg-zinc-200'"></div>
                 </div>
@@ -136,7 +136,7 @@
 
             <!-- Paso 1: Info básica -->
             <div x-show="step === 1" class="space-y-4">
-              <p class="text-sm font-medium text-zinc-700">Información básica</p>
+              <p class="text-sm font-medium text-zinc-600 dark:text-zinc-400">Información básica</p>
               <div>
                 <label class="label">Nombre completo</label>
                 <input type="text" x-model="fields.name" class="input" :class="errors.name && 'input-error'" placeholder="Nombre y apellidos" />
@@ -151,7 +151,7 @@
 
             <!-- Paso 2: Configuración -->
             <div x-show="step === 2" class="space-y-4">
-              <p class="text-sm font-medium text-zinc-700">Configuración</p>
+              <p class="text-sm font-medium text-zinc-600 dark:text-zinc-400">Configuración</p>
               <div>
                 <label class="label">Rol</label>
                 <select x-model="fields.role" class="input">
@@ -165,7 +165,7 @@
                 <label class="label">Permisos</label>
                 <div class="space-y-2 mt-1">
                   <template x-for="perm in ['Crear proyectos', 'Editar usuarios', 'Ver reportes', 'Exportar datos']" :key="perm">
-                    <label class="flex items-center gap-2 text-sm text-zinc-700 cursor-pointer">
+                    <label class="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 cursor-pointer">
                       <input type="checkbox" :value="perm" x-model="fields.permissions" class="accent-zinc-900 rounded" />
                       <span x-text="perm"></span>
                     </label>
@@ -176,19 +176,19 @@
 
             <!-- Paso 3: Confirmación -->
             <div x-show="step === 3" class="space-y-4">
-              <p class="text-sm font-medium text-zinc-700">Confirmar datos</p>
-              <div class="bg-zinc-50 rounded-xl p-4 space-y-3 text-sm">
+              <p class="text-sm font-medium text-zinc-600 dark:text-zinc-400">Confirmar datos</p>
+              <div class="bg-zinc-50 dark:bg-zinc-800 rounded-xl p-4 space-y-3 text-sm">
                 <div class="flex justify-between">
                   <span class="text-zinc-500">Nombre</span>
-                  <span class="text-zinc-900 font-medium" x-text="fields.name || '—'"></span>
+                  <span class="text-zinc-900 dark:text-zinc-100 font-medium" x-text="fields.name || '—'"></span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-zinc-500">Email</span>
-                  <span class="text-zinc-900 font-medium" x-text="fields.email || '—'"></span>
+                  <span class="text-zinc-900 dark:text-zinc-100 font-medium" x-text="fields.email || '—'"></span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-zinc-500">Rol</span>
-                  <span class="text-zinc-900 font-medium" x-text="fields.role || '—'"></span>
+                  <span class="text-zinc-900 dark:text-zinc-100 font-medium" x-text="fields.role || '—'"></span>
                 </div>
                 <div class="flex justify-between items-start">
                   <span class="text-zinc-500">Permisos</span>
@@ -196,7 +196,7 @@
                     <template x-for="perm in fields.permissions" :key="perm">
                       <span class="badge-blue text-xs ml-1 mb-1 inline-block" x-text="perm"></span>
                     </template>
-                    <span x-show="fields.permissions.length === 0" class="text-zinc-400">Ninguno</span>
+                    <span x-show="fields.permissions.length === 0" class="text-zinc-400 dark:text-zinc-500">Ninguno</span>
                   </div>
                 </div>
               </div>

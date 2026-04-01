@@ -8,31 +8,31 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C77 · Nivel 5</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Create Drawers</h1>
-      <p class="text-sm text-zinc-600 mt-1">Drawer de creacion con validacion completa y stepper vertical para formularios multi-paso.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C77 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Create Drawers</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-500 mt-1">Drawer de creacion con validacion completa y stepper vertical para formularios multi-paso.</p>
     </header>
 
     <!-- ===================== Variante 1: Crear usuario ===================== -->
-    <section class="space-y-4" x-data="createDrawerBasic()">
-      <h2 class="text-lg font-semibold text-zinc-900">Variante 1 — Crear usuario</h2>
+    <section class="relative space-y-4" x-data="createDrawerBasic()">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Variante 1 — Crear usuario</h2>
       <p class="text-sm text-zinc-500">Formulario con validacion completa al submit y en blur.</p>
 
       <div class="flex items-center justify-between">
-        <p class="text-sm text-zinc-600"><span x-text="items.length" class="font-semibold text-zinc-900"></span> usuarios registrados</p>
+        <p class="text-sm text-zinc-600 dark:text-zinc-500"><span x-text="items.length" class="font-semibold text-zinc-900 dark:text-zinc-100"></span> usuarios registrados</p>
         <button @click="open = true; reset()" class="btn-primary btn-sm flex items-center gap-2">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
           Nuevo usuario
         </button>
       </div>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 overflow-x-auto">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 overflow-x-auto">
         <table class="w-full text-sm text-left">
           <thead>
-            <tr class="border-b border-zinc-200">
+            <tr class="border-b border-zinc-200 dark:border-zinc-800">
               <th class="pb-3 font-medium text-zinc-500">Nombre</th>
               <th class="pb-3 font-medium text-zinc-500">Email</th>
               <th class="pb-3 font-medium text-zinc-500">Rol</th>
@@ -41,18 +41,18 @@
           </thead>
           <tbody>
             <template x-for="user in items" :key="user.id">
-              <tr class="border-b border-zinc-100 last:border-0">
+              <tr class="border-b border-zinc-100 dark:border-zinc-800 last:border-0">
                 <td class="py-3">
                   <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" x-text="user.name.split(' ').map(n => n[0]).join('')"></div>
-                    <span class="font-medium text-zinc-900" x-text="user.name"></span>
+                    <div class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500" x-text="user.name.split(' ').map(n => n[0]).join('')"></div>
+                    <span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="user.name"></span>
                   </div>
                 </td>
-                <td class="py-3 text-zinc-600" x-text="user.email"></td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-500" x-text="user.email"></td>
                 <td class="py-3">
                   <span class="text-xs font-medium px-2 py-0.5 rounded-full badge-blue" x-text="user.role"></span>
                 </td>
-                <td class="py-3 text-zinc-600" x-text="user.department"></td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-500" x-text="user.department"></td>
               </tr>
             </template>
           </tbody>
@@ -65,18 +65,18 @@
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="fixed inset-0 bg-zinc-950/50 z-40" @click="open = false"></div>
+            class="fixed inset-0 bg-zinc-950/50 dark:bg-zinc-800/50 z-40" @click="open = false"></div>
 
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-            class="fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-50 flex flex-col">
+            class="fixed right-0 top-0 h-full w-96 bg-white dark:bg-zinc-900 shadow-xl z-50 flex flex-col">
 
             <!-- Header -->
-            <div class="px-6 py-4 border-b border-zinc-200 flex items-center justify-between shrink-0">
-              <h2 class="text-lg font-semibold text-zinc-900">Crear usuario</h2>
+            <div class="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
+              <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Crear usuario</h2>
               <button @click="open = false" class="btn-ghost p-1 rounded-lg">
-                <svg class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                <svg class="w-5 h-5 text-zinc-400 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
 
@@ -134,7 +134,7 @@
             </div>
 
             <!-- Footer -->
-            <div class="px-6 py-4 border-t border-zinc-200 shrink-0 flex justify-end gap-3">
+            <div class="px-6 py-4 border-t border-zinc-200 dark:border-zinc-800 shrink-0 flex justify-end gap-3">
               <button @click="open = false" class="btn-secondary btn-sm">Cancelar</button>
               <button @click="submit()" class="btn-primary btn-sm flex items-center gap-2" :disabled="loading">
                 <svg x-show="loading" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -150,22 +150,22 @@
     </section>
 
     <!-- ===================== Variante 2: Stepper vertical ===================== -->
-    <section class="space-y-4" x-data="createDrawerStepper()">
-      <h2 class="text-lg font-semibold text-zinc-900">Variante 2 — Crear con stepper vertical</h2>
+    <section class="relative space-y-4" x-data="createDrawerStepper()">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Variante 2 — Crear con stepper vertical</h2>
       <p class="text-sm text-zinc-500">Formulario multi-paso con indicador de progreso vertical dentro del drawer.</p>
 
       <div class="flex items-center justify-between">
-        <p class="text-sm text-zinc-600"><span x-text="items.length" class="font-semibold text-zinc-900"></span> usuarios registrados</p>
+        <p class="text-sm text-zinc-600 dark:text-zinc-500"><span x-text="items.length" class="font-semibold text-zinc-900 dark:text-zinc-100"></span> usuarios registrados</p>
         <button @click="open = true; reset()" class="btn-primary btn-sm flex items-center gap-2">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
           Nuevo usuario
         </button>
       </div>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 overflow-x-auto">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 overflow-x-auto">
         <table class="w-full text-sm text-left">
           <thead>
-            <tr class="border-b border-zinc-200">
+            <tr class="border-b border-zinc-200 dark:border-zinc-800">
               <th class="pb-3 font-medium text-zinc-500">Nombre</th>
               <th class="pb-3 font-medium text-zinc-500">Email</th>
               <th class="pb-3 font-medium text-zinc-500">Rol</th>
@@ -174,14 +174,14 @@
           </thead>
           <tbody>
             <template x-for="user in items" :key="user.id">
-              <tr class="border-b border-zinc-100 last:border-0">
+              <tr class="border-b border-zinc-100 dark:border-zinc-800 last:border-0">
                 <td class="py-3">
                   <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" x-text="user.name.split(' ').map(n => n[0]).join('')"></div>
-                    <span class="font-medium text-zinc-900" x-text="user.name"></span>
+                    <div class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500" x-text="user.name.split(' ').map(n => n[0]).join('')"></div>
+                    <span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="user.name"></span>
                   </div>
                 </td>
-                <td class="py-3 text-zinc-600" x-text="user.email"></td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-500" x-text="user.email"></td>
                 <td class="py-3">
                   <span class="text-xs font-medium px-2 py-0.5 rounded-full badge-blue" x-text="user.role"></span>
                 </td>
@@ -198,21 +198,21 @@
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="fixed inset-0 bg-zinc-950/50 z-40" @click="open = false"></div>
+            class="fixed inset-0 bg-zinc-950/50 dark:bg-zinc-800/50 z-40" @click="open = false"></div>
 
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-            class="fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-50 flex flex-col">
+            class="fixed right-0 top-0 h-full w-96 bg-white dark:bg-zinc-900 shadow-xl z-50 flex flex-col">
 
             <!-- Header -->
-            <div class="px-6 py-4 border-b border-zinc-200 flex items-center justify-between shrink-0">
+            <div class="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
               <div>
-                <h2 class="text-lg font-semibold text-zinc-900">Crear usuario</h2>
-                <p class="text-xs text-zinc-400" x-text="'Paso ' + step + ' de 3'"></p>
+                <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Crear usuario</h2>
+                <p class="text-xs text-zinc-400 dark:text-zinc-500" x-text="'Paso ' + step + ' de 3'"></p>
               </div>
               <button @click="open = false" class="btn-ghost p-1 rounded-lg">
-                <svg class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                <svg class="w-5 h-5 text-zinc-400 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
 
@@ -224,15 +224,15 @@
                 <div class="flex flex-col items-center shrink-0 pt-1">
                   <!-- Paso 1 -->
                   <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold border-2 transition-colors"
-                    :class="step >= 1 ? 'bg-blue-600 border-blue-600 text-white' : 'border-zinc-300 text-zinc-400'">1</div>
+                    :class="step >= 1 ? 'bg-blue-600 border-blue-600 text-white' : 'border-zinc-300 text-zinc-400 dark:text-zinc-500'">1</div>
                   <div class="w-0.5 h-12 transition-colors" :class="step >= 2 ? 'bg-blue-600' : 'bg-zinc-200'"></div>
                   <!-- Paso 2 -->
                   <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold border-2 transition-colors"
-                    :class="step >= 2 ? 'bg-blue-600 border-blue-600 text-white' : 'border-zinc-300 text-zinc-400'">2</div>
+                    :class="step >= 2 ? 'bg-blue-600 border-blue-600 text-white' : 'border-zinc-300 text-zinc-400 dark:text-zinc-500'">2</div>
                   <div class="w-0.5 h-12 transition-colors" :class="step >= 3 ? 'bg-blue-600' : 'bg-zinc-200'"></div>
                   <!-- Paso 3 -->
                   <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold border-2 transition-colors"
-                    :class="step >= 3 ? 'bg-blue-600 border-blue-600 text-white' : 'border-zinc-300 text-zinc-400'">3</div>
+                    :class="step >= 3 ? 'bg-blue-600 border-blue-600 text-white' : 'border-zinc-300 text-zinc-400 dark:text-zinc-500'">3</div>
                 </div>
 
                 <!-- Contenido del paso -->
@@ -241,8 +241,8 @@
                   <!-- Paso 1: Datos basicos -->
                   <div x-show="step === 1" class="space-y-4">
                     <div>
-                      <h3 class="text-sm font-semibold text-zinc-900">Datos basicos</h3>
-                      <p class="text-xs text-zinc-400 mt-0.5">Informacion personal del usuario</p>
+                      <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Datos basicos</h3>
+                      <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Informacion personal del usuario</p>
                     </div>
                     <div>
                       <label class="label">Nombre completo</label>
@@ -267,8 +267,8 @@
                   <!-- Paso 2: Permisos y acceso -->
                   <div x-show="step === 2" class="space-y-4">
                     <div>
-                      <h3 class="text-sm font-semibold text-zinc-900">Permisos y acceso</h3>
-                      <p class="text-xs text-zinc-400 mt-0.5">Configura el nivel de acceso</p>
+                      <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Permisos y acceso</h3>
+                      <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Configura el nivel de acceso</p>
                     </div>
                     <div>
                       <label class="label">Rol</label>
@@ -297,17 +297,17 @@
                     </div>
                     <div class="space-y-3">
                       <label class="label">Permisos adicionales</label>
-                      <label class="flex items-center gap-2 text-sm text-zinc-700">
+                      <label class="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                         <input type="checkbox" value="Exportar" x-model="fields.permissions"
                           class="rounded border-zinc-300 text-blue-600 focus:ring-blue-200 focus:ring-2" />
                         Exportar datos
                       </label>
-                      <label class="flex items-center gap-2 text-sm text-zinc-700">
+                      <label class="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                         <input type="checkbox" value="Eliminar" x-model="fields.permissions"
                           class="rounded border-zinc-300 text-blue-600 focus:ring-blue-200 focus:ring-2" />
                         Eliminar registros
                       </label>
-                      <label class="flex items-center gap-2 text-sm text-zinc-700">
+                      <label class="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                         <input type="checkbox" value="Invitar" x-model="fields.permissions"
                           class="rounded border-zinc-300 text-blue-600 focus:ring-blue-200 focus:ring-2" />
                         Invitar usuarios
@@ -318,21 +318,21 @@
                   <!-- Paso 3: Revisar y confirmar -->
                   <div x-show="step === 3" class="space-y-4">
                     <div>
-                      <h3 class="text-sm font-semibold text-zinc-900">Revisar y confirmar</h3>
-                      <p class="text-xs text-zinc-400 mt-0.5">Verifica los datos antes de crear</p>
+                      <h3 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Revisar y confirmar</h3>
+                      <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Verifica los datos antes de crear</p>
                     </div>
 
-                    <div class="bg-zinc-50 rounded-lg border border-zinc-200 p-4 space-y-3">
-                      <div class="flex items-center gap-3 pb-3 border-b border-zinc-200">
-                        <div class="w-10 h-10 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" x-text="fields.name ? fields.name.split(' ').map(n => n[0]).join('') : ''"></div>
+                    <div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-800 p-4 space-y-3">
+                      <div class="flex items-center gap-3 pb-3 border-b border-zinc-200 dark:border-zinc-800">
+                        <div class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500" x-text="fields.name ? fields.name.split(' ').map(n => n[0]).join('') : ''"></div>
                         <div>
-                          <p class="text-sm font-semibold text-zinc-900" x-text="fields.name"></p>
+                          <p class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="fields.name"></p>
                           <p class="text-xs text-zinc-500" x-text="fields.email"></p>
                         </div>
                       </div>
                       <div class="flex justify-between text-sm">
                         <span class="text-zinc-500">Telefono</span>
-                        <span class="text-zinc-900 font-medium" x-text="fields.phone || '—'"></span>
+                        <span class="text-zinc-900 dark:text-zinc-100 font-medium" x-text="fields.phone || '—'"></span>
                       </div>
                       <div class="flex justify-between text-sm">
                         <span class="text-zinc-500">Rol</span>
@@ -340,11 +340,11 @@
                       </div>
                       <div class="flex justify-between text-sm">
                         <span class="text-zinc-500">Departamento</span>
-                        <span class="text-zinc-900 font-medium" x-text="fields.department"></span>
+                        <span class="text-zinc-900 dark:text-zinc-100 font-medium" x-text="fields.department"></span>
                       </div>
                       <div class="flex justify-between text-sm" x-show="fields.permissions.length > 0">
                         <span class="text-zinc-500">Permisos</span>
-                        <span class="text-zinc-900 font-medium text-right" x-text="fields.permissions.join(', ')"></span>
+                        <span class="text-zinc-900 dark:text-zinc-100 font-medium text-right" x-text="fields.permissions.join(', ')"></span>
                       </div>
                     </div>
                   </div>
@@ -354,7 +354,7 @@
             </div>
 
             <!-- Footer -->
-            <div class="px-6 py-4 border-t border-zinc-200 shrink-0 flex justify-between">
+            <div class="px-6 py-4 border-t border-zinc-200 dark:border-zinc-800 shrink-0 flex justify-between">
               <button x-show="step > 1" @click="prevStep()" class="btn-secondary btn-sm">Anterior</button>
               <span x-show="step === 1"></span>
               <div class="flex gap-3">

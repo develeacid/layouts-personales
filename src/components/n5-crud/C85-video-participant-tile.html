@@ -7,16 +7,16 @@
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
 <body class="h-full bg-page antialiased">
-  <div class="max-w-5xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 space-y-16">
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C85 · Nivel 5</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Video Participant Tile</h1>
-      <p class="text-sm text-zinc-600 mt-1">Tiles de participantes de videollamada con estados de camara, microfono y pantalla compartida.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C85 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Video Participant Tile</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-500 mt-1">Tiles de participantes de videollamada con estados de camara, microfono y pantalla compartida.</p>
     </header>
 
     <!-- Variante 1: Tile con camara activa -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 1 — Tile con camara activa</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Tile con camara activa</h2>
       <div class="max-w-sm">
         <div class="relative bg-zinc-800 rounded-xl aspect-video overflow-hidden ring-2 ring-emerald-400">
           <!-- Simulacion de video -->
@@ -53,8 +53,8 @@
     </section>
 
     <!-- Variante 2: Tile con camara apagada -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 2 — Tile con camara apagada</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Tile con camara apagada</h2>
       <div class="max-w-sm">
         <div class="relative bg-zinc-800 rounded-xl aspect-video overflow-hidden">
           <div class="absolute inset-0 flex flex-col items-center justify-center gap-2">
@@ -83,14 +83,14 @@
     </section>
 
     <!-- Variante 3: Tile de pantalla compartida -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 3 — Tile de pantalla compartida</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 3 — Tile de pantalla compartida</h2>
       <div class="max-w-lg">
         <div class="relative bg-zinc-800 rounded-xl aspect-video overflow-hidden ring-2 ring-blue-500">
           <!-- Simulacion de pantalla compartida -->
           <div class="absolute inset-0 bg-linear-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
             <div class="text-center">
-              <svg class="w-12 h-12 text-zinc-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+              <svg class="w-12 h-12 text-zinc-400 dark:text-zinc-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m0 18V3" />
               </svg>
               <p class="text-sm text-zinc-500 mt-2">Presentacion_Q2.pdf</p>
@@ -114,8 +114,8 @@
     </section>
 
     <!-- Variante 4: Grid de participantes -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 4 — Grid de participantes</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 4 — Grid de participantes</h2>
       <div class="bg-zinc-900 rounded-xl p-4" x-data="videoGrid()">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           <template x-for="p in participants" :key="p.id">
@@ -137,7 +137,7 @@
               <!-- Pantalla compartida -->
               <div x-show="p.sharing" class="absolute inset-0 bg-linear-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
                 <div class="text-center">
-                  <svg class="w-10 h-10 text-zinc-400 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                  <svg class="w-10 h-10 text-zinc-400 dark:text-zinc-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m0 18V3" />
                   </svg>
                   <p class="text-xs text-zinc-500 mt-1">Pantalla compartida</p>
@@ -187,8 +187,8 @@
     </section>
 
     <!-- Variante 5: Tile propio (esquina) -->
-    <section class="space-y-4">
-      <h2 class="text-sm font-medium text-zinc-900">Variante 5 — Tile propio (esquina)</h2>
+    <section class="relative space-y-4">
+      <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 5 — Tile propio (esquina)</h2>
       <div class="relative bg-zinc-900 rounded-xl h-96 overflow-hidden" x-data="{ myMic: true, myCamera: true }">
         <!-- Contenido principal simulado -->
         <div class="absolute inset-0 flex items-center justify-center">

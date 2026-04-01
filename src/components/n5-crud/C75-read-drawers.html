@@ -8,23 +8,23 @@
 </head>
 <body class="h-full bg-page antialiased">
 
-  <div class="max-w-4xl mx-auto px-6 py-16 space-y-16">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16 space-y-16">
 
     <header>
-      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400">C75 · Nivel 5</p>
-      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 mt-1">Read Drawers</h1>
-      <p class="text-sm text-zinc-600 mt-1">Drawer lateral de detalle en solo lectura para visualizar información completa de un registro.</p>
+      <p class="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">C75 · Nivel 5</p>
+      <h1 class="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">Read Drawers</h1>
+      <p class="text-sm text-zinc-600 dark:text-zinc-500 mt-1">Drawer lateral de detalle en solo lectura para visualizar información completa de un registro.</p>
     </header>
 
     <!-- ===================== Variante 1: Detalle de usuario ===================== -->
-    <section class="space-y-4" x-data="readDrawerUsers()">
-      <h2 class="text-lg font-semibold text-zinc-900">Variante 1 — Detalle de usuario</h2>
+    <section class="relative space-y-4" x-data="readDrawerUsers()">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Variante 1 — Detalle de usuario</h2>
       <p class="text-sm text-zinc-500">Click en "Ver" para abrir el drawer con la información completa del usuario.</p>
 
-      <div class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 overflow-x-auto">
+      <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 overflow-x-auto">
         <table class="w-full text-sm text-left">
           <thead>
-            <tr class="border-b border-zinc-200">
+            <tr class="border-b border-zinc-200 dark:border-zinc-800">
               <th class="pb-3 font-medium text-zinc-500">Nombre</th>
               <th class="pb-3 font-medium text-zinc-500">Email</th>
               <th class="pb-3 font-medium text-zinc-500">Rol</th>
@@ -34,15 +34,15 @@
           </thead>
           <tbody>
             <template x-for="user in items" :key="user.id">
-              <tr class="border-b border-zinc-100 last:border-0">
+              <tr class="border-b border-zinc-100 dark:border-zinc-800 last:border-0">
                 <td class="py-3">
                   <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-zinc-200 flex items-center justify-center text-xs font-medium text-zinc-600" x-text="user.name.split(' ').map(n => n[0]).join('')"></div>
-                    <span class="font-medium text-zinc-900" x-text="user.name"></span>
+                    <div class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500" x-text="user.name.split(' ').map(n => n[0]).join('')"></div>
+                    <span class="font-medium text-zinc-900 dark:text-zinc-100" x-text="user.name"></span>
                   </div>
                 </td>
-                <td class="py-3 text-zinc-600" x-text="user.email"></td>
-                <td class="py-3 text-zinc-600" x-text="user.role"></td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-500" x-text="user.email"></td>
+                <td class="py-3 text-zinc-600 dark:text-zinc-500" x-text="user.role"></td>
                 <td class="py-3">
                   <span class="text-xs font-medium px-2 py-0.5 rounded-full"
                     :class="user.status === 'Activo' ? 'badge-green' : 'badge-zinc'"
@@ -64,19 +64,19 @@
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="fixed inset-0 bg-zinc-950/50 z-40" @click="open = false"></div>
+            class="fixed inset-0 bg-zinc-950/50 dark:bg-zinc-800/50 z-40" @click="open = false"></div>
 
           <!-- Panel -->
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-            class="fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-50 flex flex-col">
+            class="fixed right-0 top-0 h-full w-96 bg-white dark:bg-zinc-900 shadow-xl z-50 flex flex-col">
 
             <!-- Header -->
-            <div class="px-6 py-4 border-b border-zinc-200 flex items-center justify-between shrink-0">
-              <h2 class="text-lg font-semibold text-zinc-900">Detalle de usuario</h2>
+            <div class="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
+              <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Detalle de usuario</h2>
               <button @click="open = false" class="btn-ghost p-1 rounded-lg">
-                <svg class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                <svg class="w-5 h-5 text-zinc-400 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
 
@@ -84,9 +84,9 @@
             <div class="flex-1 overflow-y-auto px-6 py-4" x-show="selectedItem">
               <!-- Avatar + Nombre -->
               <div class="flex items-center gap-4 mb-6">
-                <div class="w-14 h-14 rounded-full bg-zinc-200 flex items-center justify-center text-lg font-semibold text-zinc-600" x-text="selectedItem?.name?.split(' ').map(n => n[0]).join('')"></div>
+                <div class="w-14 h-14 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-lg font-semibold text-zinc-600 dark:text-zinc-500" x-text="selectedItem?.name?.split(' ').map(n => n[0]).join('')"></div>
                 <div>
-                  <h3 class="text-base font-semibold text-zinc-900" x-text="selectedItem?.name"></h3>
+                  <h3 class="text-base font-semibold text-zinc-900 dark:text-zinc-100" x-text="selectedItem?.name"></h3>
                   <p class="text-sm text-zinc-500" x-text="selectedItem?.email"></p>
                   <span class="inline-block mt-1 text-xs font-medium px-2 py-0.5 rounded-full"
                     :class="selectedItem?.status === 'Activo' ? 'badge-green' : 'badge-zinc'"
@@ -96,41 +96,41 @@
 
               <!-- Info -->
               <div class="space-y-4 mb-6">
-                <div class="flex justify-between py-2 border-b border-zinc-100">
+                <div class="flex justify-between py-2 border-b border-zinc-100 dark:border-zinc-800">
                   <span class="text-sm text-zinc-500">Rol</span>
-                  <span class="text-sm font-medium text-zinc-900" x-text="selectedItem?.role"></span>
+                  <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="selectedItem?.role"></span>
                 </div>
-                <div class="flex justify-between py-2 border-b border-zinc-100">
+                <div class="flex justify-between py-2 border-b border-zinc-100 dark:border-zinc-800">
                   <span class="text-sm text-zinc-500">Departamento</span>
-                  <span class="text-sm font-medium text-zinc-900" x-text="selectedItem?.department"></span>
+                  <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="selectedItem?.department"></span>
                 </div>
-                <div class="flex justify-between py-2 border-b border-zinc-100">
+                <div class="flex justify-between py-2 border-b border-zinc-100 dark:border-zinc-800">
                   <span class="text-sm text-zinc-500">Telefono</span>
-                  <span class="text-sm font-medium text-zinc-900" x-text="selectedItem?.phone"></span>
+                  <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="selectedItem?.phone"></span>
                 </div>
-                <div class="flex justify-between py-2 border-b border-zinc-100">
+                <div class="flex justify-between py-2 border-b border-zinc-100 dark:border-zinc-800">
                   <span class="text-sm text-zinc-500">Fecha registro</span>
-                  <span class="text-sm font-medium text-zinc-900" x-text="selectedItem?.registered"></span>
+                  <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="selectedItem?.registered"></span>
                 </div>
-                <div class="flex justify-between py-2 border-b border-zinc-100">
+                <div class="flex justify-between py-2 border-b border-zinc-100 dark:border-zinc-800">
                   <span class="text-sm text-zinc-500">Ultimo acceso</span>
-                  <span class="text-sm font-medium text-zinc-900" x-text="selectedItem?.lastAccess"></span>
+                  <span class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="selectedItem?.lastAccess"></span>
                 </div>
               </div>
 
               <!-- Actividad reciente -->
               <div>
-                <h4 class="text-sm font-semibold text-zinc-900 mb-3">Actividad reciente</h4>
+                <h4 class="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">Actividad reciente</h4>
                 <div class="space-y-4">
                   <template x-for="(act, i) in selectedItem?.activity ?? []" :key="i">
                     <div class="flex gap-3">
                       <div class="flex flex-col items-center">
                         <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5"></div>
-                        <div class="w-px flex-1 bg-zinc-200" x-show="i < (selectedItem?.activity?.length ?? 0) - 1"></div>
+                        <div class="w-px flex-1 bg-zinc-200 dark:bg-zinc-700" x-show="i < (selectedItem?.activity?.length ?? 0) - 1"></div>
                       </div>
                       <div class="pb-4">
-                        <p class="text-sm text-zinc-700" x-text="act.text"></p>
-                        <p class="text-xs text-zinc-400 mt-0.5" x-text="act.date"></p>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400" x-text="act.text"></p>
+                        <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5" x-text="act.date"></p>
                       </div>
                     </div>
                   </template>
@@ -139,7 +139,7 @@
             </div>
 
             <!-- Footer -->
-            <div class="px-6 py-4 border-t border-zinc-200 shrink-0 flex justify-end gap-3">
+            <div class="px-6 py-4 border-t border-zinc-200 dark:border-zinc-800 shrink-0 flex justify-end gap-3">
               <button @click="open = false" class="btn-secondary btn-sm">Cerrar</button>
               <button class="btn-primary btn-sm">Editar</button>
             </div>
@@ -149,17 +149,17 @@
     </section>
 
     <!-- ===================== Variante 2: Detalle de pedido ===================== -->
-    <section class="space-y-4" x-data="readDrawerOrders()">
-      <h2 class="text-lg font-semibold text-zinc-900">Variante 2 — Detalle de pedido</h2>
+    <section class="relative space-y-4" x-data="readDrawerOrders()">
+      <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Variante 2 — Detalle de pedido</h2>
       <p class="text-sm text-zinc-500">Click en un pedido para ver su detalle completo en el drawer.</p>
 
       <div class="space-y-3">
         <template x-for="order in items" :key="order.id">
-          <div @click="openDetail(order)" class="bg-white border border-zinc-200 rounded-xl shadow-sm p-6 cursor-pointer hover:border-zinc-300 transition-colors">
+          <div @click="openDetail(order)" class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 cursor-pointer hover:border-zinc-300 transition-colors">
             <div class="flex items-center justify-between">
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="text-sm font-semibold text-zinc-900" x-text="'#' + order.id"></span>
+                  <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="'#' + order.id"></span>
                   <span class="text-xs font-medium px-2 py-0.5 rounded-full"
                     :class="{
                       'badge-amber': order.status === 'Pendiente',
@@ -170,7 +170,7 @@
                 </div>
                 <p class="text-sm text-zinc-500 mt-1" x-text="order.client + ' · ' + order.date"></p>
               </div>
-              <span class="text-sm font-semibold text-zinc-900" x-text="'$' + order.total.toLocaleString()"></span>
+              <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="'$' + order.total.toLocaleString()"></span>
             </div>
           </div>
         </template>
@@ -183,18 +183,18 @@
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-            class="fixed inset-0 bg-zinc-950/50 z-40" @click="open = false"></div>
+            class="fixed inset-0 bg-zinc-950/50 dark:bg-zinc-800/50 z-40" @click="open = false"></div>
 
           <!-- Panel -->
           <div x-show="open"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0"
             x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full"
-            class="fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-50 flex flex-col">
+            class="fixed right-0 top-0 h-full w-96 bg-white dark:bg-zinc-900 shadow-xl z-50 flex flex-col">
 
             <!-- Header -->
-            <div class="px-6 py-4 border-b border-zinc-200 flex items-center justify-between shrink-0">
+            <div class="px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0">
               <div class="flex items-center gap-2">
-                <h2 class="text-lg font-semibold text-zinc-900" x-text="'Pedido #' + (selectedItem?.id ?? '')"></h2>
+                <h2 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100" x-text="'Pedido #' + (selectedItem?.id ?? '')"></h2>
                 <span class="text-xs font-medium px-2 py-0.5 rounded-full"
                   :class="{
                     'badge-amber': selectedItem?.status === 'Pendiente',
@@ -204,7 +204,7 @@
                   x-text="selectedItem?.status"></span>
               </div>
               <button @click="open = false" class="btn-ghost p-1 rounded-lg">
-                <svg class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                <svg class="w-5 h-5 text-zinc-400 dark:text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
 
@@ -213,26 +213,26 @@
               <!-- Cliente -->
               <div class="space-y-4 mb-6">
                 <div>
-                  <p class="text-xs text-zinc-400 uppercase tracking-wide font-medium mb-1">Cliente</p>
-                  <p class="text-sm font-medium text-zinc-900" x-text="selectedItem?.client"></p>
+                  <p class="text-xs text-zinc-400 dark:text-zinc-500 uppercase tracking-wide font-medium mb-1">Cliente</p>
+                  <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100" x-text="selectedItem?.client"></p>
                 </div>
                 <div>
-                  <p class="text-xs text-zinc-400 uppercase tracking-wide font-medium mb-1">Direccion</p>
-                  <p class="text-sm text-zinc-700" x-text="selectedItem?.address"></p>
+                  <p class="text-xs text-zinc-400 dark:text-zinc-500 uppercase tracking-wide font-medium mb-1">Direccion</p>
+                  <p class="text-sm text-zinc-600 dark:text-zinc-400" x-text="selectedItem?.address"></p>
                 </div>
                 <div>
-                  <p class="text-xs text-zinc-400 uppercase tracking-wide font-medium mb-1">Fecha</p>
-                  <p class="text-sm text-zinc-700" x-text="selectedItem?.date"></p>
+                  <p class="text-xs text-zinc-400 dark:text-zinc-500 uppercase tracking-wide font-medium mb-1">Fecha</p>
+                  <p class="text-sm text-zinc-600 dark:text-zinc-400" x-text="selectedItem?.date"></p>
                 </div>
               </div>
 
               <!-- Items del pedido -->
               <div class="mb-6">
-                <p class="text-xs text-zinc-400 uppercase tracking-wide font-medium mb-3">Productos</p>
-                <div class="bg-zinc-50 rounded-lg border border-zinc-200 overflow-hidden">
+                <p class="text-xs text-zinc-400 dark:text-zinc-500 uppercase tracking-wide font-medium mb-3">Productos</p>
+                <div class="bg-zinc-50 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-800 overflow-hidden">
                   <table class="w-full text-sm">
                     <thead>
-                      <tr class="border-b border-zinc-200 bg-zinc-100">
+                      <tr class="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-800">
                         <th class="text-left px-4 py-2 text-xs font-medium text-zinc-500">Producto</th>
                         <th class="text-center px-4 py-2 text-xs font-medium text-zinc-500">Cant.</th>
                         <th class="text-right px-4 py-2 text-xs font-medium text-zinc-500">Precio</th>
@@ -240,24 +240,24 @@
                     </thead>
                     <tbody>
                       <template x-for="(item, i) in selectedItem?.products ?? []" :key="i">
-                        <tr class="border-b border-zinc-100 last:border-0">
-                          <td class="px-4 py-2 text-zinc-700" x-text="item.name"></td>
-                          <td class="px-4 py-2 text-center text-zinc-600" x-text="item.qty"></td>
-                          <td class="px-4 py-2 text-right text-zinc-900 font-medium" x-text="'$' + item.price.toLocaleString()"></td>
+                        <tr class="border-b border-zinc-100 dark:border-zinc-800 last:border-0">
+                          <td class="px-4 py-2 text-zinc-600 dark:text-zinc-400" x-text="item.name"></td>
+                          <td class="px-4 py-2 text-center text-zinc-600 dark:text-zinc-500" x-text="item.qty"></td>
+                          <td class="px-4 py-2 text-right text-zinc-900 dark:text-zinc-100 font-medium" x-text="'$' + item.price.toLocaleString()"></td>
                         </tr>
                       </template>
                     </tbody>
                   </table>
                 </div>
-                <div class="flex justify-between items-center mt-3 pt-3 border-t border-zinc-200">
-                  <span class="text-sm font-semibold text-zinc-900">Total</span>
-                  <span class="text-sm font-semibold text-zinc-900" x-text="'$' + (selectedItem?.total?.toLocaleString() ?? '')"></span>
+                <div class="flex justify-between items-center mt-3 pt-3 border-t border-zinc-200 dark:border-zinc-800">
+                  <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Total</span>
+                  <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-100" x-text="'$' + (selectedItem?.total?.toLocaleString() ?? '')"></span>
                 </div>
               </div>
             </div>
 
             <!-- Footer -->
-            <div class="px-6 py-4 border-t border-zinc-200 shrink-0 flex justify-end gap-3">
+            <div class="px-6 py-4 border-t border-zinc-200 dark:border-zinc-800 shrink-0 flex justify-end gap-3">
               <button @click="open = false" class="btn-secondary btn-sm">Cerrar</button>
               <button class="btn-primary btn-sm">Actualizar estado</button>
             </div>
