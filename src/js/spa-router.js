@@ -3,9 +3,10 @@
 
 (function () {
   const main = document.getElementById('spa-content');
-  const navLinks = document.querySelectorAll('#spa-sidebar a[href]');
   let currentPath = null;
   const loadedCdns = new Set();
+  const routeCache = new Map();
+  const isDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
   // ── Cargar CDNs externos dinámicamente ───────────────────
   function loadCdns(cdns) {
@@ -78,15 +79,27 @@
   async function loadRoute(path) {
     if (path === currentPath) return;
     try {
-      const res = await fetch(path);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const text = await res.text();
-      const parsed = parseBody(text);
-
       // Limpiar Alpine
       cleanupAlpine();
 
-      main.innerHTML = '';
+      // Skeleton de carga
+      main.innerHTML = `
+        <div class="px-6 py-12 max-w-5xl mx-auto space-y-6 animate-pulse">
+          <div class="h-8 w-64 bg-zinc-200 rounded-lg"></div>
+          <div class="h-4 w-96 bg-zinc-100 rounded"></div>
+          <div class="h-64 bg-zinc-100 rounded-xl"></div>
+        </div>`;
+
+      let text;
+      if (!isDev && routeCache.has(path)) {
+        text = routeCache.get(path);
+      } else {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        text = await res.text();
+        if (!isDev) routeCache.set(path, text);
+      }
+      const parsed = parseBody(text);
 
       // Inyectar estilos custom
       if (parsed.styles.length) {
@@ -99,6 +112,7 @@
       await loadCdns(parsed.cdns);
 
       // Ejecutar scripts (definir funciones Alpine) ANTES de insertar HTML
+      let scriptError = false;
       parsed.scripts.forEach(code => {
         try {
           const script = document.createElement('script');
@@ -107,6 +121,7 @@
           document.body.removeChild(script);
         } catch (e) {
           console.warn('Error ejecutando script:', e);
+          scriptError = true;
         }
       });
 
@@ -120,6 +135,14 @@
 
       // Inicializar Alpine manualmente (sin doble-init del MutationObserver)
       Alpine.initTree(container);
+
+      // Mostrar advertencia si algún script falló
+      if (scriptError) {
+        const banner = document.createElement('div');
+        banner.className = 'bg-amber-50 border border-amber-200 text-amber-700 text-xs px-3 py-2 rounded-lg mb-4 mx-6 mt-4';
+        banner.textContent = 'Un script de este componente falló al ejecutarse. Revisa la consola para más detalles.';
+        container.prepend(banner);
+      }
 
       // Inyectar botones de descarga si es componente N1-N6
       if (typeof injectDownloadButtons === 'function') {
@@ -157,6 +180,17 @@
     const path = link.getAttribute('href');
     window.location.hash = path;
   });
+
+  // ── Prefetch en hover ──────────────────────────────────────
+  document.getElementById('spa-sidebar').addEventListener('mouseenter', (e) => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const path = link.getAttribute('href');
+    if (!path || routeCache.has(path)) return;
+    fetch(path).then(r => r.ok ? r.text() : null).then(t => {
+      if (t && !isDev) routeCache.set(path, t);
+    });
+  }, true);
 
   // ── Hash routing ─────────────────────────────────────────
   function onHashChange() {
