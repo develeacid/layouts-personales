@@ -150,11 +150,18 @@
             </div>
           </div>
         </div>
+
+        <!-- Progreso de milestones -->
+        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Progreso de milestones</h3>
+          <div x-ref="chart" x-init="initChart()" class="w-full h-56"></div>
+        </div>
       </main>
     </div>
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function projectsDashboard() {
       return {
@@ -198,6 +205,33 @@
           { initials: 'LG', bg: 'bg-blue-500', text: 'Luis creo 3 componentes nuevos', time: 'Hace 2h' },
           { initials: 'JR', bg: 'bg-cyan-500', text: 'Jorge configuro el staging server', time: 'Hace 3h' }
         ],
+        _resizeHandler: null,
+        initChart() {
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          var ms = this.milestones.slice().reverse();
+          var data = ms.map(function(m) {
+            return m.done ? 100 : (m.current ? 60 : 0);
+          });
+          var colors = ms.map(function(m) {
+            return m.done ? '#10b981' : (m.current ? '#3b82f6' : '#e4e4e7');
+          });
+          this.$refs.chart._ec.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: 160, right: 30, top: 10, bottom: 20 },
+            yAxis: { type: 'category', data: ms.map(function(m) { return m.label; }) },
+            xAxis: { type: 'value', max: 100, axisLabel: { formatter: '{value}%' } },
+            series: [{
+              data: data.map(function(v, i) { return { value: v, itemStyle: { color: colors[i], borderRadius: [0, 4, 4, 0] } }; }),
+              type: 'bar',
+              label: { show: true, position: 'right', formatter: function(p) { return p.value > 0 ? p.value + '%' : ''; }, fontSize: 11, color: '#374151' }
+            }]
+          });
+        },
         deadlines: [
           { task: 'Entrega MVP', project: 'Rediseno Web', date: '31 Mar', urgent: true },
           { task: 'Review de codigo', project: 'API v2', date: '2 Abr', urgent: false },
