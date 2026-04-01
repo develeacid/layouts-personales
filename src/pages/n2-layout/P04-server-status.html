@@ -6,7 +6,8 @@
   <title>LayoutOS · Estado del sistema</title>
   <link rel="stylesheet" href="/public/css/main.css" />
 </head>
-<body class="h-full bg-page antialiased" x-data="serverStatus()">
+<body class="h-full bg-page antialiased">
+<div x-data="serverStatus()">
 
   <!-- Navbar -->
   <nav class="bg-white border-b border-zinc-200 px-6 h-14 flex items-center justify-between">
@@ -144,6 +145,8 @@
     </footer>
 
   </div>
+
+</div>
 
   <script>
     function serverStatus() {
