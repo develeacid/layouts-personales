@@ -142,11 +142,18 @@
             </template>
           </div>
         </div>
+
+        <!-- Estados de envío -->
+        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Estados de envío</h3>
+          <div x-ref="chart" x-init="initChart()" class="w-full h-64"></div>
+        </div>
       </main>
     </div>
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function logisticsDashboard() {
       return {
@@ -170,7 +177,35 @@
           { tracking: 'TRK-89218', reason: 'Problema en aduana interna', delay: '+3 dias' },
           { tracking: 'TRK-89210', reason: 'Direccion incorrecta - requiere verificacion', delay: '+1 dia' },
           { tracking: 'TRK-89205', reason: 'Vehiculo de reparto averiado', delay: '+1 dia' }
-        ]
+        ],
+        _resizeHandler: null,
+        initChart() {
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          var statusCount = {};
+          this.shipments.forEach(function(s) {
+            statusCount[s.status] = (statusCount[s.status] || 0) + 1;
+          });
+          var colorMap = { 'En transito': '#3b82f6', 'Entregado': '#10b981', 'Demorado': '#ef4444', 'En bodega': '#f59e0b' };
+          var data = Object.keys(statusCount).map(function(key) {
+            return { name: key, value: statusCount[key], itemStyle: { color: colorMap[key] || '#71717a' } };
+          });
+          this.$refs.chart._ec.setOption({
+            tooltip: { trigger: 'item', formatter: '{b}: {c} envíos ({d}%)' },
+            legend: { bottom: 0, textStyle: { fontSize: 11 } },
+            series: [{
+              type: 'pie',
+              radius: ['40%', '70%'],
+              center: ['50%', '45%'],
+              label: { show: false },
+              data: data
+            }]
+          });
+        }
       };
     }
   </script>
