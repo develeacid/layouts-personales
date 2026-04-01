@@ -144,11 +144,17 @@
             </table>
           </div>
         </div>
+        <!-- Distribución de planes -->
+        <div class="bg-white rounded-xl border border-zinc-200 p-5 mt-6">
+          <h3 class="text-sm font-semibold text-zinc-900 mb-4">Distribución de planes</h3>
+          <div x-ref="chart" x-init="initChart()" class="w-full h-64"></div>
+        </div>
       </main>
     </div>
   </div>
 
   <style>[x-cloak] { display: none !important; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
   <script>
     function saasDashboard() {
       return {
@@ -179,7 +185,32 @@
           { name: 'Tomas Fuentes', initials: 'TF', email: 'tomas@dev.co', plan: 'Pro', date: '30 Mar 2026', avatarBg: 'bg-amber-500' },
           { name: 'Diana Rojas', initials: 'DR', email: 'diana@biz.net', plan: 'Free', date: '29 Mar 2026', avatarBg: 'bg-rose-500' },
           { name: 'Felipe Nunez', initials: 'FN', email: 'felipe@tech.io', plan: 'Free', date: '29 Mar 2026', avatarBg: 'bg-cyan-500' }
-        ]
+        ],
+        _resizeHandler: null,
+        initChart() {
+          this.$refs.chart._ec = echarts.init(this.$refs.chart);
+          this.renderChart();
+          this._resizeHandler = () => this.$refs.chart._ec.resize();
+          window.addEventListener('resize', this._resizeHandler);
+        },
+        renderChart() {
+          this.$refs.chart._ec.setOption({
+            tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
+            legend: { bottom: 0, textStyle: { fontSize: 11 } },
+            series: [{
+              type: 'pie',
+              radius: ['40%', '70%'],
+              center: ['50%', '45%'],
+              avoidLabelOverlap: false,
+              label: { show: false },
+              data: [
+                { name: 'Free', value: 60, itemStyle: { color: '#a1a1aa' } },
+                { name: 'Pro', value: 30, itemStyle: { color: '#3b82f6' } },
+                { name: 'Enterprise', value: 10, itemStyle: { color: '#8b5cf6' } }
+              ]
+            }]
+          });
+        },
       };
     }
   </script>
