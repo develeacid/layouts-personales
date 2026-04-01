@@ -98,16 +98,10 @@
         main.appendChild(styleEl);
       }
 
-      // Inyectar HTML
-      const container = document.createElement('div');
-      container.className = 'h-full';
-      container.innerHTML = parsed.html;
-      main.appendChild(container);
-
-      // Cargar CDNs externos antes de ejecutar scripts inline
+      // Cargar CDNs externos ANTES de insertar HTML en el DOM
       await loadCdns(parsed.cdns);
 
-      // Ejecutar scripts (funciones nombradas de Alpine)
+      // Ejecutar scripts (definir funciones Alpine) ANTES de insertar HTML
       parsed.scripts.forEach(code => {
         try {
           const script = document.createElement('script');
@@ -118,6 +112,12 @@
           console.warn('Error ejecutando script:', e);
         }
       });
+
+      // AHORA insertar HTML — las funciones ya están definidas
+      const container = document.createElement('div');
+      container.className = 'h-full';
+      container.innerHTML = parsed.html;
+      main.appendChild(container);
 
       // Inicializar Alpine en el nuevo contenido
       Alpine.initTree(container);
