@@ -23,19 +23,19 @@
         <div class="flex items-center flex-wrap gap-1 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-zinc-50 dark:bg-zinc-800 p-1.5 mb-4">
           <!-- Formato texto -->
           <div class="flex items-center gap-0.5">
-            <button type="button" @click="formatText('bold')" :class="{ 'bg-blue-100 text-blue-700': queryState('bold') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('bold')" :class="{ 'bg-blue-100 text-blue-700': queryState('bold') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Bold</span>
             </button>
-            <button type="button" @click="formatText('italic')" :class="{ 'bg-blue-100 text-blue-700': queryState('italic') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('italic')" :class="{ 'bg-blue-100 text-blue-700': queryState('italic') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 4h4m-2 0v16m-4 0h8" transform="skewX(-10)" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Italic</span>
             </button>
-            <button type="button" @click="formatText('underline')" :class="{ 'bg-blue-100 text-blue-700': queryState('underline') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('underline')" :class="{ 'bg-blue-100 text-blue-700': queryState('underline') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 5v6a5 5 0 0010 0V5M5 19h14" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Underline</span>
             </button>
-            <button type="button" @click="formatText('strikeThrough')" :class="{ 'bg-blue-100 text-blue-700': queryState('strikeThrough') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('strikeThrough')" :class="{ 'bg-blue-100 text-blue-700': queryState('strikeThrough') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 4H9a3 3 0 00-1 5.83M4 12h16M8 20h7a3 3 0 001-5.83" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Strikethrough</span>
             </button>
@@ -46,15 +46,15 @@
 
           <!-- Headings -->
           <div class="flex items-center gap-0.5">
-            <button type="button" @click="formatBlock('h1')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
+            <button type="button" @click="formatBlock('h1')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
               H1
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading 1</span>
             </button>
-            <button type="button" @click="formatBlock('h2')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
+            <button type="button" @click="formatBlock('h2')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
               H2
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading 2</span>
             </button>
-            <button type="button" @click="formatBlock('h3')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
+            <button type="button" @click="formatBlock('h3')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
               H3
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading 3</span>
             </button>
@@ -65,11 +65,11 @@
 
           <!-- Listas -->
           <div class="flex items-center gap-0.5">
-            <button type="button" @click="formatText('insertUnorderedList')" :class="{ 'bg-blue-100 text-blue-700': queryState('insertUnorderedList') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('insertUnorderedList')" :class="{ 'bg-blue-100 text-blue-700': queryState('insertUnorderedList') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Lista desordenada</span>
             </button>
-            <button type="button" @click="formatText('insertOrderedList')" :class="{ 'bg-blue-100 text-blue-700': queryState('insertOrderedList') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('insertOrderedList')" :class="{ 'bg-blue-100 text-blue-700': queryState('insertOrderedList') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6h11M10 12h11M10 18h11M3 5l2 1V4M3 11h2l-2 2M3 18h1.5l.5-.5.5.5H7" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Lista ordenada</span>
             </button>
@@ -80,15 +80,15 @@
 
           <!-- Alineacion -->
           <div class="flex items-center gap-0.5">
-            <button type="button" @click="formatText('justifyLeft')" :class="{ 'bg-blue-100 text-blue-700': queryState('justifyLeft') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('justifyLeft')" :class="{ 'bg-blue-100 text-blue-700': queryState('justifyLeft') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M3 12h12M3 18h18" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Izquierda</span>
             </button>
-            <button type="button" @click="formatText('justifyCenter')" :class="{ 'bg-blue-100 text-blue-700': queryState('justifyCenter') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('justifyCenter')" :class="{ 'bg-blue-100 text-blue-700': queryState('justifyCenter') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M6 12h12M3 18h18" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Centro</span>
             </button>
-            <button type="button" @click="formatText('justifyRight')" :class="{ 'bg-blue-100 text-blue-700': queryState('justifyRight') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 transition-colors">
+            <button type="button" @click="formatText('justifyRight')" :class="{ 'bg-blue-100 text-blue-700': queryState('justifyRight') }" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M9 12h12M3 18h18" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Derecha</span>
             </button>
@@ -99,19 +99,19 @@
 
           <!-- Insertar -->
           <div class="flex items-center gap-0.5">
-            <button type="button" @click="insertLink()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
+            <button type="button" @click="insertLink()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Link</span>
             </button>
-            <button type="button" @click="insertImage()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
+            <button type="button" @click="insertImage()" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V4.5a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v15a1.5 1.5 0 001.5 1.5z" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Imagen</span>
             </button>
-            <button type="button" @click="formatText('formatBlock', '<pre>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
+            <button type="button" @click="formatText('formatBlock', '<pre>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25M6.75 17.25L1.5 12l5.25-5.25" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Codigo</span>
             </button>
-            <button type="button" @click="formatText('formatBlock', '<blockquote>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
+            <button type="button" @click="formatText('formatBlock', '<blockquote>')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Cita</span>
             </button>
@@ -186,35 +186,35 @@
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-1 border border-zinc-200 dark:border-zinc-800 rounded-lg bg-zinc-50 dark:bg-zinc-800 p-1">
             <!-- MD toolbar buttons -->
-            <button type="button" @click="insertMarkdown('heading')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
+            <button type="button" @click="insertMarkdown('heading')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 text-xs font-bold transition-colors">
               H
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none font-normal">Heading</span>
             </button>
-            <button type="button" @click="insertMarkdown('bold')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
+            <button type="button" @click="insertMarkdown('bold')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Bold</span>
             </button>
-            <button type="button" @click="insertMarkdown('italic')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
+            <button type="button" @click="insertMarkdown('italic')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 4h4m-2 0v16m-4 0h8" transform="skewX(-10)" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Italic</span>
             </button>
-            <button type="button" @click="insertMarkdown('link')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
+            <button type="button" @click="insertMarkdown('link')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101M10.172 13.828a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Link</span>
             </button>
-            <button type="button" @click="insertMarkdown('code')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
+            <button type="button" @click="insertMarkdown('code')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25M6.75 17.25L1.5 12l5.25-5.25" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Codigo</span>
             </button>
-            <button type="button" @click="insertMarkdown('image')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
+            <button type="button" @click="insertMarkdown('image')" class="relative group w-8 h-8 flex items-center justify-center rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 transition-colors">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V4.5a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v15a1.5 1.5 0 001.5 1.5z" /></svg>
               <span class="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs bg-zinc-900 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Imagen</span>
             </button>
           </div>
 
           <div class="flex items-center border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
-            <button @click="mode = 'edit'" :class="mode === 'edit' ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-600 hover:bg-zinc-50'" class="px-3 py-1.5 text-xs font-medium transition-colors">Editar</button>
-            <button @click="mode = 'preview'" :class="mode === 'preview' ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-600 hover:bg-zinc-50'" class="px-3 py-1.5 text-xs font-medium transition-colors">Preview</button>
+            <button @click="mode = 'edit'" :class="mode === 'edit' ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-600 hover:bg-zinc-50 dark:hover:bg-zinc-800'" class="px-3 py-1.5 text-xs font-medium transition-colors">Editar</button>
+            <button @click="mode = 'preview'" :class="mode === 'preview' ? 'bg-zinc-900 text-white' : 'bg-white text-zinc-600 hover:bg-zinc-50 dark:hover:bg-zinc-800'" class="px-3 py-1.5 text-xs font-medium transition-colors">Preview</button>
           </div>
         </div>
 

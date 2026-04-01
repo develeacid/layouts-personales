@@ -60,7 +60,7 @@
                 <p class="text-xs font-medium text-zinc-400 dark:text-zinc-500 px-2 py-1">Resultados</p>
                 <template x-for="item in filteredItems" :key="item.name">
                   <a :href="item.href || '#'" @click="open = false"
-                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-zinc-50 cursor-pointer transition-colors duration-150">
+                    class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-800 cursor-pointer transition-colors duration-150">
                     <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
                       :class="item.iconBg">
                       <span class="text-xs font-bold" :class="item.iconColor" x-text="item.icon"></span>

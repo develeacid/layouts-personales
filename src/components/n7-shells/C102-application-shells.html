@@ -76,7 +76,7 @@
         </button>
 
         <!-- Collapse toggle desktop -->
-        <button @click="sidebarCollapsed = !sidebarCollapsed" class="hidden lg:block text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400">
+        <button @click="sidebarCollapsed = !sidebarCollapsed" class="hidden lg:block text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-400 dark:text-zinc-400">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"/>
           </svg>
@@ -101,7 +101,7 @@
 
         <!-- Notifications -->
         <div class="relative" @click.outside="notifDropdown = false">
-          <button @click="notifDropdown = !notifDropdown" class="relative text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 p-1">
+          <button @click="notifDropdown = !notifDropdown" class="relative text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-400 dark:text-zinc-400 p-1">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/>
             </svg>
@@ -110,15 +110,15 @@
           <div x-show="notifDropdown" x-transition x-cloak
             class="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg py-2 z-50">
             <p class="px-4 py-2 text-xs font-semibold text-zinc-900 dark:text-zinc-100">Notificaciones</p>
-            <div class="px-4 py-2.5 hover:bg-zinc-50 dark:bg-zinc-800 cursor-pointer">
+            <div class="px-4 py-2.5 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 cursor-pointer">
               <p class="text-sm text-zinc-700">Nuevo comentario en <span class="font-medium">Proyecto Alpha</span></p>
               <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Hace 5 min</p>
             </div>
-            <div class="px-4 py-2.5 hover:bg-zinc-50 dark:bg-zinc-800 cursor-pointer">
+            <div class="px-4 py-2.5 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 cursor-pointer">
               <p class="text-sm text-zinc-700">Tarea completada: <span class="font-medium">Diseño UI</span></p>
               <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Hace 1 hora</p>
             </div>
-            <div class="px-4 py-2.5 hover:bg-zinc-50 dark:bg-zinc-800 cursor-pointer">
+            <div class="px-4 py-2.5 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 cursor-pointer">
               <p class="text-sm text-zinc-700"><span class="font-medium">Carlos</span> te mencionó</p>
               <p class="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Hace 3 horas</p>
             </div>
@@ -139,10 +139,10 @@
               <p class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Ana García</p>
               <p class="text-xs text-zinc-500">ana.garcia@layout.os</p>
             </div>
-            <a href="#" class="block px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-zinc-800">Perfil</a>
-            <a href="#" class="block px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-zinc-800">Configuración</a>
+            <a href="#" class="block px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800">Perfil</a>
+            <a href="#" class="block px-4 py-2 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800">Configuración</a>
             <div class="border-t border-zinc-100 my-1"></div>
-            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-zinc-50 dark:bg-zinc-800">Cerrar sesión</a>
+            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800">Cerrar sesión</a>
           </div>
         </div>
       </header>

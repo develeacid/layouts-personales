@@ -57,7 +57,7 @@
             <template x-for="(crumb, i) in breadcrumbs" :key="i">
               <div class="flex items-center gap-1">
                 <span x-show="i > 0" class="text-zinc-300">/</span>
-                <button @click="navigateTo(i)" class="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:text-zinc-100 transition-colors"
+                <button @click="navigateTo(i)" class="text-zinc-500 dark:text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 dark:text-zinc-100 transition-colors"
                         :class="i === breadcrumbs.length - 1 ? 'font-medium text-zinc-900 dark:text-zinc-100' : ''"
                         x-text="crumb"></button>
               </div>
@@ -104,7 +104,7 @@
               </thead>
               <tbody>
                 <template x-for="file in files" :key="file.id">
-                  <tr class="border-b border-zinc-100 dark:border-zinc-800 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors">
+                  <tr class="border-b border-zinc-100 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 transition-colors">
                     <td class="px-4 sm:px-6 py-3">
                       <div class="flex items-center gap-3">
                         <span class="text-lg" x-text="file.icon"></span>
@@ -132,7 +132,7 @@
                           </button>
                           <div x-show="menuOpen" @click.away="menuOpen = false" x-cloak
                                class="absolute right-0 top-8 z-10 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-lg py-1 w-40">
-                            <button @click="menuOpen = false" class="w-full text-left px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:bg-zinc-800">Renombrar</button>
+                            <button @click="menuOpen = false" class="w-full text-left px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800">Renombrar</button>
                             <button @click="confirmDelete(file); menuOpen = false" class="w-full text-left px-3 py-1.5 text-sm text-rose-600 hover:bg-rose-50 dark:bg-rose-950">Eliminar</button>
                           </div>
                         </div>

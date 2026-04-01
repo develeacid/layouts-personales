@@ -124,7 +124,7 @@
           <!-- Thread replies -->
           <template x-for="reply in replies" :key="reply.id">
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
-              <button @click="reply.expanded = !reply.expanded" class="w-full px-4 sm:px-6 py-4 flex items-center justify-between hover:bg-zinc-50 dark:bg-zinc-800 transition-colors rounded-xl">
+              <button @click="reply.expanded = !reply.expanded" class="w-full px-4 sm:px-6 py-4 flex items-center justify-between hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 transition-colors rounded-xl">
                 <div class="flex items-center gap-3">
                   <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold"
                        :class="reply.avatarClass" x-text="reply.avatar"></div>

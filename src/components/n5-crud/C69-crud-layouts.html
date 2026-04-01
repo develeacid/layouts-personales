@@ -37,7 +37,7 @@
             <div class="divide-y divide-zinc-100 dark:divide-zinc-800 max-h-96 overflow-y-auto">
               <template x-for="item in filteredItems" :key="item.id">
                 <button @click="selectItem(item.id)"
-                  :class="selectedId === item.id ? 'bg-blue-50 dark:bg-blue-950 border-l-2 border-l-blue-600' : 'border-l-2 border-l-transparent hover:bg-zinc-50'"
+                  :class="selectedId === item.id ? 'bg-blue-50 dark:bg-blue-950 border-l-2 border-l-blue-600' : 'border-l-2 border-l-transparent hover:bg-zinc-50 dark:hover:bg-zinc-800'"
                   class="w-full text-left px-4 py-3 flex items-center gap-3 transition-colors">
                   <div class="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500 shrink-0"
                     x-text="item.initials"></div>
@@ -155,7 +155,7 @@
             </thead>
             <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
               <template x-for="item in items" :key="item.id">
-                <tr :class="selectedIds.includes(item.id) ? 'bg-blue-50' : 'hover:bg-zinc-50'"
+                <tr :class="selectedIds.includes(item.id) ? 'bg-blue-50' : 'hover:bg-zinc-50 dark:hover:bg-zinc-800'"
                   class="transition-colors">
                   <td class="px-4 py-3">
                     <input type="checkbox" :value="item.id"

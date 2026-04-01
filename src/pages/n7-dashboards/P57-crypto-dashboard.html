@@ -72,7 +72,7 @@
             <nav class="flex gap-6">
               <template x-for="tab in tabs" :key="tab">
                 <button class="py-3 text-sm font-medium border-b-2 transition"
-                  :class="activeTab === tab ? 'border-zinc-900 text-zinc-900 dark:text-zinc-100' : 'border-transparent text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400'"
+                  :class="activeTab === tab ? 'border-zinc-900 text-zinc-900 dark:text-zinc-100' : 'border-transparent text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-400 dark:text-zinc-400'"
                   @click="activeTab = tab" x-text="tab"></button>
               </template>
             </nav>

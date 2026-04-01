@@ -45,7 +45,7 @@
           <template x-for="(cell, idx) in calendarDays" :key="idx">
             <div class="min-h-24 p-1.5 border border-zinc-100 dark:border-zinc-800 rounded-lg cursor-pointer transition-colors"
               :class="{
-                'bg-white hover:bg-zinc-50': cell.isCurrentMonth,
+                'bg-white hover:bg-zinc-50 dark:hover:bg-zinc-800': cell.isCurrentMonth,
                 'bg-zinc-50/50': !cell.isCurrentMonth,
                 'ring-2 ring-blue-200 bg-blue-50/50': selectedDate && selectedDate.day === cell.day && selectedDate.month === cell.month && selectedDate.year === cell.year
               }"
@@ -123,7 +123,7 @@
           <template x-for="(cell, idx) in calendarDays" :key="idx">
             <div class="min-h-24 p-1.5 border border-zinc-100 dark:border-zinc-800 rounded-lg cursor-pointer transition-colors"
               :class="{
-                'bg-white hover:bg-zinc-50': cell.isCurrentMonth,
+                'bg-white hover:bg-zinc-50 dark:hover:bg-zinc-800': cell.isCurrentMonth,
                 'bg-zinc-50/50': !cell.isCurrentMonth,
                 'ring-2 ring-blue-200 bg-blue-50/50': selectedDate && selectedDate.day === cell.day && selectedDate.month === cell.month && selectedDate.year === cell.year
               }"

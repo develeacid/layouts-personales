@@ -86,7 +86,7 @@
             </thead>
             <tbody>
               <template x-for="inv in invoices" :key="inv.id">
-                <tr class="border-b border-zinc-100 dark:border-zinc-800 hover:bg-zinc-50 dark:bg-zinc-800">
+                <tr class="border-b border-zinc-100 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800">
                   <td class="px-4 sm:px-6 py-3 text-zinc-500 dark:text-zinc-400 dark:text-zinc-500" x-text="inv.date"></td>
                   <td class="px-4 sm:px-6 py-3 text-zinc-900 dark:text-zinc-100" x-text="inv.description"></td>
                   <td class="px-4 sm:px-6 py-3 font-medium text-zinc-900 dark:text-zinc-100" x-text="'$' + inv.amount"></td>

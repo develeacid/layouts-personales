@@ -102,8 +102,8 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
                   </button>
                   <div x-show="moveOpen" @click.away="moveOpen = false" x-cloak class="absolute left-0 top-6 z-10 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-lg py-1 w-36">
-                    <button @click="moveTask(task, 'up'); moveOpen = false" class="w-full text-left px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:bg-zinc-800">Mover arriba</button>
-                    <button @click="moveTask(task, 'down'); moveOpen = false" class="w-full text-left px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:bg-zinc-800">Mover abajo</button>
+                    <button @click="moveTask(task, 'up'); moveOpen = false" class="w-full text-left px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800">Mover arriba</button>
+                    <button @click="moveTask(task, 'down'); moveOpen = false" class="w-full text-left px-3 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800">Mover abajo</button>
                   </div>
                 </div>
                 <!-- Checkbox -->

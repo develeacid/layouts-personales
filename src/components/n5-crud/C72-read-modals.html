@@ -32,7 +32,7 @@
           </thead>
           <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             <template x-for="item in items" :key="item.id">
-              <tr @click="openDetail(item)" class="hover:bg-zinc-50 dark:bg-zinc-800 transition-colors duration-100 cursor-pointer">
+              <tr @click="openDetail(item)" class="hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 transition-colors duration-100 cursor-pointer">
                 <td class="px-4 py-3 font-medium text-zinc-900 dark:text-zinc-100 hover:text-blue-600" x-text="item.title"></td>
                 <td class="px-4 py-3 text-zinc-600 dark:text-zinc-500" x-text="item.assignee"></td>
                 <td class="px-4 py-3">
@@ -96,7 +96,7 @@
                           x-text="selectedItem.priority"></span>
                       </div>
                     </div>
-                    <button @click="open = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:bg-zinc-800 hover:text-zinc-600 dark:text-zinc-500 transition-colors duration-150 cursor-pointer">
+                    <button @click="open = false" class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 dark:text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800 dark:bg-zinc-800 hover:text-zinc-600 dark:hover:text-zinc-400 dark:text-zinc-500 transition-colors duration-150 cursor-pointer">
                       <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                   </div>

@@ -18,7 +18,7 @@
     <section class="relative space-y-4">
       <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 1 — Email no leido</h2>
       <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
-        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors cursor-pointer">
+        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 transition-colors cursor-pointer">
           <input type="checkbox" class="w-4 h-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-500" />
           <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
           <div class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500 shrink-0">MR</div>
@@ -39,7 +39,7 @@
     <section class="relative space-y-4">
       <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 2 — Email leido</h2>
       <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
-        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors cursor-pointer">
+        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 transition-colors cursor-pointer">
           <input type="checkbox" class="w-4 h-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-500" />
           <span class="w-2 h-2 shrink-0"></span>
           <div class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500 shrink-0">CL</div>
@@ -60,7 +60,7 @@
     <section class="relative space-y-4">
       <h2 class="text-sm font-medium text-zinc-900 dark:text-zinc-100">Variante 3 — Email destacado (starred)</h2>
       <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm">
-        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors cursor-pointer">
+        <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 transition-colors cursor-pointer">
           <input type="checkbox" class="w-4 h-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-500" />
           <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
           <div class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-700 flex items-center justify-center text-xs font-medium text-zinc-600 dark:text-zinc-500 shrink-0">AG</div>
@@ -96,7 +96,7 @@
         <!-- Email rows -->
         <div class="divide-y divide-zinc-100 dark:divide-zinc-800">
           <template x-for="email in emails" :key="email.id">
-            <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:bg-zinc-800 transition-colors cursor-pointer"
+            <div class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 transition-colors cursor-pointer"
               :class="{ 'bg-blue-50/30': email.selected }">
               <input type="checkbox" class="w-4 h-4 rounded border-zinc-300 text-blue-600 focus:ring-blue-500 shrink-0"
                 :checked="email.selected"

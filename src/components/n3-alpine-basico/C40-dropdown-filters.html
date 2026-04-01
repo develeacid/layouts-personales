@@ -31,7 +31,7 @@
             class="absolute left-0 top-full mt-1 w-44 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg p-1 z-dropdown">
             <template x-for="option in ['Todos', 'Activo', 'Pendiente', 'Completado', 'Archivado']">
               <button @click="selected = option; open = false"
-                :class="selected === option ? 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-medium' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50'"
+                :class="selected === option ? 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 font-medium' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800'"
                 class="w-full text-left text-xs px-3 py-2 rounded-lg transition-colors duration-150 cursor-pointer" x-text="option"></button>
             </template>
           </div>
@@ -49,7 +49,7 @@
             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
             class="absolute left-0 top-full mt-1 w-48 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-lg p-1 z-dropdown">
             <template x-for="tag in ['Diseño', 'Frontend', 'Backend', 'DevOps', 'QA']">
-              <label class="flex items-center gap-2 px-3 py-2 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 rounded-lg cursor-pointer transition-colors duration-150">
+              <label class="flex items-center gap-2 px-3 py-2 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-lg cursor-pointer transition-colors duration-150">
                 <input type="checkbox" :value="tag"
                   @change="selected.includes(tag) ? selected = selected.filter(t => t !== tag) : selected.push(tag)"
                   :checked="selected.includes(tag)"
@@ -58,7 +58,7 @@
               </label>
             </template>
             <div class="border-t border-zinc-200 dark:border-zinc-800 mt-1 pt-1">
-              <button @click="selected = []; open = false" class="w-full text-left text-xs px-3 py-2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 rounded-lg transition-colors duration-150 cursor-pointer">Limpiar filtros</button>
+              <button @click="selected = []; open = false" class="w-full text-left text-xs px-3 py-2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-400 rounded-lg transition-colors duration-150 cursor-pointer">Limpiar filtros</button>
             </div>
           </div>
         </div>

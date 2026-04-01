@@ -54,7 +54,7 @@
             <template x-for="m in ['GPT-4', 'Claude', 'Gemini']" :key="m">
               <button @click="model = m"
                 class="text-sm font-medium px-3 py-1.5 rounded-lg border transition-colors"
-                :class="model === m ? 'border-blue-300 bg-blue-50 text-blue-700' : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50'"
+                :class="model === m ? 'border-blue-300 bg-blue-50 text-blue-700' : 'border-zinc-200 text-zinc-600 hover:bg-zinc-50 dark:hover:bg-zinc-800'"
                 x-text="m"></button>
             </template>
           </div>
@@ -98,7 +98,7 @@
 
         <!-- System prompt collapsible -->
         <div x-data="{ expanded: false }" class="border-t border-zinc-100 pt-3">
-          <button @click="expanded = !expanded" class="flex items-center gap-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:text-zinc-100">
+          <button @click="expanded = !expanded" class="flex items-center gap-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 dark:text-zinc-100">
             <svg class="w-4 h-4 transition-transform" :class="expanded ? 'rotate-90' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
             System prompt
           </button>
@@ -143,7 +143,7 @@
           <div class="flex flex-wrap gap-2">
             <template x-for="(rp, i) in recentPrompts" :key="i">
               <button @click="selectRecent(rp)"
-                class="text-xs font-medium px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:bg-zinc-800 hover:border-zinc-300 transition-colors truncate max-w-56"
+                class="text-xs font-medium px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 dark:text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800 hover:border-zinc-300 transition-colors truncate max-w-56"
                 x-text="rp"></button>
             </template>
           </div>

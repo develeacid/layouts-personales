@@ -73,7 +73,7 @@
             <template x-for="email in filteredEmails" :key="email.id">
               <div @click="selectEmail(email)"
                    class="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800 cursor-pointer transition-colors"
-                   :class="selectedEmail?.id === email.id ? 'bg-blue-50 dark:bg-blue-950' : 'hover:bg-zinc-50 dark:bg-zinc-800'">
+                   :class="selectedEmail?.id === email.id ? 'bg-blue-50 dark:bg-blue-950' : 'hover:bg-zinc-50 dark:hover:bg-zinc-800 dark:bg-zinc-800'">
                 <div class="flex items-center gap-3">
                   <input type="checkbox" class="rounded border-zinc-300 dark:border-zinc-700 text-blue-600" @click.stop />
                   <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold shrink-0"
