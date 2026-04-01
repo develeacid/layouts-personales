@@ -9,8 +9,10 @@
     [x-cloak] { display: none !important; }
     aside::-webkit-scrollbar { width: 4px; }
     aside::-webkit-scrollbar-track { background: transparent; }
-    aside::-webkit-scrollbar-thumb { background: rgb(63 63 70); border-radius: 4px; }
-    aside::-webkit-scrollbar-thumb:hover { background: rgb(82 82 91); }
+    aside::-webkit-scrollbar-thumb { background: rgb(212 212 216); border-radius: 4px; }
+    aside::-webkit-scrollbar-thumb:hover { background: rgb(161 161 170); }
+    html.dark aside::-webkit-scrollbar-thumb { background: rgb(63 63 70); }
+    html.dark aside::-webkit-scrollbar-thumb:hover { background: rgb(82 82 91); }
   </style>
 </head>
 <body class="h-full bg-page antialiased">
@@ -18,27 +20,30 @@
   <div class="flex h-full" x-data="sidebar">
     <!-- Sidebar -->
     <aside
-      class="h-full overflow-y-auto border-r border-zinc-800 bg-zinc-950 flex flex-col shrink-0 transition-all duration-300"
-      :class="sidebarOpen ? 'w-72' : 'w-0 border-r-0 overflow-hidden'"
+      class="h-full overflow-y-auto flex flex-col shrink-0 transition-all duration-300"
+      :class="[
+        sidebarOpen ? 'w-72' : 'w-0 border-r-0 overflow-hidden',
+        darkMode ? 'bg-zinc-950 border-r border-zinc-800' : 'bg-zinc-100 border-r border-zinc-200'
+      ]"
       @route-changed.window="currentPath = $event.detail.path"
     >
       <!-- Logo -->
-      <div class="px-4 py-4 border-b border-zinc-800/60 flex items-center justify-between">
+      <div class="px-4 py-4 flex items-center justify-between" :class="darkMode ? 'border-b border-zinc-800/60' : 'border-b border-zinc-200'">
         <div class="flex items-center gap-2.5">
           <div class="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
             <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
             </svg>
           </div>
-          <span class="text-sm font-semibold text-zinc-100 tracking-tight">LayoutOS</span>
+          <span class="text-sm font-semibold tracking-tight" :class="darkMode ? 'text-zinc-100' : 'text-zinc-900'">LayoutOS</span>
         </div>
-        <span class="text-[10px] text-zinc-600 font-mono">v0.1</span>
+        <span class="text-[10px] font-mono" :class="darkMode ? 'text-zinc-600' : 'text-zinc-400'">v0.1</span>
       </div>
 
       <!-- Search -->
       <div class="px-3 py-3">
         <div class="relative">
-          <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg class="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 pointer-events-none" :class="darkMode ? 'text-zinc-500' : 'text-zinc-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
           <input
@@ -46,14 +51,19 @@
             x-model="search"
             type="text"
             placeholder="Buscar componente..."
-            class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs text-zinc-300 placeholder-zinc-600 pl-8 pr-8 py-2 focus:outline-none focus:border-zinc-700 focus:ring-1 focus:ring-zinc-700"
+            class="w-full rounded-lg text-xs pl-8 pr-8 py-2 focus:outline-none focus:ring-1 transition-colors"
+            :class="darkMode
+              ? 'bg-zinc-900 border border-zinc-800 text-zinc-300 placeholder-zinc-600 focus:border-zinc-700 focus:ring-zinc-700'
+              : 'bg-white border border-zinc-300 text-zinc-700 placeholder-zinc-400 focus:border-blue-400 focus:ring-blue-200'"
             @keydown.slash.window.prevent="$refs.searchInput.focus()"
           >
           <template x-if="!search">
-            <kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-zinc-600 bg-zinc-800 border border-zinc-700 rounded px-1.5 py-0.5 font-mono pointer-events-none">/</kbd>
+            <kbd class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] rounded px-1.5 py-0.5 font-mono pointer-events-none"
+              :class="darkMode ? 'text-zinc-600 bg-zinc-800 border border-zinc-700' : 'text-zinc-400 bg-zinc-200 border border-zinc-300'"
+            >/</kbd>
           </template>
           <template x-if="search">
-            <button @click="search = ''" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300">
+            <button @click="search = ''" class="absolute right-2.5 top-1/2 -translate-y-1/2" :class="darkMode ? 'text-zinc-500 hover:text-zinc-300' : 'text-zinc-400 hover:text-zinc-600'">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -69,42 +79,45 @@
           <div>
             <!-- Category separator -->
             <template x-if="sIdx === 0 || (section.type !== filteredSections[sIdx - 1]?.type)">
-              <p class="px-2 pt-4 pb-2 text-[10px] font-semibold uppercase tracking-widest text-zinc-600" x-text="section.type === 'component' ? 'COMPONENTES' : 'PÁGINAS'"></p>
+              <p class="px-2 pt-4 pb-2 text-[10px] font-semibold uppercase tracking-widest" :class="darkMode ? 'text-zinc-600' : 'text-zinc-400'" x-text="section.type === 'component' ? 'COMPONENTES' : 'PÁGINAS'"></p>
             </template>
 
             <!-- Section header -->
             <button
               @click="toggleSection(section.id)"
-              class="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors duration-150 group"
+              class="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg transition-colors duration-150 group"
+              :class="darkMode ? 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/60'"
             >
-              <!-- Chevron -->
               <svg
-                class="w-3 h-3 text-zinc-600 transition-transform duration-200 shrink-0"
-                :class="isSectionOpen(section.id) ? 'rotate-90' : ''"
+                class="w-3 h-3 transition-transform duration-200 shrink-0"
+                :class="[isSectionOpen(section.id) ? 'rotate-90' : '', darkMode ? 'text-zinc-600' : 'text-zinc-400']"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
               >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
               </svg>
-              <!-- Section icon -->
-              <svg class="w-4 h-4 text-zinc-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" x-html="sectionIcon(section.icon)"></svg>
-              <!-- Title -->
+              <svg class="w-4 h-4 shrink-0" :class="darkMode ? 'text-zinc-500' : 'text-zinc-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" x-html="sectionIcon(section.icon)"></svg>
               <span class="text-xs font-medium truncate" x-text="section.title"></span>
-              <!-- Counter badge -->
-              <span class="ml-auto text-[10px] text-zinc-600 bg-zinc-800/80 rounded-full px-1.5 py-0.5 font-mono shrink-0" x-text="section.items.length"></span>
+              <span class="ml-auto text-[10px] rounded-full px-1.5 py-0.5 font-mono shrink-0"
+                :class="darkMode ? 'text-zinc-600 bg-zinc-800/80' : 'text-zinc-400 bg-zinc-200'"
+                x-text="section.items.length"></span>
             </button>
 
             <!-- Section items -->
             <div x-show="isSectionOpen(section.id)" x-collapse>
-              <div class="ml-3 border-l border-zinc-800/80 pl-3 mt-0.5 mb-1">
+              <div class="ml-3 pl-3 mt-0.5 mb-1" :class="darkMode ? 'border-l border-zinc-800/80' : 'border-l border-zinc-300/60'">
                 <template x-for="item in section.items" :key="item.href">
                   <a
                     :href="item.href"
-                    class="flex items-center gap-2 py-1 px-2 rounded-md text-xs transition-colors duration-150 group/item"
-                    :class="currentPath === item.href ? 'bg-blue-500/10 text-blue-400' : 'text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800/50'"
+                    class="flex items-center gap-2 py-1 px-2 rounded-md text-xs transition-colors duration-150"
+                    :class="currentPath === item.href
+                      ? (darkMode ? 'bg-blue-500/10 text-blue-400' : 'bg-blue-50 text-blue-700 font-medium')
+                      : (darkMode ? 'text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800/50' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/60')"
                   >
                     <span
                       class="w-1.5 h-1.5 rounded-full shrink-0"
-                      :class="currentPath === item.href ? 'bg-blue-400' : 'bg-zinc-700'"
+                      :class="currentPath === item.href
+                        ? (darkMode ? 'bg-blue-400' : 'bg-blue-600')
+                        : (darkMode ? 'bg-zinc-700' : 'bg-zinc-300')"
                     ></span>
                     <span class="truncate" x-text="item.label"></span>
                   </a>
@@ -116,10 +129,10 @@
 
       </nav>
 
-      <!-- Footer -->
-      <div class="px-4 py-3 border-t border-zinc-800/60">
-        <p class="text-[11px] text-zinc-600">107 componentes · 66 páginas</p>
-        <p class="text-[10px] text-zinc-700 mt-0.5">Tailwind CSS + Alpine.js</p>
+      <!-- Sidebar footer -->
+      <div class="px-4 py-3" :class="darkMode ? 'border-t border-zinc-800/60' : 'border-t border-zinc-200'">
+        <p class="text-[11px]" :class="darkMode ? 'text-zinc-600' : 'text-zinc-400'">107 componentes · 66 paginas</p>
+        <p class="text-[10px] mt-0.5" :class="darkMode ? 'text-zinc-700' : 'text-zinc-400'">Tailwind CSS + Alpine.js</p>
       </div>
     </aside>
 
@@ -127,20 +140,24 @@
     <div class="flex-1 flex flex-col overflow-hidden">
 
       <!-- Top bar -->
-      <header class="h-12 border-b border-zinc-200 bg-white flex items-center px-4 gap-3 shrink-0">
+      <header class="h-12 flex items-center px-4 gap-3 shrink-0 transition-colors duration-200"
+        :class="darkMode ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-white border-b border-zinc-200'"
+      >
         <button
           @click="sidebarOpen = !sidebarOpen"
-          class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150 cursor-pointer"
+          class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150 cursor-pointer"
+          :class="darkMode ? 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200' : 'text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600'"
         >
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <span class="text-sm text-zinc-900 font-medium">Navegador de componentes</span>
+        <span class="text-sm font-medium" :class="darkMode ? 'text-zinc-100' : 'text-zinc-900'">Navegador de componentes</span>
         <div class="ml-auto">
           <button
             @click="toggleTheme()"
-            class="w-8 h-8 flex items-center justify-center rounded-lg text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 transition-colors duration-150 cursor-pointer"
+            class="w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150 cursor-pointer"
+            :class="darkMode ? 'text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200' : 'text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600'"
             :title="darkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
           >
             <!-- Sol (light mode active) -->
@@ -401,9 +418,11 @@
       </main>
 
       <!-- Footer -->
-      <footer class="border-t border-zinc-200 bg-white px-6 py-3 shrink-0">
-        <div class="flex items-center justify-between text-xs text-zinc-400">
-          <p>Desarrollado por <span class="text-zinc-600 font-medium">eleacid</span> — Desarrollador Full Stack con 5 anos de experiencia en interfaces modernas y sistemas escalables</p>
+      <footer class="px-6 py-3 shrink-0 transition-colors duration-200"
+        :class="darkMode ? 'bg-zinc-900 border-t border-zinc-800' : 'bg-white border-t border-zinc-200'"
+      >
+        <div class="flex items-center justify-between text-xs" :class="darkMode ? 'text-zinc-500' : 'text-zinc-400'">
+          <p>Desarrollado por <span class="font-medium" :class="darkMode ? 'text-zinc-300' : 'text-zinc-600'">eleacid</span> — Desarrollador Full Stack con 5 anos de experiencia en interfaces modernas y sistemas escalables</p>
           <p class="shrink-0 ml-4">Tailwind CSS + Alpine.js · 2026</p>
         </div>
       </footer>
